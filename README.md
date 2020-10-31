@@ -21,8 +21,8 @@ You will also see any lint errors in the console.
 In the project directory, you can run:
 
 ## Starting a new Feature
-When starting a new feature you'll first have to type in `git branch` to see which branch you're on, naturally you should be on the main branch.
-You should NOT develop on the main branch, ALWAYS switch to a new branch when you want to develop (Write any code).
+When starting a new feature you'll first have to type in `git branch` to see which branch you're on, naturally you should be on the develop branch.
+You should NOT develop on the develop or main branch, ALWAYS switch to a new branch when you want to develop (Write any code).
 Here's how to switch `git checkout -b [your_new_branch_name] e.g. git checkout -b header`.
 
 ## Creating a Pull Request
@@ -33,7 +33,7 @@ Here's how to switch `git checkout -b [your_new_branch_name] e.g. git checkout -
  
 ## Avoiding Merge Conflicts
 To avoid merge conflicts anytime you want to start a new branch apart from the first time you pulled the code, you should first type in `git branch` to make sure you're in the
-main branch and if NOT use `git checkout main` to get you to the main branch. After that use `git pull` to make sure you've the latest code.
+develop branch and if NOT use `git checkout develop` to get you to the develop branch. After that use `git pull` to make sure you've the latest code.
 
 ### `yarn build` is meant for production purposes only.
 
