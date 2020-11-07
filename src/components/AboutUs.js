@@ -62,7 +62,71 @@ function AboutUs() {
                     </Col>
                     <Col xs={12}>
                         <div className="aboutus-right-section">
-
+                            <div className="image-container">
+                                <img src="images/rsz_left-pic.png" className="left img-fluid" alt="left"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_middle-pic.png" className="middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_right-pic.png" className="right img-fluid" alt="right"/>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="scroll-bar mx-auto">
+                            <img src="images/rsz_scroll-dot.png" className="scroll-dot img-fluid" alt="scroll" />
+                        </div>
+                        <div className="aboutus-logos">
+                            <Row>
+                                <Col xs={12} className="mb-2">
+                                    <div className="flat-design">
+                                        <div className="flat-design-image d-flex justify-content-center">
+                                            <img src="images/Flat-design-image.png" alt="Icon" className=" img-fluid"/>
+                                            <img src="images/love.png" alt="Icon" className="love-image
+                                            img-fluid"/>
+                                        </div>
+                                        <div className="inner-text">FLAT DESIGN</div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet cras vitae sodales ac nec prellentesque vivamus eget mauris fusce sit amet
+                                        </p>
+                                    </div>
+                                </Col>
+                                <Col xs={12} className="mb-2">
+                                    <div className="retina">
+                                        <div className="retina-image d-flex justify-content-center">
+                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
+                                            <img src="images/Retina-icon.png" alt="Icon" className="retina-icon img-fluid"/>
+                                        </div>
+                                        <div className="inner-text">RETINA READY</div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet cras vitae sodales ac nec prellentesque vivamus eget mauris fusce sit amet
+                                        </p>
+                                    </div>
+                                </Col>
+                                <Col xs={12} className="mb-2">
+                                    <div className="responsive">
+                                        <div className="responsive-image d-flex justify-content-center">
+                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
+                                            <img src="images/Responsive.png" alt="Icon" className="Responsive img-fluid"/>
+                                        </div>
+                                        <div className="inner-text">RESPONSIVE</div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet cras vitae sodales ac nec prellentesque vivamus eget mauris fusce sit amet
+                                        </p>
+                                    </div>
+                                </Col>
+                                <Col xs={12} className="mb-2">
+                                    <div className="clean">
+                                        <div className="clean-image d-flex justify-content-center">
+                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
+                                            <img src="images/clean&useful.png" alt="Icon" className="clean img-fluid"/>
+                                        </div>
+                                        <div className="inner-text">CLEAN & USEFUL</div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet cras vitae sodales ac nec prellentesque vivamus eget mauris fusce sit amet
+                                        </p>
+                                    </div>
+                                </Col>
+                            </Row>
                         </div>
                     </Col>
                 </Row>
