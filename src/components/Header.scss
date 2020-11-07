@@ -1,0 +1,51 @@
+:root {
+  --primary-background-color: #ffffff;
+  --navbar-background-color: #201e2b;
+  --primary-link-color: #ccc;
+  --primary-border-color: #ff0036;
+}
+
+.navbar {
+  background: var(--navbar-background-color);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+  .navbar-toggler {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .navbar-nav {
+    padding-top: 20px;
+  }
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--primary-background-color) !important;
+
+  .logo-text {
+    position: absolute;
+    left: 24%;
+    transform: translateX(-75%);
+  }
+
+  img {
+    width: auto;
+    height: auto;
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--primary-link-color);
+  text-transform: uppercase;
+}
+
+.nav-link.active {
+  border-top: var(--primary-border-color) 1px solid;
+  border-bottom: var(--primary-border-color) 1px solid;
+}
