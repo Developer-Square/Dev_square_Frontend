@@ -7,12 +7,14 @@ import './App.scss';
 import Header from './components/Header'
 import LandingArea from './components/LandingArea'
 import AboutUs from './components/AboutUs'
+import Portfolio from './components/Portfolio'
 function App() {
   return (
     <div className="App">
     <Header />
     <LandingArea />
     <AboutUs />
+    <Portfolio />
     </div>
   );
 }

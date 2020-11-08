@@ -145,27 +145,17 @@
     text-align: center;
   }
 
-  .flat-design {
-    .flat-design-image {
-      position: relative;
-
-      .love-image {
-        position: absolute;
-        top: 51%;
-        left: 50%;
-        transform: translate(-50%, -49%);
-      }
-    }
-  }
-
+  .flat-design,
   .retina,
   .responsive,
   .clean {
+    .flat-design-image,
     .retina-image,
     .responsive-image,
     .clean-image {
       position: relative;
 
+      .love-image,
       .retina-icon,
       .Responsive,
       .clean {
