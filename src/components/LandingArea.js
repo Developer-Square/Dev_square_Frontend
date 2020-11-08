@@ -22,7 +22,7 @@ function LandingArea() {
                     </div>
                     <div className="landing-inner d-flex flex-column mx-auto">
                         <button className="btn feature">FEATURES</button>
-                        <button className="btn portfolio">PORTFOLIO</button>
+                        <button className="btn portfolio-btn">PORTFOLIO</button>
                     </div>
                 </Row>
             </Container>

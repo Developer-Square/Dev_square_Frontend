@@ -36,7 +36,7 @@ function Portfolio() {
                                 </Row>
                             </div>
                         </div>
-                        <div className="scroll-bar mt-2 mx-auto">
+                        <div className="scroll-bar portfolio-bar mt-2 mx-auto">
                             <img src="images/rsz_scroll-bar.png" className="scroll-dot img-fluid" alt="scroll" />
                         </div>
                     </Col>

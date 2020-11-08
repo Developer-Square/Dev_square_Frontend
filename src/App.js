@@ -8,6 +8,8 @@ import Header from './components/Header'
 import LandingArea from './components/LandingArea'
 import AboutUs from './components/AboutUs'
 import Portfolio from './components/Portfolio'
+import ProductFeatures from './components/ProductFeatures'
+import Client from './components/Client'
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,8 @@ function App() {
     <LandingArea />
     <AboutUs />
     <Portfolio />
+    <ProductFeatures />
+    <Client />
     </div>
   );
 }
