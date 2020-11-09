@@ -44,6 +44,13 @@ function Contact() {
                             </Form>
                         </div>
                     </Col>
+                    <Col className="footer" xs={12}>
+                        <div className="footer-logo d-flex justify-content-center">
+                            <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
+                            <div className="logo-text pl-2">Lotus</div>
+                        </div>
+                        <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
+                    </Col>
                 </Row>
             </Container>
         </Fragment>

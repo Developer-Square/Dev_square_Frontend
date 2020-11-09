@@ -9,8 +9,8 @@ function Header() {
         <Fragment>
             <Navbar expand="md" variant="dark">
                 <Navbar.Brand href="#home">
-                    <img src="images/rsz_logo-image.png" className="img-fluid" alt="Logo"/>
-                    <span className="logo-text">Lotus</span></Navbar.Brand>
+                    <img src="images/Logo-2.png" className="img-fluid" alt="Logo"/>
+                    <span className="logo-text pl-2">Lotus</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
