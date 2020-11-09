@@ -1,0 +1,103 @@
+:root {
+  --primary-background-color: #ffffff;
+  --secondary-background-color: #f0f0f0;
+  --alternative-background-color: #c4c4c4;
+  --services-background-color: #272727;
+  --alternative-services-background-color: #3d2329;
+  --secondary-services-background-color: #343434;
+  --navbar-background-color: #201e2b;
+  --primary-link-color: #ccc;
+  --primary-border-color: #ff0036;
+  --primary-button-color: #131313;
+  --primary-font-color: #262626;
+  --secondary-font-color: #505050;
+  --tertiary-font-color: #a4a4a4;
+}
+
+.services {
+  background: var(--services-background-color);
+  color: var(--primary-background-color);
+  font-weight: normal;
+
+  .heading {
+    margin-top: 45px;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 35px;
+    margin-bottom: 15px;
+
+    span {
+      color: var(--primary-border-color);
+    }
+  }
+
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 19px;
+    margin-bottom: 50px;
+  }
+
+  .service-container {
+    margin-bottom: 30px;
+
+    .service-title {
+      position: relative;
+      margin-top: 20px;
+
+      .service-icon,
+      .service-icon-html,
+      .service-icon-word,
+      .service-icon-app,
+      .service-icon-responsive {
+        position: absolute;
+        top: 50%;
+        left: 31%;
+        transform: translate(-69%, -50%);
+      }
+
+      .service-icon-html {
+        left: 34.5%;
+        transform: translate(-65%, -50%);
+      }
+
+      .service-icon-word {
+        left: 32.5%;
+        transform: translate(-68%, -50%);
+      }
+
+      .service-icon-app {
+        left: 29%;
+        transform: translate(-70%, -50%);
+      }
+
+      .service-icon-responsive {
+        left: 21%;
+        transform: translate(-80%, -50%);
+      }
+
+      .title {
+        font-size: 17px;
+        line-height: 21px;
+        text-transform: uppercase;
+      }
+    }
+
+    .inner-content-dev,
+    .inner-content {
+      margin-top: 31px;
+      background: var(--alternative-services-background-color);
+    }
+
+    .inner-content {
+      background: var(--secondary-services-background-color);
+    }
+  }
+}
+
+.services-bar {
+  margin-top: 50px !important;
+  margin-bottom: 50px;
+  background: var(--primary-border-color);
+}
