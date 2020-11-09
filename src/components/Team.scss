@@ -1,0 +1,72 @@
+:root {
+  --primary-background-color: #ffffff;
+  --secondary-background-color: #f0f0f0;
+  --alternative-background-color: #c4c4c4;
+  --navbar-background-color: #201e2b;
+  --primary-link-color: #ccc;
+  --primary-border-color: #ff0036;
+  --primary-button-color: #131313;
+  --primary-font-color: #262626;
+  --secondary-font-color: #505050;
+  --tertiary-font-color: #a4a4a4;
+}
+
+.team {
+  .heading {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 35px;
+    margin-bottom: 15px;
+
+    span {
+      color: var(--primary-border-color);
+    }
+  }
+
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 19px;
+    margin-bottom: 50px;
+  }
+
+  .team-container {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 40px;
+
+    .profile {
+      width: 100%;
+    }
+
+    .team-name {
+      margin-top: 20px;
+      margin-bottom: 0;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 21px;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--primary-border-color);
+    }
+
+    .team-role {
+      margin-top: 20px;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      text-transform: capitalize;
+      color: var(--secondary-font-color);
+      padding-bottom: 5px;
+    }
+
+    .socials {
+      padding-bottom: 24px;
+    }
+  }
+}
+
+.team-bar {
+  margin-bottom: 55px;
+}

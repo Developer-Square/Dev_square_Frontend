@@ -1,0 +1,116 @@
+.services {
+  background: var(--services-background-color);
+  color: var(--primary-background-color);
+  font-weight: normal;
+
+  .heading {
+    margin-top: 45px;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 35px;
+    margin-bottom: 15px;
+
+    span {
+      color: var(--primary-border-color);
+    }
+  }
+
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 19px;
+    margin-bottom: 50px;
+  }
+
+  .service-container {
+    margin-bottom: 30px;
+
+    .service-title {
+      position: relative;
+      margin-top: 20px;
+
+      .service-icon,
+      .service-icon-html,
+      .service-icon-word,
+      .service-icon-app,
+      .service-icon-responsive {
+        position: absolute;
+        top: 50%;
+        left: 31%;
+        transform: translate(-69%, -50%);
+      }
+
+      .service-icon-html {
+        left: 34.5%;
+        transform: translate(-65%, -50%);
+      }
+
+      .service-icon-word {
+        left: 32.5%;
+        transform: translate(-68%, -50%);
+      }
+
+      .service-icon-app {
+        left: 30%;
+        transform: translate(-70%, -50%);
+      }
+
+      .service-icon-responsive {
+        left: 23%;
+        transform: translate(-77%, -50%);
+      }
+
+      .title {
+        font-size: 17px;
+        line-height: 21px;
+        text-transform: uppercase;
+      }
+    }
+
+    .inner-content-dev,
+    .inner-content {
+      margin-top: 31px;
+      background: var(--alternative-services-background-color);
+    }
+
+    .inner-content {
+      background: var(--secondary-services-background-color);
+    }
+  }
+}
+
+.services-bar {
+  margin-top: 30px !important;
+  margin-bottom: 50px;
+  background: var(--primary-border-color);
+}
+
+//BLOG
+
+.blog {
+  background: var(--blog-background-color);
+  height: 680px;
+  font-weight: normal;
+  color: var(--primary-background-color);
+  margin-bottom: 65px;
+
+  .heading {
+    margin-top: 45px;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 35px;
+    margin-bottom: 45px;
+
+    span {
+      color: var(--primary-border-color);
+    }
+  }
+
+  .blog-container {
+    margin-bottom: 20px;
+    img {
+      width: fit-content;
+    }
+  }
+}
