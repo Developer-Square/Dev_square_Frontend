@@ -1,4 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Raleway&family=Roboto&display=swap");
+:root {
+  --primary-background-color: #ffffff;
+  --secondary-background-color: #f0f0f0;
+  --alternative-background-color: #c4c4c4;
+  --services-background-color: #272727;
+  --alternative-services-background-color: #3d2329;
+  --secondary-services-background-color: #343434;
+  --blog-background-color: #000000;
+  --navbar-background-color: #201e2b;
+  --primary-link-color: #ccc;
+  --primary-border-color: #ff0036;
+  --primary-button-color: #131313;
+  --primary-font-color: #262626;
+  --secondary-font-color: #505050;
+  --tertiary-font-color: #a4a4a4;
+}
 
 html,
 body {

@@ -11,7 +11,8 @@ import Portfolio from './components/Portfolio'
 import ProductFeatures from './components/ProductFeatures'
 import Client from './components/Client'
 import Team from './components/Team'
-import Services from './components/Services'
+import ServicesAndBlog from './components/ServicesAndBlog'
+import Contact from './components/Contact'
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
     <ProductFeatures />
     <Client />
     <Team />
-    <Services />
+    <ServicesAndBlog />
+    <Contact />
     </div>
   );
 }

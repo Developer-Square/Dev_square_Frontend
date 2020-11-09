@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import './Services.scss'
+import './ServicesAndBlog.scss'
 
-function Services() {
+function ServicesAndBlog() {
     return (
         <Fragment>
             <Container>
@@ -82,10 +82,34 @@ function Services() {
                         <img src="images/rsz_scroll-bar.png" className="scroll-dot img-fluid" alt="scroll" />
                     </div>
                     </Col>
+                    <Col xs={12} className="blog">
+                        <div>
+                            {/* <img src="images/rsz_blog.png" alt="Blog" className="img-fluid"/> */}
+                            <div className="heading text-center">Follow <span>Lotus</span></div>  
+                            <div>   
+                                <div className="blog-container d-flex flex-column justify-content-center">
+                                    <img src="images/follow-1.png" alt="Follow" className="img-fluid mx-auto"/>  
+                                    <p className="text-center pt-2">1.3k Followers</p>  
+                                </div>   
+                                <div className="blog-container d-flex flex-column justify-content-center">
+                                    <img src="images/follow-2.png" alt="Follow" className="img-fluid mx-auto"/>  
+                                    <p className="text-center pt-2">577k Followers</p>  
+                                </div>   
+                                <div className="blog-container d-flex flex-column justify-content-center">
+                                    <img src="images/follow-3.png" alt="Follow" className="img-fluid mx-auto"/>  
+                                    <p className="text-center pt-2">400k Followers</p>  
+                                </div>   
+                                <div className="blog-container d-flex flex-column justify-content-center">
+                                    <img src="images/follow-4.png" alt="Follow" className="img-fluid mx-auto"/>  
+                                    <p className="text-center pt-2">3.4k Followers</p>  
+                                </div>             
+                            </div>          
+                        </div>
+                    </Col>
                 </Row>
             </Container>
         </Fragment>
     )
 }
 
-export default Services;
+export default ServicesAndBlog;
