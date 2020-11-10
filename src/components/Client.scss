@@ -108,3 +108,35 @@
   margin-top: 60px !important;
   margin-bottom: 45px;
 }
+
+@media all and (max-width: 360px) {
+  .clients {
+    .inner-heading {
+      margin-top: 190px;
+    }
+
+    .inner-text {
+      margin-top: 220px;
+    }
+
+    .client-pic {
+      margin-top: 315px;
+    }
+
+    .client-name {
+      margin-top: 410px;
+    }
+
+    .navigation {
+      top: 40px;
+    }
+
+    .logos {
+      margin-top: 485px;
+    }
+
+    .cover {
+      height: 655px;
+    }
+  }
+}

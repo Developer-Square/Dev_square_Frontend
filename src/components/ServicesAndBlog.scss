@@ -114,3 +114,36 @@
     }
   }
 }
+
+@media all and (max-width: 360px) {
+  .services {
+    .service-container {
+      .service-title {
+        .service-icon {
+          left: 29%;
+          transform: translate(-71%, -50%);
+        }
+
+        .service-icon-html {
+          left: 32.5%;
+          transform: translate(-66%, -50%);
+        }
+
+        .service-icon-word {
+          left: 30.5%;
+          transform: translate(-69%, -50%);
+        }
+
+        .service-icon-app {
+          left: 28%;
+          transform: translate(-72%, -50%);
+        }
+
+        .service-icon-responsive {
+          left: 20%;
+          transform: translate(-80%, -50%);
+        }
+      }
+    }
+  }
+}

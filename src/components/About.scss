@@ -167,3 +167,37 @@
     }
   }
 }
+
+@media all and (max-width: 360px) {
+  #aboutus-section {
+    margin-top: 25px;
+
+    .aboutus-left-section {
+      margin-top: 30px;
+    }
+
+    .aboutus-right-section {
+      .image-container {
+        .left {
+          left: -3%;
+        }
+
+        .hex {
+          left: -3%;
+        }
+
+        .middle {
+          left: 7.5%;
+        }
+
+        .hex-2 {
+          right: 4%;
+        }
+
+        .right {
+          right: 4%;
+        }
+      }
+    }
+  }
+}

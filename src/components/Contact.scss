@@ -104,3 +104,19 @@
     margin-bottom: 55px;
   }
 }
+
+@media all and (max-width: 360px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 215px;
+      }
+    }
+
+    .contact-address {
+      .address {
+        width: 280px;
+      }
+    }
+  }
+}
