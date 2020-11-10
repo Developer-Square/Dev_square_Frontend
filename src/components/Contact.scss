@@ -105,7 +105,7 @@
   }
 }
 
-@media all and (max-width: 360px) {
+@media all and (max-width: 320px) {
   .contact {
     .contact-form {
       .btn {
@@ -116,6 +116,16 @@
     .contact-address {
       .address {
         width: 280px;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 360px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 251px;
       }
     }
   }
