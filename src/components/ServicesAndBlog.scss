@@ -34,10 +34,11 @@
       .service-icon-html,
       .service-icon-word,
       .service-icon-app,
+      .service-icon-ui,
       .service-icon-responsive {
         position: absolute;
         top: 50%;
-        left: 31%;
+        left: 31.5%;
         transform: translate(-69%, -50%);
       }
 
@@ -54,6 +55,11 @@
       .service-icon-app {
         left: 30%;
         transform: translate(-70%, -50%);
+      }
+
+      .service-icon-ui {
+        left: 31.5%;
+        transform: translate(-68.5%, -50%);
       }
 
       .service-icon-responsive {
@@ -120,8 +126,8 @@
     .service-container {
       .service-title {
         .service-icon {
-          left: 29%;
-          transform: translate(-71%, -50%);
+          left: 28.5%;
+          transform: translate(-71.5%, -50%);
         }
 
         .service-icon-html {
@@ -130,51 +136,98 @@
         }
 
         .service-icon-word {
-          left: 30.5%;
-          transform: translate(-69%, -50%);
+          left: 29.5%;
+          transform: translate(-70.5%, -50%);
         }
 
         .service-icon-app {
-          left: 28%;
-          transform: translate(-72%, -50%);
+          left: 27%;
+          transform: translate(-73%, -50%);
+        }
+
+        .service-icon-ui {
+          left: 28.5%;
+          transform: translate(-71.5%, -50%);
         }
 
         .service-icon-responsive {
-          left: 20%;
-          transform: translate(-80%, -50%);
+          left: 19%;
+          transform: translate(-81%, -50%);
         }
       }
     }
   }
 }
 
-@media all and (max-width: 360px) {
+@media all and (min-width: 375px) {
   .services {
     .service-container {
       .service-title {
         .service-icon {
           left: 31.5%;
-          transform: translate(-69%, -50%);
+          transform: translate(-68.5%, -50%);
         }
 
         .service-icon-html {
-          left: 34.5%;
-          transform: translate(-66%, -50%);
+          left: 35.5%;
         }
 
         .service-icon-word {
-          left: 32.5%;
-          transform: translate(-68%, -50%);
+          left: 33.5%;
+          transform: translate(-66.5%, -50%);
+        }
+
+        .service-icon-ui {
+          left: 31.5%;
+          transform: translate(-69%, -50%);
         }
 
         .service-icon-app {
-          left: 30%;
-          transform: translate(-70%, -50%);
+          left: 31%;
+          transform: translate(-69%, -50%);
         }
 
         .service-icon-responsive {
-          left: 23%;
-          transform: translate(-77%, -50%);
+          left: 24%;
+          transform: translate(-76%, -50%);
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 414px) {
+  .services {
+    .service-container {
+      .service-title {
+        .service-icon {
+          left: 33.5%;
+          transform: translate(-66.5%, -50%);
+        }
+
+        .service-icon-html {
+          left: 36.5%;
+          transform: translate(-63.5%, -50%);
+        }
+
+        .service-icon-word {
+          left: 34.5%;
+          transform: translate(-63.5%, -50%);
+        }
+
+        .service-icon-ui {
+          left: 33.5%;
+          transform: translate(-66.5%, -50%);
+        }
+
+        .service-icon-app {
+          left: 32.5%;
+          transform: translate(-67.5%, -50%);
+        }
+
+        .service-icon-responsive {
+          left: 26%;
+          transform: translate(-74%, -50%);
         }
       }
     }

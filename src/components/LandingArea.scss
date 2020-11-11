@@ -61,3 +61,15 @@
     background: var(--primary-button-color);
   }
 }
+
+@media all and (min-width: 414px) {
+  #landing-section {
+    .landing-inner {
+      flex-direction: row !important;
+
+      .feature {
+        margin-right: 15px;
+      }
+    }
+  }
+}

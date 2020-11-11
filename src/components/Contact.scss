@@ -74,7 +74,7 @@
       margin-bottom: 36px;
       background: var(--primary-font-color);
       border-color: var(--primary-font-color);
-      margin-left: 250px;
+      margin-left: 251px;
     }
   }
 }
@@ -109,7 +109,7 @@
   .contact {
     .contact-form {
       .btn {
-        margin-left: 215px;
+        margin-left: 214px;
       }
     }
 
@@ -121,11 +121,21 @@
   }
 }
 
-@media all and (max-width: 360px) {
+@media all and (min-width: 375px) {
   .contact {
     .contact-form {
       .btn {
-        margin-left: 251px;
+        margin-left: 265px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 414px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 305px;
       }
     }
   }

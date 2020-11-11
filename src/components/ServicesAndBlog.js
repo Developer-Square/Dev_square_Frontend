@@ -58,7 +58,7 @@ function ServicesAndBlog() {
                             <Col xs={12} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.png" alt="services" className="img-fluid"/>
-                                    <img src="images/services-icon-5.png" alt="services" className="service-icon img-fluid"/>
+                                    <img src="images/services-icon-5.png" alt="services" className="service-icon-ui img-fluid"/>
                                     <p className="title my-auto pl-4">UI/UX DESIGN</p>
                                 </div>
                                 <div className="inner-content p-3">
