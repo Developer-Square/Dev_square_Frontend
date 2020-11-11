@@ -140,3 +140,9 @@
     }
   }
 }
+
+@media all and (min-width: 576px) {
+  #client-section {
+    max-width: none;
+  }
+}

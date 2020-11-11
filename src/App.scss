@@ -26,3 +26,27 @@ body {
   font-style: normal;
   color: #262626;
 }
+
+@media all and (max-width: 575px) {
+  .larger-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 576px) {
+  .smaller-screens {
+    display: none;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .medium-lg-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .medium-sm-screens {
+    display: none;
+  }
+}

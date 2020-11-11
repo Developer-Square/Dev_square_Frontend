@@ -8,7 +8,7 @@ import './Client.scss'
 function Client() {
     return (
         <Fragment>
-            <Container>
+            <Container id="client-section">
                 <Row>
                     <Col className="portfolio-column">
                         <div className="clients">

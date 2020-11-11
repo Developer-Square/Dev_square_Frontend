@@ -14,7 +14,7 @@ function Team() {
                         <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
                         </p>
                         <Row>
-                            <Col xs={11} className="mx-auto">
+                            <Col xs={11} sm={6} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-1.png" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
@@ -27,7 +27,7 @@ function Team() {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={11} className="mx-auto">
+                            <Col xs={11} sm={6} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-2.png" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
@@ -40,7 +40,7 @@ function Team() {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={11} className="mx-auto">
+                            <Col xs={11} sm={6} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-3.png" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
@@ -53,7 +53,7 @@ function Team() {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={11} className="mx-auto">
+                            <Col xs={11} sm={6} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-4.png" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>

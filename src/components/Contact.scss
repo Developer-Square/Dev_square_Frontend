@@ -79,7 +79,7 @@
   }
 }
 
-.footer {
+#footer {
   margin-top: 55px;
   background: var(--footer-background-color);
   font-style: normal;
@@ -131,11 +131,35 @@
   }
 }
 
+@media all and (min-width: 411px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 300px;
+      }
+    }
+  }
+}
+
 @media all and (min-width: 414px) {
   .contact {
     .contact-form {
       .btn {
         margin-left: 305px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 576px) {
+  #contact-section {
+    max-width: none;
+
+    .contact {
+      .contact-form {
+        .btn {
+          margin-left: 460px;
+        }
       }
     }
   }

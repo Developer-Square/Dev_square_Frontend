@@ -8,7 +8,7 @@ import './Portfolio.scss'
 function Portfolio() {
     return (
         <Fragment>
-            <Container>
+            <Container id="portfolio-section">
                 <Row>
                     <Col className="portfolio-column">
                         <div className="portfolio">
@@ -21,17 +21,29 @@ function Portfolio() {
                             </div>
                             <div className="portfolio-images">
                                 <Row>
-                                    <Col xs={12}>
+                                    <Col xs={12} sm={7} className="p-sm-0">
                                         <img src="images/portfolio-1.png" alt="portfolio" className="img-fluid"/>
                                     </Col>
-                                    <Col xs={12}>
+                                    <Col sm={5} className="larger-screens p-sm-0">
+                                        <img src="images/portfolio-2.png" alt="portfolio" className="portfolio-2 img-fluid"/>
+                                    </Col>
+                                    <Col xs={12} sm={7} className="p-sm-0">
                                         <img src="images/portfolio-3.png" alt="portfolio" className="img-fluid"/>
                                     </Col>
-                                    <Col xs={12}>
+                                    <Col sm={5} className="larger-screens p-sm-0">
+                                        <img src="images/portfolio-4.png" alt="portfolio" className="portfolio-2 img-fluid"/>
+                                    </Col>
+                                    <Col sm={5} className="larger-screens p-sm-0">
+                                        <img src="images/portfolio-5.png" alt="portfolio" className="portfolio-2 img-fluid"/>
+                                    </Col>
+                                    <Col xs={12} sm={7} className="p-sm-0">
                                         <img src="images/portfolio-6.png" alt="portfolio" className="img-fluid"/>
                                     </Col>
-                                    <Col xs={12}>
+                                    <Col xs={12} sm={7} className="p-sm-0">
                                         <img src="images/portfolio-8.png" alt="portfolio" className="img-fluid"/>
+                                    </Col>
+                                    <Col sm={5} className="larger-screens p-sm-0">
+                                        <img src="images/portfolio-7.png" alt="portfolio" className="portfolio-2 img-fluid"/>
                                     </Col>
                                 </Row>
                             </div>

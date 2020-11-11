@@ -62,13 +62,43 @@
   }
 }
 
-@media all and (min-width: 414px) {
+@media all and (min-width: 411px) {
   #landing-section {
     .landing-inner {
       flex-direction: row !important;
 
       .feature {
         margin-right: 15px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 576px) {
+  #landing-section {
+    max-width: none;
+
+    img {
+      width: fit-content;
+      height: auto;
+    }
+
+    .landing-inner-text {
+      width: 100%;
+
+      .fa-angle-left {
+        margin-right: auto;
+      }
+
+      .fa-angle-right {
+        margin-left: auto;
+      }
+
+      .text-container {
+        justify-content: center;
+        .text {
+          width: 508px;
+        }
       }
     }
   }

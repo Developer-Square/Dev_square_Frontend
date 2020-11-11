@@ -63,11 +63,16 @@ function AboutUs() {
                     <Col xs={12}>
                         <div className="aboutus-right-section">
                             <div className="image-container">
-                                <img src="images/rsz_left-pic.png" className="left img-fluid" alt="left"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex img-fluid"alt="hex"/>
-                                <img src="images/rsz_middle-pic.png" className="middle img-fluid"alt="middle"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex-2 img-fluid"alt="hex"/>
-                                <img src="images/rsz_right-pic.png" className="right img-fluid" alt="right"/>
+                                <img src="images/rsz_left-pic.png" className="medium-sm-screens left img-fluid" alt="left"/>
+                                <img src="images/left-pic.png" className="medium-lg-screens left img-fluid" alt="left"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.png" className="medium-lg-screens hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_middle-pic.png" className="medium-sm-screens middle img-fluid"alt="middle"/>
+                                <img src="images/middle-pic.png" className="medium-lg-screens middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.png" className="medium-lg-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_right-pic.png" className="medium-sm-screens right img-fluid" alt="right"/>
+                                <img src="images/right-pic.png" className="medium-lg-screens right img-fluid" alt="right"/>
                             </div>
                         </div>
                     </Col>
@@ -77,7 +82,7 @@ function AboutUs() {
                         </div>
                         <div className="aboutus-logos">
                             <Row>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} className="mb-2 mb-sm-3">
                                     <div className="flat-design">
                                         <div className="flat-design-image d-flex justify-content-center">
                                             <img src="images/Flat-design-image.png" alt="Icon" className=" img-fluid"/>
@@ -90,7 +95,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} className="mb-2 mb-sm-3">
                                     <div className="retina">
                                         <div className="retina-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
@@ -102,7 +107,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} className="mb-2 mb-sm-3">
                                     <div className="responsive">
                                         <div className="responsive-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
@@ -114,7 +119,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} className="mb-2 mb-sm-3">
                                     <div className="clean">
                                         <div className="clean-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>

@@ -230,6 +230,40 @@
   }
 }
 
+@media all and (min-width: 411px) {
+  #aboutus-section {
+    .aboutus-left-section {
+      .show {
+        margin-bottom: 120px !important;
+      }
+    }
+
+    .aboutus-right-section {
+      .image-container {
+        .left {
+          left: 5%;
+        }
+
+        .hex {
+          left: 5%;
+        }
+
+        .middle {
+          left: 17%;
+        }
+
+        .hex-2 {
+          right: 12%;
+        }
+
+        .right {
+          right: 12%;
+        }
+      }
+    }
+  }
+}
+
 @media all and (min-width: 414px) {
   #aboutus-section {
     .aboutus-left-section {
@@ -258,6 +292,40 @@
 
         .right {
           right: 11%;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 576px) {
+  #aboutus-section {
+    .aboutus-left-section {
+      .show {
+        margin-bottom: 85px !important;
+      }
+    }
+
+    .aboutus-right-section {
+      .image-container {
+        .left {
+          left: 14%;
+        }
+
+        .hex {
+          left: 14%;
+        }
+
+        .middle {
+          left: 24%;
+        }
+
+        .hex-2 {
+          right: 21%;
+        }
+
+        .right {
+          right: 21%;
         }
       }
     }

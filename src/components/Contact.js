@@ -10,7 +10,7 @@ import './Contact.scss'
 function Contact() {
     return (
         <Fragment>
-            <Container>
+            <Container id="contact-section">
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
@@ -44,7 +44,7 @@ function Contact() {
                             </Form>
                         </div>
                     </Col>
-                    <Col className="footer" xs={12}>
+                    <Col id="footer" xs={12}>
                         <div className="footer-logo d-flex justify-content-center">
                             <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
                             <div className="logo-text pl-2">Lotus</div>
