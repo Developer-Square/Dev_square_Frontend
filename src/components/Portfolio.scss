@@ -58,6 +58,30 @@
         .portfolio-2 {
           height: 310px;
         }
+
+        .image-container-large {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  #portfolio-section {
+    .portfolio-column {
+      .portfolio-images {
+        .larger-screens {
+          display: flex;
+        }
+
+        .portfolio-1 {
+          width: inherit;
+        }
+        .portfolio-2 {
+          width: inherit;
+          height: auto;
+        }
       }
     }
   }

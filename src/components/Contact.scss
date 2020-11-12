@@ -156,11 +156,51 @@
     max-width: none;
 
     .contact {
+      .contact-address {
+        .address {
+          width: 404px;
+        }
+      }
       .contact-form {
         .btn {
           margin-left: 460px;
         }
       }
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          width: 300px;
+          left: 30%;
+          transform: translate(-70%, -50%);
+        }
+      }
+
+      .contact-form {
+        position: absolute;
+        z-index: 5;
+        top: 19%;
+        right: 20px;
+        width: 350px;
+        background: #fff;
+        height: 415px;
+
+        .btn {
+          margin-left: 270px;
+        }
+      }
+    }
+  }
+
+  #footer {
+    .copyright {
+      margin-top: 30px;
+      margin-bottom: 35px;
     }
   }
 }

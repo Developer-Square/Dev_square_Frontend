@@ -110,3 +110,9 @@
     max-width: none;
   }
 }
+
+@media all and (min-width: 768px) {
+  .blog {
+    height: 300px;
+  }
+}

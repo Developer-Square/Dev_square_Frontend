@@ -12,7 +12,7 @@ import ProductFeatures from './components/ProductFeatures'
 import Client from './components/Client'
 import Team from './components/Team'
 import ServicesAndBlog from './components/ServicesAndBlog'
-import Contact from './components/Contact'
+import ContactAndFooter from './components/ContactAndFooter'
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
     <Client />
     <Team />
     <ServicesAndBlog />
-    <Contact />
+    <ContactAndFooter />
     </div>
   );
 }

@@ -20,27 +20,27 @@ function Portfolio() {
                                 <p>WEB DESIGN</p>
                             </div>
                             <div className="portfolio-images">
-                                <Row>
-                                    <Col xs={12} sm={7} className="p-sm-0">
-                                        <img src="images/portfolio-1.png" alt="portfolio" className="img-fluid"/>
+                                <Row className="mx-auto">
+                                    <Col xs={12} sm={7} md={7} lg={3} className="p-sm-0 image-container-large">
+                                        <img src="images/portfolio-1.png" alt="portfolio" className="portfolio-1 img-fluid"/>
                                     </Col>
-                                    <Col sm={5} className="larger-screens p-sm-0">
+                                    <Col sm={5} md={5}  lg={3} className="larger-screens p-sm-0">
                                         <img src="images/portfolio-2.png" alt="portfolio" className="portfolio-2 img-fluid"/>
                                     </Col>
-                                    <Col xs={12} sm={7} className="p-sm-0">
-                                        <img src="images/portfolio-3.png" alt="portfolio" className="img-fluid"/>
+                                    <Col xs={12} sm={7} lg={3} className="p-sm-0 image-container-large">
+                                        <img src="images/portfolio-3.png" alt="portfolio" className="portfolio-1 img-fluid"/>
                                     </Col>
-                                    <Col sm={5} className="larger-screens p-sm-0">
+                                    <Col sm={5} lg={3} className="larger-screens p-sm-0">
                                         <img src="images/portfolio-4.png" alt="portfolio" className="portfolio-2 img-fluid"/>
                                     </Col>
                                     <Col sm={5} className="larger-screens p-sm-0">
                                         <img src="images/portfolio-5.png" alt="portfolio" className="portfolio-2 img-fluid"/>
                                     </Col>
-                                    <Col xs={12} sm={7} className="p-sm-0">
-                                        <img src="images/portfolio-6.png" alt="portfolio" className="img-fluid"/>
+                                    <Col xs={12} sm={7} className="p-sm-0 image-container-large">
+                                        <img src="images/portfolio-6.png" alt="portfolio" className="portfolio-1 img-fluid"/>
                                     </Col>
-                                    <Col xs={12} sm={7} className="p-sm-0">
-                                        <img src="images/portfolio-8.png" alt="portfolio" className="img-fluid"/>
+                                    <Col xs={12} sm={7} className="p-sm-0 image-container-large">
+                                        <img src="images/portfolio-8.png" alt="portfolio" className="portfolio-1 img-fluid"/>
                                     </Col>
                                     <Col sm={5} className="larger-screens p-sm-0">
                                         <img src="images/portfolio-7.png" alt="portfolio" className="portfolio-2 img-fluid"/>

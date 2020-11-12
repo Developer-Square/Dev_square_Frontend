@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 
 import './Contact.scss'
 
-function Contact() {
+function ContactAndFooter() {
     return (
         <Fragment>
             <Container id="contact-section">
@@ -45,11 +45,13 @@ function Contact() {
                         </div>
                     </Col>
                     <Col id="footer" xs={12}>
-                        <div className="footer-logo d-flex justify-content-center">
-                            <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
-                            <div className="logo-text pl-2">Lotus</div>
+                        <div className="d-md-flex flex-md-row justify-content-around align-items-center">
+                            <div className="footer-logo d-flex justify-content-center mt-md-0">
+                                <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
+                                <div className="logo-text pl-2">Lotus</div>
+                            </div>
+                            <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
                         </div>
-                        <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
                     </Col>
                 </Row>
             </Container>
@@ -57,4 +59,4 @@ function Contact() {
     )
 }
 
-export default Contact;
+export default ContactAndFooter;

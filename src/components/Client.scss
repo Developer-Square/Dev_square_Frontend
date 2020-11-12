@@ -146,3 +146,39 @@
     max-width: none;
   }
 }
+
+@media all and (min-width: 768px) {
+  .clients {
+    .inner-heading {
+      margin-top: 200px;
+    }
+
+    .inner-text {
+      margin-top: 230px;
+    }
+
+    .client-pic {
+      margin-top: 325px;
+    }
+
+    .client-name {
+      margin-top: 405px;
+    }
+
+    .navigation-dots {
+      margin-top: 432px;
+    }
+
+    .logos {
+      margin-top: 230px;
+    }
+
+    .cover {
+      height: 485px;
+    }
+  }
+
+  .client-bar {
+    margin-top: 160px !important;
+  }
+}

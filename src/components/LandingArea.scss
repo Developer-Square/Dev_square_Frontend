@@ -103,3 +103,19 @@
     }
   }
 }
+
+@media all and (min-width: 768px) {
+  #landing-section {
+    .landing-inner-text {
+      top: 45%;
+      transform: translate(-50%, -55%);
+    }
+
+    .landing-inner {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -35%);
+    }
+  }
+}

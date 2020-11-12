@@ -18,7 +18,7 @@ function Client() {
                             <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
                             </p>
                             <Row>
-                                <Col xs={12}>
+                                <Col xs={12} md={6}>
                                     <div className="inner-heading">WHAT CLIENTS SAY</div>
                                     <p className="inner-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis.</p>
                                     <img src="images/client-pic.png" alt="Client" className="img-fluid client-pic"/>
@@ -29,7 +29,7 @@ function Client() {
                                         <div className="navigation-dots ml-2"></div>
                                     </div>
                                 </Col>
-                                <Col xs={12}>
+                                <Col xs={12} md={6}>
                                     <div className="logos d-flex justify-content-around">
                                         <img src="images/rsz_client-logo.png" alt="client" className="img-fluid"/>
                                         <img src="images/rsz_client-logo.png" alt="client" className="img-fluid"/>

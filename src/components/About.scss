@@ -331,3 +331,36 @@
     }
   }
 }
+
+@media all and (min-width: 768px) {
+  #aboutus-section {
+    .aboutus-right-section {
+      .image-container {
+        .left {
+          left: 1%;
+        }
+
+        .hex {
+          left: 1%;
+        }
+
+        .middle {
+          top: -20px;
+          left: 13%;
+        }
+
+        .hex-2 {
+          right: 8%;
+        }
+
+        .right {
+          right: 8%;
+        }
+      }
+    }
+  }
+
+  .scroll-bar {
+    margin-top: 410px;
+  }
+}
