@@ -32,24 +32,24 @@ function Client() {
                                 <Col xs={12} md={6}>
                                     <div className="logos d-flex justify-content-around">
                                         <img src="images/rsz_client-logo.png" alt="client" className="medium-sm-screens img-fluid"/>
-                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
-                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
-                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens img-fluid"/> */}
-                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens img-fluid"/> */}
+                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
+                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
+                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens-client img-fluid"/> */}
+                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens-client img-fluid"/> */}
                                         <img src="images/rsz_client-logo.png" alt="client" className="medium-sm-screens img-fluid"/>
                                     </div>
                                     <div className="d-flex justify-content-around">
                                         <div>
                                             <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens-client img-fluid pr-2"/>
                                             <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
-                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
                                         </div>
                                         <div>
                                             <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens-client img-fluid pr-2"/>
                                             <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
-                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
                                         </div>
                                     </div>
                                 </Col>

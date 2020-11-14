@@ -146,3 +146,23 @@
     }
   }
 }
+
+@media all and (min-width: 1600px) {
+  .product-features {
+    .product {
+      font-size: 30px;
+    }
+
+    .product-inner-text {
+      font-size: 15px;
+    }
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .product-features {
+    .product-inner-text {
+      font-size: 16px;
+    }
+  }
+}

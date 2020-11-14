@@ -19,7 +19,7 @@ function Portfolio() {
                                 <p>DIGITAL ART</p>
                                 <p>WEB DESIGN</p>
                             </div>
-                            <div className="portfolio-images">
+                            <div className="portfolio-images mx-xl-auto">
                                 <Row className="mx-auto">
                                     <Col xs={12} sm={7} md={7} lg={3} className="p-sm-0 image-container-large">
                                         <img src="images/portfolio-1.png" alt="portfolio" className="portfolio-1 img-fluid"/>

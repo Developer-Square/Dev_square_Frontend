@@ -86,7 +86,7 @@ function ServicesAndBlog() {
                         <div>
                             {/* <img src="images/rsz_blog.png" alt="Blog" className="img-fluid"/> */}
                             <div className="heading text-center">Follow <span>Lotus</span></div>  
-                            <div className="d-md-flex justify-content-around limit mx-auto">   
+                            <div className="d-md-flex justify-content-around blog-icons mx-auto">   
                                 <div className="blog-container d-flex flex-column justify-content-center">
                                     <img src="images/follow-1.png" alt="Follow" className="img-fluid mx-auto"/>  
                                     <p className="text-center pt-2">1.3k Followers</p>  

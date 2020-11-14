@@ -34,20 +34,36 @@ body {
 }
 
 @media all and (min-width: 576px) {
+  #landing-section,
+  #services-section,
+  #contact-section,
+  #client-section,
+  #portfolio-section {
+    max-width: none;
+  }
+
   .smaller-screens {
     display: none;
   }
 }
 
 @media all and (max-width: 767px) {
-  .medium-lg-screens {
+  .medium-lg-screens,
+  .medium-lg-screens-client {
     display: none;
   }
 }
 
 @media all and (min-width: 768px) and (max-width: 991px) {
-  .medium-lg-screens {
+  .medium-lg-screens,
+  .medium-lg-screens-client {
     display: none;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .blog-icons {
+    max-width: 700px;
   }
 }
 
@@ -60,5 +76,42 @@ body {
 @media all and (min-width: 1200px) {
   .limit {
     max-width: 1140px;
+  }
+}
+
+@media all and (min-width: 1440px) {
+  .container,
+  .limit {
+    max-width: 1200px;
+  }
+}
+
+@media all and (max-width: 1599px) {
+  .xl-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .medium-lg-screens {
+    display: none;
+  }
+
+  .portfolio {
+    .portfolio-images {
+      max-width: 1440px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .navbar,
+  #landing-section,
+  #client-section,
+  #services-section,
+  #portfolio-section,
+  #contact-section,
+  #footer {
+    max-width: 1920px;
   }
 }

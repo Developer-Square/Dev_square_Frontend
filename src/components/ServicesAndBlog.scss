@@ -105,14 +105,38 @@
   }
 }
 
-@media all and (min-width: 576px) {
-  #services-section {
-    max-width: none;
-  }
-}
-
 @media all and (min-width: 768px) {
   .blog {
     height: 300px;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .services {
+    .heading {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .blog {
+    .heading {
+      font-size: 30px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .services {
+    .service-container {
+      .service-title {
+        .title {
+          font-size: 18px;
+        }
+      }
+    }
   }
 }

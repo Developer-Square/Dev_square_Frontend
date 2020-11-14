@@ -446,3 +446,107 @@
     }
   }
 }
+
+@media all and (min-width: 1440px) {
+  #aboutus-section {
+    .aboutus-right-section {
+      .image-container {
+        left: 58%;
+        transform: translateX(-42%);
+        .left {
+          left: 0;
+        }
+
+        .hex {
+          left: 0;
+        }
+
+        .middle {
+          top: -20px;
+          left: 12%;
+        }
+
+        .hex-2 {
+          right: 15%;
+        }
+
+        .right {
+          right: 15%;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1600px) {
+  #aboutus-section {
+    p {
+      font-size: 16px;
+    }
+
+    .aboutus-header {
+      font-size: 30px;
+    }
+
+    .aboutus-right-section {
+      margin-top: 45px;
+      .image-container {
+        left: 50%;
+        transform: translateX(-50%);
+
+        .middle {
+          top: -25px;
+          left: 15%;
+        }
+
+        .hex-2 {
+          right: -10%;
+        }
+
+        .right {
+          right: -10%;
+        }
+      }
+    }
+
+    .aboutus-left-section {
+      font-size: 15px;
+
+      .desc {
+        .answer {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .aboutus-logos {
+    .inner-text {
+      font-size: 18px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  #aboutus-section {
+    .aboutus-left-section {
+      font-size: 16px;
+
+      .desc {
+        .text {
+          font-size: 19px;
+        }
+
+        .answer {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+  .aboutus-logos {
+    .inner-text {
+      font-size: 18px;
+    }
+  }
+}

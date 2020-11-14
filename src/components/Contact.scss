@@ -151,8 +151,6 @@
 
 @media all and (min-width: 576px) {
   #contact-section {
-    max-width: none;
-
     .contact {
       .contact-address {
         .address {
@@ -216,11 +214,8 @@
       }
 
       .contact-form {
-        position: absolute;
-        z-index: 5;
         right: 5%;
         width: 400px;
-        background: #fff;
         height: 525px;
 
         .btn {
@@ -251,11 +246,8 @@
       }
 
       .contact-form {
-        position: absolute;
-        z-index: 5;
         right: 4%;
         width: 500px;
-        background: #fff;
         height: 626px;
 
         .title {
@@ -270,6 +262,63 @@
         .btn {
           margin-left: 416px;
           margin-top: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1440px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          top: 60%;
+          width: 404px;
+          left: 33%;
+          transform: translate(-67%, -40%);
+        }
+      }
+
+      .contact-form {
+        right: 5%;
+        width: 525px;
+
+        .btn {
+          margin-left: 438px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1600px) {
+  #contact-section {
+    .contact {
+      .heading {
+        font-size: 30px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .contact-address {
+        img {
+          width: 100vw;
+        }
+
+        .address {
+          font-size: 18px;
+          height: 210px;
+        }
+      }
+
+      .contact-form {
+        right: 7%;
+
+        .form-control {
+          height: 40px;
         }
       }
     }

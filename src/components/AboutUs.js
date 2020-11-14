@@ -67,19 +67,19 @@ function AboutUs() {
                             <div className="image-container">
                                 <img src="images/rsz_left-pic.png" className="medium-sm-screens left img-fluid" alt="left"/>
                                 <img src="images/rsz_left-pic_992px.png" className="medium-lg-screens left img-fluid" alt="left"/>
-                                {/* <img src="images/left-pic.png" className="medium-lg-screens left img-fluid" alt="left"/> */}
+                                <img src="images/left-pic.png" className="xl-screens left img-fluid" alt="left"/>
                                 <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex img-fluid"alt="hex"/>
                                 <img src="images/rsz_hexagonal-shape_992px.png" className="medium-lg-screens hex img-fluid"alt="hex"/>
-                                {/* <img src="images/hexagonal-shape.png" className="medium-lg-screens hex img-fluid"alt="hex"/> */}
+                                <img src="images/hexagonal-shape.png" className="xl-screens hex img-fluid"alt="hex"/>
                                 <img src="images/rsz_middle-pic.png" className="medium-sm-screens middle img-fluid"alt="middle"/>
                                 <img src="images/rsz_middle-pic_992px.png" className="medium-lg-screens middle img-fluid"alt="middle"/>
-                                {/* <img src="images/middle-pic.png" className="medium-lg-screens middle img-fluid"alt="middle"/> */}
+                                <img src="images/middle-pic.png" className="xl-screens middle img-fluid"alt="middle"/>
                                 <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex-2 img-fluid"alt="hex"/>
                                 <img src="images/rsz_hexagonal-shape_992px.png" className="medium-lg-screens hex-2 img-fluid"alt="hex"/>
-                                {/* <img src="images/hexagonal-shape.png" className="medium-lg-screens hex-2 img-fluid"alt="hex"/> */}
+                                <img src="images/hexagonal-shape.png" className="xl-screens hex-2 img-fluid"alt="hex"/>
                                 <img src="images/rsz_right-pic.png" className="medium-sm-screens right img-fluid" alt="right"/>
                                 <img src="images/rsz_right-pic_992px.png" className="medium-lg-screens right img-fluid" alt="right"/>
-                                {/* <img src="images/right-pic.png" className="medium-lg-screens right img-fluid" alt="right"/> */}
+                                <img src="images/right-pic.png" className="xl-screens right img-fluid" alt="right"/>
                             </div>
                         </div>
                     </Col>

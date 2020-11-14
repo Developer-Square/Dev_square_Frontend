@@ -141,12 +141,6 @@
   }
 }
 
-@media all and (min-width: 576px) {
-  #client-section {
-    max-width: none;
-  }
-}
-
 @media all and (min-width: 768px) {
   .clients {
     .inner-heading {
@@ -174,12 +168,32 @@
     }
 
     .cover {
-      width: fit-content;
+      width: 100vw;
       height: 485px;
     }
   }
 
   .client-bar {
     margin-top: 160px !important;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .clients {
+    .heading {
+      font-size: 30px;
+    }
+
+    .inner-heading {
+      font-size: 18px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .clients {
+    p {
+      font-size: 16px;
+    }
   }
 }
