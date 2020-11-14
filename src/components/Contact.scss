@@ -80,14 +80,11 @@
 }
 
 #footer {
-  margin-top: 55px;
   background: var(--footer-background-color);
   font-style: normal;
   color: var(--primary-background-color);
 
   .footer-logo {
-    margin-top: 45px;
-
     .logo-text {
       font-family: "Source Sans Pro", sans-serif;
       font-weight: bold;
@@ -192,6 +189,42 @@
 
         .btn {
           margin-left: 270px;
+        }
+      }
+    }
+  }
+
+  #footer {
+    .copyright {
+      margin-top: 30px;
+      margin-bottom: 35px;
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          top: 60%;
+          width: 404px;
+          left: 33%;
+          transform: translate(-67%, -40%);
+        }
+      }
+
+      .contact-form {
+        position: absolute;
+        z-index: 5;
+        top: 18%;
+        right: 5%;
+        width: 400px;
+        background: #fff;
+        height: 525px;
+
+        .btn {
+          margin-left: 320px;
         }
       }
     }

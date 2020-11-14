@@ -10,7 +10,7 @@ import './Contact.scss'
 function ContactAndFooter() {
     return (
         <Fragment>
-            <Container id="contact-section">
+            <Container id="contact-section" className="p-0">
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
