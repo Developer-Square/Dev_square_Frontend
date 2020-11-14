@@ -17,7 +17,7 @@ function Client() {
                             <div className="heading">our <span>clients</span></div>
                             <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
                             </p>
-                            <Row>
+                            <Row className="limit mx-auto">
                                 <Col xs={12} md={6}>
                                     <div className="inner-heading">WHAT CLIENTS SAY</div>
                                     <p className="inner-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis.</p>

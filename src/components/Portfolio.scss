@@ -106,6 +106,10 @@
 @media all and (min-width: 768px) {
   #portfolio-section {
     .portfolio-column {
+      .portfolio-header {
+        width: 550px;
+      }
+
       .portfolio-images {
         .bank-image {
           .image-cover {

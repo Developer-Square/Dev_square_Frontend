@@ -20,7 +20,7 @@ function AboutUs() {
         <Fragment>
             <Container id="aboutus-section">
                 <Row>
-                    <div className="d-flex flex-column">
+                    <div className="d-flex flex-column mx-auto">
                     <div className="aboutus-header mx-auto">Lotus</div>
                     <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. </p>
                     </div>

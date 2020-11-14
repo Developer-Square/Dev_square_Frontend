@@ -13,7 +13,7 @@ function Portfolio() {
                     <Col className="portfolio-column">
                         <div className="portfolio">
                             <div className="heading text-center">portfolio</div>
-                            <div className="d-flex justify-content-around">
+                            <div className="d-flex portfolio-header mx-auto justify-content-around">
                                 <p>ALL</p>
                                 <p>ILLUSTRATION</p>
                                 <p>DIGITAL ART</p>
