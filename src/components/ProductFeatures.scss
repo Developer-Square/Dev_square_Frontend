@@ -83,7 +83,7 @@
   }
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 992px) {
   .product-features {
     .bar-1 {
       width: 300px;
@@ -111,6 +111,38 @@
     .bar-6 {
       right: 9.5%;
       width: 200px;
+    }
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .product-features {
+    .bar-1 {
+      width: 405px;
+    }
+
+    .bar-2 {
+      left: 4.1%;
+      width: 355px;
+    }
+
+    .bar-3 {
+      left: 8.4%;
+      width: 305px;
+    }
+
+    .bar-4 {
+      width: 405px;
+    }
+
+    .bar-5 {
+      right: 4.1%;
+      width: 355px;
+    }
+
+    .bar-6 {
+      right: 8.4%;
+      width: 305px;
     }
   }
 }

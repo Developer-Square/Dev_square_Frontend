@@ -402,3 +402,39 @@
     margin-top: 110px;
   }
 }
+
+@media all and (min-width: 1200px) {
+  #aboutus-section {
+    .aboutus-right-section {
+      margin-top: 70px;
+      .image-container {
+        left: 53%;
+        transform: translateX(-47%);
+        .left {
+          left: -1%;
+        }
+
+        .hex {
+          left: -1%;
+        }
+
+        .middle {
+          top: -20px;
+          left: 12%;
+        }
+
+        .hex-2 {
+          right: 11%;
+        }
+
+        .right {
+          right: 11%;
+        }
+      }
+    }
+  }
+
+  .scroll-bar {
+    margin-top: 110px;
+  }
+}

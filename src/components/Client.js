@@ -41,15 +41,15 @@ function Client() {
                                     <div className="d-flex justify-content-around">
                                         <div>
                                             <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens img-fluid pr-2"/>
                                             <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
-                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
                                         </div>
                                         <div>
                                             <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens img-fluid pr-2"/>
                                             <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
-                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens img-fluid"/>
                                         </div>
                                     </div>
                                 </Col>
