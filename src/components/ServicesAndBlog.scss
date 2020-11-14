@@ -24,44 +24,34 @@
   }
 
   .service-container {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
     .service-title {
       position: relative;
-      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: fit-content;
+      }
 
       .service-icon,
       .service-icon-html,
       .service-icon-word,
       .service-icon-app,
+      .service-icon-ui,
       .service-icon-responsive {
         position: absolute;
-        top: 50%;
-        left: 31%;
-        transform: translate(-69%, -50%);
-      }
-
-      .service-icon-html {
-        left: 34.5%;
-        transform: translate(-65%, -50%);
-      }
-
-      .service-icon-word {
-        left: 32.5%;
-        transform: translate(-68%, -50%);
-      }
-
-      .service-icon-app {
-        left: 30%;
-        transform: translate(-70%, -50%);
-      }
-
-      .service-icon-responsive {
-        left: 23%;
-        transform: translate(-77%, -50%);
+        top: 42%;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        transform: translateY(-68%);
       }
 
       .title {
+        padding-top: 10px;
         font-size: 17px;
         line-height: 21px;
         text-transform: uppercase;
@@ -111,6 +101,42 @@
     margin-bottom: 20px;
     img {
       width: fit-content;
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .blog {
+    height: 300px;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .services {
+    .heading {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .blog {
+    .heading {
+      font-size: 30px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .services {
+    .service-container {
+      .service-title {
+        .title {
+          font-size: 18px;
+        }
+      }
     }
   }
 }

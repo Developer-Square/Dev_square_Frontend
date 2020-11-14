@@ -12,6 +12,7 @@
   right: 0;
   left: 0;
   z-index: 50;
+  padding: 0.7rem 1rem;
   .navbar-toggler {
     color: rgba(255, 255, 255, 0.9);
     border-color: rgba(255, 255, 255, 0.7);
@@ -42,4 +43,54 @@
 .nav-link.active {
   border-top: var(--primary-border-color) 1px solid;
   border-bottom: var(--primary-border-color) 1px solid;
+}
+
+@media all and (min-width: 768px) {
+  .navbar {
+    .navbar-nav {
+      padding-top: 0;
+      width: 100%;
+      justify-content: flex-end;
+
+      .nav-link {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        flex-grow: 0.05;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .nav-link.active {
+    border: none;
+  }
+
+  .indicator {
+    height: 2px;
+    width: 27px;
+    background: var(--primary-border-color);
+  }
+}
+
+@media all and (min-width: 1440px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+    .navbar-nav {
+      .nav-link {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .navbar {
+    padding: 0.9rem 1rem;
+    .navbar-nav {
+      .nav-link {
+        font-size: 16px;
+      }
+    }
+  }
 }

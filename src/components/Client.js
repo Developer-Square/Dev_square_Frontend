@@ -8,7 +8,7 @@ import './Client.scss'
 function Client() {
     return (
         <Fragment>
-            <Container>
+            <Container id="client-section">
                 <Row>
                     <Col className="portfolio-column">
                         <div className="clients">
@@ -17,8 +17,8 @@ function Client() {
                             <div className="heading">our <span>clients</span></div>
                             <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
                             </p>
-                            <Row>
-                                <Col xs={12}>
+                            <Row className="limit mx-auto">
+                                <Col xs={12} md={6}>
                                     <div className="inner-heading">WHAT CLIENTS SAY</div>
                                     <p className="inner-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis.</p>
                                     <img src="images/client-pic.png" alt="Client" className="img-fluid client-pic"/>
@@ -29,19 +29,27 @@ function Client() {
                                         <div className="navigation-dots ml-2"></div>
                                     </div>
                                 </Col>
-                                <Col xs={12}>
+                                <Col xs={12} md={6}>
                                     <div className="logos d-flex justify-content-around">
-                                        <img src="images/rsz_client-logo.png" alt="client" className="img-fluid"/>
-                                        <img src="images/rsz_client-logo.png" alt="client" className="img-fluid"/>
+                                        <img src="images/rsz_client-logo.png" alt="client" className="medium-sm-screens img-fluid"/>
+                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
+                                        <img src="images/rsz_client-logo_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
+                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens-client img-fluid"/> */}
+                                        {/* <img src="images/client-logo.png" alt="client" className="medium-lg-screens-client img-fluid"/> */}
+                                        <img src="images/rsz_client-logo.png" alt="client" className="medium-sm-screens img-fluid"/>
                                     </div>
                                     <div className="d-flex justify-content-around">
                                         <div>
-                                            <img src="images/rsz_client-logo-2.png" alt="client" className="img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-3.png" alt="client" className="img-fluid"/>
+                                            <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens-client img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
                                         </div>
                                         <div>
-                                            <img src="images/rsz_client-logo-2.png" alt="client" className="img-fluid pr-2"/>
-                                            <img src="images/rsz_client-logo-3.png" alt="client" className="img-fluid"/>
+                                            <img src="images/rsz_client-logo-2.png" alt="client" className="medium-sm-screens img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-2_992px.png" alt="client" className="medium-lg-screens-client img-fluid pr-2"/>
+                                            <img src="images/rsz_client-logo-3.png" alt="client" className="medium-sm-screens img-fluid"/>
+                                            <img src="images/rsz_client-logo-3_992px.png" alt="client" className="medium-lg-screens-client img-fluid"/>
                                         </div>
                                     </div>
                                 </Col>

@@ -20,9 +20,11 @@ function AboutUs() {
         <Fragment>
             <Container id="aboutus-section">
                 <Row>
+                    <div className="d-flex flex-column mx-auto">
                     <div className="aboutus-header mx-auto">Lotus</div>
                     <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. </p>
-                    <Col xs={12}>
+                    </div>
+                    <Col xs={12} lg={6}>
                         <div className="aboutus-left-section">
                             <div className="mb-2 pl-1 pr-1">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eteu ligula ac nisl volutpat tincidunt. Vestibulum vitae rhoncus odio Fusce sed enim erat. Mauris dictum lorem eu tortor porta placerat. Suspendisse ac vestibulum eros. Nulla mi ipsum, consequat commodo condimentum vitae
@@ -60,14 +62,24 @@ function AboutUs() {
                         </div>
                         </div>
                     </Col>
-                    <Col xs={12}>
+                    <Col xs={12} lg={6}>
                         <div className="aboutus-right-section">
                             <div className="image-container">
-                                <img src="images/rsz_left-pic.png" className="left img-fluid" alt="left"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex img-fluid"alt="hex"/>
-                                <img src="images/rsz_middle-pic.png" className="middle img-fluid"alt="middle"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex-2 img-fluid"alt="hex"/>
-                                <img src="images/rsz_right-pic.png" className="right img-fluid" alt="right"/>
+                                <img src="images/rsz_left-pic.png" className="medium-sm-screens left img-fluid" alt="left"/>
+                                <img src="images/rsz_left-pic_992px.png" className="medium-lg-screens left img-fluid" alt="left"/>
+                                <img src="images/left-pic.png" className="xl-screens left img-fluid" alt="left"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_hexagonal-shape_992px.png" className="medium-lg-screens hex img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.png" className="xl-screens hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_middle-pic.png" className="medium-sm-screens middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_middle-pic_992px.png" className="medium-lg-screens middle img-fluid"alt="middle"/>
+                                <img src="images/middle-pic.png" className="xl-screens middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_hexagonal-shape.png" className="medium-sm-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_hexagonal-shape_992px.png" className="medium-lg-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.png" className="xl-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_right-pic.png" className="medium-sm-screens right img-fluid" alt="right"/>
+                                <img src="images/rsz_right-pic_992px.png" className="medium-lg-screens right img-fluid" alt="right"/>
+                                <img src="images/right-pic.png" className="xl-screens right img-fluid" alt="right"/>
                             </div>
                         </div>
                     </Col>
@@ -77,7 +89,7 @@ function AboutUs() {
                         </div>
                         <div className="aboutus-logos">
                             <Row>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="flat-design">
                                         <div className="flat-design-image d-flex justify-content-center">
                                             <img src="images/Flat-design-image.png" alt="Icon" className=" img-fluid"/>
@@ -90,7 +102,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="retina">
                                         <div className="retina-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
@@ -102,7 +114,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="responsive">
                                         <div className="responsive-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
@@ -114,7 +126,7 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="clean">
                                         <div className="clean-image d-flex justify-content-center">
                                             <img src="images/Retina.png" alt="Icon" className="img-fluid"/>

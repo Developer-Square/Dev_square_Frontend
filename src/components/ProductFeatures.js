@@ -16,10 +16,13 @@ function ProductFeatures() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis.
                         </div>
                         <div>
-                            <div className="d-none">
-                                <div className="bars"></div>
-                                <div className="bars"></div>
-                                <div className="bars"></div>
+                            <div className="">
+                                <div className="bars bar-1"></div>
+                                <div className="bars bar-2"></div>
+                                <div className="bars bar-3"></div>
+                                <div className="bars bar-4"></div>
+                                <div className="bars bar-5"></div>
+                                <div className="bars bar-6"></div>
                             </div>
                             <div className="d-flex justify-content-center">
                                 <img src="images/product-features.png" alt="product" className="img-fluid"/>

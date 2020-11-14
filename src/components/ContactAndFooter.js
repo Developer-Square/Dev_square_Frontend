@@ -7,10 +7,10 @@ import Button from 'react-bootstrap/Button'
 
 import './Contact.scss'
 
-function Contact() {
+function ContactAndFooter() {
     return (
         <Fragment>
-            <Container>
+            <Container id="contact-section" className="p-0">
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
@@ -19,10 +19,10 @@ function Contact() {
                         <div className="contact-address">
                             <img src="images/contact.png" alt="Contact" className="img-fluid"/>
                             <div className="address">
-                                <div className="pt-2 pl-3">Lotus</div>
-                                <div className="pt-2 pl-3">Address: California 11011, USA</div>
-                                <div className="pt-2 pl-3">Email: creativia@example.com</div>
-                                <div className="pt-2 pl-3">Phone: + 1 911 9919 1991</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Lotus</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Address: California 11011, USA</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Email: creativia@example.com</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Phone: + 1 911 9919 1991</div>
                             </div>
                         </div>
                         <div className="contact-form">
@@ -44,12 +44,14 @@ function Contact() {
                             </Form>
                         </div>
                     </Col>
-                    <Col className="footer" xs={12}>
-                        <div className="footer-logo d-flex justify-content-center">
-                            <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
-                            <div className="logo-text pl-2">Lotus</div>
+                    <Col id="footer" className="mx-auto" xs={12}>
+                        <div className="d-md-flex flex-md-row justify-content-around align-items-center">
+                            <div className="footer-logo d-flex justify-content-center mt-md-0">
+                                <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
+                                <div className="logo-text pl-2">Lotus</div>
+                            </div>
+                            <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
                         </div>
-                        <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
                     </Col>
                 </Row>
             </Container>
@@ -57,4 +59,4 @@ function Contact() {
     )
 }
 
-export default Contact;
+export default ContactAndFooter;
