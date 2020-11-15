@@ -45,6 +45,21 @@
   border-bottom: var(--primary-border-color) 1px solid;
 }
 
+.login {
+  background: #ffc107;
+  color: var(--navbar-background-color) !important;
+  padding-right: 7px !important;
+  text-align: center;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.login.active {
+  border: 2px solid #dc3545 !important;
+  font-weight: bold;
+}
+
 @media all and (min-width: 768px) {
   .navbar {
     .navbar-nav {
@@ -59,17 +74,30 @@
         flex-grow: 0.05;
         font-size: 14px;
       }
+      .login {
+        padding-right: 7px !important;
+      }
+
+      .contact {
+        margin-right: 5px !important;
+      }
     }
   }
 
   .nav-link.active {
     border: none;
-  }
+    .indicator,
+    .indicator-2 {
+      position: relative;
+      top: -7px;
+      height: 2px;
+      width: 27px;
+      background: var(--primary-border-color);
+    }
 
-  .indicator {
-    height: 2px;
-    width: 27px;
-    background: var(--primary-border-color);
+    .indicator-2 {
+      top: 7px;
+    }
   }
 }
 

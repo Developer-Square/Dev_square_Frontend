@@ -5,6 +5,15 @@ import Row from 'react-bootstrap/Row'
 import './LandingArea.scss'
 
 function LandingArea() {
+
+    function scrollFunction(id, top) {
+        let offsetTop = document.getElementById(`${id}`).offsetTop
+        console.log(offsetTop)
+        window.scrollTo({
+            top: offsetTop - top,
+            behavior: 'smooth'
+        })
+    }
     return (
         <Fragment>
             <Container id="landing-section">
@@ -22,8 +31,8 @@ function LandingArea() {
                         </div>
                     </div>
                     <div className="landing-inner d-flex flex-column mx-auto">
-                        <button className="btn feature">FEATURES</button>
-                        <button className="btn portfolio-btn">PORTFOLIO</button>
+                        <button className="btn feature" onClick={() => scrollFunction('product-section', 65)}>FEATURES</button>
+                        <button className="btn portfolio-btn" onClick={() => scrollFunction('portfolio-section', 75)}>PORTFOLIO</button>
                     </div>
                 </Row>
             </Container>
