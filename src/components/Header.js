@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Button from 'react-bootstrap/Button'
 
 import './Header.scss'
 
