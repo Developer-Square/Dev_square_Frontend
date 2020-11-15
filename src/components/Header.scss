@@ -64,12 +64,18 @@
 
   .nav-link.active {
     border: none;
-  }
+    .indicator,
+    .indicator-2 {
+      position: relative;
+      top: -7px;
+      height: 2px;
+      width: 27px;
+      background: var(--primary-border-color);
+    }
 
-  .indicator {
-    height: 2px;
-    width: 27px;
-    background: var(--primary-border-color);
+    .indicator-2 {
+      top: 7px;
+    }
   }
 }
 

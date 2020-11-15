@@ -7,7 +7,7 @@ import './Team.scss'
 function Team() {
     return (
         <Fragment>
-            <Container>
+            <Container id="team-section">
                 <Row>
                     <Col className="team">
                         <div className="heading text-center">our <span>team</span></div>

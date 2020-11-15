@@ -8,7 +8,7 @@ import './ProductFeatures.scss'
 function ProductFeatures() {
     return (
         <Fragment>
-            <Container>
+            <Container id="product-section">
                 <Row>
                     <Col className="product-features">
                         <div className="product heading text-center">our <span>product features</span></div>

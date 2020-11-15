@@ -82,7 +82,7 @@ function ServicesAndBlog() {
                         <img src="images/rsz_scroll-bar.png" className="scroll-dot img-fluid" alt="scroll" />
                     </div>
                     </Col>
-                    <Col xs={12} className="blog">
+                    <Col xs={12} id="blog-section" className="blog">
                         <div>
                             {/* <img src="images/rsz_blog.png" alt="Blog" className="img-fluid"/> */}
                             <div className="heading text-center">Follow <span>Lotus</span></div>  
