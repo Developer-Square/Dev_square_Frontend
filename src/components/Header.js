@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button'
 
 import './Header.scss'
 
@@ -31,7 +32,8 @@ function Header() {
                         <Nav.Link href="#Team" className="mx-auto" onClick={() => scrollFunction('team-section', 75)}><div className="indicator ml-md-2"></div>Team<div className="indicator-2 ml-md-2"></div></Nav.Link>
                         <Nav.Link href="#services" className="mx-auto" onClick={() => scrollFunction('services-section', 75)}><div className="indicator ml-md-4"></div>Services<div className="indicator-2 ml-md-4"></div></Nav.Link>
                         <Nav.Link href="#blog" className="mx-auto" onClick={() => scrollFunction('blog-section', 75)}><div className="indicator ml-md-2"></div>Blog<div className="indicator-2 ml-md-2"></div></Nav.Link>
-                        <Nav.Link href="#contact" className="mx-auto" onClick={() => scrollFunction('contact-section', 75)}><div className="indicator ml-md-3"></div>Contact<div className="indicator-2 ml-md-3"></div></Nav.Link>
+                        <Nav.Link href="#contact" className="mx-auto contact" onClick={() => scrollFunction('contact-section', 75)}><div className="indicator ml-md-3"></div>Contact<div className="indicator-2 ml-md-3"></div></Nav.Link>
+                        <Nav.Link href="#login" className="mx-auto pl-2 pr-2 mt-2 mt-md-0 login">Login</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
