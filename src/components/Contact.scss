@@ -272,6 +272,10 @@
   #contact-section {
     .contact {
       .contact-address {
+        img {
+          width: 100vw;
+        }
+
         .address {
           top: 60%;
           width: 404px;
