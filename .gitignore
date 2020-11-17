@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .vscode
+/Image-converter.js
 
 # testing
 /coverage

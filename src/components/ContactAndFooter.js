@@ -17,7 +17,7 @@ function ContactAndFooter() {
                             <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
                             </p>
                         <div className="contact-address">
-                            <img src="images/contact.png" alt="Contact" className="img-fluid"/>
+                            <img src="images/contact.webp" alt="Contact" className="img-fluid"/>
                             <div className="address">
                                 <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Lotus</div>
                                 <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Address: California 11011, USA</div>
@@ -47,7 +47,7 @@ function ContactAndFooter() {
                     <Col id="footer" className="mx-auto" xs={12}>
                         <div className="d-md-flex flex-md-row justify-content-around align-items-center">
                             <div className="footer-logo d-flex justify-content-center mt-md-0">
-                                <img src="images/Logo-2.png" alt="Footer" className="img-fluid"/>
+                                <img src="images/Logo-2.webp" alt="Footer" className="img-fluid"/>
                                 <div className="logo-text pl-2">Lotus</div>
                             </div>
                             <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>

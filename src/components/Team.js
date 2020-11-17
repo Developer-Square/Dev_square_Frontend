@@ -16,59 +16,59 @@ function Team() {
                         <Row>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-1.png" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
                                     <p className="team-role">UI/UX Designer</p>
                                     <div className="socials d-flex justify-content-around">
-                                        <img src="images/facebook.png" alt="facebook" className="img-fluid"/>
-                                        <img src="images/twitter.png" alt="twitter" className="img-fluid"/>
-                                        <img src="images/linkedin.png" alt="linkedin" className="img-fluid"/>
-                                        <img src="images/instagram.png" alt="instagram " className="img-fluid"/>
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
                                     </div>
                                 </div>
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-2.png" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-2.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
                                     <p className="team-role">UI/UX Designer</p>
                                     <div className="socials d-flex justify-content-around">
-                                        <img src="images/facebook.png" alt="facebook" className="img-fluid"/>
-                                        <img src="images/twitter.png" alt="twitter" className="img-fluid"/>
-                                        <img src="images/linkedin.png" alt="linkedin" className="img-fluid"/>
-                                        <img src="images/instagram.png" alt="instagram " className="img-fluid"/>
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
                                     </div>
                                 </div>
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-3.png" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-3.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
                                     <p className="team-role">UI/UX Designer</p>
                                     <div className="socials d-flex justify-content-around">
-                                        <img src="images/facebook.png" alt="facebook" className="img-fluid"/>
-                                        <img src="images/twitter.png" alt="twitter" className="img-fluid"/>
-                                        <img src="images/linkedin.png" alt="linkedin" className="img-fluid"/>
-                                        <img src="images/instagram.png" alt="instagram " className="img-fluid"/>
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
                                     </div>
                                 </div>
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-4.png" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ben Ajax</p>
                                     <p className="team-role">UI/UX Designer</p>
                                     <div className="socials d-flex justify-content-around">
-                                        <img src="images/facebook.png" alt="facebook" className="img-fluid"/>
-                                        <img src="images/twitter.png" alt="twitter" className="img-fluid"/>
-                                        <img src="images/linkedin.png" alt="linkedin" className="img-fluid"/>
-                                        <img src="images/instagram.png" alt="instagram " className="img-fluid"/>
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
                                     </div>
                                 </div>
                             </Col>
                         </Row>
                         <div className="scroll-bar team-bar mt-2 mx-auto">
-                            <img src="images/rsz_scroll-dot.png" className="scroll-dot img-fluid" alt="scroll" />
+                            <img src="images/rsz_scroll-dot.webp" className="scroll-dot img-fluid" alt="scroll" />
                         </div>
                     </Col>
                 </Row>
