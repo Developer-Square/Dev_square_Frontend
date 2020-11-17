@@ -184,6 +184,20 @@
           }
         }
 
+        .buttons {
+          display: flex;
+        }
+
+        .btn_back {
+          width: 190px;
+          margin-left: 10px;
+          text-align: center;
+          padding-top: 12px;
+          text-decoration: none;
+          background: var(--primary-icon-color-login);
+          color: var(--primary-background-color-login);
+        }
+
         .social_text {
           margin: 0.7rem 0;
           font-size: 1rem;
@@ -298,7 +312,6 @@
     }
 
     .panels_container {
-      z-index: 10;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 2fr 1fr;
 
@@ -307,6 +320,7 @@
         justify-content: space-around;
         align-items: center;
         padding: 2.5rem 8%;
+        z-index: 10;
 
         .content {
           padding-right: 15%;
@@ -408,5 +422,91 @@
   .container.sign_up_mode::before {
     bottom: 28%;
     left: 50%;
+  }
+}
+
+@media all and (max-width: 414px) {
+  .container {
+    .forms_container {
+      .signin_signup {
+        top: 87%;
+        form {
+          padding: 0 3rem;
+
+          .title {
+            font-size: 1.9rem;
+          }
+
+          .input_field {
+            input::placeholder {
+              font-size: 0.95rem;
+            }
+          }
+
+          .buttons {
+            .btn {
+              width: 130px;
+              font-size: 0.9rem;
+            }
+
+            .btn_back {
+              width: 170px;
+              padding-top: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container.sign_up_mode {
+    .forms_container {
+      .signin_signup {
+        top: 10%;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 320px) {
+  .container {
+    .forms_container {
+      .signin_signup {
+        form {
+          .title {
+            font-size: 1.7rem;
+          }
+
+          .input_field {
+            i {
+              font-size: 0.9rem;
+            }
+
+            input::placeholder {
+              font-size: 0.8rem;
+            }
+          }
+          .buttons {
+            flex-direction: column;
+
+            .btn {
+              width: 110px;
+              height: 46px;
+              font-size: 0.8rem;
+            }
+
+            .btn_back {
+              width: 155px;
+              padding-top: 13px;
+            }
+
+            input {
+              margin-left: auto;
+              margin-right: auto;
+            }
+          }
+        }
+      }
+    }
   }
 }

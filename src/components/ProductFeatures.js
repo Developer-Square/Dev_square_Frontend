@@ -25,7 +25,7 @@ function ProductFeatures() {
                                 <div className="bars bar-6"></div>
                             </div>
                             <div className="d-flex justify-content-center">
-                                <img src="images/product-features.png" alt="product" className="img-fluid"/>
+                                <img src="images/product-features.webp" alt="product" className="img-fluid"/>
                             </div>
                         </div>
                     </Col>

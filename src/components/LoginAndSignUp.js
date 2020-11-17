@@ -31,8 +31,10 @@ function LoginAndSignUp() {
                                 <i className="fas fa-lock"></i>
                                 <input type="password" placeholder="Password"/>
                             </div>
-
+                            <div className={styles.buttons}>
                             <input type="submit" value="Login" className={styles.btn}/>
+                            <a href="/" className={cx(styles.btn, styles.btn_back)}>Back to Homepage</a>
+                            </div>
 
                             {/* To be used later*/}
                             {/* <p className={styles.social_text}>Or Sign In with social platforms</p>
@@ -66,8 +68,10 @@ function LoginAndSignUp() {
                                 <i className="fas fa-lock"></i>
                                 <input type="password" placeholder="Password"/>
                             </div>
-
+                            <div className={styles.buttons}>
                             <input type="submit" value="Sign Up" className={styles.btn}/>
+                            <a href="/" className={cx(styles.btn, styles.btn_back)}>Back to Homepage</a>
+                            </div>
 
                             {/* To be used later*/}
                             {/* <p className="social-text">Or Sign Up with social platforms</p>

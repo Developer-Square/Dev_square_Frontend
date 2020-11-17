@@ -19,8 +19,8 @@ function LandingArea() {
             <Container id="landing-section">
                 <Row>
                     <div>
-                        <img src="images/rsz_landing-image.png" className="smaller-screens img-fluid" alt="Landing"/>
-                        <img src="images/Landing-image.png" className="larger-screens img-fluid" alt="Landing"/>
+                        <img src="images/rsz_landing-image.webp" className="smaller-screens img-fluid" alt="Landing"/>
+                        <img src="images/Landing-image.webp" className="larger-screens img-fluid" alt="Landing"/>
                         <div className="landing-inner-text">
                             <div className="d-flex justify-content-center pb-2 pb-xl-4">why <span className="uncover">Lotus ?</span></div>
                             <div className="d-flex text-container">
