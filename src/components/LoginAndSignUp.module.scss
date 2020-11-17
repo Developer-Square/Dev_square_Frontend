@@ -312,7 +312,6 @@
     }
 
     .panels_container {
-      z-index: 10;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 2fr 1fr;
 
@@ -321,6 +320,7 @@
         justify-content: space-around;
         align-items: center;
         padding: 2.5rem 8%;
+        z-index: 10;
 
         .content {
           padding-right: 15%;
@@ -429,10 +429,18 @@
   .container {
     .forms_container {
       .signin_signup {
-        top: 92%;
+        top: 87%;
         form {
           padding: 0 3rem;
         }
+      }
+    }
+  }
+
+  .container.sign_up_mode {
+    .forms_container {
+      .signin_signup {
+        top: 10%;
       }
     }
   }
