@@ -20,9 +20,11 @@ function AboutUs() {
         <Fragment>
             <Container id="aboutus-section">
                 <Row>
+                    <div className="d-flex flex-column mx-auto">
                     <div className="aboutus-header mx-auto">Lotus</div>
                     <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. </p>
-                    <Col xs={12}>
+                    </div>
+                    <Col xs={12} lg={6}>
                         <div className="aboutus-left-section">
                             <div className="mb-2 pl-1 pr-1">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eteu ligula ac nisl volutpat tincidunt. Vestibulum vitae rhoncus odio Fusce sed enim erat. Mauris dictum lorem eu tortor porta placerat. Suspendisse ac vestibulum eros. Nulla mi ipsum, consequat commodo condimentum vitae
@@ -60,28 +62,38 @@ function AboutUs() {
                         </div>
                         </div>
                     </Col>
-                    <Col xs={12}>
+                    <Col xs={12} lg={6}>
                         <div className="aboutus-right-section">
                             <div className="image-container">
-                                <img src="images/rsz_left-pic.png" className="left img-fluid" alt="left"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex img-fluid"alt="hex"/>
-                                <img src="images/rsz_middle-pic.png" className="middle img-fluid"alt="middle"/>
-                                <img src="images/rsz_hexagonal-shape.png" className="hex-2 img-fluid"alt="hex"/>
-                                <img src="images/rsz_right-pic.png" className="right img-fluid" alt="right"/>
+                                <img src="images/rsz_left-pic.webp" className="medium-sm-screens left img-fluid" alt="left"/>
+                                <img src="images/rsz_left-pic_992px.webp" className="medium-lg-screens left img-fluid" alt="left"/>
+                                <img src="images/left-pic.webp" className="xl-screens left img-fluid" alt="left"/>
+                                <img src="images/rsz_hexagonal-shape.webp" className="medium-sm-screens hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_hexagonal-shape_992px.webp" className="medium-lg-screens hex img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.webp" className="xl-screens hex img-fluid"alt="hex"/>
+                                <img src="images/rsz_middle-pic.webp" className="medium-sm-screens middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_middle-pic_992px.webp" className="medium-lg-screens middle img-fluid"alt="middle"/>
+                                <img src="images/middle-pic.webp" className="xl-screens middle img-fluid"alt="middle"/>
+                                <img src="images/rsz_hexagonal-shape.webp" className="medium-sm-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_hexagonal-shape_992px.webp" className="medium-lg-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/hexagonal-shape.webp" className="xl-screens hex-2 img-fluid"alt="hex"/>
+                                <img src="images/rsz_right-pic.webp" className="medium-sm-screens right img-fluid" alt="right"/>
+                                <img src="images/rsz_right-pic_992px.webp" className="medium-lg-screens right img-fluid" alt="right"/>
+                                <img src="images/right-pic.webp" className="xl-screens right img-fluid" alt="right"/>
                             </div>
                         </div>
                     </Col>
                     <Col>
                         <div className="scroll-bar mx-auto">
-                            <img src="images/rsz_scroll-dot.png" className="scroll-dot img-fluid" alt="scroll" />
+                            <img src="images/rsz_scroll-dot.webp" className="scroll-dot img-fluid" alt="scroll" />
                         </div>
                         <div className="aboutus-logos">
                             <Row>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="flat-design">
                                         <div className="flat-design-image d-flex justify-content-center">
-                                            <img src="images/Flat-design-image.png" alt="Icon" className=" img-fluid"/>
-                                            <img src="images/love.png" alt="Icon" className="love-image
+                                            <img src="images/Flat-design-image.webp" alt="Icon" className=" img-fluid"/>
+                                            <img src="images/love.webp" alt="Icon" className="love-image
                                             img-fluid"/>
                                         </div>
                                         <div className="inner-text">FLAT DESIGN</div>
@@ -90,11 +102,11 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="retina">
                                         <div className="retina-image d-flex justify-content-center">
-                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
-                                            <img src="images/Retina-icon.png" alt="Icon" className="retina-icon img-fluid"/>
+                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
+                                            <img src="images/Retina-icon.webp" alt="Icon" className="retina-icon img-fluid"/>
                                         </div>
                                         <div className="inner-text">RETINA READY</div>
                                         <p>
@@ -102,11 +114,11 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="responsive">
                                         <div className="responsive-image d-flex justify-content-center">
-                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
-                                            <img src="images/Responsive.png" alt="Icon" className="Responsive img-fluid"/>
+                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
+                                            <img src="images/Responsive.webp" alt="Icon" className="Responsive img-fluid"/>
                                         </div>
                                         <div className="inner-text">RESPONSIVE</div>
                                         <p>
@@ -114,11 +126,11 @@ function AboutUs() {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col xs={12} className="mb-2">
+                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="clean">
                                         <div className="clean-image d-flex justify-content-center">
-                                            <img src="images/Retina.png" alt="Icon" className="img-fluid"/>
-                                            <img src="images/clean&useful.png" alt="Icon" className="clean img-fluid"/>
+                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
+                                            <img src="images/clean&useful.webp" alt="Icon" className="clean img-fluid"/>
                                         </div>
                                         <div className="inner-text">CLEAN & USEFUL</div>
                                         <p>

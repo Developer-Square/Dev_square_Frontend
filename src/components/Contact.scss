@@ -74,20 +74,18 @@
       margin-bottom: 36px;
       background: var(--primary-font-color);
       border-color: var(--primary-font-color);
-      margin-left: 250px;
+      margin-left: 233px;
     }
   }
 }
 
-.footer {
-  margin-top: 55px;
+#footer {
   background: var(--footer-background-color);
   font-style: normal;
   color: var(--primary-background-color);
 
   .footer-logo {
     margin-top: 45px;
-
     .logo-text {
       font-family: "Source Sans Pro", sans-serif;
       font-weight: bold;
@@ -100,7 +98,236 @@
     font-weight: normal;
     font-size: 15px;
     line-height: 20px;
-    margin-top: 50px;
-    margin-bottom: 55px;
+    margin-top: 40px;
+    margin-bottom: 35px;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 196px;
+      }
+    }
+
+    .contact-address {
+      .address {
+        width: 280px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 375px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 249px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 411px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 284px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 414px) {
+  .contact {
+    .contact-form {
+      .btn {
+        margin-left: 288px;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 576px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          width: 404px;
+        }
+      }
+      .contact-form {
+        .btn {
+          margin-left: 460px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          width: 300px;
+          left: 30%;
+          transform: translate(-70%, -50%);
+        }
+      }
+
+      .contact-form {
+        position: absolute;
+        z-index: 5;
+        bottom: 0;
+        right: 20px;
+        width: 350px;
+        background: #fff;
+        height: 415px;
+
+        .btn {
+          margin-left: 270px;
+        }
+      }
+    }
+  }
+
+  #footer {
+    .copyright {
+      margin-top: 30px;
+      margin-bottom: 35px;
+    }
+  }
+}
+
+@media all and (min-width: 992px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          top: 60%;
+          width: 404px;
+          left: 33%;
+          transform: translate(-67%, -40%);
+        }
+      }
+
+      .contact-form {
+        right: 5%;
+        width: 400px;
+        height: 525px;
+
+        .btn {
+          margin-left: 320px;
+        }
+      }
+    }
+  }
+
+  #footer {
+    .copyright {
+      margin-top: 30px;
+      margin-bottom: 35px;
+    }
+  }
+}
+
+@media all and (min-width: 1200px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        .address {
+          top: 60%;
+          width: 404px;
+          left: 32%;
+          transform: translate(-68%, -40%);
+        }
+      }
+
+      .contact-form {
+        right: 4%;
+        width: 500px;
+        height: 626px;
+
+        .title {
+          padding-top: 86px;
+          margin-bottom: 99px;
+        }
+
+        .form-control {
+          margin-bottom: 20px;
+        }
+
+        .btn {
+          margin-left: 416px;
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1440px) {
+  #contact-section {
+    .contact {
+      .contact-address {
+        img {
+          width: 100vw;
+        }
+
+        .address {
+          top: 60%;
+          width: 404px;
+          left: 33%;
+          transform: translate(-67%, -40%);
+          height: 200px;
+        }
+      }
+
+      .contact-form {
+        right: 5%;
+        width: 525px;
+
+        .btn {
+          margin-left: 438px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1600px) {
+  #contact-section {
+    .contact {
+      .heading {
+        font-size: 30px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .contact-address {
+        img {
+          width: 100vw;
+        }
+
+        .address {
+          top: 65%;
+          transform: translate(-67%, -35%);
+          font-size: 18px;
+          height: 210px;
+        }
+      }
+
+      .contact-form {
+        right: 7%;
+
+        .form-control {
+          height: 40px;
+        }
+      }
+    }
   }
 }

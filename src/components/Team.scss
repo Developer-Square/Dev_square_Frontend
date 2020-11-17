@@ -70,3 +70,21 @@
 .team-bar {
   margin-bottom: 55px;
 }
+
+@media all and (min-width: 1600px) {
+  .team {
+    .heading {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .team-container {
+      .team-name {
+        font-size: 18px;
+      }
+    }
+  }
+}

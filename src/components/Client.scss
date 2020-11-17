@@ -105,6 +105,95 @@
 }
 
 .client-bar {
-  margin-top: 60px !important;
+  margin-top: 80px !important;
   margin-bottom: 45px;
+}
+
+@media all and (max-width: 320px) {
+  .clients {
+    .inner-heading {
+      margin-top: 190px;
+    }
+
+    .inner-text {
+      margin-top: 220px;
+    }
+
+    .client-pic {
+      margin-top: 315px;
+    }
+
+    .client-name {
+      margin-top: 410px;
+    }
+
+    .navigation {
+      top: 40px;
+    }
+
+    .logos {
+      margin-top: 485px;
+    }
+
+    .cover {
+      height: 655px;
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .clients {
+    .inner-heading {
+      margin-top: 200px;
+    }
+
+    .inner-text {
+      margin-top: 230px;
+    }
+
+    .client-pic {
+      margin-top: 325px;
+    }
+
+    .client-name {
+      margin-top: 405px;
+    }
+
+    .navigation-dots {
+      margin-top: 432px;
+    }
+
+    .logos {
+      margin-top: 230px;
+    }
+
+    .cover {
+      width: 100vw;
+      height: 485px;
+    }
+  }
+
+  .client-bar {
+    margin-top: 160px !important;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .clients {
+    .heading {
+      font-size: 30px;
+    }
+
+    .inner-heading {
+      font-size: 18px;
+    }
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .clients {
+    p {
+      font-size: 16px;
+    }
+  }
 }
