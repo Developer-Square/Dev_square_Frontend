@@ -40,6 +40,31 @@ const Switch = styled.div`
             box-shadow: 0 0 0 3px alpha(${({ theme }) => theme.primary}, 0.2);
         }
     }
+
+    .switch__label {
+        width: 100%;
+        height: 100%;
+        color: transparent;
+        user-select: none;
+        background-color: ${({theme}) => theme.textColor};
+        border-radius: inherit;
+        z-index: 1;
+        transition: background ${({theme}) => theme.switchAnimationDuration};
+    }
+
+    .switch__marker {
+        position: relative;
+        background-color: ${({theme}) => theme.primary};
+        width: calc(${({theme}) => theme.switchHeight} - ${({theme}) => theme.switchPadding} * 2);
+        height: calc(${({theme}) => theme.switchHeight} - ${({theme}) => theme.switchPadding} * 2);
+        z-index: 2;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.25);
+        left: ${({theme}) => theme.switchPadding};
+        transition: left ${({theme}) => theme.switchAnimationDuration};
+        will-change: left;
+    }
 `
 
 function ToggleSwitch() {
