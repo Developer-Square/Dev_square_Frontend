@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Homepage from './Homepage'
 import LoginAndSignUp from './components/LoginAndSignUp'
 import Dashboard from './Dashboard/Dashboard'
+import {ThemeContextProvider} from './context/themeContext'
 
 function Routes() {
     return (
@@ -12,7 +13,9 @@ function Routes() {
             <Switch>
                 <Route path="/" exact component={Homepage}/>
                 <Route path="/login" exact component={LoginAndSignUp}/>
-                <Route path="/dashboard" exact component={Dashboard}/>
+                <ThemeContextProvider>
+                    <Route path="/dashboard" exact component={Dashboard}/>
+                </ThemeContextProvider>
             </Switch>
         </BrowserRouter>
     )

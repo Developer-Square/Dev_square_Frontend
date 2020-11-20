@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Raleway&family=Roboto&family=Source+Sans+Pro&display=swap");
+:root {
+  --primary-background-color: #ffffff;
+  --secondary-background-color: #f0f0f0;
+  --alternative-background-color: #c4c4c4;
+  --services-background-color: #272727;
+  --alternative-services-background-color: #3d2329;
+  --secondary-services-background-color: #343434;
+  --blog-background-color: #000000;
+  --navbar-background-color: #201e2b;
+  --primary-link-color: #ccc;
+  --primary-border-color: #ff0036;
+  --primary-button-color: #131313;
+  --primary-font-color: #262626;
+  --secondary-font-color: #505050;
+  --tertiary-font-color: #a4a4a4;
+}
+
+html,
+body {
+  overflow-x: hidden !important;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-style: normal;
+  color: #262626;
+}
+
+@media all and (max-width: 575px) {
+  .larger-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 576px) {
+  #landing-section,
+  #services-section,
+  #contact-section,
+  #client-section,
+  #portfolio-section {
+    max-width: none;
+  }
+  .smaller-screens {
+    display: none;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .medium-lg-screens,
+  .medium-lg-screens-client {
+    display: none;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .medium-lg-screens,
+  .medium-lg-screens-client {
+    display: none;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .blog-icons {
+    max-width: 700px;
+  }
+}
+
+@media all and (min-width: 992px) {
+  .medium-sm-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .limit {
+    max-width: 1140px;
+  }
+}
+
+@media all and (min-width: 1440px) {
+  .container,
+  .limit {
+    max-width: 1200px;
+  }
+}
+
+@media all and (max-width: 1599px) {
+  .xl-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .medium-lg-screens {
+    display: none;
+  }
+  .portfolio .portfolio-images {
+    max-width: 1440px;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .navbar,
+  #landing-section,
+  #client-section,
+  #services-section,
+  #portfolio-section,
+  #contact-section,
+  #footer {
+    max-width: 1920px;
+  }
+}
+/*# sourceMappingURL=App.css.map */
