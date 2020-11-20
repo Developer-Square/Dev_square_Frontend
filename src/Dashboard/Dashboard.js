@@ -3,7 +3,7 @@ import {ThemeProvider} from 'styled-components'
 
 //Own Components
 import {GlobalStyles} from './styles/global'
-import {lightTheme, darkTheme} from './styles/theme'
+import {lightTheme} from './styles/theme'
 import Main from './Dashboard_Components/Main/Main'
 import SideBar from './Dashboard_Components/SideBar/SideBar'
 
