@@ -4,8 +4,7 @@ import styled from 'styled-components'
 const Container = styled.div`
     border-left: 3px solid ${props => props.active ? props.theme.activeMenu : "transparent"};
     width: 100%;
-    padding: 0.3rem;
-    padding-left: 2rem;
+    padding: 0.6rem 0.3rem 0.3rem 2rem;
     cursor: pointer;
     display: flex;
     flex-direction: row;

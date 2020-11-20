@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
+//Own Components
+import {useThemeContext} from '../../../context/themeContext'
+
 const Switch = styled.div`
     display: flex;
     flex-shrink: 0;
@@ -68,9 +71,11 @@ const Switch = styled.div`
 `
 
 function ToggleSwitch() {
+
+    const {toggleTheme} = useThemeContext()
     return (
         <Switch>
-            <input className="switch__input" type="checkbox" id="switchCheckbox"/>
+            <input className="switch__input" type="checkbox" id="switchCheckbox" onClick={toggleTheme}/>
             <label aria-hidden="true" className="switch__label" htmlFor="switchCheckbox">On</label>
             <div aria-hidden="true" className="switch__marker"></div>
         </Switch>
