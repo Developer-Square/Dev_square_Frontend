@@ -22,7 +22,7 @@ function SideBar() {
     return (
         <Container>
             <Profile />
-            <Menu />
+            <Menu/>
             <ToggleSwitch />
         </Container>
     )

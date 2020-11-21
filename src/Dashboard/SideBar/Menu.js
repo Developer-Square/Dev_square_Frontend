@@ -10,10 +10,11 @@ const Container = styled.div`
 `
 
 function Menu() {
+
     return (
         <Container>
-            <MenuItem title="Dashboard" icon="clarity:dashboard-outline-badged"/>
-            <MenuItem title="Users" icon="teenyicons:users-outline" active/>
+            <MenuItem title="Dashboard" icon="clarity:dashboard-outline-badged" onClick/>
+            <MenuItem title="Users" icon="teenyicons:users-outline"/>
             <MenuItem title="Tasks" icon="clarity:tasks-line"/>
             <MenuItem title="Portfolio" icon="bytesize:portfolio"/>
             <MenuItem title="Clients" icon="fa-solid:users"/>

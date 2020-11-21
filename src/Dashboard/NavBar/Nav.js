@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
+	width: auto;
+	margin-left: 16rem;
+	position: relative;
+	padding: 0 4rem;
 	display: flex;
 	padding: 1rem;
 	justify-content: flex-end;
@@ -29,7 +33,7 @@ function Nav() {
 				data-icon="carbon:email"
 				data-inline="false"
 			></MessageIcon>
-			<ProfileImg src="images/assets/dashboard_images/profilesm.png" />
+			<ProfileImg src="/images/assets/dashboard_images/profilelg.png" />
 		</Container>
 	);
 }
