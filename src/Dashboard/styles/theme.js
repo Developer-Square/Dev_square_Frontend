@@ -9,11 +9,13 @@ const globalTheme = {
     gradient: 'linear-gradient(122deg, rgba(128,74,216,1) 0%, rgba(98,75,217,1) 100%)',
     colorGreen: '#5DC399',
     colorGray: '#adadad',
+    dashboardBackground: '#eee',
+    darkColor: '#000000',
 }
 
 export const lightTheme = {
     primary: '#FFF',
-    secondary: '#F8F8F8',
+    secondary: '#F8F8F9',
     textColor: '#585280',
     header: '#585280',
     headerNumber: '#FFF',

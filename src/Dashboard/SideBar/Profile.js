@@ -18,7 +18,7 @@ function Profile() {
     return (
         <Container>
             <ProfileImg src="/images/assets/dashboard_images/profilelg.png"/>
-            <ProfileName>Scott Grant</ProfileName>
+            <ProfileName>Ryan Njoroge</ProfileName>
         </Container>
     )
 }

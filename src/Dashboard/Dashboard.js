@@ -1,5 +1,6 @@
 import React from 'react'
 import {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 
 //Own Components
 import {GlobalStyles} from './styles/global'
@@ -8,6 +9,15 @@ import Nav from './NavBar/Nav'
 import SideBar from './SideBar/SideBar'
 import {useThemeContext} from '../context/themeContext'
 
+const Container = styled.div`
+    width: auto;
+    height: 100vh;
+    margin-left: 16rem;
+    position: relative;
+    padding: 0 4rem;
+    background: ${({theme}) => theme.secondary};
+`
+
 function Dashboard({history, children}) {
 
     const {theme} = useThemeContext()
@@ -15,8 +25,10 @@ function Dashboard({history, children}) {
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <GlobalStyles />
             <SideBar/>
-            <Nav />
-            {children}
+            <Container>
+                <Nav />
+                {children}
+            </Container>
         </ThemeProvider>
     )
 }

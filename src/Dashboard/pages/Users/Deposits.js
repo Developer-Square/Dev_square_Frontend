@@ -4,7 +4,7 @@ import styled from "styled-components";
 //Own Components
 import SortingBar from "./SortingBar";
 import Deposit from './Deposit'
-import AllDepositButton from './AllDepositButton'
+import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 
 const Container = styled.div``;
 
@@ -37,7 +37,7 @@ function Deposits({ title, data, count }) {
 			{data.map((deposit) => (
 				<Deposit data={deposit} key={deposit.property.address.street}/>
 			))}
-			<AllDepositButton title={title}/>
+			<ViewAllButton title={title}/>
 		</Container>
 	);
 }

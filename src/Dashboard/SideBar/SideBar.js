@@ -7,7 +7,7 @@ import Menu from './Menu'
 import ToggleSwitch from './ToggleSwitch'
 
 const Container = styled.div`
-    background-color: ${({theme}) => theme.secondary};
+    background-color: ${({theme}) => theme.primary};
     position: fixed;
     top: 0;
     bottom: 0;

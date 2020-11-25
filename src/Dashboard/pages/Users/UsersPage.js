@@ -8,7 +8,7 @@ import Deposits from "./Deposits";
 import depositData from "../../../DepositData.json";
 
 const Container = styled.div`
-    margin-left: 16rem;
+
 `
 
 function UsersPage() {
