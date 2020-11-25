@@ -11,6 +11,9 @@ const globalTheme = {
     colorGray: '#adadad',
     dashboardBackground: '#eee',
     darkColor: '#000000',
+    newTasks: '#4504b5',
+    completedTasks: '#068f21',
+    progessTasks: '#dbb902',
 }
 
 export const lightTheme = {
