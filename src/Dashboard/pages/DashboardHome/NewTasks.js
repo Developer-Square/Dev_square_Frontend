@@ -4,38 +4,24 @@ import styled from 'styled-components'
 //Own Components
 import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 
-const Container = styled.div`
-    .card {
-        box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
-        border-width: 0;
-        transition: all .2s;
-    }
-
-    .main-card {
-        width: 685px;
-        height: auto;
-    }
-
-    
+const Container = styled.div`    
     .card-body {
         padding: 0;
         align-items: center;
     }
 
-    .card-title {
-        display: flex;
-        align-items: center;
-        padding: .75rem 1.25rem;
-        height: 3.5rem;
-        color: ${({theme}) => theme.darkColor};
-        font-weight: 600;
-        border-bottom: 1px solid rgba(0,0,0,.125);
+    .first {
+        margin-top: -18px;
+    }
+
+    .scroll-area {
+        height: 250px;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
     .list-group {
         padding: .5rem;
-        /* height: 250px; */
-        overflow-x: hidden;
     }
 
     .content-wrapper {
@@ -58,38 +44,6 @@ const Container = styled.div`
         position: absolute;
         z-index: -1;
         opacity: 0;
-    }
-
-    .custom-control-label {
-        position: relative;
-        margin-bottom: 0;
-        vertical-align: top;
-    }
-
-    .custom-control-label:before {
-        border-radius: .25rem;
-        transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        position: absolute;
-        top: .16rem;
-        left: -1.5rem;
-        display: block;
-        width: 1rem;
-        height: 1rem;
-        content: "";
-        pointer-events: none;
-        background-color: #fff;
-        border: 1px solid #adb5bd;
-    }
-
-    .custom-control-label:after {
-        background: no-repeat 50%/50% 50%;
-        position: absolute;
-        top: .16rem;
-        left: -1.5rem;
-        display: block;
-        width: 1rem;
-        height: 1rem;
-        content: "";
     }
 
     .badge {
@@ -123,6 +77,25 @@ const Container = styled.div`
     }
 `
 
+const CardContainer = styled.div`
+    width: auto;
+    height: auto;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+    border-width: 0;
+    transition: all .2s;
+`
+
+const CardTitle = styled.div`
+    display: flex;
+    align-items: center;
+    padding: .75rem 1.25rem;
+    height: 3.5rem;
+    color: ${({theme}) => theme.darkColor};
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    font-size: 1.2rem;
+`
+
 const Indicator = styled.div`
     position: absolute;
     width: 4px;
@@ -135,6 +108,38 @@ const Indicator = styled.div`
     background: ${({theme}) => theme.newTasks};
 `
 
+const CustomControlLabel = styled.div`
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+
+    &:before {
+        border-radius: .25rem;
+        transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        position: absolute;
+        top: .16rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        pointer-events: none;
+        background-color: #fff;
+        border: 1px solid #adb5bd;
+    }
+
+    &:after {
+        background: no-repeat 50%/50% 50%;
+        position: absolute;
+        top: .16rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+    }
+`
+
 export default function Card({number, name, backgroundIcon, icon, color}) {
 
     let today = new Date()
@@ -142,181 +147,184 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
 
     return (
         <Container backgroundIcon={backgroundIcon} color={color}>
-            <div class="main-card mb-3 card">
-                <div class="card-body"><h5 class="card-title">TASKS LIST</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+            <CardContainer className="main-card mb-3 card">
+                <div className="card-body">
+                    <CardTitle className="card-title">TASKS LIST</CardTitle>
+                    <div className="scroll-area">
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item first">
                             <Indicator className="bg-danger"></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox1">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox1" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox1">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Create a logo
-                                        <div class="badge badge-danger ml-2">Rejected</div>
+                                        <div className="badge badge-danger ml-2">Rejected</div>
                                     </div>
-                                    <div class="widget-subheading">
+                                    <div className="widget-subheading">
                                         <i>Written by Linus at {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li className="list-group-item">
                             <Indicator className=""></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox2" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Users should be able to login
-                                        <div class="badge badge-info ml-2">Approved</div>
+                                        <div className="badge badge-info ml-2">Approved</div>
                                     </div>
-                                    <div class="widget-subheading">
-                                        <i>Written by Frank</i>
+                                    <div className="widget-subheading">
+                                        <i>Written by Frank at {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li className="list-group-item">
                             <Indicator className=""></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox3" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Add a new Table to the dashboard
-                                        <div class="badge badge-info ml-2">Approved</div>
+                                        <div className="badge badge-info ml-2">Approved</div>
                                     </div>
-                                    <div class="widget-subheading">
-                                        <i>Written by Ryan</i>
+                                    <div className="widget-subheading">
+                                        <i>Written by Ryan {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li className="list-group-item">
                             <Indicator className="bg-success"></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox4" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox4">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox4" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox4">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Create new queries in the backend
-                                        <div class="badge badge-success ml-2">Completed</div>
+                                        <div className="badge badge-success ml-2">Completed</div>
                                     </div>
-                                    <div class="widget-subheading">
-                                        <i>Written by Timo</i>
+                                    <div className="widget-subheading">
+                                        <i>Written by Timo at {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li className="list-group-item">
                             <Indicator className="bg-success"></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox5" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox5">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox5" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-CustomControlLabel" for="exampleCustomCheckbox5">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Add new loading component
-                                        <div class="badge badge-success ml-2">Completed</div>
+                                        <div className="badge badge-success ml-2">Completed</div>
                                     </div>
-                                    <div class="widget-subheading">
-                                        <i>Written by Clinton</i>
+                                    <div className="widget-subheading">
+                                        <i>Written by Clinton at {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
+                        <li className="list-group-item">
                             <Indicator className="bg-success"></Indicator>
                             <div className="content-wrapper">
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
-                                        <input type="checkbox" id="exampleCustomCheckbox6" class="custom-control-input" />
-                                        <label class="custom-control-label" for="exampleCustomCheckbox6">&nbsp;</label>
+                                        <input type="checkbox" id="exampleCustomCheckbox6" className="custom-control-input" />
+                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox6">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">
                                         Update the users database
-                                        <div class="badge badge-success ml-2">Completed</div>
+                                        <div className="badge badge-success ml-2">Completed</div>
                                     </div>
-                                    <div class="widget-subheading">
-                                        <i>Written by Sophie</i>
+                                    <div className="widget-subheading">
+                                        <i>Written by Sophie at {time}</i>
                                     </div>
                                 </div>
-                                <div class="widget-content-right widget-content-actions">
-                                    <button class="border-0 btn-transition btn tick btn-outline-success">
-                                        <span class="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
+                                <div className="widget-content-right widget-content-actions">
+                                    <button className="border-0 btn-transition btn tick btn-outline-success">
+                                        <span className="iconify" data-icon="teenyicons:tick-small-solid" data-inline="false"></span>
                                     </button>
-                                    <button class="border-0 btn-transition btn btn-outline-danger">
-                                        <span class="iconify" data-icon="carbon:delete" data-inline="false"></span>
+                                    <button className="border-0 btn-transition btn btn-outline-danger">
+                                        <span className="iconify" data-icon="carbon:delete" data-inline="false"></span>
                                     </button>
                                 </div>
                             </div>
                         </li>
                     </ul>
+                    </div>
                 </div>
-                <ViewAllButton title="Tasks"/>
-            </div>
+                <ViewAllButton title="Tasks" marginTop="10px" marginBottom="10px"/>
+            </CardContainer>
         </Container>
     )
 }
