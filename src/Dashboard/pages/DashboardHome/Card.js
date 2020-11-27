@@ -54,14 +54,14 @@ const Tasks = styled.div`
 export default function Card({number, name, backgroundIcon, icon, color}) {
     return (
         <Container backgroundIcon={backgroundIcon} color={color}>
-            <div class="main-card mb-3 card">
-                <div class="card-body d-flex">
-                    <h5 class="card-title ml-1">
-                        <span class="iconify" data-icon={icon} data-inline="false"></span>
+            <div className="main-card mb-3 card">
+                <div className="card-body d-flex">
+                    <h5 className="card-title ml-1">
+                        <span className="iconify" data-icon={icon} data-inline="false"></span>
                     </h5>
                     <div className="ml-4">
                         <Tasks>{number}</Tasks>
-                        <p class="name">{name}</p>
+                        <p className="name">{name}</p>
                     </div>
                 </div>
             </div>

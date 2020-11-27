@@ -48,13 +48,13 @@ const Container = styled.div`
 
     .badge {
         font-weight: 700;
-        text-transform: uppercase;
+        text-transhtmlForm: uppercase;
         padding: 5px 10px;
         min-width: 19px;
     }
 
     .widget-subheading {
-        text-transform: capitalize;
+        text-transhtmlForm: capitalize;
         opacity: .5;
     }
 
@@ -113,7 +113,7 @@ const CustomControlLabel = styled.div`
     margin-bottom: 0;
     vertical-align: top;
 
-    &:before {
+    &:behtmlFore {
         border-radius: .25rem;
         transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         position: absolute;
@@ -146,7 +146,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
     let time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
 
     return (
-        <Container backgroundIcon={backgroundIcon} color={color}>
+        <Container>
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
                     <CardTitle className="card-title">TASKS LIST</CardTitle>
@@ -158,7 +158,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox1" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox1">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox1">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -186,7 +186,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox2" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-label" htmlhtmlFor="exampleCustomCheckbox2">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -214,7 +214,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox3" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox3">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -242,7 +242,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox4" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox4">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox4">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -270,7 +270,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox5" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-CustomControlLabel" for="exampleCustomCheckbox5">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-CustomControlLabel" htmlFor="exampleCustomCheckbox5">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -298,7 +298,7 @@ export default function Card({number, name, backgroundIcon, icon, color}) {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox6" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" for="exampleCustomCheckbox6">&nbsp;</CustomControlLabel>
+                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox6">&nbsp;</CustomControlLabel>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
