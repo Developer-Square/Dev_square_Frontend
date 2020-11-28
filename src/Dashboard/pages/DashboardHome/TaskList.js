@@ -140,7 +140,7 @@ const CustomControlLabel = styled.div`
     }
 `
 
-export default function TaskList({number, name, backgroundIcon, icon, color}) {
+export default function TaskList() {
 
     let today = new Date()
     let time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
@@ -149,7 +149,7 @@ export default function TaskList({number, name, backgroundIcon, icon, color}) {
         <Container>
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
-                    <CardTitle className="card-title">TASKS LIST</CardTitle>
+                    <CardTitle className="card-title">Task List</CardTitle>
                     <div className="scroll-area">
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item first">

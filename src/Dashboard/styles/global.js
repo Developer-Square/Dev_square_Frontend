@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     transition: all 0.3s ease-in-out;
   }
 `

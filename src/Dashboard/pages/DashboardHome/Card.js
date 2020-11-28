@@ -9,7 +9,7 @@ const Container = styled.div`
     }
 
     .main-card {
-        width: 255px;
+        width: 250px;
         height: auto;
         border-radius: 35px;
         margin-bottom: 50px !important;
@@ -42,6 +42,7 @@ const Container = styled.div`
         color: #AAA5A5;
         font-weight: 600;
         margin-top: -10px;
+        font-size: 15px;
     }
 `
 
