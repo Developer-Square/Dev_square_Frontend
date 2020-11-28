@@ -45,14 +45,15 @@ export default function PieChart() {
     const [data, setData] = useState('')
 
     const chartData = {
-        labels: ['Completed Tasks', 'Tasks In Progress', 'Task Not Started'],
+        labels: ['Completed Tasks', 'Tasks On Hold', 'Tasks In Progress', 'Task Not Started'],
         datasets: [{
             label: 'Project Diamond',
-            data: [45, 33, 78],
+            data: [45, 8, 33, 78 ],
             backgroundColor: [
                 '#12e64b',
+                '#085ed4',
                 '#f1f50a',
-                '#8b16f2'
+                '#8b16f2',
             ]
         }]
     }

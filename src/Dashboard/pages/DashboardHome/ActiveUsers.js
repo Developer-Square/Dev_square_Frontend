@@ -238,7 +238,7 @@ export default function ActiveUsers() {
                                 </td>
                                 <td class="text-center">{time}</td>
                                 <td class="text-center">
-                                    <div class="badge badge-warning">Inactive</div>
+                                    <div class="badge badge-info">On Hold</div>
                                 </td>
                                 <td class="text-center">
                                     <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">Details</button>

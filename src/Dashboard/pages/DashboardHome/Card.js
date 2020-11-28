@@ -9,7 +9,7 @@ const Container = styled.div`
     }
 
     .main-card {
-        width: 256px;
+        width: 255px;
         height: auto;
         border-radius: 35px;
         margin-bottom: 50px !important;
