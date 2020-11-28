@@ -29,7 +29,7 @@ function Nav() {
 				data-icon="carbon:email"
 				data-inline="false"
 			></MessageIcon>
-			<ProfileImg src="images/assets/dashboard_images/profilesm.png" />
+			<ProfileImg src="/images/assets/dashboard_images/profilelg.png" />
 		</Container>
 	);
 }

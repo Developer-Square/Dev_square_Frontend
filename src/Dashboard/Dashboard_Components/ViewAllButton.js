@@ -5,7 +5,8 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem 0;
+    margin-top: ${props => props.marginTop};
+    margin-bottom: ${props => props.marginBottom};
 `
 
 const Button = styled.a`
@@ -29,12 +30,12 @@ const Button = styled.a`
     }
 `
 
-function AllDepositButton({title}) {
+function ViewAllButton({title, marginTop, marginBottom}) {
     return (
-        <Container>
+        <Container marginTop={marginTop} marginBottom={marginBottom}>
             <Button>All {title}</Button>
         </Container>
     )
 }
 
-export default AllDepositButton;
+export default ViewAllButton;

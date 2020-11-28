@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 //Own Components
-import {useThemeContext} from '../../../context/themeContext'
+import {useThemeContext} from '../../context/themeContext'
 
 const Switch = styled.div`
     display: flex;
