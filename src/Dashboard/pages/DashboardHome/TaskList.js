@@ -140,7 +140,7 @@ const CustomControlLabel = styled.div`
     }
 `
 
-export default function Card({number, name, backgroundIcon, icon, color}) {
+export default function TaskList({number, name, backgroundIcon, icon, color}) {
 
     let today = new Date()
     let time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`

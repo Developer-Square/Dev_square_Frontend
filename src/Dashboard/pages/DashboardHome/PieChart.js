@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import {Dropdown, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Doughnut} from 'react-chartjs-2'
 
 const Container = styled.div`
@@ -7,11 +8,17 @@ const Container = styled.div`
         padding: 0;
         align-items: center;
     }
+
+    .dropdown {
+        width: 30%;
+        margin-left: auto;
+        margin-bottom: 15px;
+    }
 `
 
 const CardContainer = styled.div`
-    width: auto;
-    height: auto;
+    width: 500px;
+    height: 377px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
     border-width: 0;
     transition: all .2s;
@@ -29,6 +36,12 @@ const CardTitle = styled.div`
 `
 
 export default function PieChart() {
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Select your project to see the progress
+        </Tooltip>
+      );
+      
     const [data, setData] = useState('')
 
     const chartData = {
@@ -37,37 +50,54 @@ export default function PieChart() {
             label: 'Project Diamond',
             data: [45, 33, 78],
             backgroundColor: [
-                '#50b340',
-                '#ecf07d',
-                '#585280'
+                '#12e64b',
+                '#f1f50a',
+                '#8b16f2'
             ]
         }]
     }
 
     useEffect(() => {
         setData(chartData)
-    }, [chartData])
+    // eslint-disable-next-line    
+    }, [])
 
     return (
         <Container>
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
                     <CardTitle className="card-title">Projects</CardTitle>
+                    <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                    >
+                        <Dropdown>
+                            <Dropdown.Toggle variant="light" id="dropdown-basic">
+                                Project Izuku
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#">Project Izuku</Dropdown.Item>
+                                <Dropdown.Item href="#">Project Eren</Dropdown.Item>
+                                <Dropdown.Item href="#">Projec Ippo</Dropdown.Item>
+                                <Dropdown.Item href="#">Projec Issei</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </OverlayTrigger>
+
                     <div className="chart">
                         <Doughnut 
-                            height={300}
+                            width={1110}
+                            height={554}
                             data={data}
                             options={{
-                                title: {
-                                    display: true,
-                                    text: `Check the progress of your project`,
-                                    fontSize: 24
-                                },
                                 legend: {
                                     display: true,
-                                    position: "bottom",
+                                    position: "top",
                                     labels: {
-                                        fontColor: '#585280'
+                                        fontColor: '#585280',
+                                        fontSize: 15
                                     }
                                 }
                             }}

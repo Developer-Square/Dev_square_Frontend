@@ -11,7 +11,6 @@ import {useThemeContext} from '../context/themeContext'
 
 const Container = styled.div`
     width: auto;
-    height: 100vh;
     margin-left: 16rem;
     position: relative;
     padding: 0 4rem;
