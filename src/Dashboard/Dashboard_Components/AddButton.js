@@ -11,7 +11,7 @@ const Container = styled.a`
 	border-radius: 25px;
 	position: absolute;
 	top: 6rem;
-	right: 7rem;
+	right: 4.5rem;
 	cursor: pointer;
 	transition: all ease-in-out 300ms;
 
@@ -25,13 +25,15 @@ const AddIcon = styled.span`
 	font-size: 36px;
 `;
 
-function AddButton() {
+function AddButton(props) {
+
 	return (
-		<Container>
+		<Container {...props}>
 			<AddIcon
 				className="iconify"
 				data-inline="false"
 				data-icon="mdi-light:plus"
+				onClick={props.onShow}
 			/>
 		</Container>
 	);

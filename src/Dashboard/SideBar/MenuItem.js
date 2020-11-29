@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 const Container = styled.a`
     border-left: 3px solid ${props => props.active === 'true' ? props.theme.activeMenu : "transparent"};
+    background-color: ${props => props.active === 'true' ? 'rgba(0,0,0,0.1)' : "transparent"};
     width: 100%;
     padding: 0.6rem 0.3rem 0.3rem 2rem;
     cursor: pointer;
@@ -33,7 +34,6 @@ const Title = styled.h1`
 `
 
 function MenuItem({active, icon, title, history}) {
-
     const navigation = () => {
         if (title === 'Dashboard') {
             history.push('/dashboard/home')

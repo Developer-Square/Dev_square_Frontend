@@ -75,183 +75,183 @@ export default function ActiveUsers() {
             <CardContainer className="main-card mb-3 card">
                     <CardTitle className="card-title">
                         Active Users
-                        <div class="btn-actions-pane-right ml-auto">
-                            <div role="group" class="btn-group-sm btn-group">
-                                <button class="active btn btn-focus">Last Week</button>
-                                <button class="btn btn-focus">All Month</button>
+                        <div className="btn-actions-pane-right ml-auto">
+                            <div role="group" className="btn-group-sm btn-group">
+                                <button className="active btn btn-focus">Last Week</button>
+                                <button className="btn btn-focus">All Month</button>
                             </div>
                         </div>
                     </CardTitle>
-                    <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <div className="table-responsive">
+                        <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                             <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th className="text-center">#</th>
                                 <th>Name</th>
-                                <th class="text-center">Last Seen</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Actions</th>
+                                <th className="text-center">Last Seen</th>
+                                <th className="text-center">Status</th>
+                                <th className="text-center">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="text-center text-muted">#1</td>
+                                <td className="text-center text-muted">#1</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/4.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/4.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Linus</div>
-                                                <div class="widget-subheading opacity-7">BackEnd Developer</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Linus</div>
+                                                <div className="widget-subheading opacity-7">BackEnd Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-success">Active</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-success">Active</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-1" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-muted">#2</td>
+                                <td className="text-center text-muted">#2</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/5.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/5.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Sophie</div>
-                                                <div class="widget-subheading opacity-7">Data Analyst</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Sophie</div>
+                                                <div className="widget-subheading opacity-7">Data Analyst</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-warning">Inactive</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-warning">Inactive</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-2" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-muted">#3</td>
+                                <td className="text-center text-muted">#3</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/2.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/2.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Ryan Njoroge</div>
-                                                <div class="widget-subheading opacity-7">FrontEnd Developer</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Ryan Njoroge</div>
+                                                <div className="widget-subheading opacity-7">FrontEnd Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-success">Active</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-success">Active</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-3" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-3" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-muted">#4</td>
+                                <td className="text-center text-muted">#4</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/11.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/11.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Clinton</div>
-                                                <div class="widget-subheading opacity-7">Full Stack Ruby Developer</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Clinton</div>
+                                                <div className="widget-subheading opacity-7">Full Stack Ruby Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-warning">Inactive</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-warning">Inactive</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-4" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-muted">#5</td>
+                                <td className="text-center text-muted">#5</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/8.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/8.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Franklin</div>
-                                                <div class="widget-subheading opacity-7">BankEnd Python Developer</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Franklin</div>
+                                                <div className="widget-subheading opacity-7">BankEnd Python Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-success">Active</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-success">Active</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-4" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center text-muted">#6</td>
+                                <td className="text-center text-muted">#6</td>
                                 <td>
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="widget-content-left">
-                                                    <img width="40" class="rounded-circle" src="/images/avatars/9.jpg" alt="" />
+                                    <div className="widget-content p-0">
+                                        <div className="widget-content-wrapper">
+                                            <div className="widget-content-left mr-3">
+                                                <div className="widget-content-left">
+                                                    <img width="40" className="rounded-circle" src="/images/avatars/9.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Timo</div>
-                                                <div class="widget-subheading opacity-7">Full Stack PHP Developer</div>
+                                            <div className="widget-content-left flex2">
+                                                <div className="widget-heading">Timo</div>
+                                                <div className="widget-subheading opacity-7">Full Stack PHP Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{time}</td>
-                                <td class="text-center">
-                                    <div class="badge badge-info">On Hold</div>
+                                <td className="text-center">{time}</td>
+                                <td className="text-center">
+                                    <div className="badge badge-info">On Hold</div>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">Details</button>
+                                <td className="text-center">
+                                    <button type="button" id="PopoverCustomT-4" className="btn btn-primary btn-sm">Details</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-block text-center card-footer">
-                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+                    <div className="d-block text-center card-footer">
+                        <button className="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                             Cancel
                         </button>
-                        <button class="btn-wide btn btn-info">Visit Profiles</button>
+                        <button className="btn-wide btn btn-info">Visit Profiles</button>
                     </div>
             </CardContainer>
         </Container>

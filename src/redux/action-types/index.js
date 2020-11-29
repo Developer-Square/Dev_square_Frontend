@@ -1,0 +1,1 @@
+export const CHANGE_MENU_LINK = 'CHANGE_MENU_LINK'

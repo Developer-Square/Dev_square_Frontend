@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
-import {Dropdown, Tooltip, OverlayTrigger} from 'react-bootstrap'
+import {Form, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Doughnut} from 'react-chartjs-2'
 
 const Container = styled.div`
@@ -9,8 +9,9 @@ const Container = styled.div`
         align-items: center;
     }
 
-    .dropdown {
-        width: 30%;
+    .form-control {
+        margin-right: 15px;
+        width: 40%;
         margin-left: auto;
         margin-bottom: 15px;
     }
@@ -42,9 +43,8 @@ export default function PieChart() {
         </Tooltip>
       );
       
-    const [data, setData] = useState('')
-
-    const chartData = {
+    let [data] = useState('')
+     data = {
         labels: ['Completed Tasks', 'Tasks On Hold', 'Tasks In Progress', 'Task Not Started'],
         datasets: [{
             label: 'Project Diamond',
@@ -58,11 +58,6 @@ export default function PieChart() {
         }]
     }
 
-    useEffect(() => {
-        setData(chartData)
-    // eslint-disable-next-line    
-    }, [])
-
     return (
         <Container>
             <CardContainer className="main-card mb-3 card">
@@ -72,19 +67,13 @@ export default function PieChart() {
                         placement="top"
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
-                    >
-                        <Dropdown>
-                            <Dropdown.Toggle variant="light" id="dropdown-basic">
-                                Project Izuku
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#">Project Izuku</Dropdown.Item>
-                                <Dropdown.Item href="#">Project Eren</Dropdown.Item>
-                                <Dropdown.Item href="#">Projec Ippo</Dropdown.Item>
-                                <Dropdown.Item href="#">Projec Issei</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                    >   
+                        <Form.Control as="select">
+                            <option>Project Izuku</option>
+                            <option>Project Eren</option>
+                            <option>Projec Ippo</option>
+                            <option>Projec Issei</option>
+                        </Form.Control>
                     </OverlayTrigger>
 
                     <div className="chart">
