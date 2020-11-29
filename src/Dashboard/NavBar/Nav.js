@@ -17,8 +17,15 @@ const ProfileImg = styled.img`
 
 const MessageIcon = styled.span`
 	color: ${({ theme }) => theme.colorGray};
-	font-size: 26px;
+	font-size: 41px;
 	cursor: pointer;
+	padding: .5rem;
+	transition: all .5s ease-in-out;
+	border-radius: 50%;
+
+	&:hover {
+		background: rgba(0,0,0,0.1);
+	}
 `;
 
 function Nav() {
