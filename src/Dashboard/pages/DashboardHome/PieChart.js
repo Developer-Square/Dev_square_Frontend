@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import {Dropdown, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Doughnut} from 'react-chartjs-2'
@@ -42,9 +42,8 @@ export default function PieChart() {
         </Tooltip>
       );
       
-    const [data, setData] = useState('')
-
-    const chartData = {
+    let [data] = useState('')
+     data = {
         labels: ['Completed Tasks', 'Tasks On Hold', 'Tasks In Progress', 'Task Not Started'],
         datasets: [{
             label: 'Project Diamond',
@@ -57,11 +56,6 @@ export default function PieChart() {
             ]
         }]
     }
-
-    useEffect(() => {
-        setData(chartData)
-    // eslint-disable-next-line    
-    }, [])
 
     return (
         <Container>

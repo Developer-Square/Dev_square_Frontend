@@ -20,7 +20,7 @@ function Header() {
             <Navbar className="mx-auto" expand="md" variant="dark">
                 <Navbar.Brand href="#home" onClick={() => scrollFunction('landing-section', 0)}>
                     <img src="images/Logo-2.webp" className="img-fluid" alt="Logo"/>
-                    <span className="logo-text pl-2">Lotus</span></Navbar.Brand>
+                    <span className="logo-text pl-2">Cosmic Software Solutions</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>

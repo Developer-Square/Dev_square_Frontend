@@ -48,13 +48,13 @@ const Container = styled.div`
 
     .badge {
         font-weight: 700;
-        text-transhtmlForm: uppercase;
+        text-transform: uppercase;
         padding: 5px 10px;
         min-width: 19px;
     }
 
     .widget-subheading {
-        text-transhtmlForm: capitalize;
+        text-transform: capitalize;
         opacity: .5;
     }
 
@@ -113,7 +113,7 @@ const CustomControlLabel = styled.div`
     margin-bottom: 0;
     vertical-align: top;
 
-    &:behtmlFore {
+    &:before {
         border-radius: .25rem;
         transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         position: absolute;
