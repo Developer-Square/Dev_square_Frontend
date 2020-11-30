@@ -34,10 +34,10 @@ const Status = styled(Text)``;
 function SortingBar() {
 	return (
 		<Container>
-			<Property>Property</Property>
-			<MoveInDate>Move In Date</MoveInDate>
-			<Rent>Rent</Rent>
-			<Deposit>Deposit</Deposit>
+			<Property>Username</Property>
+			<MoveInDate>Email</MoveInDate>
+			<Rent>Latest Login</Rent>
+			<Deposit>Tasks Completed</Deposit>
 			<Status>Status</Status>
 		</Container>
 	);

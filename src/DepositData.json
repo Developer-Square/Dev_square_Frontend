@@ -3,41 +3,109 @@
         {
             "property": {
                 "address": {
-                    "street": "771 Lost Round",
-                    "city": "Sacramento",
-                    "state": "CA"
+                    "street": "Ryann254",
+                    "city": "Frontend Developer"
                 },
-                "imageUrl": "lostround.png"
+                "imageUrl": "4.jpg"
             },
-            "moveInDate": "25 February 2020",
-            "rent": 3000.00,
+            "moveInDate": "ryann254@gmail.com",
+            "rent": "25 February 2020",
             "deposit": {
-                "amount": 9000.00,
-                "type": "First, Last & Security"
+                "amount": 23
             },
             "status": {
-                "message": "Awaiting Bank Processing",
-                "level": 2 
+                "message": "Not Active",
+                "level": 2
             }
         },
         {
             "property": {
                 "address": {
-                    "street": "1491 Jagged Arbor",
-                    "city": "San Antonio",
-                    "state": "TX"
+                    "street": "Linus34",
+                    "city": "Backend Developer"
                 },
-                "imageUrl": "jaggedarbor.png"
+                "imageUrl": "3.jpg"
             },
-            "moveInDate": "12 March 2020",
-            "rent": 2300.00,
+            "moveInDate": "linus34@gmail.com",
+            "rent": "12 March 2020",
             "deposit": {
-                "amount": 4600.00,
-                "type": "First & Last"
+                "amount": 46
             },
             "status": {
-                "message": "Payment Processed",
-                "level": 3 
+                "message": "Active",
+                "level": 3
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Timo",
+                    "city": "Backend Developer"
+                },
+                "imageUrl": "8.jpg"
+            },
+            "moveInDate": "timo@gmail.com",
+            "rent": "12 June 2020",
+            "deposit": {
+                "amount": 20
+            },
+            "status": {
+                "message": "Active",
+                "level": 3
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Sophie",
+                    "city": "Backend Developer"
+                },
+                "imageUrl": "8.jpg"
+            },
+            "moveInDate": "timo@gmail.com",
+            "rent": "12 June 2020",
+            "deposit": {
+                "amount": 20
+            },
+            "status": {
+                "message": "Active",
+                "level": 3
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Franklin",
+                    "city": "Backend Developer"
+                },
+                "imageUrl": "8.jpg"
+            },
+            "moveInDate": "timo@gmail.com",
+            "rent": "12 June 2020",
+            "deposit": {
+                "amount": 20
+            },
+            "status": {
+                "message": "Active",
+                "level": 3
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Clinton",
+                    "city": "Backend Developer"
+                },
+                "imageUrl": "8.jpg"
+            },
+            "moveInDate": "timo@gmail.com",
+            "rent": "12 June 2020",
+            "deposit": {
+                "amount": 20
+            },
+            "status": {
+                "message": "Active",
+                "level": 3
             }
         }
     ],
@@ -45,41 +113,73 @@
         {
             "property": {
                 "address": {
-                    "street": "1694 Noble Cape",
-                    "city": "Las Vegas",
-                    "state": "NV"
+                    "street": "Collins",
+                    "city": "Client"
                 },
-                "imageUrl": "noblecape.png"
+                "imageUrl": "2.jpg"
             },
-            "moveInDate": "3 February 2020",
-            "rent": 3300.00,
+            "moveInDate": "client21@gmail.com",
+            "rent": "12 March 2020",
             "deposit": {
-                "amount": 6900.00,
-                "type": "Complete"
+                "amount": 0
             },
             "status": {
-                "message": "Awaiting Bank Processing",
-                "level": 3 
+                "message": "Deactivated",
+                "level": 1
             }
         },
         {
             "property": {
                 "address": {
-                    "street": "1141 Tawny Maze",
-                    "city": "Raleigh",
-                    "state": "NC"
+                    "street": "Collins",
+                    "city": "Client"
                 },
-                "imageUrl": "tawnymaze.png"
+                "imageUrl": "3.jpg"
             },
-            "moveInDate": "12 January 2020",
-            "rent": 2500.00,
+            "moveInDate": "client21@gmail.com",
+            "rent": "12 March 2020",
             "deposit": {
-                "amount": 7500.00,
-                "type": "First, Last & Security"
+                "amount": 0
             },
             "status": {
-                "message": "Expired: No Payment Received",
-                "level": 1 
+                "message": "Deactivated",
+                "level": 1
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Collins",
+                    "city": "Client"
+                },
+                "imageUrl": "3.jpg"
+            },
+            "moveInDate": "client21@gmail.com",
+            "rent": "12 March 2020",
+            "deposit": {
+                "amount": 0
+            },
+            "status": {
+                "message": "Deactivated",
+                "level": 1
+            }
+        },
+        {
+            "property": {
+                "address": {
+                    "street": "Collins",
+                    "city": "Client"
+                },
+                "imageUrl": "3.jpg"
+            },
+            "moveInDate": "client21@gmail.com",
+            "rent": "12 March 2020",
+            "deposit": {
+                "amount": 0
+            },
+            "status": {
+                "message": "Deactivated",
+                "level": 1
             }
         }
     ]

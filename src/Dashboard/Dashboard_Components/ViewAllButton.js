@@ -30,9 +30,9 @@ const Button = styled.a`
     }
 `
 
-function ViewAllButton({title, marginTop, marginBottom}) {
+function ViewAllButton({title, marginTop, marginBottom, onClick}) {
     return (
-        <Container marginTop={marginTop} marginBottom={marginBottom}>
+        <Container marginTop={marginTop} marginBottom={marginBottom} onClick={onClick}>
             <Button>All {title}</Button>
         </Container>
     )

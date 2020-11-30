@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 
 //Own Components
 import AddButton from "../../Dashboard_Components/AddButton";
-import Deposits from "./Deposits";
+import Users from "./Users";
+import UsersModal from './UsersModal'
 
 import depositData from "../../../DepositData.json";
 
@@ -12,11 +13,14 @@ const Container = styled.div`
 `
 
 function UsersPage() {
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <Container>
-            <AddButton />
-			<Deposits title="Active Deposits" count={2} data={depositData.active} />
-			<Deposits title="Closed Deposits" count={8} data={depositData.closed} />
+            <AddButton onClick={() => setModalShow(true)}  />
+            <UsersModal show={modalShow} onHide={() => setModalShow(false)}/>
+			<Users title="Active Accounts" count={6} data={depositData.active} />
+			<Users title="Closed Accounts" count={3} data={depositData.closed} />
         </Container>
     )
 }
