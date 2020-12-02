@@ -27,27 +27,17 @@ export default function UsersModal(props) {
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text" placeholder="Username..." />
                     </Form.Group>
+                    <Form.Label>Role</Form.Label>
                     {['radio'].map((type) => (
-                        <div key={`default-${type}`} className="mb-3">
-                        <Form.Check 
-                            type={type}
-                            label={`default ${type}`}
-                        />
-
-                        <Form.Check
-                            type={type}
-                            label={`disabled ${type}`}
-                        />
-                        </div>
+                        <div key={`inline-${type}`} className="mb-3">
+                            <Form.Check inline label="Admin" value="admin"type={type} name="role" />
+                            <Form.Check inline label="User" value="user"type={type} name="role" />
+                      </div>
                     ))}
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Due Date</Form.Label>
-                        <Form.Control type="date" placeholder="Password" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Stack</Form.Label>
-                        <Form.Control type="text" placeholder="Stack..." />
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>List your various skills below</Form.Label>
+                        <Form.Control as="textarea" rows={3} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit

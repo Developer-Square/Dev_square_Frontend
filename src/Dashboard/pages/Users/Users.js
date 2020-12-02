@@ -37,7 +37,11 @@ function Users({ title, data, count }) {
 	let userData = []
 
 	const toggleSize = () => {
-		setSize(userData.length)
+		if (size === 3) {
+			setSize(userData.length)
+		} else {
+			setSize(3)
+		}
 	}
 
 	data.map((deposit) => {
