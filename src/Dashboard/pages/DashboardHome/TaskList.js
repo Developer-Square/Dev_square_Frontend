@@ -2,79 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 //Own Components
+import './TaskList.scss'
 import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 
 const Container = styled.div`    
-    .card-body {
-        padding: 0;
-        align-items: center;
-    }
-
-    .first {
-        margin-top: -18px;
-    }
-
-    .scroll-area {
-        height: 250px;
-        overflow-x: hidden;
-        overflow-y: scroll;
-    }
-
-    .list-group {
-        padding: .5rem;
-    }
-
-    .content-wrapper {
-        display: flex;
-        flex: 1 1;
-        position: relative;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    .custom-control {
-        margin-left: .625rem;
-        position: relative;
-        display: block;
-        min-height: 1.32rem;
-        padding-left: 1.5rem;
-    }
-
-    .custom-control-input {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-    }
-
-    .badge {
-        font-weight: 700;
-        text-transform: uppercase;
-        padding: 5px 10px;
-        min-width: 19px;
-    }
-
-    .widget-subheading {
-        text-transform: capitalize;
-        opacity: .5;
-    }
-
-    .widget-content-right.widget-content-actions {
-        transition: opacity .2s;
-        margin-left: auto;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-    .content-wrapper:hover .widget-content-right.widget-content-actions {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .tick svg {
-        width: 0.7em;
-        height: 0.7em;
-        font-size: 35px;
-    }
+    
 `
 
 const CardContainer = styled.div`
@@ -108,45 +40,13 @@ const Indicator = styled.div`
     background: ${({theme}) => theme.newTasks};
 `
 
-const CustomControlLabel = styled.div`
-    position: relative;
-    margin-bottom: 0;
-    vertical-align: top;
-
-    &:before {
-        border-radius: .25rem;
-        transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        position: absolute;
-        top: .16rem;
-        left: -1.5rem;
-        display: block;
-        width: 1rem;
-        height: 1rem;
-        content: "";
-        pointer-events: none;
-        background-color: #fff;
-        border: 1px solid #adb5bd;
-    }
-
-    &:after {
-        background: no-repeat 50%/50% 50%;
-        position: absolute;
-        top: .16rem;
-        left: -1.5rem;
-        display: block;
-        width: 1rem;
-        height: 1rem;
-        content: "";
-    }
-`
-
 export default function TaskList() {
 
     let today = new Date()
     let time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
 
     return (
-        <Container>
+        <Container className="-container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
                     <CardTitle className="card-title">Task List</CardTitle>
@@ -158,7 +58,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox1" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox1">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlFor="exampleCustomCheckbox1">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -186,7 +86,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox2" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" htmlhtmlFor="exampleCustomCheckbox2">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlhtmlFor="exampleCustomCheckbox2">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -214,7 +114,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox3" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox3">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlFor="exampleCustomCheckbox3">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -242,7 +142,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox4" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox4">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlFor="exampleCustomCheckbox4">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -270,7 +170,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox5" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-CustomControlLabel" htmlFor="exampleCustomCheckbox5">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlFor="exampleCustomCheckbox5">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">
@@ -298,7 +198,7 @@ export default function TaskList() {
                                 <div className="content-left mr-2">
                                     <div className="custom-control">
                                         <input type="checkbox" id="exampleCustomCheckbox6" className="custom-control-input" />
-                                        <CustomControlLabel className="custom-control-label" htmlFor="exampleCustomCheckbox6">&nbsp;</CustomControlLabel>
+                                        <label className="custom-control-label" htmlFor="exampleCustomCheckbox6">&nbsp;</label>
                                     </div>
                                 </div>
                                 <div className="widget-content-left">

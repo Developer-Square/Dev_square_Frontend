@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 //Own Components
 import SortingBar from "./SortingBar";
-import Deposit from './Deposit'
+import User from './User'
 import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 
-const Container = styled.div``;
+const Container = styled.div`
+	padding-bottom: 40px;
+`;
 
 const Title = styled.h1`
 	font-weight: 500;
@@ -29,17 +31,33 @@ const DepositCount = styled.div`
 	border-radius: 20px;
 `;
 
-function Deposits({ title, data, count }) {
+function Users({ title, data, count }) {
+	const [size, setSize] = useState(3)
+
+	let userData = []
+
+	const toggleSize = () => {
+		if (size === 3) {
+			setSize(userData.length)
+		} else {
+			setSize(3)
+		}
+	}
+
+	data.map((deposit) => {
+		return userData.push(deposit)
+	})
+
 	return (
 		<Container>
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
 			<SortingBar />
-			{data.map((deposit) => (
-				<Deposit data={deposit} key={deposit.property.address.street}/>
+			{userData.slice(0, size).map((user) => (
+				<User data={user} key={user.property.address.street}/>
 			))}
-			<ViewAllButton title={title}/>
+			<ViewAllButton title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
 	);
 }
 
-export default Deposits;
+export default Users;

@@ -20,7 +20,7 @@ const MessageIcon = styled.span`
 	font-size: 41px;
 	cursor: pointer;
 	padding: .5rem;
-	transition: all .5s ease-in-out;
+	transition: all .4s ease-in-out;
 	border-radius: 50%;
 
 	&:hover {

@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
+import $ from 'jquery';
 
 const Container = styled.div`
 	display: flex;
@@ -8,7 +9,17 @@ const Container = styled.div`
 	border-bottom: 1px solid rgba(190,190,190,0.22);
 	cursor: pointer;
 	background-color: ${({theme}) => theme.primary};
-	transition: all ease-in-out 300ms;
+	transition: all 400ms ease-in-out;
+	animation: fadein 2s backwards;
+
+	@keyframes fadein {
+		  from {
+			opacity: 0
+		}
+		to {
+			opacity: 1
+		}
+	}
 
 	&:hover {
 		background-color: ${({theme}) => theme.secondary}
@@ -22,7 +33,7 @@ const Text = styled.h1`
 	margin: 0;
 `
 const Subtitle = styled(Text)`
-	font-size: 0.6rem;
+	font-size: 0.75rem;
 	color: #B2BFE1;
 	margin-top: 2px;
 `
@@ -57,6 +68,8 @@ const Rent = styled(Text)`
 `
 
 const DepositWrapper = styled.div`
+	display: flex;
+	justify-content: center;
 	width: 15%;
 `
 
@@ -75,13 +88,19 @@ const StatusIndicator = styled.div`
 	right: 7rem;
 `
 
-function Deposit({data}) {
-
+function User({data}) {
+	$(document).ready(function() {
+		$('.-container').each(function() {
+			let delay = $(this).index();
+			$(this).css('animation-delay', delay - 5 + 's')
+		})
+	})
 	const {property, moveInDate, rent, deposit, status} = data;
 
-	return <Container>
-		<Property>
-			<PropertyImg src={require(`../../../../public/images/assets/dashboard_images/${property.imageUrl}`)}/>
+	return ( 
+		<Container className="-container">
+		<Property className="pl-2">
+			<PropertyImg src={require(`../../../../public/images/avatars/${property.imageUrl}`)} className="rounded-circle"/>
 			<PropertyText>
 				<PropertyStreet>{property.address.street}</PropertyStreet>
 				<Subtitle>{property.address.city}</Subtitle>
@@ -105,7 +124,6 @@ function Deposit({data}) {
 			})()}
 		</Status>
 	</Container>
-	;
-}
+	)}
 
-export default Deposit;
+export default User;

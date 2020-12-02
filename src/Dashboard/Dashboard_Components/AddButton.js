@@ -33,7 +33,7 @@ function AddButton(props) {
 				className="iconify"
 				data-inline="false"
 				data-icon="mdi-light:plus"
-				onClick={props.onShow}
+				onClick={props.onClick}
 			/>
 		</Container>
 	);
