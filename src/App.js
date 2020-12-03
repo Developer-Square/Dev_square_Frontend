@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-sweet-progress/lib/style.css";
 
 import './App.scss';
 import Routes from './Routes'

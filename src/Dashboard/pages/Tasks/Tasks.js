@@ -58,7 +58,7 @@ export default function Tasks() {
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
                     <CardTitle className="card-title">Tasks</CardTitle>
-                    <div className="ReactTable -striped -highlight">
+                    <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
@@ -159,6 +159,26 @@ export default function Tasks() {
                                         </div>
                                         <div className="rt-td odd" role="gridcell">{today}</div>
                                         <div className="rt-td odd" role="gridcell">Python</div>
+                                    </div>
+                                    <div className="rt-tr">
+                                        <div className="rt-td" role="gridcell">34</div>
+                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
+                                        <div className="rt-td" role="gridcell">Ryan</div>
+                                        <div className="rt-td" role="gridcell">
+                                        <span><span className="dot-completed">●</span> Completed</span>
+                                        </div>
+                                        <div className="rt-td" role="gridcell">{today}</div>
+                                        <div className="rt-td" role="gridcell">Python</div>
+                                    </div>
+                                    <div className="rt-tr">
+                                        <div className="rt-td" role="gridcell">34</div>
+                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
+                                        <div className="rt-td" role="gridcell">Ryan</div>
+                                        <div className="rt-td" role="gridcell">
+                                        <span><span className="dot-completed">●</span> Completed</span>
+                                        </div>
+                                        <div className="rt-td" role="gridcell">{today}</div>
+                                        <div className="rt-td" role="gridcell">Python</div>
                                     </div>
                                     <div className="rt-tr">
                                         <div className="rt-td" role="gridcell">34</div>

@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {Form, Tooltip, OverlayTrigger} from 'react-bootstrap'
-import {Doughnut} from 'react-chartjs-2'
+import {Progress} from 'react-sweet-progress'
 
 const Container = styled.div`
     .card-body {
@@ -42,21 +42,6 @@ export default function PieChart() {
           Select your project to see the progress
         </Tooltip>
       );
-      
-    let [data] = useState('')
-     data = {
-        labels: ['Completed Tasks', 'Tasks On Hold', 'Tasks In Progress', 'Task Not Started'],
-        datasets: [{
-            label: 'Project Diamond',
-            data: [45, 8, 33, 78 ],
-            backgroundColor: [
-                '#12e64b',
-                '#085ed4',
-                '#f1f50a',
-                '#8b16f2',
-            ]
-        }]
-    }
 
     return (
         <Container>
@@ -76,22 +61,17 @@ export default function PieChart() {
                         </Form.Control>
                     </OverlayTrigger>
 
-                    <div className="chart">
-                        <Doughnut 
-                            width={1110}
-                            height={554}
-                            data={data}
-                            options={{
-                                legend: {
-                                    display: true,
-                                    position: "top",
-                                    labels: {
-                                        fontColor: '#585280',
-                                        fontSize: 15
-                                    }
-                                }
+                    <div className="chart d-flex justify-content-center align-items-center">
+                        <Progress
+                        theme={{
+                              active: {
+                                trailColor: '#f5af5b',
+                                color: '#9d05f5'
+                              }
                             }}
-                        />
+                        width={230}
+                        percent={60}
+                        type="circle" />
                     </div>
                 </div>
             </CardContainer>
