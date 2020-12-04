@@ -9,14 +9,15 @@ import ClientModal from './ClientModal'
 import depositData from "../../../DepositData.json";
 
 const Container = styled.div`
-    
+    margin-top: 60px;
+    margin-bottom: 30px;
 `
 
 function ClientsPage() {
     const [modalShow, setModalShow] = useState(false);
 
     return (
-        <Container>
+        <Container className="clients">
             <AddButton onClick={() => setModalShow(true)}  />
             <ClientModal show={modalShow} onHide={() => setModalShow(false)}/>
 			<Clients title="Active Clients" count={6} data={depositData.active} />
