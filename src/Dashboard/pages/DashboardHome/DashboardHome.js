@@ -8,6 +8,7 @@ import TaskList from './TaskList'
 import PieChart from './PieChart'
 import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
+import Clients from './Clients'
 
 const Container = styled.div`
     height: max-content;
@@ -35,6 +36,7 @@ function DashboardHome() {
             </Row>
             <Row>
                 <ActiveUsers/>
+                <Clients />
             </Row>
             <PercentageWidgets />
         </Container>

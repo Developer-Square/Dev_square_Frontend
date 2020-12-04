@@ -38,32 +38,32 @@ const Subtitle = styled(Text)`
 	margin-top: 2px;
 `
 
-const Property = styled.div`
+const Username = styled.div`
 	width: 30%;
 	display: flex;
 	align-items: center;
 `
 
-const PropertyText = styled.div`
+const UsernameText = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-left: 1rem;
 `
 
-const PropertyImg = styled.img`
+const UsernameImg = styled.img`
 	height: 35px;
 	width: 35px;
 `
 
-const PropertyStreet = styled(Text)`
+const UsernameStreet = styled(Text)`
 	font-size: 1rem;
 `
 
-const MoveInDate = styled(Text)`
+const Email = styled(Text)`
 	width: 15%;
 `
 
-const Rent = styled(Text)`
+const DueDate = styled(Text)`
 	width: 10%;
 `
 
@@ -95,30 +95,31 @@ function User({data}) {
 			$(this).css('animation-delay', delay - 5 + 's')
 		})
 	})
-	const {username, email, rent, deposit, status} = data;
+	const {username, email, rent, deposit, client} = data;
 
 	return ( 
 		<Container className="-container">
-		<Property className="pl-2">
-			<PropertyImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
-			<PropertyText>
-				<PropertyStreet>{username.address.street}</PropertyStreet>
+		<Username className="pl-2">
+			<UsernameImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
+			<UsernameText>
+				<UsernameStreet>{username.address.street}</UsernameStreet>
 				<Subtitle>{username.address.city}</Subtitle>
-			</PropertyText>
-		</Property>
-		<MoveInDate>{email}</MoveInDate>
-		<Rent>{rent}</Rent>
+			</UsernameText>
+		</Username>
+		<Email>{email}</Email>
+		<DueDate>{rent}</DueDate>
 		<DepositWrapper>
 			<Text>{deposit.amount}</Text>
 			<Subtitle>{deposit.type}</Subtitle>
 		</DepositWrapper>
 		<Status>
-			<Text>{status.message}</Text>
+			<Text>{client.client_message}</Text>
 			{(() => {
-				switch (status.level) {
+				switch (client.level) {
 					case 1: return <StatusIndicator color="#F17E7E"/>;
 					case 2: return <StatusIndicator color="#FFD056"/>;
 					case 3: return <StatusIndicator color="#75C282"/>;
+					case 4: return <StatusIndicator color="#007bff"/>;
 					default: return <StatusIndicator color="#AAA5A5"/>;
 				}
 			})()}

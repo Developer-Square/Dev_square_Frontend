@@ -9,7 +9,8 @@ import UsersModal from './UsersModal'
 import depositData from "../../../DepositData.json";
 
 const Container = styled.div`
-
+    margin-top: 60px;
+    margin-bottom: 30px;
 `
 
 function UsersPage() {

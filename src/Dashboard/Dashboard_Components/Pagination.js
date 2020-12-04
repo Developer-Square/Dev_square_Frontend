@@ -26,7 +26,6 @@ export default function Pagination() {
                         </span>
                         <span className="select-wrap">
                         <select aria-label="rows per page">
-                            <option value="5">5 rows</option>
                             <option value="10">10 rows</option>
                             <option value="20">20 rows</option>
                             <option value="25">25 rows</option>

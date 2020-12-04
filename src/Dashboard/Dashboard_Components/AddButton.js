@@ -10,7 +10,7 @@ const Container = styled.a`
 	height: 50px;
 	border-radius: 25px;
 	position: absolute;
-	top: 6rem;
+	top: 6.8rem;
 	right: 4.5rem;
 	cursor: pointer;
 	transition: all ease-in-out 300ms;

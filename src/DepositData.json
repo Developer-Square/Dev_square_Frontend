@@ -1,14 +1,14 @@
 {
     "active": [
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Ryann254",
                     "city": "Frontend Developer"
                 },
                 "imageUrl": "4.jpg"
             },
-            "moveInDate": "ryann254@gmail.com",
+            "email": "ryann254@gmail.com",
             "rent": "25 February 2020",
             "deposit": {
                 "amount": 23
@@ -16,17 +16,21 @@
             "status": {
                 "message": "Not Active",
                 "level": 2
+            },
+            "client": {
+                "client_message": "In Progress",
+                "level": 2
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Linus34",
                     "city": "Backend Developer"
                 },
                 "imageUrl": "3.jpg"
             },
-            "moveInDate": "linus34@gmail.com",
+            "email": "linus34@gmail.com",
             "rent": "12 March 2020",
             "deposit": {
                 "amount": 46
@@ -34,17 +38,21 @@
             "status": {
                 "message": "Active",
                 "level": 3
+            },
+            "client": {
+                "client_message": "In Progress",
+                "level": 2
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Timo",
                     "city": "Backend Developer"
                 },
                 "imageUrl": "8.jpg"
             },
-            "moveInDate": "timo@gmail.com",
+            "email": "timo@gmail.com",
             "rent": "12 June 2020",
             "deposit": {
                 "amount": 20
@@ -52,17 +60,21 @@
             "status": {
                 "message": "Active",
                 "level": 3
+            },
+            "client": {
+                "client_message": "On Hold",
+                "level": 4
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Sophie",
                     "city": "Backend Developer"
                 },
                 "imageUrl": "8.jpg"
             },
-            "moveInDate": "timo@gmail.com",
+            "email": "timo@gmail.com",
             "rent": "12 June 2020",
             "deposit": {
                 "amount": 20
@@ -70,17 +82,21 @@
             "status": {
                 "message": "Active",
                 "level": 3
+            },
+            "client": {
+                "client_message": "In Progress",
+                "level": 2
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Franklin",
                     "city": "Backend Developer"
                 },
                 "imageUrl": "8.jpg"
             },
-            "moveInDate": "timo@gmail.com",
+            "email": "timo@gmail.com",
             "rent": "12 June 2020",
             "deposit": {
                 "amount": 20
@@ -88,17 +104,21 @@
             "status": {
                 "message": "Active",
                 "level": 3
+            },
+            "client": {
+                "client_message": "In Progress",
+                "level": 2
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Clinton",
                     "city": "Backend Developer"
                 },
                 "imageUrl": "8.jpg"
             },
-            "moveInDate": "timo@gmail.com",
+            "email": "timo@gmail.com",
             "rent": "12 June 2020",
             "deposit": {
                 "amount": 20
@@ -106,19 +126,23 @@
             "status": {
                 "message": "Active",
                 "level": 3
+            },
+            "client": {
+                "client_message": "In Progress",
+                "level": 2
             }
         }
     ],
     "closed": [
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Collins",
                     "city": "Client"
                 },
                 "imageUrl": "2.jpg"
             },
-            "moveInDate": "client21@gmail.com",
+            "email": "client21@gmail.com",
             "rent": "12 March 2020",
             "deposit": {
                 "amount": 0
@@ -126,17 +150,21 @@
             "status": {
                 "message": "Deactivated",
                 "level": 1
+            },
+            "client": {
+                "client_message": "Done",
+                "level": 3
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Collins",
                     "city": "Client"
                 },
                 "imageUrl": "3.jpg"
             },
-            "moveInDate": "client21@gmail.com",
+            "email": "client21@gmail.com",
             "rent": "12 March 2020",
             "deposit": {
                 "amount": 0
@@ -144,17 +172,21 @@
             "status": {
                 "message": "Deactivated",
                 "level": 1
+            },
+            "client": {
+                "client_message": "Cancelled",
+                "level": 1
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Collins",
                     "city": "Client"
                 },
                 "imageUrl": "3.jpg"
             },
-            "moveInDate": "client21@gmail.com",
+            "email": "client21@gmail.com",
             "rent": "12 March 2020",
             "deposit": {
                 "amount": 0
@@ -162,17 +194,21 @@
             "status": {
                 "message": "Deactivated",
                 "level": 1
+            },
+            "client": {
+                "client_message": "Done",
+                "level": 3
             }
         },
         {
-            "property": {
+            "username": {
                 "address": {
                     "street": "Collins",
                     "city": "Client"
                 },
                 "imageUrl": "3.jpg"
             },
-            "moveInDate": "client21@gmail.com",
+            "email": "client21@gmail.com",
             "rent": "12 March 2020",
             "deposit": {
                 "amount": 0
@@ -180,6 +216,10 @@
             "status": {
                 "message": "Deactivated",
                 "level": 1
+            },
+            "client": {
+                "client_message": "Done",
+                "level": 3
             }
         }
     ]
