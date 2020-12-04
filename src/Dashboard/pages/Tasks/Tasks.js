@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import './Tasks.scss'
 import AddButton from '../../Dashboard_Components/AddButton'
 import TaskModal from './TaskModal'
-import Pagination from './Pagination'
+import Pagination from '../../Dashboard_Components/Pagination'
 
 const Container = styled.div`   
     margin-top: 80px;

@@ -82,7 +82,7 @@
         flex-direction: column;
         overflow: auto;
         min-width: 500px;
-        height: 600px;
+        height: 550px;
     }
 
     .rt-tr-group {
@@ -131,6 +131,9 @@
         }
         .dot-not-started {
             color: #8b16f2;
+        }
+        .dot-cancelled {
+            color: #dc3545;
         }
     }
 }
