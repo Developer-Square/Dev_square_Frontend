@@ -17,30 +17,30 @@ const Text = styled.h1`
 	margin: 6.4px 0;
 `;
 
-const Property = styled(Text)`
+const Username = styled(Text)`
 	width: 30%;
 `;
-const MoveInDate = styled(Text)`
+const Email = styled(Text)`
 	width: 15%;
 `;
-const Rent = styled(Text)`
+const Login = styled(Text)`
 	width: 10%;
 `;
-const Deposit = styled(Text)`
+const Task = styled(Text)`
 	width: 15%;
 `;
 const Status = styled(Text)``;
 
-function SortingBar() {
+function MenuBar({username, email, login, extra, status }) {
 	return (
 		<Container>
-			<Property>Username</Property>
-			<MoveInDate>Email</MoveInDate>
-			<Rent>Latest Login</Rent>
-			<Deposit>Tasks Completed</Deposit>
-			<Status>Status</Status>
+			<Username>{username}</Username>
+			<Email>{email}</Email>
+			<Login>{login}</Login>
+			<Task>{extra}</Task>
+			<Status>{status}</Status>
 		</Container>
 	);
 }
 
-export default SortingBar;
+export default MenuBar;
