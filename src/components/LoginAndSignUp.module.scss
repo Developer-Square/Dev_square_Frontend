@@ -21,6 +21,26 @@
   box-sizing: border-box;
 }
 
+.confirm_page {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 2.2rem;
+  color: var(--primary-header-color-login);
+  margin-bottom: 10px;
+
+  span {
+    font-size: 1.3rem;
+    color: var(--primary-font-color-login);
+    font-weight: bold;
+    font-style: italic;
+  }
+}
+
 .container::before {
   content: "";
   position: absolute;
@@ -100,6 +120,17 @@
     font-weight: 600;
     margin: 10px 0;
     transition: 0.5s;
+  }
+
+  .btn_forgot {
+    background: var(--primary-icon-color-login);
+    margin-left: 7px;
+    background-image: none !important;
+    cursor: pointer !important;
+
+    &:hover {
+      background-color: var(--primary-icon-color-login) !important;
+    }
   }
 
   .btn:hover {
@@ -201,6 +232,12 @@
         .social_text {
           margin: 0.7rem 0;
           font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease-in;
+          
+          &:hover {
+            color: var(--primary-icon-color-login)
+          }
         }
 
         .social_media {
@@ -297,6 +334,10 @@
 }
 
 @media all and (max-width: 870px) {
+  .confirm_page {
+    font-size: 2rem;
+  }
+
   .container {
     min-height: 800px;
     height: 100vh;
@@ -400,6 +441,14 @@
 }
 
 @media all and (max-width: 570px) {
+  .confirm_page {
+    font-size: 1.9rem;
+
+    span {
+      font-size: 1.2rem;
+    }
+  }
+
   form {
     padding: 0 1.5rem;
   }
@@ -426,6 +475,14 @@
 }
 
 @media all and (max-width: 414px) {
+  .confirm_page {
+    font-size: 1.7rem;
+
+    span {
+      font-size: 1.1rem;
+    }
+  }
+
   .container {
     .forms_container {
       .signin_signup {
@@ -469,6 +526,14 @@
 }
 
 @media all and (max-width: 320px) {
+  .confirm_page {
+    font-size: 1.5rem;
+
+    span {
+      font-size: 1rem;
+    }
+  }
+
   .container {
     .forms_container {
       .signin_signup {

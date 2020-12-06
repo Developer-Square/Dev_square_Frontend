@@ -10,6 +10,7 @@ import UsersPage from './Dashboard/pages/Users/UsersPage'
 import ClientsPage from './Dashboard/pages/Clients/ClientsPage'
 import PortfolioPage from './Dashboard/pages/Portfolio/PorfolioPage'
 import TasksPage from './Dashboard/pages/Tasks/TasksPage'
+import ResetPassword from './components/ResetPassword'
 import {ThemeContextProvider} from './context/themeContext'
 import RouteWithLayout from './RouteWithLayout'
 
@@ -19,6 +20,7 @@ function Routes() {
             <Switch>
                 <Route path="/" exact component={Homepage}/>
                 <Route path="/login" exact component={LoginAndSignUp}/>
+                <Route path="/reset/password" component={ResetPassword}/>
                 <ThemeContextProvider>
                     <RouteWithLayout path="/dashboard/home" exact component={DashboardHome} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/users" exact component={UsersPage} layout={Dashboard}/>
