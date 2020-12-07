@@ -40,7 +40,7 @@ export default function ResetPassword() {
     const [resetDone, setResetDone] = useState(false)
     let history = useHistory()
 
-    function backToLogin(e) {
+    const backToLogin = (e) => {
         e.preventDefault()
         history.push('/login')
     }
@@ -57,16 +57,18 @@ export default function ResetPassword() {
             const api = new Api()
             api.auth().resetPassword(data)
             .then((res) => {
-                if (res.status === 200) {
-                    notify('success', 'Nice, It worked!!')
+                if (res.status === 204) {
+                    notify('success', 'Success, You can go back and login now.')
                     setResetDone(true)
                 }
             })
             .catch((err) => {
-                console.log('Anything!!')
                 if (err && err.response){
-                    const {message} = err.response.data
+                    const {message, code} = err.response.data
                     notify('error', message)
+                    if (code === 401) {
+                        notify('warning', 'Your reset password token may have expired, click Back to go to the login page and click on forgot password to try again')
+                    }
                 }
             })
         }
@@ -87,7 +89,7 @@ export default function ResetPassword() {
             />
             <Container>
                 {resetDone ? 
-                <Button className="ml-4 back" onClick={backToLogin} type="button">
+                <Button className="back" onClick={backToLogin} type="button">
                     Go Back and Login
                 </Button>
                 :
@@ -99,6 +101,9 @@ export default function ResetPassword() {
                     </Form.Group>
                     <Button variant="primary" onClick={handleReset} type="submit">
                         Send
+                    </Button>
+                    <Button className="ml-4 back" onClick={backToLogin} type="button">
+                        Back
                     </Button>
                     
                 </Form>

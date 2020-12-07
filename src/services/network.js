@@ -8,7 +8,7 @@ class Api {
             baseURL: API_URL,
             timeout: 7000,
             headers: {
-                Authorization: `Bearer ${this.getToken()}`,
+                Authorization: `Bearer ${this.getToken()}`
             },
         })
 
@@ -20,32 +20,36 @@ class Api {
             return new Promise((resolve, reject) => {
                 const originalReq = err.config;
                 if (err.response !== undefined) {
-                if (err.response.status === 401 && err.config) {
-                    let res = fetch('https://developer-square-be.herokuapp.com/v1/auth/refresh-tokens', {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Token': `${this.getToken()}`
-                        },
-                        redirect: 'follow',
-                        referrer: 'no-referrer',
-                        body: JSON.stringify({
-                            refreshToken: `${this.getRefreshToken()}`
-                        }),
-                    }).then(res => res.json())
-                    .then(res => {
-                        if (res.status === 200) {
-                            localStorage.setItem('jwtToken', res.data.access.token)
-                            localStorage.setItem('refreshToken', res.data.refresh.token)
-                        }
+                    if (err.response.status === 401 && err.config) {
+                        let res = fetch('https://developer-square-be.herokuapp.com/v1/auth/refresh-tokens', {
+                            method: 'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Token': `${this.getToken()}`
+                            },
+                            redirect: 'follow',
+                            referrer: 'no-referrer',
+                            body: JSON.stringify({
+                                refreshToken: `${this.getRefreshToken()}`
+                            }),
+                        }).then(res => res.json())
+                        .then(res => {
+                            if (res.status === 200) {
+                                localStorage.setItem('jwtToken', res.data.access.token)
+                                localStorage.setItem('refreshToken', res.data.refresh.token)
+                            }
 
-                        return axios(originalReq)
-                    })
-                    resolve(res)
-                }
+                            return axios(originalReq)
+                        })
+                        resolve(res)
+                        //If the response is 404 or 400 then just return the error
+                        //It will be displayed in a pop up notification
+                    } else if(err.response.status === 404 || err.response.status === 400) {
+                        reject(err)
+                    }
             }
                 return Promise.reject(err, "Function Error!!")
             })
@@ -61,15 +65,9 @@ class Api {
     }
 
     getUrl() {
-        const url = window.location.href
-        if (url.slice(0,5) === 'https') {
-            let substring = url.slice(62)
-            console.log(substring)
-            return substring
-        } else {
-            let substring = url.slice(37)
-            return substring
-        }
+        const queryString = window.location.search
+        let substring = queryString.slice(7,)
+        return substring
     }
 
     auth() {
