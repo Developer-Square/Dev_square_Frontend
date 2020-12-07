@@ -1,10 +1,12 @@
 import React, {Fragment, useState} from 'react'
 import Form from 'react-bootstrap/Form'
 import cx from 'classnames'
+import {ToastContainer} from 'react-toastify'
 
 //Own Components
 import styles from './LoginAndSignUp.module.scss'
 import Api from '../services/network'
+import notify from '../helpers/Notify'
 
 function LoginAndSignUp({history}) {
     const api = new Api()
@@ -17,6 +19,15 @@ function LoginAndSignUp({history}) {
     //When confirm is set to true the whole pages goes blank telling the user
     //to check his/her email.
     const [confirm, setConfirm] = useState(false)
+
+    const handleKeyUp = (e) => {
+        if (e.keyCode === 13) {
+          handleLogin(e)
+        }
+      };
+
+    //adding keyup event listener
+    window.document.addEventListener("keydown", handleKeyUp);
 
     const handleClickSignUp = () => {
         setText(`${styles.sign_up_mode}`)
@@ -36,38 +47,70 @@ function LoginAndSignUp({history}) {
 
     function handleLogin(e) {
         e.preventDefault()
-        const credentials = {
-            email,
-            password
-        }
 
-        //Api Call
-        api.auth().login(credentials)
-        .then((res) => {
-            if (res.status === 200) {
-                localStorage.setItem('jwtToken', res.data.tokens.access.token)
-                localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
-                 //Clear the inputs
-                clearFields()
-                history.push('/dashboard/home')
+        if (email === '' && password === '') {
+            notify('error', 'Please fill in all the fields')
+        } else {
+            const credentials = {
+                email,
+                password
             }
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+    
+            //Api Call
+            api.auth().login(credentials)
+            .then((res) => {
+                if (res.status === 200) {
+                    notify('success', 'Login Successful')
+                    localStorage.setItem('jwtToken', res.data.tokens.access.token)
+                    localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
+                     //Clear the inputs
+                    clearFields()
+                    history.push('/dashboard/home')
+                }
+            })
+            .catch((error) => {
+                if (error && error.response) {
+                    const {message} = error.response.data
+                    console.log(message)
+                    notify('error', message)
+                }
+            })
+        }
     }
 
     function handleForgotPassword(e) {
         e.preventDefault()
-        const data = {
-            email
+        if (email === '') {
+            notify('error', 'Fill in the required field')
+        } else {
+            const data = {
+                email
+            }
+            api.auth().forgotPassword(data).then((res) => {
+                if (res.status === 204) {
+                    notify('success', 'Success')
+                    setConfirm(true)
+                }
+            })
+            .catch((err) => {
+                console.log(err.response)
+            })
         }
-        api.auth().forgotPassword(data)
-        setConfirm(true)
     }
 
     return (
         <Fragment>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             {confirm ? 
             <div className={styles.confirm_page}>
                 <div>Please check your email for further details.</div>
