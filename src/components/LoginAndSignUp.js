@@ -27,7 +27,7 @@ function LoginAndSignUp({history}) {
       };
 
     //adding keyup event listener
-    window.document.addEventListener("keydown", handleKeyUp);
+    window.document.addEventListener("keyup", handleKeyUp);
 
     const handleClickSignUp = () => {
         setText(`${styles.sign_up_mode}`)
