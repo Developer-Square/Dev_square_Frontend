@@ -25,7 +25,7 @@ function Dashboard({history, children}) {
             <GlobalStyles />
             <SideBar/>
             <Container>
-                <Nav />
+                <Nav history={history} />
                 {children}
             </Container>
         </ThemeProvider>

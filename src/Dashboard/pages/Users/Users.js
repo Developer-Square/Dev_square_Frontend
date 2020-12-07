@@ -18,7 +18,7 @@ const Title = styled.h1`
 	align-items: center;
 `;
 
-const DepositCount = styled.div`
+const UserCount = styled.div`
 	margin-left: 1rem;
 	font-size: 1rem;
 	background-color: ${({ theme }) => theme.header};
@@ -50,7 +50,7 @@ function Users({ title, data, count }) {
 
 	return (
 		<Container>
-			<Title>{title}<DepositCount>{count}</DepositCount></Title>
+			<Title>{title}<UserCount>{count}</UserCount></Title>
 			<MenuBar username="Username" email="Email" login="Latest Login" extra="Tasks Completed" status="Status"/>
 			{userData.slice(0, size).map((user) => (
 				<User data={user} key={user.username.address.street}/>
