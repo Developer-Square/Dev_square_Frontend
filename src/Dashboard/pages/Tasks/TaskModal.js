@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 export default function TaskModal(props) {
-    const [name, setName] = useState('')
+    const [ , setName] = useState('')
     const [status, setStatus] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
@@ -17,10 +17,10 @@ export default function TaskModal(props) {
             e.stopPropagation()
         } else {
             setValidated(true)
-            const name = fname.concat(' ', lname)
             let data = {
-                email,
                 name,
+                status,
+                dueDate,
                 password
             }
             
