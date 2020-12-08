@@ -5,6 +5,10 @@ const notify = (data, content) => {
         toast.error(content)
     } else if (data === 'success') {
         toast.success(content)
+    } else if (data === 'warning') {
+        toast.warning(content)
+    } else {
+        toast.info(content)
     }
 }
 
