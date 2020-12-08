@@ -51,7 +51,7 @@ class Api {
                         reject(err)
                     }
             }
-                return Promise.reject(err, "Function Error!!")
+                return Promise.reject(err, "Interceptor function Error!!")
             })
         })
     }

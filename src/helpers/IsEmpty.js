@@ -1,9 +1,7 @@
 const IsEmpty = value => {
-    const arr = Object.values(value)
-    if (arr.map(item => item.length  === 0)) {
-        return true
-    }
-    return false
+    //Returns true if every item in the array returned by the
+    //Object.values has an item lenght of more than zero
+    return Object.values(value).every(item => item.length > 1)
 }
 
 export default IsEmpty;

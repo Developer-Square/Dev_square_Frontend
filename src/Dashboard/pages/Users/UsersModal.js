@@ -5,8 +5,9 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 
 //Own Components
-import IsEmpty from '../../../helpers/IsEmpty'
+import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
+import IsEmpty from '../../../helpers/IsEmpty'
 
 export default function UsersModal(props) {
     const [email, setEmail] = useState('')
@@ -15,17 +16,37 @@ export default function UsersModal(props) {
     const [password, setPassword] = useState('')
     const [validated, setValidated] = useState(false)
 
-    function handleSubmit(e) {
-        const form = e.currentTarget;
-        if (form.checkVl)
+    function handleSubmit(e, props) {
         e.preventDefault()
-        let data = {
-            email,
-            fname,
-            lname,
-            password
-        }
-        if(IsEmpty(data)) {
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation()
+        } else {
+            setValidated(true)
+            const name = fname.concat(' ', lname)
+            let data = {
+                email,
+                name,
+                password
+            }
+            
+            //Checking if the data is empty with the helper function
+            if (IsEmpty(data) === true) {
+                //Hide the modal if the data is Not empty
+                props.onHide()
+                const api = new Api()
+                api.auth().registerUser(data)
+                .then(res => {
+                    if (res.status === 201) {
+                        notify('success', 'User successfully created')
+                    }
+                })
+                .catch(err => {
+                    const {message} = err.response.data
+                    const customMessage = `User not created! \n ${message}`
+                    notify('error', customMessage)
+                })
+            }
         }
     }
 
@@ -43,7 +64,7 @@ export default function UsersModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <h5 className="text-center">Fill the form below</h5>
-                <Form noValidate validated={validated}>
+                <Form noValidate validated={validated} {...props}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control required type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email..." />
@@ -53,17 +74,26 @@ export default function UsersModal(props) {
                     </Form.Group>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formBasicfname">
-                            <Form.Control type="text" onChange={(e) => setFname(e.target.value)} placeholder="First Name..." />
+                            <Form.Control required type="text" onChange={(e) => setFname(e.target.value)} placeholder="First Name..." />
+                            <Form.Control.Feedback type="invalid">
+                                Please fill in your First Name.
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formBasiclname">
-                            <Form.Control type="text" onChange={(e) => setLname(e.target.value)} placeholder="Last Name..." />
+                            <Form.Control required type="text" onChange={(e) => setLname(e.target.value)} placeholder="Last Name..." />
+                            <Form.Control.Feedback type="invalid">
+                                Please fill in your Last Name.
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password..." />
+                        <Form.Control type="password" required onChange={(e) => setPassword(e.target.value)} placeholder="Password..." />
+                        <Form.Control.Feedback type="invalid">
+                            Please fill in your Password.
+                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e, props)}>
                         Submit
                     </Button>
                 </Form>

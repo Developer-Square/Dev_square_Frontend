@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
+import {ToastContainer} from 'react-toastify'
 
 //Own Components
 import AddButton from "../../Dashboard_Components/AddButton";
@@ -18,6 +19,17 @@ function UsersPage() {
 
     return (
         <Container>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <AddButton onClick={() => setModalShow(true)}  />
             <UsersModal show={modalShow} onHide={() => setModalShow(false)}/>
 			<Users title="Active Accounts" count={6} data={depositData.active} />
