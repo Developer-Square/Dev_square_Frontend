@@ -60,7 +60,6 @@ function LoginAndSignUp({history}) {
             api.auth().login(credentials)
             .then((res) => {
                 if (res.status === 200) {
-                    notify('success', 'Login Successful')
                     localStorage.setItem('jwtToken', res.data.tokens.access.token)
                     localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
                      //Clear the inputs
@@ -93,7 +92,8 @@ function LoginAndSignUp({history}) {
                 }
             })
             .catch((err) => {
-                console.log(err.response)
+                const {message} = err.response.data
+                notify('error', message)
             })
         }
     }
