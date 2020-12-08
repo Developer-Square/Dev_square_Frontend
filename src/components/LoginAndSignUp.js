@@ -62,6 +62,7 @@ function LoginAndSignUp({history}) {
                 if (res.status === 200) {
                     localStorage.setItem('jwtToken', res.data.tokens.access.token)
                     localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
+                    localStorage.setItem('userID', res.data.user.id)
                      //Clear the inputs
                     clearFields()
                     history.push('/dashboard/home')

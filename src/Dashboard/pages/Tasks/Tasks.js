@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 //Own Components
@@ -6,6 +6,8 @@ import './Tasks.scss'
 import AddButton from '../../Dashboard_Components/AddButton'
 import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
+import Api from '../../../services/network'
+import notify from '../../../helpers/Notify'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -35,6 +37,43 @@ const CardTitle = styled.div`
 
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
+    const [tasks, setTasks] = useState('');
+    const [user, setUser] = useState('');
+    const api = new Api()
+
+    useEffect(() => {
+        getTasks()
+        // eslint-disable-next-line
+    }, [])
+
+    function getTasks() {
+        api.Tasks().getAllTasks()
+        .then(res => {
+            if (res.status === 200) {
+                setTasks(res.data)
+                notify('success', 'Tasks fetched successfully')
+            }
+        })
+        .catch(err => {
+            // const {data} = err.response
+            notify('error', err.message)
+        })
+
+    }
+
+    
+    const getUser = async (id) => {
+        const api  = new Api()
+        try {
+            const res = await api.User().getUser(id)
+            if (res.status === 200) {
+                setUser(res.data.name)
+            }  
+        } catch (error) {
+            const {message} = error.response.data
+            setUser(message)
+        }
+    }
 
     const toggleModal = () => {
         setModalShow(true)
@@ -90,46 +129,18 @@ export default function Tasks() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">345</div>
-                                        <div className="rt-td odd" role="gridcell">Create a logo</div>
-                                        <div className="rt-td odd" role="gridcell">Sophie</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-in-progress">●</span> In Progress</span>
+                                    {tasks !== '' ? tasks.results.map((task, index) => ( 
+                                        <div className="rt-tr" key={index}>
+                                            <div className="rt-td odd" role="gridcell">{task.id.slice(0,4)}</div>
+                                            <div className="rt-td odd" role="gridcell">{task.description}</div>
+                                            <div className="rt-td odd" role="gridcell"></div>
+                                            <div className="rt-td odd" role="gridcell">
+                                            <span><span className="dot-in-progress">●</span> {task.status}</span>
+                                            </div>
+                                            <div className="rt-td odd" role="gridcell">{task.dueDate.slice(0, 10).split('').reverse().join('')}</div>
+                                            <div className="rt-td odd" role="gridcell">{task.stack}</div>
                                         </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">UI/UX</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">54</div>
-                                        <div className="rt-td" role="gridcell">Users should be able to login</div>
-                                        <div className="rt-td" role="gridcell">Linus</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-on-hold">●</span> On Hold</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Nodejs</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">234</div>
-                                        <div className="rt-td odd" role="gridcell">Add a new Table to the dashboard</div>
-                                        <div className="rt-td odd" role="gridcell">Ryan</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-not-started">●</span> Not Started</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Reactjs</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
+                                    )): null}
                                     <div className="rt-tr">
                                         <div className="rt-td odd" role="gridcell">34</div>
                                         <div className="rt-td odd" role="gridcell">Create new queries in the backend</div>

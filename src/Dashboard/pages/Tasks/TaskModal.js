@@ -10,11 +10,30 @@ import notify from '../../../helpers/Notify'
 
 export default function TaskModal(props) {
     const [description, setDescription] = useState('')
-    const [status, setStatus] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
     const [difficulty, setDifficulty] = useState('')
+    const [status,] = useState('Not Started')
     const [validated, setValidated] = useState(false)
+
+    const converter = (input) => {
+        let regex = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g
+        let data = input.match(regex)
+        console.log(input)
+        
+        let result = ""
+        for (let i = 0; i < data.length; i++) {
+            let tempStr = data[i].toLowerCase();
+            
+            if (i !== 0) {
+                //Convert first letter to Uppercase( the word is in lowercase )
+                tempStr = tempStr.substr(0, 1).toUpperCase() + tempStr.substr(1)
+            }
+
+            result += tempStr
+        }
+        return result
+    }
 
     function handleSubmit(e, props) {
         e.preventDefault()
@@ -23,11 +42,13 @@ export default function TaskModal(props) {
             e.stopPropagation()
         } else {
             setValidated(true)
+            const diff = converter(difficulty)
+            const stat = converter(status)
             let data = {
                 description,
-                status,
+                status: stat,
                 dueDate,
-                difficulty,
+                difficulty: diff,
                 stack
             }
             
@@ -35,8 +56,9 @@ export default function TaskModal(props) {
             if (IsEmpty(data) === true) {
                 //Hide the modal if the data is Not empty
                 props.onHide()
+                data.creator = localStorage.getItem('userID')
                 const api = new Api()
-                api.auth().registerUser(data)
+                api.Tasks().createTask(data)
                 .then(res => {
                     if (res.status === 201) {
                         notify('success', 'Task successfully created')
@@ -73,23 +95,23 @@ export default function TaskModal(props) {
                             Please fill in the task name.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicStatus">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control onChange={(e) => setStatus(e.target.value)} required as="select">
+                        <Form.Control disabled required as="select">
+                            <option>Not Started</option>
                             <option>In Progress</option>
                             <option>On Hold</option>
-                            <option>Not Started</option>
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="formBasicDate">
                         <Form.Label>Due Date</Form.Label>
                         <Form.Control onChange={(e) => setDueDate(e.target.value)} required type="date" placeholder="date" />
                         <Form.Control.Feedback type="invalid">
                             Please fill in the due date.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="formBasicStack">
                         <Form.Label>Stack</Form.Label>
                         <Form.Control required onChange={(e) => setStack(e.target.value)} type="text" placeholder="Stack..." />
                         <Form.Control.Feedback type="invalid">

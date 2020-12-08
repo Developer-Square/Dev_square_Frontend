@@ -37,10 +37,12 @@ class Api {
                             }),
                         }).then(res => res.json())
                         .then(res => {
-                            if (res.status === 200) {
-                                localStorage.setItem('jwtToken', res.data.access.token)
-                                localStorage.setItem('refreshToken', res.data.refresh.token)
-                            }
+                            console.log(res)
+                            localStorage.clear()
+                            localStorage.setItem('jwtToken', res.data.access.token)
+                            localStorage.setItem('refreshToken', res.data.refresh.token)
+
+                            originalReq.headers['Token'] = res.data.access.token
 
                             return axios(originalReq)
                         })
@@ -84,6 +86,19 @@ class Api {
                 },
                 data,
             })
+        }
+    }
+
+    Tasks() {
+        return {
+            createTask: (data) => this.instance.post(`tasks/`, data),
+            getAllTasks: (data) => this.instance.get(`tasks/`)
+        }
+    }
+
+    User() {
+        return {
+            getUser: (data) => this.instance.get(`users/${data}`)
         }
     }
 }
