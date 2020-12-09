@@ -14,34 +14,36 @@ $bounce_height: 30px;
   transform: translate(-50%, -50%);
   font-family: Montserrat;
   z-index: 5;
-}
+  .text {
+    color: #fbae17;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 19px;
+    font-weight: 600;
+  }
 
-.text {
-  color: #fbae17;
-  display: inline-block;
-  margin-left: 10px;
-  font-size: 19px;
-  font-weight: 600;
-}
-
-.bounceball {
-  position: relative;
-  display: inline-block;
-  height: 37px;
-  width: $width;
-  &:before {
-    position: absolute;
-    content: '';
-    display: block;
-    top: 0;
+  .bounceball {
+    position: relative;
+    display: inline-block;
+    height: 37px;
     width: $width;
-    height: $height;
-    border-radius: 50%;
-    background-color: #fbae17;
-    transform-origin: 50%;
-    animation: bounce 500ms alternate infinite ease;
+    &:before {
+      position: absolute;
+      content: '';
+      display: block;
+      top: 0;
+      width: $width;
+      height: $height;
+      border-radius: 50%;
+      background-color: #fbae17;
+      transform-origin: 50%;
+      animation: bounce 500ms alternate infinite ease;
+    }
   }
 }
+
+
+
 
 @keyframes bounce {
   0% {

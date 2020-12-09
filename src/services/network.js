@@ -38,9 +38,12 @@ class Api {
                         }).then(res => res.json())
                         .then(res => {
                             console.log(res)
-                            localStorage.clear()
+                            localStorage.removeItem('jwtToken')
+                            localStorage.removeItem('refreshToken')
                             localStorage.setItem('jwtToken', res.access.token)
                             localStorage.setItem('refreshToken', res.refresh.token)
+
+                            originalReq.headers['Authorization'] = `Bearer ${res.access.token}`
 
                             return axios(originalReq)
                         })
@@ -90,13 +93,20 @@ class Api {
     Tasks() {
         return {
             createTask: (data) => this.instance.post(`tasks/`, data),
-            getAllTasks: (data) => this.instance.get(`tasks/`)
+            getAllTasks: () => this.instance.get(`tasks/`)
         }
     }
 
     User() {
         return {
             getUser: (data) => this.instance.get(`users/${data}`)
+        }
+    }
+
+    Projects() {
+        return {
+            getAllProjects: () => this.instance.get(`project/`),
+            updateProject: (id, data) => this.instance.patch(`project/${id}`, data)
         }
     }
 }

@@ -14,29 +14,29 @@ function Menu() {
     const [usersActive, setUsersActive] = useState('false')
     const [tasksActive, setTasksActive] = useState('false')
     const [portfolioActive, setPortfolioActive] = useState('false')
-    const [clientsActive, setClientsActive] = useState('false')
+    const [projectsActive, setProjectsActive] = useState('false')
 
     const setToFalse = (param) => {
         if (param === 'home') {
             setUsersActive('false')
             setTasksActive('false')
             setPortfolioActive('false')
-            setClientsActive('false')
+            setProjectsActive('false')
         } else if (param === 'users') {
             setHomeActive('false')
             setTasksActive('false')
             setPortfolioActive('false')
-            setClientsActive('false')
+            setProjectsActive('false')
         } else if (param === 'tasks') {
             setUsersActive('false')
             setHomeActive('false')
             setPortfolioActive('false')
-            setClientsActive('false')
+            setProjectsActive('false')
         } else if (param === 'portfolio') {
             setUsersActive('false')
             setTasksActive('false')
             setHomeActive('false')
-            setClientsActive('false')
+            setProjectsActive('false')
         } else {
             setUsersActive('false')
             setTasksActive('false')
@@ -60,7 +60,7 @@ function Menu() {
             setPortfolioActive('true')
             setToFalse('portfolio')
         } else if (location.search('clients') !== -1) {
-            setClientsActive('true')
+            setProjectsActive('true')
             setToFalse('clients')
         }
     }, [])
@@ -70,7 +70,7 @@ function Menu() {
             <MenuItem title="Users" icon="teenyicons:users-outline" active={usersActive}/>
             <MenuItem title="Tasks" icon="clarity:tasks-line" active={tasksActive}/>
             <MenuItem title="Portfolio" icon="bytesize:portfolio" active={portfolioActive}/>
-            <MenuItem title="Clients" icon="fa-solid:users" active={clientsActive}/>
+            <MenuItem title="Projects" icon="fa-solid:users" active={projectsActive}/>
         </Container>
     )
 }

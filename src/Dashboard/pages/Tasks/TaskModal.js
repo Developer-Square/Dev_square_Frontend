@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner'
 
 //Own Components
 import Api from '../../../services/network'
@@ -12,25 +14,66 @@ export default function TaskModal(props) {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
-    const [difficulty, setDifficulty] = useState('')
+    const [difficulty, setDifficulty] = useState('Easy')
     const [status,] = useState('Not Started')
     const [validated, setValidated] = useState(false)
+    const [projects, setProjects] = useState('')
+    const [projectTasks, setProjectTasks] = useState('')
 
+    //Creating a new instance of the api class
+    const api = new Api()
+
+    useEffect(() => {
+        //Get projects
+        getProjects()
+    // eslint-disable-next-line
+    }, [])
+
+    function getProjects() {
+        api.Projects().getAllProjects()
+        .then(res => {
+            if (res.status === 200) {
+                setProjects(res.data.results)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            const {message} = err.response.data
+            notify('error', message)
+        })
+    }
+    
+    //Add the task to the specific project selected
+    function addTaskToProject(id) {
+        projects.map(project => {
+            if (projectTasks === project.name) {
+                project.tasks.push(id)
+                const data = {tasks: project.tasks}
+                //Remove the clientId since its not allowed in the backend
+                api.Projects().updateProject(project.id, data)
+            }
+            return null
+        })
+    }
+
+    //Converts words like 'Not Started' into camelCase e.g. 'notStarted'
+    //since the backend only receives camelCase strings in some instances
     const converter = (input) => {
         let regex = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g
         let data = input.match(regex)
-        console.log(input)
         
         let result = ""
-        for (let i = 0; i < data.length; i++) {
-            let tempStr = data[i].toLowerCase();
-            
-            if (i !== 0) {
-                //Convert first letter to Uppercase( the word is in lowercase )
-                tempStr = tempStr.substr(0, 1).toUpperCase() + tempStr.substr(1)
+        if(data !== null) {
+            for (let i = 0; i < data.length; i++) {
+                let tempStr = data[i].toLowerCase();
+                
+                if (i !== 0) {
+                    //Convert first letter to Uppercase( the word is in lowercase )
+                    tempStr = tempStr.substr(0, 1).toUpperCase() + tempStr.substr(1)
+                }
+    
+                result += tempStr
             }
-
-            result += tempStr
         }
         return result
     }
@@ -57,10 +100,12 @@ export default function TaskModal(props) {
                 //Hide the modal if the data is Not empty
                 props.onHide()
                 data.creator = localStorage.getItem('userID')
-                const api = new Api()
                 api.Tasks().createTask(data)
                 .then(res => {
                     if (res.status === 201) {
+                        //Once a task is created we get its ID and pass it to the addToTask Function
+                        //so that we can add it to its specific project
+                        addTaskToProject(res.data.id)
                         notify('success', 'Task successfully created')
                     }
                 })
@@ -95,21 +140,34 @@ export default function TaskModal(props) {
                             Please fill in the task name.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId="formBasicStatus">
-                        <Form.Label>Status</Form.Label>
-                        <Form.Control disabled required as="select">
-                            <option>Not Started</option>
-                            <option>In Progress</option>
-                            <option>On Hold</option>
-                        </Form.Control>
-                    </Form.Group>
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formBasicStatus">
+                            <Form.Label>Status</Form.Label>
+                            <Form.Control disabled required as="select">
+                                <option>Not Started</option>
+                                <option>In Progress</option>
+                                <option>On Hold</option>
+                            </Form.Control>
+                        </Form.Group>
 
-                    <Form.Group controlId="formBasicDate">
-                        <Form.Label>Due Date</Form.Label>
-                        <Form.Control onChange={(e) => setDueDate(e.target.value)} required type="date" placeholder="date" />
-                        <Form.Control.Feedback type="invalid">
-                            Please fill in the due date.
-                        </Form.Control.Feedback>
+                        <Form.Group as={Col} controlId="formBasicDate">
+                            <Form.Label>Due Date</Form.Label>
+                            <Form.Control onChange={(e) => setDueDate(e.target.value)} required type="date" placeholder="date" />
+                            <Form.Control.Feedback type="invalid">
+                                Please fill in the due date.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Group controlId="formBasicProjects">
+                        <Form.Label>Project to attach to</Form.Label>
+                        <Form.Control onChange={(e) => setProjectTasks(e.target.value)} required as="select">
+                            <option>Select the project</option>
+                            {/* Mapping out the available projects and adding a spinner if the projects aren't
+                            available yet */}
+                            {projects !== '' ? projects.map((project, index) => (
+                                <option key={index}>{project.name}</option>
+                            )) : <Spinner animation="border" variant="primary" size="sm"/>}
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicStack">
                         <Form.Label>Stack</Form.Label>

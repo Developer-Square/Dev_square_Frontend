@@ -9,10 +9,10 @@ export default function TaskLoader({loading}) {
         {loading ? (
             <>
                 <div className="loading-cover"></div>
-                <div class="wrap">
-                    <div class="loading">
-                        <div class="bounceball"></div>
-                        <div class="text">NOW LOADING</div>
+                <div className="wrap">
+                    <div className="loading">
+                        <div className="bounceball"></div>
+                        <div className="text">NOW LOADING</div>
                     </div>
                 </div>
             </>)
