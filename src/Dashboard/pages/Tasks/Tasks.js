@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import Spinner from 'react-bootstrap/Spinner'
 
 //Own Components
 import './Tasks.scss'
@@ -8,6 +9,7 @@ import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
+import TaskLoader from './TaskLoader'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -39,29 +41,35 @@ export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [tasks, setTasks] = useState('');
     const [user, setUser] = useState('');
+    const [loading, setLoading] = useState(false);
     const api = new Api()
 
     useEffect(() => {
+        setLoading(true)
         getTasks()
         // eslint-disable-next-line
     }, [])
 
+    //Get all tasks when the page loads
     function getTasks() {
         api.Tasks().getAllTasks()
         .then(res => {
             if (res.status === 200) {
+                setLoading(false)
                 setTasks(res.data)
                 notify('success', 'Tasks fetched successfully')
+                res.data.results.map(task => getUser(task.creator))
             }
         })
         .catch(err => {
+            setLoading(false)
             // const {data} = err.response
             notify('error', err.message)
         })
 
     }
 
-    
+    //Get the Developer name    
     const getUser = async (id) => {
         const api  = new Api()
         try {
@@ -99,6 +107,7 @@ export default function Tasks() {
                     <CardTitle className="card-title">Tasks</CardTitle>
                     <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
+                            <TaskLoader loading={loading} />
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
@@ -129,78 +138,24 @@ export default function Tasks() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    {tasks !== '' ? tasks.results.map((task, index) => ( 
+                                    {tasks !== '' ? tasks.results.map((task, index) => (
                                         <div className="rt-tr" key={index}>
-                                            <div className="rt-td odd" role="gridcell">{task.id.slice(0,4)}</div>
-                                            <div className="rt-td odd" role="gridcell">{task.description}</div>
-                                            <div className="rt-td odd" role="gridcell"></div>
-                                            <div className="rt-td odd" role="gridcell">
-                                            <span><span className="dot-in-progress">●</span> {task.status}</span>
+                                            {/* Checks the index of the grid cell if its odd it gives an odd class name
+                                            which turns it grey */}
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
+                                            {/* While the user's name is still unavailable we give the field a spinner/loader */}
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                {user === '' ? <Spinner animation="border" variant="primary" size="sm"/> : user}
                                             </div>
-                                            <div className="rt-td odd" role="gridcell">{task.dueDate.slice(0, 10).split('').reverse().join('')}</div>
-                                            <div className="rt-td odd" role="gridcell">{task.stack}</div>
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                            {/* The color of the dot changes according to the task status */}
+                                            <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
+                                            </div>
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
+                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
                                         </div>
                                     )): null}
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">34</div>
-                                        <div className="rt-td odd" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td odd" role="gridcell">Ryan</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Franklin</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">34</div>
-                                        <div className="rt-td odd" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td odd" role="gridcell">Timo</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

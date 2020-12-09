@@ -39,10 +39,8 @@ class Api {
                         .then(res => {
                             console.log(res)
                             localStorage.clear()
-                            localStorage.setItem('jwtToken', res.data.access.token)
-                            localStorage.setItem('refreshToken', res.data.refresh.token)
-
-                            originalReq.headers['Token'] = res.data.access.token
+                            localStorage.setItem('jwtToken', res.access.token)
+                            localStorage.setItem('refreshToken', res.refresh.token)
 
                             return axios(originalReq)
                         })
