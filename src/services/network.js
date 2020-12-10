@@ -6,7 +6,7 @@ class Api {
     constructor() {
         this.instance =  axios.create({
             baseURL: API_URL,
-            timeout: 7000,
+            timeout: 9000,
             headers: {
                 Authorization: `Bearer ${this.getToken()}`
             },
@@ -37,7 +37,6 @@ class Api {
                             }),
                         }).then(res => res.json())
                         .then(res => {
-                            console.log(res)
                             localStorage.removeItem('jwtToken')
                             localStorage.removeItem('refreshToken')
                             localStorage.setItem('jwtToken', res.access.token)
@@ -93,7 +92,8 @@ class Api {
     Tasks() {
         return {
             createTask: (data) => this.instance.post(`tasks/`, data),
-            getAllTasks: () => this.instance.get(`tasks/`)
+            getAllTasks: () => this.instance.get(`tasks/`),
+            getTask: (id) => this.instance.get(`tasks/${id}`)
         }
     }
 

@@ -1,1 +1,2 @@
-export const CHANGE_MENU_LINK = 'CHANGE_MENU_LINK'
+export const ADD_TASKS = 'ADD_TASKS'
+export const TASK_ID_TO_BE_UPDATED = 'TASK_ID_TO_BE_UPDATED'

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef } from 'react'
+import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -10,6 +11,7 @@ import Pagination from '../../Dashboard_Components/Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import TaskLoader from './TaskLoader'
+import { addTasks } from '../../../redux/action-creator'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -40,8 +42,14 @@ const CardTitle = styled.div`
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [tasks, setTasks] = useState('');
+    const [taskIds, setTasksIds] = useState('');
+    const [tasktobeupdated, settasktobeupdated] = useState('');
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
+    //Using the ref attribute to run a function 
+    //in the Task Modal child component
+    const childRef = useRef()
     const api = new Api()
 
     useEffect(() => {
@@ -55,10 +63,18 @@ export default function Tasks() {
         api.Tasks().getAllTasks()
         .then(res => {
             if (res.status === 200) {
+                let taskObject = {}
                 setLoading(false)
                 setTasks(res.data)
+                //Dispatching an action to add tasks to the redux store
+                dispatch(addTasks(res.data.results))
                 notify('success', 'Tasks fetched successfully')
-                res.data.results.map(task => getUser(task.creator))
+                //eslint-disable-next-line
+                res.data.results.map((task, index) => {
+                    taskObject[`${index}`] = task.id
+                    getUser(task.creator)
+                })
+                setTasksIds(taskObject)
             }
         })
         .catch(err => {
@@ -83,6 +99,31 @@ export default function Tasks() {
         }
     }
 
+    function handleTaskUpdate(e) {
+        //Getting the index of the clicked row
+        let rowIndex = e.currentTarget.className.slice(6)
+        // setTasksIndex(rowIndex)
+        // dispatch(taskUpdateId(rowIndex))
+        //Map the indexes stored in state to see which one matches the one that was clicked
+        // eslint-disable-next-line
+        Object.keys(taskIds).map((key) => {
+            if (key === rowIndex) {
+                api.Tasks().getTask(taskIds[key])
+                .then(res => {
+                    if (res.status === 200) {
+                        settasktobeupdated(res.data)
+                        setModalShow(true)
+                        childRef.current.updateFormfields()
+                    }
+                })
+                .catch(err => {
+                    const {message} = err.response.data
+                    notify('error', message)
+                })
+            }
+        }) 
+    }
+
     const toggleModal = () => {
         setModalShow(true)
     }
@@ -98,9 +139,11 @@ export default function Tasks() {
         <>
         <AddButton onClick={() => toggleModal()} />
         <TaskModal
+        ref={childRef}
+        task={tasktobeupdated}
         show={modalShow}
         onHide={() => setModalShow(false)}
-      />
+        />
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
@@ -139,7 +182,7 @@ export default function Tasks() {
                             <div className="rt-body">
                                 <div className="rt-tr-group">
                                     {tasks !== '' ? tasks.results.map((task, index) => (
-                                        <div className="rt-tr" key={index}>
+                                        <div className={`rt-tr ${index}`} key={index} onClick={handleTaskUpdate}>
                                             {/* Checks the index of the grid cell if its odd it gives an odd class name
                                             which turns it grey */}
                                             <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>

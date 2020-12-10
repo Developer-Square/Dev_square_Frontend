@@ -1,24 +1,45 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
+// import {useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import Spinner from 'react-bootstrap/Spinner'
 
 //Own Components
 import Api from '../../../services/network'
 import IsEmpty from '../../../helpers/IsEmpty'
 import notify from '../../../helpers/Notify'
 
-export default function TaskModal(props) {
+const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
     const [difficulty, setDifficulty] = useState('Easy')
-    const [status,] = useState('Not Started')
+    const [status, setStatus] = useState('Not Started')
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
     const [projectTasks, setProjectTasks] = useState('')
+    // //Fetching the task id from the store
+    // const {TaskUpdateId, Tasks} = useSelector((state) => state.tasks)
+    useImperativeHandle(
+        ref,
+        () => ({
+            updateFormfields() {
+                if(props.task !== '') {
+                    const {description, dueDate, stack, difficulty, status, projects} = props.task
+                    setDescription(description)
+                    console.log(dueDate)
+                    setDueDate(dueDate)
+                    //TODO: change status when a status is assigned
+                    setStatus(status)
+                    setStack(stack)
+                    let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
+                    setDifficulty(diff)
+                    setProjects(projects)
+                }
+            }
+        })
+    )
 
     //Creating a new instance of the api class
     const api = new Api()
@@ -26,8 +47,8 @@ export default function TaskModal(props) {
     useEffect(() => {
         //Get projects
         getProjects()
-    // eslint-disable-next-line
-    }, [])
+        // eslint-disable-next-line
+    }, [props])
 
     function getProjects() {
         api.Projects().getAllProjects()
@@ -37,7 +58,6 @@ export default function TaskModal(props) {
             }
         })
         .catch(err => {
-            console.log(err)
             const {message} = err.response.data
             notify('error', message)
         })
@@ -45,6 +65,7 @@ export default function TaskModal(props) {
     
     //Add the task to the specific project selected
     function addTaskToProject(id) {
+        // eslint-disable-next-line
         projects.map(project => {
             if (projectTasks === project.name) {
                 project.tasks.push(id)
@@ -52,7 +73,6 @@ export default function TaskModal(props) {
                 //Remove the clientId since its not allowed in the backend
                 api.Projects().updateProject(project.id, data)
             }
-            return null
         })
     }
 
@@ -119,6 +139,7 @@ export default function TaskModal(props) {
     }
 
     return (
+        <>
         <Modal
         {...props}
         size="md"
@@ -135,7 +156,7 @@ export default function TaskModal(props) {
                 <Form noValidate validated={validated} {...props}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Task Name</Form.Label>
-                        <Form.Control required type="text" onChange={(e) => setDescription(e.target.value)} placeholder="Task Name..." />
+                        <Form.Control required type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Task Name..." />
                         <Form.Control.Feedback type="invalid">
                             Please fill in the task name.
                         </Form.Control.Feedback>
@@ -143,7 +164,7 @@ export default function TaskModal(props) {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formBasicStatus">
                             <Form.Label>Status</Form.Label>
-                            <Form.Control disabled required as="select">
+                            <Form.Control disabled required as="select" value={status}>
                                 <option>Not Started</option>
                                 <option>In Progress</option>
                                 <option>On Hold</option>
@@ -152,7 +173,7 @@ export default function TaskModal(props) {
 
                         <Form.Group as={Col} controlId="formBasicDate">
                             <Form.Label>Due Date</Form.Label>
-                            <Form.Control onChange={(e) => setDueDate(e.target.value)} required type="date" placeholder="date" />
+                            <Form.Control value={dueDate} onChange={(e) => setDueDate(e.target.value)} required type="date" placeholder="date" />
                             <Form.Control.Feedback type="invalid">
                                 Please fill in the due date.
                             </Form.Control.Feedback>
@@ -160,25 +181,25 @@ export default function TaskModal(props) {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control onChange={(e) => setProjectTasks(e.target.value)} required as="select">
+                        <Form.Control value={projectTasks} onChange={(e) => setProjectTasks(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}
-                            {projects !== '' ? projects.map((project, index) => (
+                            {projects !== '' && Array.isArray(projects) ? projects.map((project, index) => (
                                 <option key={index}>{project.name}</option>
-                            )) : <Spinner animation="border" variant="primary" size="sm"/>}
+                            )) : 'Loading'}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formBasicStack">
                         <Form.Label>Stack</Form.Label>
-                        <Form.Control required onChange={(e) => setStack(e.target.value)} type="text" placeholder="Stack..." />
+                        <Form.Control required value={stack} onChange={(e) => setStack(e.target.value)} type="text" placeholder="Stack..." />
                         <Form.Control.Feedback type="invalid">
                             Please fill in the stack
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group controlId="formBasicDifficulty">
                         <Form.Label>Difficulty</Form.Label>
-                        <Form.Control onChange={(e) => setDifficulty(e.target.value)} required as="select">
+                        <Form.Control value={difficulty} onChange={(e) => setDifficulty(e.target.value)} required as="select">
                             <option>Easy</option>
                             <option>Medium</option>
                             <option>Hard</option>
@@ -193,5 +214,8 @@ export default function TaskModal(props) {
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
+        </>
     )
-}
+})
+
+export default TaskModal;
