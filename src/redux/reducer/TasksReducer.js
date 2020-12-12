@@ -1,7 +1,7 @@
-import {ADD_TASKS, TASK_ID_TO_BE_UPDATED} from '../action-types/index'
+import {ADD_TASKS, UPDATED_TASK} from '../action-types/index'
 
 const initialState = {
-    TaskUpdateId: '',
+    UpdatedTask: false,
     Tasks: []
 }
 
@@ -12,10 +12,10 @@ function TasksReducer(state=initialState, action) {
                 ...state,
                 Tasks: action.payload
             }
-        case TASK_ID_TO_BE_UPDATED:
+        case UPDATED_TASK:
             return {
                 ...state,
-                TaskUpdateId: action.payload
+                UpdatedTask: !state.UpdatedTask
             }
     
         default:

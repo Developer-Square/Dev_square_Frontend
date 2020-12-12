@@ -37,8 +37,6 @@ class Api {
                             }),
                         }).then(res => res.json())
                         .then(res => {
-                            localStorage.removeItem('jwtToken')
-                            localStorage.removeItem('refreshToken')
                             localStorage.setItem('jwtToken', res.access.token)
                             localStorage.setItem('refreshToken', res.refresh.token)
 
@@ -93,7 +91,8 @@ class Api {
         return {
             createTask: (data) => this.instance.post(`tasks/`, data),
             getAllTasks: () => this.instance.get(`tasks/`),
-            getTask: (id) => this.instance.get(`tasks/${id}`)
+            getTask: (id) => this.instance.get(`tasks/${id}`),
+            updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data)
         }
     }
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef } from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -47,6 +47,8 @@ export default function Tasks() {
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
+
+    const {UpdatedTask} = useSelector(state => state.tasks)
     //Using the ref attribute to run a function 
     //in the Task Modal child component
     const childRef = useRef()
@@ -56,7 +58,7 @@ export default function Tasks() {
         setLoading(true)
         getTasks()
         // eslint-disable-next-line
-    }, [])
+    }, [UpdatedTask])
 
     //Get all tasks when the page loads
     function getTasks() {
@@ -102,8 +104,6 @@ export default function Tasks() {
     function handleTaskUpdate(e) {
         //Getting the index of the clicked row
         let rowIndex = e.currentTarget.className.slice(6)
-        // setTasksIndex(rowIndex)
-        // dispatch(taskUpdateId(rowIndex))
         //Map the indexes stored in state to see which one matches the one that was clicked
         // eslint-disable-next-line
         Object.keys(taskIds).map((key) => {
@@ -113,10 +113,12 @@ export default function Tasks() {
                     if (res.status === 200) {
                         settasktobeupdated(res.data)
                         setModalShow(true)
+                        //Run the updateFormfields function in the child component
                         childRef.current.updateFormfields()
                     }
                 })
                 .catch(err => {
+                    console.log(err)
                     const {message} = err.response.data
                     notify('error', message)
                 })

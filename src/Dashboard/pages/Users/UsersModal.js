@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 //Own Components
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import IsEmpty from '../../../helpers/IsEmpty'
+import IsNotEmpty from '../../../helpers/IsNotEmpty'
 
 export default function UsersModal(props) {
     const [email, setEmail] = useState('')
@@ -31,7 +31,7 @@ export default function UsersModal(props) {
             }
             
             //Checking if the data is empty with the helper function
-            if (IsEmpty(data) === true) {
+            if (IsNotEmpty(data) === true) {
                 //Hide the modal if the data is Not empty
                 props.onHide()
                 const api = new Api()

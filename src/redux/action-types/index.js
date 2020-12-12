@@ -1,2 +1,2 @@
 export const ADD_TASKS = 'ADD_TASKS'
-export const TASK_ID_TO_BE_UPDATED = 'TASK_ID_TO_BE_UPDATED'
+export const UPDATED_TASK = 'UPDATED_TASK'

@@ -1,4 +1,5 @@
 import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
+import {useDispatch} from 'react-redux'
 // import {useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -7,8 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 //Own Components
 import Api from '../../../services/network'
-import IsEmpty from '../../../helpers/IsEmpty'
+import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
+import {updatedTask} from '../../../redux/action-creator/index'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -19,23 +21,42 @@ const TaskModal = forwardRef((props, ref) => {
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
     const [projectTasks, setProjectTasks] = useState('')
-    // //Fetching the task id from the store
-    // const {TaskUpdateId, Tasks} = useSelector((state) => state.tasks)
+    const [disabledProject, setDisabledProject] = useState(false)
+
+    const dispatch = useDispatch()
+
+    //Function call coming from the parent component
     useImperativeHandle(
         ref,
         () => ({
             updateFormfields() {
                 if(props.task !== '') {
-                    const {description, dueDate, stack, difficulty, status, projects} = props.task
+                    const {description, dueDate, stack, difficulty, status} = props.task
+                    setDisabledProject(true)
                     setDescription(description)
-                    console.log(dueDate)
-                    setDueDate(dueDate)
+                    //Change the date to a proper format that can be displayed
+                    const date = dueDate.slice(0,10)
+                    props.task.dueDate = date
+                    setDueDate(date)
                     //TODO: change status when a status is assigned
                     setStatus(status)
                     setStack(stack)
+                    //difficulty originally comes in small letters eg. easy, so it has to be
+                    //capitalized eg. Easy, to fit the value in the frontend
                     let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
                     setDifficulty(diff)
-                    setProjects(projects)
+                    //Get the specific project that the task to be updated is attached to
+                    if (projects !== '' && projects !== undefined) {
+                        // eslint-disable-next-line
+                        projects.map(project => {
+                            // eslint-disable-next-line
+                            project.tasks.map(task => {
+                                if (task.includes(props.task.id)) {
+                                    setProjectTasks(project.name)
+                                }
+                            })
+                        })
+                    }
                 }
             }
         })
@@ -64,15 +85,29 @@ const TaskModal = forwardRef((props, ref) => {
     }
     
     //Add the task to the specific project selected
-    function addTaskToProject(id) {
+    function addTaskToProject(id, props) {
         // eslint-disable-next-line
         projects.map(project => {
+            //projectTasks contains the name chosen in the form
             if (projectTasks === project.name) {
-                project.tasks.push(id)
-                const data = {tasks: project.tasks}
-                //Remove the clientId since its not allowed in the backend
-                api.Projects().updateProject(project.id, data)
-            }
+                if (id !== null) {
+                    project.tasks.push(id)
+                    const data = {tasks: project.tasks}
+                    //Remove the clientId since its not allowed in the backend
+                    api.Projects().updateProject(project.id, data)
+                    .then(res => {
+                        if (res.status === 200) {
+                            notify('success', 'Added task to project successfully')
+                            props.onHide()
+                        }
+                    })
+                    .catch(err => {
+                        const {message} = err.response.data
+                        notify('error', message)
+                    })
+                }
+            } 
+            
         })
     }
 
@@ -112,28 +147,77 @@ const TaskModal = forwardRef((props, ref) => {
                 status: stat,
                 dueDate,
                 difficulty: diff,
+                id: props.task.id,
+                creator: props.task.creator,
                 stack
             }
-            
-            //Checking if the data is empty with the helper function
-            if (IsEmpty(data) === true) {
-                //Hide the modal if the data is Not empty
-                props.onHide()
-                data.creator = localStorage.getItem('userID')
-                api.Tasks().createTask(data)
-                .then(res => {
-                    if (res.status === 201) {
-                        //Once a task is created we get its ID and pass it to the addToTask Function
-                        //so that we can add it to its specific project
-                        addTaskToProject(res.data.id)
-                        notify('success', 'Task successfully created')
+            //If props is not empty then its an update
+            if (IsNotEmpty(props.task)) {
+                const {task} = props
+
+                //Send an update request
+                //First check if the user made any changes
+                function shallowEquality(obj1, obj2) {
+                    const keys1 = Object.keys(obj1)
+                    const keys2 = Object.keys(obj2)
+                    //checking if the number of keys are the same between the two objects
+                    if (keys1.length !== keys2.length) {
+                        return false
                     }
-                })
-                .catch(err => {
-                    const {message} = err.response.data
-                    const customMessage = `Task not created! \n ${message}`
-                    notify('error', customMessage)
-                })
+
+                    for (let key of keys1) {
+                        if (obj1[key] !== obj2[key]) {
+                            return false 
+                        }
+                    }
+                    return true
+                }
+
+                //If there's a difference between the two projects then
+                //update the task
+                if (shallowEquality(task, data) === false) {
+                    //remove the project attribute as it is not to be sent
+                    //along with the task's object
+                    delete data.id
+                    api.Tasks().updateTask(task.id, data)
+                    .then(res => {
+                        if (res.status === 200) {
+                            notify('success', 'Task successfully updated')
+                            dispatch(updatedTask())
+                            props.onHide()
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        const {message} = err.response.data
+                        notify('error', message)
+                    })
+                } else {
+                     //If nothing has been changed show the user a pop message
+                    notify('info', 'You have Not changed anything')
+                }
+            } else {
+                //Send a create task request                
+                //Checking if the data is empty with the helper function
+                if (IsNotEmpty(data) === true) {
+                    //Hide the modal if the data is Not empty
+                    props.onHide()
+                    data.creator = localStorage.getItem('userID')
+                    api.Tasks().createTask(data)
+                    .then(res => {
+                        if (res.status === 201) {
+                            //Once a task is created we get its ID and pass it to the addToTask Function
+                            //so that we can add it to its specific project
+                            addTaskToProject(res.data.id)
+                            notify('success', 'Task successfully created')
+                        }
+                    })
+                    .catch(err => {
+                        const {message} = err.response.data
+                        const customMessage = `Task not created! \n ${message}`
+                        notify('error', customMessage)
+                    })
+                }
             }
         }
     }
@@ -181,7 +265,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control value={projectTasks} onChange={(e) => setProjectTasks(e.target.value)} required as="select">
+                        <Form.Control disabled={disabledProject} value={projectTasks} onChange={(e) => setProjectTasks(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}
