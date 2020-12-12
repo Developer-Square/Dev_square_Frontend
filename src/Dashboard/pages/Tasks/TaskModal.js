@@ -79,7 +79,7 @@ const TaskModal = forwardRef((props, ref) => {
             }
         })
         .catch(err => {
-            const {message} = err.response.data
+            const {message} = err
             notify('error', message)
         })
     }
@@ -188,7 +188,6 @@ const TaskModal = forwardRef((props, ref) => {
                         }
                     })
                     .catch(err => {
-                        console.log(err)
                         const {message} = err.response.data
                         notify('error', message)
                     })
@@ -229,6 +228,8 @@ const TaskModal = forwardRef((props, ref) => {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        show={props.show}
+        onHide={props.onHide}
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">

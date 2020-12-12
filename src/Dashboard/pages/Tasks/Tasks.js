@@ -2,6 +2,10 @@ import React, {useState, useEffect, useRef } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from 'react-bootstrap/Popover'
+import Button from 'react-bootstrap/Button'
+
 
 //Own Components
 import './Tasks.scss'
@@ -12,10 +16,16 @@ import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import TaskLoader from './TaskLoader'
 import { addTasks } from '../../../redux/action-creator'
+import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 
 const Container = styled.div`   
     margin-top: 80px;
     margin-bottom: 30px;
+
+    .rt-tr {
+        position: relative;
+        cursor: pointer;
+    }
 `
 
 const CardContainer = styled.div`
@@ -43,6 +53,8 @@ export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [tasks, setTasks] = useState('');
     const [taskIds, setTasksIds] = useState('');
+    const [rowIndex, setRowIndex] = useState('');
+    const [deleteModal, setDeleteModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(false);
@@ -103,11 +115,11 @@ export default function Tasks() {
 
     function handleTaskUpdate(e) {
         //Getting the index of the clicked row
-        let rowIndex = e.currentTarget.className.slice(6)
+        let rowIndex = parseInt(e.currentTarget.className.slice(4,6))
         //Map the indexes stored in state to see which one matches the one that was clicked
         // eslint-disable-next-line
         Object.keys(taskIds).map((key) => {
-            if (key === rowIndex) {
+            if (parseInt(key) === rowIndex) {
                 api.Tasks().getTask(taskIds[key])
                 .then(res => {
                     if (res.status === 200) {
@@ -118,7 +130,6 @@ export default function Tasks() {
                     }
                 })
                 .catch(err => {
-                    console.log(err)
                     const {message} = err.response.data
                     notify('error', message)
                 })
@@ -126,16 +137,16 @@ export default function Tasks() {
         }) 
     }
 
+    function handleDelete(e) {
+        //Getting the index of the clicked row
+        let rowIndex = parseInt(e.currentTarget.className.slice(0))
+        setRowIndex(rowIndex)
+        setDeleteModal(true)
+    }
+
     const toggleModal = () => {
         setModalShow(true)
     }
-
-    let today = new Date();
-    let day = String(today.getDate()).padStart(2, '0');
-    let month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let year = today.getFullYear();
-
-    today = day + '/' + month + '/' + year;
 
     return (
         <>
@@ -146,6 +157,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => setModalShow(false)}
         />
+        <ConfirmDelete taskIds={taskIds} rowIndex={rowIndex} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
@@ -184,22 +196,38 @@ export default function Tasks() {
                             <div className="rt-body">
                                 <div className="rt-tr-group">
                                     {tasks !== '' ? tasks.results.map((task, index) => (
-                                        <div className={`rt-tr ${index}`} key={index} onClick={handleTaskUpdate}>
+                                        <OverlayTrigger
+                                        trigger="click"
+                                        key={index}
+                                        placement="bottom-end"
+                                        rootClose={true}
+                                        overlay={
+                                            <Popover id={`popover-positioned-bottom`}>
+                                            <Popover.Title as="h3">Actions</Popover.Title>
+                                            <Popover.Content>
+                                                <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                            </Popover.Content>
+                                            </Popover>
+                                        }
+                                    >  
+                                        <div className={`rt-tr ${index}`} key={index}>
                                             {/* Checks the index of the grid cell if its odd it gives an odd class name
                                             which turns it grey */}
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
-                                            {/* While the user's name is still unavailable we give the field a spinner/loader */}
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
-                                                {user === '' ? <Spinner animation="border" variant="primary" size="sm"/> : user}
-                                            </div>
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
-                                            {/* The color of the dot changes according to the task status */}
-                                            <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
-                                            </div>
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
-                                            <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
+                                                {/* While the user's name is still unavailable we give the field a spinner/loader */}
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                    {user === '' ? <Spinner animation="border" variant="primary" size="sm"/> : user}
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                {/* The color of the dot changes according to the task status */}
+                                                <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
                                         </div>
+                                    </OverlayTrigger>
                                     )): null}
                                 </div>
                             </div>
