@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -22,13 +22,13 @@ const ProfileName = styled.h1`
 `
 
 function Profile() {
-    const [name, setName] = useState('')
+    const {user} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const api = new Api()
 
     useEffect(() => {
-        //Get a user's credentials
-        getUser()
+            //Get a user's credentials
+            getUser()
         // eslint-disable-next-line
     }, [])
 
@@ -36,7 +36,6 @@ function Profile() {
         api.User().getUser(`${localStorage.getItem('userID')}`)
         .then(res => {
             if (res.status === 200) {
-                setName(res.data.name)
                 dispatch(addUser(res.data))
                 dispatch(updateAuth())
             }
@@ -49,7 +48,7 @@ function Profile() {
     return (
         <Container>
             <ProfileImg src="/images/assets/dashboard_images/profilelg.png"/>
-            <ProfileName>{name === '' ? <Spinner animation="border" variant="primary" size="sm"/>: name}</ProfileName>
+            <ProfileName>{user.name === '' ? <Spinner animation="border" variant="primary" size="sm"/>: user.name}</ProfileName>
         </Container>
     )
 }
