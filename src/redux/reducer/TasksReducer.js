@@ -21,7 +21,7 @@ function TasksReducer(state=initialState, action) {
         case CREATED_TASK:
             return {
                 ...state,
-                UpdatedTask: !state.CreatedTask
+                CreatedTask: !state.CreatedTask
             }
     
         default:

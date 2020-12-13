@@ -156,7 +156,6 @@ const TaskModal = forwardRef((props, ref) => {
         } else {
             setValidated(true)
             const diff = converter(difficulty)
-            console.log(status)
             const stat = converter(status)
             let data = {
                 description,
@@ -213,29 +212,32 @@ const TaskModal = forwardRef((props, ref) => {
                 }
             } else {
                 //Send a create task request 
-                delete data.id               
-                data.creator = localStorage.getItem('userID')
-                console.log(data)
-                //Checking if the data is empty with the helper function
-                if (IsNotEmpty(data) === true) {
-                    //Hide the modal if the data is Not empty
-                    props.onHide()
-                    api.Tasks().createTask(data)
-                    .then(res => {
-                        if (res.status === 201) {
-                            //Once a task is created we get its ID and pass it to the addToTask Function
-                            //so that we can add it to its specific project
-                            addTaskToProject(res.data.id)
-                            dispatch(createdTask())
-                            clearFields()
-                            notify('success', 'Task successfully created')
-                        }
-                    })
-                    .catch(err => {
-                        const {message} = err.response.data
-                        const customMessage = `Task not created! \n ${message}`
-                        notify('error', customMessage)
-                    })
+                if (projectTasks !== '' && projectTasks !== 'Select the project') {
+                    delete data.id               
+                    data.creator = localStorage.getItem('userID')
+                    //Checking if the data is empty with the helper function
+                    if (IsNotEmpty(data) === true) {
+                        //Hide the modal if the data is Not empty
+                        props.onHide()
+                        api.Tasks().createTask(data)
+                        .then(res => {
+                            if (res.status === 201) {
+                                //Once a task is created we get its ID and pass it to the addToTask Function
+                                //so that we can add it to its specific project
+                                addTaskToProject(res.data.id)
+                                dispatch(createdTask())
+                                clearFields()
+                                notify('success', 'Task successfully created')
+                            }
+                        })
+                        .catch(err => {
+                            const {message} = err.response.data
+                            const customMessage = `Task not created! \n ${message}`
+                            notify('error', customMessage)
+                        })
+                    }
+                } else {
+                    notify('error', 'You have not selected the project')
                 }
             }
         }
