@@ -1,6 +1,7 @@
-import {ADD_TASKS, UPDATED_TASK} from '../action-types/index'
+import {ADD_TASKS, UPDATED_TASK, CREATED_TASK} from '../action-types/index'
 
 const initialState = {
+    CreatedTask: false,
     UpdatedTask: false,
     Tasks: []
 }
@@ -16,6 +17,11 @@ function TasksReducer(state=initialState, action) {
             return {
                 ...state,
                 UpdatedTask: !state.UpdatedTask
+            }
+        case CREATED_TASK:
+            return {
+                ...state,
+                UpdatedTask: !state.CreatedTask
             }
     
         default:

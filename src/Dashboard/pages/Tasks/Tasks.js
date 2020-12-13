@@ -60,7 +60,7 @@ export default function Tasks() {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
 
-    const {UpdatedTask} = useSelector(state => state.tasks)
+    const {UpdatedTask, CreatedTask} = useSelector(state => state.tasks)
     //Using the ref attribute to run a function 
     //in the Task Modal child component
     const childRef = useRef()
@@ -70,7 +70,7 @@ export default function Tasks() {
         setLoading(true)
         getTasks()
         // eslint-disable-next-line
-    }, [UpdatedTask])
+    }, [UpdatedTask, CreatedTask])
 
     //Get all tasks when the page loads
     function getTasks() {

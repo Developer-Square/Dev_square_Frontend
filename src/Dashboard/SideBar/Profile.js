@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
+import Spinner from 'react-bootstrap/Spinner'
 
 //Own Components
 import Api from '../../services/network'
@@ -14,6 +15,7 @@ const ProfileImg = styled.img`
 `
 const ProfileName = styled.h1`
     margin: 10px 0;
+    text-align: center;
     font-size: 1rem;
     font-weight: 300;
     color: ${({theme}) => theme.textColor};
@@ -47,7 +49,7 @@ function Profile() {
     return (
         <Container>
             <ProfileImg src="/images/assets/dashboard_images/profilelg.png"/>
-            <ProfileName>{name}</ProfileName>
+            <ProfileName>{name === '' ? <Spinner animation="border" variant="primary" size="sm"/>: name}</ProfileName>
         </Container>
     )
 }

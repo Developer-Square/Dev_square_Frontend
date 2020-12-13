@@ -47,7 +47,7 @@ export default function ConfirmDelete(props) {
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body {...props} className="mx-auto">
-                        <Button variant="outline-primary" className="mr-5" onClick={props.onHide}>No</Button>
+                        <Button variant="outline-primary" className="mr-3" onClick={props.onHide}>No</Button>
                         <Button variant="danger" onClick={(e) => handleDelete(e, props)}>Yes</Button>
                     </Modal.Body>
                 </Modal>

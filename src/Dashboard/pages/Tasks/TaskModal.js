@@ -10,18 +10,19 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
-import {updatedTask} from '../../../redux/action-creator/index'
+import {createdTask, updatedTask} from '../../../redux/action-creator/index'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
-    const [difficulty, setDifficulty] = useState('Easy')
-    const [status, setStatus] = useState('Not Started')
+    const [difficulty, setDifficulty] = useState('')
+    const [status, setStatus] = useState('')
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
     const [projectTasks, setProjectTasks] = useState('')
     const [disabledProject, setDisabledProject] = useState(false)
+    const [title, setTitle] = useState('')
 
     const dispatch = useDispatch()
 
@@ -31,6 +32,7 @@ const TaskModal = forwardRef((props, ref) => {
         () => ({
             updateFormfields() {
                 if(props.task !== '') {
+                    setTitle('Update')
                     const {description, dueDate, stack, difficulty, status} = props.task
                     setDisabledProject(true)
                     setDescription(description)
@@ -66,6 +68,10 @@ const TaskModal = forwardRef((props, ref) => {
     const api = new Api()
 
     useEffect(() => {
+        //Set the defaults
+        setDifficulty('Easy')
+        setStatus('Not Started')
+        setTitle('Create a New')
         //Get projects
         getProjects()
         // eslint-disable-next-line
@@ -132,6 +138,16 @@ const TaskModal = forwardRef((props, ref) => {
         return result
     }
 
+    const clearFields = () => {
+        setDescription('')
+        setDueDate('')
+        setStack('')
+        setDifficulty('')
+        setStatus('')
+        setProjectTasks('')
+        setDisabledProject(false)
+    }
+
     function handleSubmit(e, props) {
         e.preventDefault()
         const form = e.currentTarget;
@@ -140,6 +156,7 @@ const TaskModal = forwardRef((props, ref) => {
         } else {
             setValidated(true)
             const diff = converter(difficulty)
+            console.log(status)
             const stat = converter(status)
             let data = {
                 description,
@@ -182,6 +199,7 @@ const TaskModal = forwardRef((props, ref) => {
                         if (res.status === 200) {
                             notify('success', 'Task successfully updated')
                             dispatch(updatedTask())
+                            clearFields()
                             props.onHide()
                         }
                     })
@@ -197,6 +215,7 @@ const TaskModal = forwardRef((props, ref) => {
                 //Send a create task request 
                 delete data.id               
                 data.creator = localStorage.getItem('userID')
+                console.log(data)
                 //Checking if the data is empty with the helper function
                 if (IsNotEmpty(data) === true) {
                     //Hide the modal if the data is Not empty
@@ -207,6 +226,8 @@ const TaskModal = forwardRef((props, ref) => {
                             //Once a task is created we get its ID and pass it to the addToTask Function
                             //so that we can add it to its specific project
                             addTaskToProject(res.data.id)
+                            dispatch(createdTask())
+                            clearFields()
                             notify('success', 'Task successfully created')
                         }
                     })
@@ -232,7 +253,7 @@ const TaskModal = forwardRef((props, ref) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                Create a New Task
+                {title} Task
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
