@@ -14,21 +14,23 @@ const Container = styled.div`
     margin-left: 16rem;
     position: relative;
     padding: 0 4rem;
-    background: ${({theme}) => theme.secondary};
+    background: ${({theme}) => theme.dashboardbg};
 `
 
 function Dashboard({history, children}) {
 
     const {theme} = useThemeContext()
     return (
-        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <GlobalStyles />
-            <SideBar/>
-            <Container>
-                <Nav history={history} />
-                {children}
-            </Container>
-        </ThemeProvider>
+        <>
+            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+                <GlobalStyles />
+                <SideBar/>
+                <Container>
+                    <Nav history={history} />
+                    {children}
+                </Container>
+            </ThemeProvider>
+        </>
     )
 }
 

@@ -1,1 +1,5 @@
-export const CHANGE_MENU_LINK = 'CHANGE_MENU_LINK'
+export const ADD_TASKS = 'ADD_TASKS'
+export const ADD_USER = 'ADD_USER'
+export const CREATED_TASK = 'CREATED_TASK'
+export const UPDATED_TASK = 'UPDATED_TASK'
+export const UPDATE_AUTH = 'UPDATE_AUTH'

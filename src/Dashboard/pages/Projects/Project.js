@@ -38,24 +38,24 @@ const Subtitle = styled(Text)`
 	margin-top: 2px;
 `
 
-const Username = styled.div`
+const ProjectContainer = styled.div`
 	width: 30%;
 	display: flex;
 	align-items: center;
 `
 
-const UsernameText = styled.div`
+const ProjectText = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-left: 1rem;
 `
 
-const UsernameImg = styled.img`
+const ProjectImg = styled.img`
 	height: 35px;
 	width: 35px;
 `
 
-const UsernameStreet = styled(Text)`
+const ProjectStreet = styled(Text)`
 	font-size: 1rem;
 `
 
@@ -88,7 +88,7 @@ const StatusIndicator = styled.div`
 	right: 7rem;
 `
 
-function User({data}) {
+function Project({data}) {
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
@@ -99,13 +99,13 @@ function User({data}) {
 
 	return ( 
 		<Container className="-container">
-		<Username className="pl-2">
-			<UsernameImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
-			<UsernameText>
-				<UsernameStreet>{username.address.street}</UsernameStreet>
+		<ProjectContainer className="pl-2">
+			<ProjectImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
+			<ProjectText>
+				<ProjectStreet>{username.address.street}</ProjectStreet>
 				<Subtitle>{username.address.city}</Subtitle>
-			</UsernameText>
-		</Username>
+			</ProjectText>
+		</ProjectContainer>
 		<Email>{email}</Email>
 		<DueDate>{rent}</DueDate>
 		<DepositWrapper>
@@ -127,4 +127,4 @@ function User({data}) {
 	</Container>
 	)}
 
-export default User;
+export default Project;

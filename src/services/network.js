@@ -6,7 +6,7 @@ class Api {
     constructor() {
         this.instance =  axios.create({
             baseURL: API_URL,
-            timeout: 7000,
+            timeout: 9000,
             headers: {
                 Authorization: `Bearer ${this.getToken()}`
             },
@@ -37,10 +37,10 @@ class Api {
                             }),
                         }).then(res => res.json())
                         .then(res => {
-                            if (res.status === 200) {
-                                localStorage.setItem('jwtToken', res.data.access.token)
-                                localStorage.setItem('refreshToken', res.data.refresh.token)
-                            }
+                            localStorage.setItem('jwtToken', res.access.token)
+                            localStorage.setItem('refreshToken', res.refresh.token)
+
+                            originalReq.headers['Authorization'] = `Bearer ${res.access.token}`
 
                             return axios(originalReq)
                         })
@@ -84,6 +84,29 @@ class Api {
                 },
                 data,
             })
+        }
+    }
+
+    Tasks() {
+        return {
+            createTask: (data) => this.instance.post(`tasks/`, data),
+            getAllTasks: () => this.instance.get(`tasks/`),
+            getTask: (id) => this.instance.get(`tasks/${id}`),
+            updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data),
+            deleteTask: (id) => this.instance.delete(`tasks/${id}`)
+        }
+    }
+
+    User() {
+        return {
+            getUser: (data) => this.instance.get(`users/${data}`)
+        }
+    }
+
+    Projects() {
+        return {
+            getAllProjects: () => this.instance.get(`project/`),
+            updateProject: (id, data) => this.instance.patch(`project/${id}`, data)
         }
     }
 }

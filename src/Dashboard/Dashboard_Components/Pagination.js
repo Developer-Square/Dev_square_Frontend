@@ -19,7 +19,7 @@ export default function Pagination() {
                         <span className="pageInfo">
                             Page
                             <div className="pageJump">
-                                <input aria-label="jump to page" type="number" value="1" />
+                                <input aria-label="jump to page" type="number" defaultValue="1"/>
                             </div>
                             of
                             <span className="totalPages">23</span>

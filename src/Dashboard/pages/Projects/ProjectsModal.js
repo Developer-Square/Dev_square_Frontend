@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form'
 
 
 
-export default function ClientModal(props) {
+export default function ProjectsModal(props) {
     return (
         <Modal
         {...props}

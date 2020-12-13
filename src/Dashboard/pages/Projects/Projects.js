@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //Own Components
 import MenuBar from "../../Dashboard_Components/MenuBar";
-import User from './Client'
+import Project from './Project'
 import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 
 const Container = styled.div`
@@ -31,7 +31,7 @@ const DepositCount = styled.div`
 	border-radius: 20px;
 `;
 
-function Clients({ title, data, count }) {
+function Projects({ title, data, count }) {
 	const [size, setSize] = useState(3)
 
 	let userData = []
@@ -53,11 +53,11 @@ function Clients({ title, data, count }) {
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
 			<MenuBar username="Username" email="Email" login="Due Date" extra="Project Name" status="Status"/>
 			{userData.slice(0, size).map((user) => (
-				<User data={user} key={user.username.address.street}/>
+				<Project data={user} key={user.username.address.street}/>
 			))}
 			<ViewAllButton title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
 	);
 }
 
-export default Clients;
+export default Projects;

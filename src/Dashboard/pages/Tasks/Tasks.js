@@ -1,15 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
+import Spinner from 'react-bootstrap/Spinner'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from 'react-bootstrap/Popover'
+import Button from 'react-bootstrap/Button'
+
 
 //Own Components
 import './Tasks.scss'
 import AddButton from '../../Dashboard_Components/AddButton'
 import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
+import Api from '../../../services/network'
+import notify from '../../../helpers/Notify'
+import TaskLoader from './TaskLoader'
+import { addTasks } from '../../../redux/action-creator'
+import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 
 const Container = styled.div`   
     margin-top: 80px;
     margin-bottom: 30px;
+
+    .rt-tr {
+        position: relative;
+        cursor: pointer;
+    }
 `
 
 const CardContainer = styled.div`
@@ -35,31 +51,120 @@ const CardTitle = styled.div`
 
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
+    const [tasks, setTasks] = useState('');
+    const [taskIds, setTasksIds] = useState('');
+    const [rowIndex, setRowIndex] = useState('');
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [tasktobeupdated, settasktobeupdated] = useState('');
+    const [user, setUser] = useState('');
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
+
+    const {UpdatedTask, CreatedTask} = useSelector(state => state.tasks)
+    //Using the ref attribute to run a function 
+    //in the Task Modal child component
+    const childRef = useRef()
+    const api = new Api()
+
+    useEffect(() => {
+        setLoading(true)
+        getTasks()
+        // eslint-disable-next-line
+    }, [UpdatedTask, CreatedTask])
+
+    //Get all tasks when the page loads
+    function getTasks() {
+        api.Tasks().getAllTasks()
+        .then(res => {
+            if (res.status === 200) {
+                let taskObject = {}
+                setLoading(false)
+                setTasks(res.data)
+                //Dispatching an action to add tasks to the redux store
+                dispatch(addTasks(res.data.results))
+                notify('success', 'Tasks fetched successfully')
+                //eslint-disable-next-line
+                res.data.results.map((task, index) => {
+                    taskObject[`${index}`] = task.id
+                    getUser(task.creator)
+                })
+                setTasksIds(taskObject)
+            }
+        })
+        .catch(err => {
+            setLoading(false)
+            // const {data} = err.response
+            notify('error', err.message)
+        })
+
+    }
+
+    //Get the Developer name    
+    const getUser = async (id) => {
+        const api  = new Api()
+        try {
+            const res = await api.User().getUser(id)
+            if (res.status === 200) {
+                setUser(res.data.name)
+            }  
+        } catch (error) {
+            const {message} = error.response.data
+            setUser(message)
+        }
+    }
+
+    function handleTaskUpdate(e) {
+        //Getting the index of the clicked row
+        let rowIndex = parseInt(e.currentTarget.className.slice(4,6))
+        //Map the indexes stored in state to see which one matches the one that was clicked
+        // eslint-disable-next-line
+        Object.keys(taskIds).map((key) => {
+            if (parseInt(key) === rowIndex) {
+                api.Tasks().getTask(taskIds[key])
+                .then(res => {
+                    if (res.status === 200) {
+                        settasktobeupdated(res.data)
+                        setModalShow(true)
+                        //Run the updateFormfields function in the child component
+                        childRef.current.updateFormfields()
+                    }
+                })
+                .catch(err => {
+                    const {message} = err.response.data
+                    notify('error', message)
+                })
+            }
+        }) 
+    }
+
+    function handleDelete(e) {
+        //Getting the index of the clicked row
+        let rowIndex = parseInt(e.currentTarget.className.slice(0))
+        setRowIndex(rowIndex)
+        setDeleteModal(true)
+    }
 
     const toggleModal = () => {
         setModalShow(true)
     }
 
-    let today = new Date();
-    let day = String(today.getDate()).padStart(2, '0');
-    let month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let year = today.getFullYear();
-
-    today = day + '/' + month + '/' + year;
-
     return (
         <>
         <AddButton onClick={() => toggleModal()} />
         <TaskModal
+        ref={childRef}
+        task={tasktobeupdated}
         show={modalShow}
         onHide={() => setModalShow(false)}
-      />
+        />
+        <ConfirmDelete taskIds={taskIds} rowIndex={rowIndex} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
                     <CardTitle className="card-title">Tasks</CardTitle>
                     <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
+                            <TaskLoader loading={loading} />
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
@@ -90,106 +195,40 @@ export default function Tasks() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">345</div>
-                                        <div className="rt-td odd" role="gridcell">Create a logo</div>
-                                        <div className="rt-td odd" role="gridcell">Sophie</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-in-progress">●</span> In Progress</span>
+                                    {tasks !== '' ? tasks.results.map((task, index) => (
+                                        <OverlayTrigger
+                                        trigger="click"
+                                        key={index}
+                                        placement="bottom-end"
+                                        rootClose={true}
+                                        overlay={
+                                            <Popover id={`popover-positioned-bottom`}>
+                                            <Popover.Title as="h3">Actions</Popover.Title>
+                                            <Popover.Content>
+                                                <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                            </Popover.Content>
+                                            </Popover>
+                                        }
+                                    >  
+                                        <div className={`rt-tr ${index}`} key={index}>
+                                            {/* Checks the index of the grid cell if its odd it gives an odd class name
+                                            which turns it grey */}
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
+                                                {/* While the user's name is still unavailable we give the field a spinner/loader */}
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                    {user === '' ? <Spinner animation="border" variant="primary" size="sm"/> : user}
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                {/* The color of the dot changes according to the task status */}
+                                                <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
                                         </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">UI/UX</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">54</div>
-                                        <div className="rt-td" role="gridcell">Users should be able to login</div>
-                                        <div className="rt-td" role="gridcell">Linus</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-on-hold">●</span> On Hold</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Nodejs</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">234</div>
-                                        <div className="rt-td odd" role="gridcell">Add a new Table to the dashboard</div>
-                                        <div className="rt-td odd" role="gridcell">Ryan</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-not-started">●</span> Not Started</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Reactjs</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">34</div>
-                                        <div className="rt-td odd" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td odd" role="gridcell">Ryan</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Franklin</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">34</div>
-                                        <div className="rt-td odd" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td odd" role="gridcell">Timo</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">34</div>
-                                        <div className="rt-td" role="gridcell">Create new queries in the backend</div>
-                                        <div className="rt-td" role="gridcell">Ryan</div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Python</div>
-                                    </div>
+                                    </OverlayTrigger>
+                                    )): null}
                                 </div>
                             </div>
                         </div>
