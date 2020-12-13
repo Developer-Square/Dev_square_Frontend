@@ -85,7 +85,7 @@ const TaskModal = forwardRef((props, ref) => {
     }
     
     //Add the task to the specific project selected
-    function addTaskToProject(id, props) {
+    function addTaskToProject(id) {
         // eslint-disable-next-line
         projects.map(project => {
             //projectTasks contains the name chosen in the form
@@ -98,7 +98,6 @@ const TaskModal = forwardRef((props, ref) => {
                     .then(res => {
                         if (res.status === 200) {
                             notify('success', 'Added task to project successfully')
-                            props.onHide()
                         }
                     })
                     .catch(err => {
@@ -152,9 +151,8 @@ const TaskModal = forwardRef((props, ref) => {
                 stack
             }
             //If props is not empty then its an update
-            if (IsNotEmpty(props.task)) {
+            if (Object.keys(props.task).length !== 0 && props.task.constructor === Object) {
                 const {task} = props
-
                 //Send an update request
                 //First check if the user made any changes
                 function shallowEquality(obj1, obj2) {
@@ -196,12 +194,13 @@ const TaskModal = forwardRef((props, ref) => {
                     notify('info', 'You have Not changed anything')
                 }
             } else {
-                //Send a create task request                
+                //Send a create task request 
+                delete data.id               
+                data.creator = localStorage.getItem('userID')
                 //Checking if the data is empty with the helper function
                 if (IsNotEmpty(data) === true) {
                     //Hide the modal if the data is Not empty
                     props.onHide()
-                    data.creator = localStorage.getItem('userID')
                     api.Tasks().createTask(data)
                     .then(res => {
                         if (res.status === 201) {

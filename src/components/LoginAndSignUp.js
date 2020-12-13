@@ -1,4 +1,5 @@
 import React, {Fragment, useState} from 'react'
+import {useDispatch} from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import cx from 'classnames'
 import {ToastContainer} from 'react-toastify'
@@ -7,8 +8,10 @@ import {ToastContainer} from 'react-toastify'
 import styles from './LoginAndSignUp.module.scss'
 import Api from '../services/network'
 import notify from '../helpers/Notify'
+import {addUser, updateAuth} from '../redux/action-creator/index'
 
 function LoginAndSignUp({history}) {
+    const dispatch = useDispatch()
     const api = new Api()
 
     const [text, setText] = useState('')
@@ -63,6 +66,8 @@ function LoginAndSignUp({history}) {
                     localStorage.setItem('jwtToken', res.data.tokens.access.token)
                     localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
                     localStorage.setItem('userID', res.data.user.id)
+                    dispatch(addUser(res.data.user))
+                    dispatch(updateAuth())
                      //Clear the inputs
                     clearFields()
                     history.push('/dashboard/home')

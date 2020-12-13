@@ -19,6 +19,7 @@ const globalTheme = {
 export const lightTheme = {
     primary: '#FFF',
     secondary: '#F8F8F9',
+    dashboardbg: '#f1f4f6',
     textColor: '#585280',
     header: '#585280',
     headerNumber: '#FFF',
