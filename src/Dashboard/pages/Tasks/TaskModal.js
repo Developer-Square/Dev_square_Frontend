@@ -12,7 +12,7 @@ import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
 import {createdTask, updatedTask} from '../../../redux/action-creator/index'
 
-const TaskModal = forwardRef((props, ref) => {
+const TaskModal = forwardRef((props, ref, clear) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
@@ -60,6 +60,14 @@ const TaskModal = forwardRef((props, ref) => {
                         })
                     }
                 }
+            },
+            clearFormFields() {
+                setDescription('')
+                setProjectTasks('')
+                setStack('')
+                setDifficulty('Easy')
+                setStatus('Not Started')
+                setDueDate('')
             }
         })
     )
@@ -75,7 +83,7 @@ const TaskModal = forwardRef((props, ref) => {
         //Get projects
         getProjects()
         // eslint-disable-next-line
-    }, [props])
+    }, [])
 
     function getProjects() {
         api.Projects().getAllProjects()

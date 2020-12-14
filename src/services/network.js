@@ -90,7 +90,14 @@ class Api {
     Tasks() {
         return {
             createTask: (data) => this.instance.post(`tasks/`, data),
-            getAllTasks: () => this.instance.get(`tasks/`),
+            getAllTasks: (data) => this.instance({
+                method: 'GET',
+                url: 'tasks/',
+                params: {
+                    page: data.page,
+                    limit: data.limit
+                }
+            }),
             getTask: (id) => this.instance.get(`tasks/${id}`),
             updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data),
             deleteTask: (id) => this.instance.delete(`tasks/${id}`)
@@ -99,7 +106,8 @@ class Api {
 
     User() {
         return {
-            getUser: (data) => this.instance.get(`users/${data}`)
+            getUser: (data) => this.instance.get(`users/${data}`),
+            getAllUsers: () => this.instance(`users/`)
         }
     }
 

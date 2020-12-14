@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import {useDispatch} from 'react-redux'
 import styled from "styled-components";
 
 //Own Components
 import MenuBar from "../../Dashboard_Components/MenuBar";
 import User from './User'
 import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
+import Api from '../../../services/network'
+import {addUsers, setLoading, updateGetUsers} from '../../../redux/action-creator/index'
+import notify from "../../../helpers/Notify";
 
 const Container = styled.div`
 	padding-bottom: 40px;
@@ -33,6 +37,32 @@ const UserCount = styled.div`
 
 function Users({ title, data, count }) {
 	const [size, setSize] = useState(3)
+	const dispatch = useDispatch()
+	const api = new Api()
+
+	useEffect(() => {
+		getUsers()
+		// eslint-disable-next-line 
+	}, [])
+
+	//Get All Users
+	function getUsers() {
+		dispatch(setLoading())
+		api.User().getAllUsers()
+		.then(res => {
+			if (res.status === 200){
+				dispatch(addUsers(res.data))
+				notify('success', 'Users fetched successfully')
+				dispatch(setLoading())
+				dispatch(updateGetUsers())
+			}
+		})
+		.catch(err => {
+			const {message} = err.response.data
+			dispatch(setLoading())
+			notify('error', message)
+		})
+	}
 
 	let userData = []
 
