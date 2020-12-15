@@ -16,9 +16,10 @@ import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import TaskLoader from './TaskLoader'
+import BouncingBall from './BouncingBall'
+import StairsLoader from './StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
-import {addTasks} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading, addTaskIds} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -62,7 +63,6 @@ const CardTitle = styled.div`
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [rowIndex, setRowIndex] = useState('');
-    const [userTasks, setUserTasks] = useState('')
     const [deleteModal, setDeleteModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
 
@@ -77,13 +77,24 @@ export default function Tasks() {
         // eslint-disable-next-line
     }, [GetTasks])
 
+    //Assign a task to a user
+    function handleAssign() {
+
+    }
+
     //Get the tasks of the specified user
     function handleUserTasks(e) {
+        if (e.target.value.includes('Get')) {
+            childRef.current.getAllTasks()
+        }
         let name = e.target.value
-        let actualTasks = []
+        let userTasksArr = []
         // eslint-disable-next-line
         Admins.map(admin => {
+            //Compare the name chosen on the form to the ones in
+            //the store to get the user.id n send it
             if (name.toLowerCase() === admin.name.toLowerCase()) {
+                dispatch(setLoading())
                 api.Tasks().getUsersTasks(admin.id)
                 .then(res => {
                     if (res.status === 200) {
@@ -91,26 +102,41 @@ export default function Tasks() {
                         //actual tasks
                         const {tasks} = res.data
                         if (tasks.length !== 0) {
+                            //Convert to an object so that it can be sent to the
+                            //store to replace the taskIds so that the right task can be updated
+                            const taskObject = Object.assign({}, tasks)
+                            dispatch(addTaskIds(taskObject))
+                            let len = tasks.length
                             // eslint-disable-next-line
                             tasks.map(task => {
                                 api.Tasks().getTask(task)
                                 .then(res => {
                                     if (res.status === 200) {
-                                        actualTasks.push(res.data)
-                                        console.log(actualTasks)
+                                        //Wait till the mapping is done n then send the final result
+                                        let result = join(res.data, len, userTasksArr)
+                                        if(result !== undefined) {
+                                            dispatch(addSpecificTasks(result))
+                                            dispatch(setLoading())
+                                        }
                                     }
                                 })
                                 .catch(err => {
+                                    dispatch(setLoading())
+                                    console.log(err)
                                     const {message} = err.response.data
                                     notify('error', message)
                                 })
                             })
+                        } else {
+                            dispatch(setLoading())
+                            //Send an empty array if the users has no tasks
+                            userTasksArr = []
+                            dispatch(addSpecificTasks(userTasksArr))
                         }
-                        //Add the tasks of the specified user to the store
-                        dispatch(addTasks(userTasks))
-                    }
+                    } 
                 })
                 .catch(err => {
+                    dispatch(setLoading())
                     const {message} = err.response.data
                     notify('error', message)
                 })
@@ -160,6 +186,15 @@ export default function Tasks() {
         </Tooltip>
       );
 
+    const join = (data, len, arr) => {
+        arr.push(data)
+        //Once userTasks has the same number of items as the
+        //one in tasks return the array
+        if (arr.length === len) {
+            return arr
+        }
+    } 
+
     return (
         <>
         <AddButton onClick={() => toggleModal()} />
@@ -180,17 +215,22 @@ export default function Tasks() {
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >   
+                    {Admins.length !== 0 ? 
                         <Form.Control as="select" onChange={(e) => handleUserTasks(e)}>
                             <option>Choose user</option>
+                            <option>Get All Tasks</option>
                             {Admins.length !== 0 ? Admins.map((admin, index) => (
                                 <option key={index} className="names">{admin.name}</option>
                             )): 'Loading'}
                         </Form.Control>
+                        :
+                        <StairsLoader />
+                        }
                         </OverlayTrigger>
                     </div>
                     <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
-                            <TaskLoader loading={Loading} />
+                            <BouncingBall loading={Loading} />
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
@@ -221,7 +261,7 @@ export default function Tasks() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    {Tasks.length !== 0 ? Tasks.results.map((task, index) => (
+                                    {Object.keys(Tasks).length !== 0 && Tasks.results.length !== 0 ? Tasks.results.map((task, index) => (
                                         <OverlayTrigger
                                         trigger="click"
                                         key={index}
@@ -231,8 +271,11 @@ export default function Tasks() {
                                             <Popover id={`popover-positioned-bottom`}>
                                             <Popover.Title as="h3">Actions</Popover.Title>
                                             <Popover.Content>
-                                                <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
-                                                <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                                <Button className={`mr-2 mb-2 col-12 ${index}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                <div className="d-flex justify-content-between">
+                                                    <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                    <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                                </div>
                                             </Popover.Content>
                                             </Popover>
                                         }
@@ -258,7 +301,7 @@ export default function Tasks() {
                                 </div>
                             </div>
                         </div>
-                        <Pagination limit={Tasks.limit} page={Tasks.page} totalResults={Tasks.totalResults} totalPages={Tasks.totalPages} />
+                        <Pagination ref={childRef} limit={Tasks.limit} page={Tasks.page} totalResults={Tasks.totalResults} totalPages={Tasks.totalPages} />
                     </div>
                 </div>
             </CardContainer>

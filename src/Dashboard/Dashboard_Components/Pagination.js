@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, forwardRef, useImperativeHandle} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
@@ -15,11 +15,21 @@ const Container = styled.div`
     }
 `
 
-export default function Pagination(props) {
+const Pagination = forwardRef((props, ref) => {
     const {UpdatedTask, CreatedTask} = useSelector(state => state.tasks)
     const api = new Api()
     const dispatch = useDispatch()
     const {page, limit, totalPages} = props
+
+     //Function call coming from the parent component
+     useImperativeHandle(
+        ref,
+        () => ({
+            getAllTasks() {
+                getTasks()
+            },
+        })
+    )
 
     useEffect(() => {
         //Get tasks when page loads
@@ -70,7 +80,7 @@ export default function Pagination(props) {
         const data = {
             role: 'admin'
         }
-        api.User().getAllUsers(data)
+        api.User().getAllUsersWithParams(data)
         .then(res => {
             if (res.status === 200) {
                 dispatch(addAdminUsers(res.data.results))
@@ -188,4 +198,5 @@ export default function Pagination(props) {
         </Container>
         </>
     )
-}
+})
+export default Pagination;

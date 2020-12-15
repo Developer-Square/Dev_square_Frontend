@@ -47,8 +47,11 @@ function Users({ title, data, count }) {
 
 	//Get All Users
 	function getUsers() {
+		const data = {
+			role: ''
+		}
 		dispatch(setLoading())
-		api.User().getAllUsers()
+		api.User().getAllUsers(data)
 		.then(res => {
 			if (res.status === 200){
 				dispatch(addUsers(res.data))

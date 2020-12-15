@@ -108,7 +108,8 @@ class Api {
     User() {
         return {
             getUser: (data) => this.instance.get(`users/${data}`),
-            getAllUsers: (data) => this.instance({
+            getAllUsers: () => this.instance.get(`users/`),
+            getAllUsersWithParams: (data) => this.instance({
                 method: 'GET',
                 url: 'users/',
                 params: {

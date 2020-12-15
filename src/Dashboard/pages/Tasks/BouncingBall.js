@@ -1,9 +1,9 @@
 import React from 'react'
 
 //Own Components
-import './TaskLoader.scss'
+import './BouncingBall.scss'
 
-export default function TaskLoader({loading}) {
+export default function BouncingBall({loading}) {
     return (
         <>
         {loading ? (
