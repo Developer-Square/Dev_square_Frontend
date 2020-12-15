@@ -1,4 +1,4 @@
-import {ADD_TASKS, ADD_TASK_IDS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS} from '../action-types/index'
+import {ADD_TASKS, ADD_TASK_IDS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS} from '../action-types/index'
 
 export const setLoading = () => {
     return {type: SET_LOADING}
@@ -28,6 +28,10 @@ export const createdTask = () => {
 
 export const updateGetTasks = () => {
     return {type: GET_TASKS}
+}
+
+export const addAdminUsers = (data) => {
+    return {type: ADD_ADMIN_USERS, payload: data}
 }
 
 //For the AuthReducer

@@ -1,4 +1,4 @@
-import {ADD_TASKS, ADD_TASK_IDS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOADING, ADD_TASK_CREATORS} from '../action-types/index'
+import {ADD_TASKS, ADD_TASK_IDS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOADING, ADD_TASK_CREATORS, ADD_ADMIN_USERS} from '../action-types/index'
 
 const initialState = {
     CreatedTask: false,
@@ -7,6 +7,7 @@ const initialState = {
     Loading: false,
     Tasks: [],
     TaskCreators: [],
+    Admins: [],
     TaskIds: {}
 }
 
@@ -46,6 +47,11 @@ function TasksReducer(state=initialState, action) {
             return {
                 ...state,
                 TaskCreators: [...state.TaskCreators, action.payload]
+            }
+        case ADD_ADMIN_USERS:
+            return {
+                ...state,
+                Admins: action.payload
             }
 
         default:

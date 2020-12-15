@@ -6,7 +6,7 @@ import {ToastContainer} from 'react-toastify'
 //Own Components
 import Api from '../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addTaskIds} from '../../redux/action-creator'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addTaskIds, addAdminUsers} from '../../redux/action-creator'
 import notify from '../../helpers/Notify'
 
 const Container = styled.div`
@@ -24,6 +24,8 @@ export default function Pagination(props) {
     useEffect(() => {
         //Get tasks when page loads
         getTasks()
+        //Get admin users
+        getAdminUsers()
         // eslint-disable-next-line
     }, [UpdatedTask, CreatedTask])
 
@@ -64,6 +66,22 @@ export default function Pagination(props) {
 
     }
 
+    function getAdminUsers() {
+        const data = {
+            role: 'admin'
+        }
+        api.User().getAllUsers(data)
+        .then(res => {
+            if (res.status === 200) {
+                dispatch(addAdminUsers(res.data.results))
+            }
+        })
+        .catch(err => {
+            const {message} = err.response.data
+            notify('error', message)
+        })
+    }
+
     //Get the Developer name    
     const getUser = async (id) => {
         const api  = new Api()
@@ -79,7 +97,6 @@ export default function Pagination(props) {
     }
 
     function fetchPrevAndNextPage(e) {
-        console.log(e.target)
         dispatch(setLoading())
         //Setting the params to control the pagination
         let fetchData = {

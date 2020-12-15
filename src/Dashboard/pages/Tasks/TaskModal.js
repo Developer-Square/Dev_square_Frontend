@@ -12,7 +12,7 @@ import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
 import {createdTask, updatedTask} from '../../../redux/action-creator/index'
 
-const TaskModal = forwardRef((props, ref, clear) => {
+const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')

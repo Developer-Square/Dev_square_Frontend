@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef } from 'react'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
@@ -18,6 +18,7 @@ import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import TaskLoader from './TaskLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import {addTasks} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -31,6 +32,10 @@ const Container = styled.div`
     .form-control {
         width: auto;
         margin-top: 10px;
+    }
+
+    .names {
+        text-transform: capitalize;
     }
 `
 
@@ -57,10 +62,12 @@ const CardTitle = styled.div`
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [rowIndex, setRowIndex] = useState('');
+    const [userTasks, setUserTasks] = useState('')
     const [deleteModal, setDeleteModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
 
-    const {Tasks, GetTasks, Loading, TaskCreators, TaskIds} = useSelector(state => state.tasks)
+    const {Tasks, GetTasks, Loading, TaskCreators, TaskIds, Admins} = useSelector(state => state.tasks)
+    const dispatch = useDispatch()
     //Using the ref attribute to run a function 
     //in the Task Modal child component
     const childRef = useRef()
@@ -69,6 +76,47 @@ export default function Tasks() {
     useEffect(() => {
         // eslint-disable-next-line
     }, [GetTasks])
+
+    //Get the tasks of the specified user
+    function handleUserTasks(e) {
+        let name = e.target.value
+        let actualTasks = []
+        // eslint-disable-next-line
+        Admins.map(admin => {
+            if (name.toLowerCase() === admin.name.toLowerCase()) {
+                api.Tasks().getUsersTasks(admin.id)
+                .then(res => {
+                    if (res.status === 200) {
+                        //If successful take the array of taskIds that is returned and get the
+                        //actual tasks
+                        const {tasks} = res.data
+                        if (tasks.length !== 0) {
+                            // eslint-disable-next-line
+                            tasks.map(task => {
+                                api.Tasks().getTask(task)
+                                .then(res => {
+                                    if (res.status === 200) {
+                                        actualTasks.push(res.data)
+                                        console.log(actualTasks)
+                                    }
+                                })
+                                .catch(err => {
+                                    const {message} = err.response.data
+                                    notify('error', message)
+                                })
+                            })
+                        }
+                        //Add the tasks of the specified user to the store
+                        dispatch(addTasks(userTasks))
+                    }
+                })
+                .catch(err => {
+                    const {message} = err.response.data
+                    notify('error', message)
+                })
+            }
+        })
+    }
 
     function handleTaskUpdate(e) {
         //Getting the index of the clicked row
@@ -132,11 +180,11 @@ export default function Tasks() {
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >   
-                        <Form.Control as="select">
-                            <option>Project Izuku</option>
-                            <option>Project Eren</option>
-                            <option>Projec Ippo</option>
-                            <option>Projec Issei</option>
+                        <Form.Control as="select" onChange={(e) => handleUserTasks(e)}>
+                            <option>Choose user</option>
+                            {Admins.length !== 0 ? Admins.map((admin, index) => (
+                                <option key={index} className="names">{admin.name}</option>
+                            )): 'Loading'}
                         </Form.Control>
                         </OverlayTrigger>
                     </div>
