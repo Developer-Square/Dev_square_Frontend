@@ -101,7 +101,8 @@ class Api {
             getTask: (id) => this.instance.get(`tasks/${id}`),
             updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data),
             deleteTask: (id) => this.instance.delete(`tasks/${id}`),
-            getUsersTasks: (id) => this.instance.get(`users/tasks/${id}`)
+            getUsersTasks: (id) => this.instance.get(`users/tasks/${id}`),
+            assignUserTask: (id, data) => this.instance.post(`users/${id}`, data)
         }
     }
 

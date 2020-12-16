@@ -16,9 +16,10 @@ import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import BouncingBall from './BouncingBall'
-import StairsLoader from './StairsLoader'
+import BouncingBall from '../../Dashboard_Components/BouncingBall'
+import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import AssignModal from '../../Dashboard_Components/AssignModal'
 import {addSpecificTasks, setLoading, addTaskIds} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
@@ -64,7 +65,9 @@ export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [rowIndex, setRowIndex] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
+    const [assignModal, setAssignModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
+    const [tasktobeassigned, settasktobeassigned] = useState('');
 
     const {Tasks, GetTasks, Loading, TaskCreators, TaskIds, Admins} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
@@ -78,8 +81,23 @@ export default function Tasks() {
     }, [GetTasks])
 
     //Assign a task to a user
-    function handleAssign() {
-
+    function handleAssign(e) {
+        //Getting the index of the clicked row
+        let rowIndex = parseInt(e.currentTarget.className.slice(24,26))
+        if (Tasks.results.length !== 0) {
+            const {results} = Tasks
+            // eslint-disable-next-line
+            results.map((task, index) => {
+                if (rowIndex === parseInt(index)) {
+                    if (results[index].status === 'inProgress') {
+                        notify('error', 'Can\'t assign a task that is already in progress')
+                    } else {
+                        settasktobeassigned(results[index].id)
+                        setAssignModal(true)
+                    }
+                }
+            })
+        } 
     }
 
     //Get the tasks of the specified user
@@ -205,6 +223,7 @@ export default function Tasks() {
         onHide={() => toggleModal()}
         />
         <ConfirmDelete taskIds={TaskIds} rowIndex={rowIndex} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
@@ -271,7 +290,7 @@ export default function Tasks() {
                                             <Popover id={`popover-positioned-bottom`}>
                                             <Popover.Title as="h3">Actions</Popover.Title>
                                             <Popover.Content>
-                                                <Button className={`mr-2 mb-2 col-12 ${index}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                <Button className={`mr-2 mb-2 assign col-12 ${index}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                 <div className="d-flex justify-content-between">
                                                     <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
                                                     <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>

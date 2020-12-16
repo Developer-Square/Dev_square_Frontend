@@ -16,7 +16,7 @@ const Container = styled.div`
 `
 
 const Pagination = forwardRef((props, ref) => {
-    const {UpdatedTask, CreatedTask} = useSelector(state => state.tasks)
+    const {UpdatedTask, CreatedTask, AssignedTask} = useSelector(state => state.tasks)
     const api = new Api()
     const dispatch = useDispatch()
     const {page, limit, totalPages} = props
@@ -37,7 +37,7 @@ const Pagination = forwardRef((props, ref) => {
         //Get admin users
         getAdminUsers()
         // eslint-disable-next-line
-    }, [UpdatedTask, CreatedTask])
+    }, [UpdatedTask, CreatedTask, AssignedTask])
 
     //Get all tasks when the page loads
     function getTasks() {
