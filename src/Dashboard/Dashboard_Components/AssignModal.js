@@ -1,5 +1,5 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -7,13 +7,16 @@ import Form from 'react-bootstrap/Form'
 //Own Components
 import Api from '../../services/network'
 import notify from '../../helpers/Notify'
-import {assignedTask} from '../../redux/action-creator/index'
+import {assignedTask, setLoading} from '../../redux/action-creator/index'
+import NeverEndingBox from './NeverEndingBox'
 
 export default function AssignModal(props) {
     const {admins, show, onHide, task} = props
+    const {Loading} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
 
     function assignTask(e, onHide) {
+        dispatch(setLoading())
         const api = new Api()
         const name = e.target.value
         // eslint-disable-next-line
@@ -28,12 +31,14 @@ export default function AssignModal(props) {
                     if (res.status === 200) {
                         notify('success', 'Task assigned successfully')
                         dispatch(assignedTask())
+                        dispatch(setLoading())
                         onHide()
                     }
                 })
                 .catch(err => {
                     const {message} = err.response.data
                     notify('error', message)
+                    dispatch(setLoading())
                 })
             }
         })
@@ -45,17 +50,20 @@ export default function AssignModal(props) {
             </Modal.Header>
             <Modal.Body>
                 {admins.length !== 0 ?
-                    <Form.Group {...props}>
-                        <Form.Label>Assign to: </Form.Label>
-                        <Form.Control as="select" onChange={(e) => assignTask(e, onHide)}>
-                            <option>Choose user</option>
-                            {admins.map((admin, index) => (
-                                <option key={index} className="names">{admin.name}</option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
+                    <>
+                        <NeverEndingBox loading={Loading} />
+                        <Form.Group {...props}>
+                            <Form.Label>Assign to: </Form.Label>
+                            <Form.Control as="select" onChange={(e) => assignTask(e, onHide)}>
+                                <option>Choose user</option>
+                                {admins.map((admin, index) => (
+                                    <option key={index} className="names">{admin.name}</option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                    </>
                     :
-                    null
+                    <NeverEndingBox loading={true} />
                 }
             </Modal.Body>
             <Modal.Footer>

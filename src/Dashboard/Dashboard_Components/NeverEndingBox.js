@@ -2,11 +2,19 @@ import React from 'react'
 
 import './NeverEndingBox.scss'
 
-export default function NeverEndingBox() {
+export default function NeverEndingBox({loading}) {
     return (
-        <div id="loader">
-            <div id="box"></div>
-            <div id="hill"></div>
-        </div>
+        <>
+        {loading ? (
+            <>
+            <div className="loading-cover"></div>
+            <div id="loader">
+                <div id="box"></div>
+                <div id="hill"></div>
+            </div>
+            </>)
+            :
+            null}
+        </>
     )
 }
