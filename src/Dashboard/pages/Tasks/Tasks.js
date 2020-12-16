@@ -200,6 +200,7 @@ export default function Tasks() {
 
     const toggleModal = () => {
         childRef.current.clearFormFields()
+        settasktobeupdated('')
         setModalShow(!modalShow)
     }
 
