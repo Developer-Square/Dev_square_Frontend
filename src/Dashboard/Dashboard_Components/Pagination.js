@@ -6,7 +6,7 @@ import {ToastContainer} from 'react-toastify'
 //Own Components
 import Api from '../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addTaskIds, addAdminUsers} from '../../redux/action-creator'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers} from '../../redux/action-creator'
 import notify from '../../helpers/Notify'
 
 const Container = styled.div`
@@ -61,8 +61,6 @@ const Pagination = forwardRef((props, ref) => {
         api.Tasks().getAllTasks(data)
         .then(res => {
             if (res.status === 200) {
-                let taskObject = {}
-
                 //Dispatching an action to add tasks to the redux store
                 dispatch(addTasks(res.data))
                 dispatch(updateGetTasks(true))
@@ -71,10 +69,8 @@ const Pagination = forwardRef((props, ref) => {
                 notify('success', 'Tasks fetched successfully')
                 //eslint-disable-next-line
                 res.data.results.map((task, index) => {
-                    taskObject[`${index}`] = task.id
                     getUser(task.creator)
                 })
-                dispatch(addTaskIds(taskObject))
             }
         })
         .catch(err => {

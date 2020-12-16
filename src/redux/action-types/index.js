@@ -1,7 +1,6 @@
 export const ADD_TASKS = 'ADD_TASKS'
 export const ADD_USER = 'ADD_USER'
 export const ADD_USERS = 'ADD_USERS'
-export const ADD_TASK_IDS = 'ADD_TASK_IDS'
 export const ADD_TASK_CREATORS = 'ADD_TASK_CREATORS'
 export const ADD_ADMIN_USERS = 'ADD_ADMIN_USERS'
 export const ADD_SPECIFIC_TASKS = 'ADD_SPECIFIC_TASKS'

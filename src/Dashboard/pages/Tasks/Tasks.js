@@ -20,7 +20,7 @@ import BouncingBall from '../../Dashboard_Components/BouncingBall'
 import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 import AssignModal from '../../Dashboard_Components/AssignModal'
-import {addSpecificTasks, setLoading, addTaskIds} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -69,7 +69,7 @@ export default function Tasks() {
     const [tasktobeupdated, settasktobeupdated] = useState('');
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
-    const {Tasks, GetTasks, Loading, TaskCreators, TaskIds, Admins} = useSelector(state => state.tasks)
+    const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
     //Using the ref attribute to run a function 
     //in the Task Modal child component
@@ -129,8 +129,6 @@ export default function Tasks() {
                         if (tasks.length !== 0) {
                             //Convert to an object so that it can be sent to the
                             //store to replace the taskIds so that the right task can be updated
-                            const taskObject = Object.assign({}, tasks)
-                            dispatch(addTaskIds(taskObject))
                             let len = tasks.length
                             // eslint-disable-next-line
                             tasks.map(task => {
@@ -147,7 +145,6 @@ export default function Tasks() {
                                 })
                                 .catch(err => {
                                     dispatch(setLoading())
-                                    console.log(err)
                                     const {message} = err.response.data
                                     notify('error', message)
                                 })
@@ -173,10 +170,11 @@ export default function Tasks() {
         //Getting the index of the clicked row
         let rowId = e.currentTarget.className.slice(5,29)
         //Map the indexes stored in state to see which one matches the one that was clicked
+        const {results} = Tasks
         // eslint-disable-next-line
-        Object.values(TaskIds).map((value) => {
-            if (value === rowId) {
-                api.Tasks().getTask(value)
+        results.map((value) => {
+            if (value.id === rowId) {
+                api.Tasks().getTask(value.id)
                 .then(res => {
                     if (res.status === 200) {
                         settasktobeupdated(res.data)
@@ -186,7 +184,6 @@ export default function Tasks() {
                     }
                 })
                 .catch(err => {
-                    console.log(err)
                     const {message} = err.response.data
                     notify('error', message)
                 })
@@ -230,7 +227,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete taskIds={TaskIds} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete tasks={Tasks} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
