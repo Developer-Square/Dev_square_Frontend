@@ -63,7 +63,7 @@ const CardTitle = styled.div`
 
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
-    const [rowIndex, setRowIndex] = useState('');
+    const [rowId, setRowId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
     const [assignModal, setAssignModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
@@ -74,6 +74,7 @@ export default function Tasks() {
     //Using the ref attribute to run a function 
     //in the Task Modal child component
     const childRef = useRef()
+    const paginationRef = useRef()
     const api = new Api()
 
     useEffect(() => {
@@ -101,11 +102,17 @@ export default function Tasks() {
     }
 
     //Get the tasks of the specified user
-    function handleUserTasks(e) {
-        if (e.target.value.includes('Get')) {
-            childRef.current.getAllTasks()
+    function handleUserTasks(e, params) {
+        let name;
+        if (e === null) {
+            name = params
+        } else if (e.target.value.includes('Get')) {
+            paginationRef.current.getAllTasks()
+            name = 'none'
+        } else {
+            name = e.target.value   
         }
-        let name = e.target.value
+        localStorage.setItem('usertaskname', name)
         let userTasksArr = []
         // eslint-disable-next-line
         Admins.map(admin => {
@@ -164,12 +171,12 @@ export default function Tasks() {
 
     function handleTaskUpdate(e) {
         //Getting the index of the clicked row
-        let rowIndex = parseInt(e.currentTarget.className.slice(4,6))
+        let rowId = e.currentTarget.className.slice(5,29)
         //Map the indexes stored in state to see which one matches the one that was clicked
         // eslint-disable-next-line
-        Object.keys(TaskIds).map((key) => {
-            if (parseInt(key) === rowIndex) {
-                api.Tasks().getTask(TaskIds[key])
+        Object.values(TaskIds).map((value) => {
+            if (value === rowId) {
+                api.Tasks().getTask(value)
                 .then(res => {
                     if (res.status === 200) {
                         settasktobeupdated(res.data)
@@ -179,6 +186,7 @@ export default function Tasks() {
                     }
                 })
                 .catch(err => {
+                    console.log(err)
                     const {message} = err.response.data
                     notify('error', message)
                 })
@@ -188,8 +196,8 @@ export default function Tasks() {
 
     function handleDelete(e) {
         //Getting the index of the clicked row
-        let rowIndex = parseInt(e.currentTarget.className.slice(0))
-        setRowIndex(rowIndex)
+        let rowId= e.currentTarget.className.slice(0,24)
+        setRowId(rowId)
         setDeleteModal(true)
     }
 
@@ -222,7 +230,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete taskIds={TaskIds} rowIndex={rowIndex} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete taskIds={TaskIds} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
@@ -292,8 +300,8 @@ export default function Tasks() {
                                             <Popover.Content>
                                                 <Button className={`mr-2 mb-2 assign col-12 ${index}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                 <div className="d-flex justify-content-between">
-                                                    <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
-                                                    <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                                    <Button className={`mr-2 ${task.id}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                    <Button variant="danger" className={`${task.id}`} onClick={handleDelete}>Delete</Button>
                                                 </div>
                                             </Popover.Content>
                                             </Popover>
@@ -320,7 +328,7 @@ export default function Tasks() {
                                 </div>
                             </div>
                         </div>
-                        <Pagination ref={childRef} limit={Tasks.limit} page={Tasks.page} totalResults={Tasks.totalResults} totalPages={Tasks.totalPages} />
+                        <Pagination handleUserTasks={handleUserTasks} ref={paginationRef} limit={Tasks.limit} page={Tasks.page} totalResults={Tasks.totalResults} totalPages={Tasks.totalPages} />
                     </div>
                 </div>
             </CardContainer>

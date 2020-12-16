@@ -18,16 +18,16 @@ export const addTaskIds = (data) => {
     return {type: ADD_TASK_IDS, payload: data}
 }
 
-export const updatedTask = () => {
-    return {type: UPDATED_TASK}
+export const updatedTask = (data) => {
+    return {type: UPDATED_TASK, payload: data}
 }
 
-export const createdTask = () => {
-    return {type: CREATED_TASK}
+export const createdTask = (data) => {
+    return {type: CREATED_TASK, payload: data}
 }
 
-export const updateGetTasks = () => {
-    return {type: GET_TASKS}
+export const updateGetTasks = (data) => {
+    return {type: GET_TASKS, payload: data}
 }
 
 export const addAdminUsers = (data) => {
@@ -38,8 +38,8 @@ export const addSpecificTasks = (data) => {
     return {type: ADD_SPECIFIC_TASKS, payload: data}
 }
 
-export const assignedTask = () => {
-    return {type: ASSINGNED_TASKS}
+export const assignedTask = (data) => {
+    return {type: ASSINGNED_TASKS, payload: data}
 }
 
 //For the AuthReducer

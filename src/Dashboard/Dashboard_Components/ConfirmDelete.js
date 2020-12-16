@@ -12,17 +12,17 @@ export default function ConfirmDelete(props) {
     const dispatch = useDispatch()
     function handleDelete(e, props) {
         const api = new Api()
-        const {rowIndex, taskIds} = props
+        const {rowId, taskIds} = props
         //Map the indexes stored in the props to see which one matches the one that was clicked
         // eslint-disable-next-line
-        Object.keys(taskIds).map((key) => {
-            if (parseInt(key) === rowIndex) {
-                api.Tasks().deleteTask(taskIds[key])
+        Object.values(taskIds).map((value) => {
+            if (value === rowId) {
+                api.Tasks().deleteTask(value)
                 .then(res => {
                     if (res.status === 204) {
                         notify('success', 'Task deleted successfully')
                         props.onHide()
-                        dispatch(updatedTask())
+                        dispatch(updatedTask(true))
                     }
                 })
                 .catch(err => {

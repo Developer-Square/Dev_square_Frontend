@@ -2,9 +2,12 @@ import {ADD_TASKS, ADD_TASK_IDS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOAD
 
 const initialState = {
     CreatedTask: false,
+    CreatedCount: 0,
     UpdatedTask: false,
+    UpdatedCount: 0,
     GetTasks: false,
     AssignedTask: false,
+    AssignedCount:0,
     Loading: false,
     Tasks: [],
     TaskCreators: [],
@@ -22,17 +25,19 @@ function TasksReducer(state=initialState, action) {
         case UPDATED_TASK:
             return {
                 ...state,
-                UpdatedTask: !state.UpdatedTask
+                UpdatedTask: action.payload,
+                UpdatedCount: state.UpdatedCount + 1
             }
         case CREATED_TASK:
             return {
                 ...state,
-                CreatedTask: !state.CreatedTask
+                CreatedTask: action.payload,
+                CreatedCount: state.CreatedCount + 1
             }
         case GET_TASKS:
             return {
                 ...state,
-                GetTasks: !state.GetTasks
+                GetTasks: action.payload
             }
         case ADD_TASK_IDS:
             return {
@@ -64,7 +69,8 @@ function TasksReducer(state=initialState, action) {
         case ASSINGNED_TASKS:
         return {
             ...state,
-            AssignedTask: !state.AssignedTask
+            AssignedTask: action.payload,
+            AssignedCount: state.AssignedCount + 1
         }
 
         default:

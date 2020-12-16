@@ -16,10 +16,10 @@ const Container = styled.div`
 `
 
 const Pagination = forwardRef((props, ref) => {
-    const {UpdatedTask, CreatedTask, AssignedTask} = useSelector(state => state.tasks)
+    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask} = useSelector(state => state.tasks)
     const api = new Api()
     const dispatch = useDispatch()
-    const {page, limit, totalPages} = props
+    const {page, limit, totalPages, handleUserTasks} = props
 
      //Function call coming from the parent component
      useImperativeHandle(
@@ -36,8 +36,18 @@ const Pagination = forwardRef((props, ref) => {
         getTasks()
         //Get admin users
         getAdminUsers()
+        //When a user refreshes the page, clear localStorage
+        if (CreatedCount === 0 && UpdatedCount === 0 && AssignedCount === 0) {
+            localStorage.setItem('usertaskname', 'none')
+        }
+        //When a user searches for tasks assigned to them and updates one or all of them
+        //this ensures that tasks returned belong to them and not just any tasks
+        if (UpdatedTask === true) {
+            let e = null
+            handleUserTasks(e, localStorage.getItem('usertaskname'))
+        }
         // eslint-disable-next-line
-    }, [UpdatedTask, CreatedTask, AssignedTask])
+    }, [CreatedCount, AssignedCount, UpdatedCount])
 
     //Get all tasks when the page loads
     function getTasks() {
@@ -55,7 +65,7 @@ const Pagination = forwardRef((props, ref) => {
 
                 //Dispatching an action to add tasks to the redux store
                 dispatch(addTasks(res.data))
-                dispatch(updateGetTasks())
+                dispatch(updateGetTasks(true))
                 //Set Loading to false
                 dispatch(setLoading())
                 notify('success', 'Tasks fetched successfully')
@@ -145,7 +155,7 @@ const Pagination = forwardRef((props, ref) => {
                 dispatch(setLoading())
                 //Add the next page's data to the redux store
                 dispatch(addTasks(res.data))
-                dispatch(updateGetTasks())
+                dispatch(updateGetTasks(true))
             }
         })
         .catch(err => {

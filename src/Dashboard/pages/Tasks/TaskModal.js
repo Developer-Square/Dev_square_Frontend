@@ -205,7 +205,7 @@ const TaskModal = forwardRef((props, ref) => {
                     .then(res => {
                         if (res.status === 200) {
                             notify('success', 'Task successfully updated')
-                            dispatch(updatedTask())
+                            dispatch(updatedTask(true))
                             clearFields()
                             props.onHide()
                         }
@@ -233,7 +233,7 @@ const TaskModal = forwardRef((props, ref) => {
                                 //Once a task is created we get its ID and pass it to the addToTask Function
                                 //so that we can add it to its specific project
                                 addTaskToProject(res.data.id)
-                                dispatch(createdTask())
+                                dispatch(createdTask(true))
                                 clearFields()
                                 notify('success', 'Task successfully created')
                             }
