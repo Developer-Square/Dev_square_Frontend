@@ -54,11 +54,9 @@ export default function AssignModal(props) {
             <Modal.Title>Assign Tasks</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {admins.length === 0 ?
-                    <>
-                        <Loader>
+                {admins.length !== 0 ?
+                    <> 
                         <HandAnimation loading={Loading} />
-                        </Loader>
                         <Form.Group {...props}>
                             <Form.Label>Assign to: </Form.Label>
                             <Form.Control as="select" onChange={(e) => assignTask(e, onHide)}>

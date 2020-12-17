@@ -84,16 +84,16 @@ export default function Tasks() {
     //Assign a task to a user
     function handleAssign(e) {
         //Getting the index of the clicked row
-        let rowIndex = parseInt(e.currentTarget.className.slice(24,26))
+        let rowId = e.currentTarget.className.slice(24,48)
         if (Tasks.results.length !== 0) {
             const {results} = Tasks
             // eslint-disable-next-line
             results.map((task, index) => {
-                if (rowIndex === parseInt(index)) {
-                    if (results[index].status === 'inProgress') {
+                if (task.id === rowId) {
+                    if (task.status === 'inProgress') {
                         notify('error', 'Can\'t assign a task that is already in progress')
                     } else {
-                        settasktobeassigned(results[index].id)
+                        settasktobeassigned(task.id)
                         setAssignModal(true)
                     }
                 }
@@ -296,7 +296,7 @@ export default function Tasks() {
                                             <Popover id={`popover-positioned-bottom`}>
                                             <Popover.Title as="h3">Actions</Popover.Title>
                                             <Popover.Content>
-                                                <Button className={`mr-2 mb-2 assign col-12 ${index}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                <Button className={`mr-2 mb-2 assign col-12 ${task.id}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                 <div className="d-flex justify-content-between">
                                                     <Button className={`mr-2 ${task.id}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
                                                     <Button variant="danger" className={`${task.id}`} onClick={handleDelete}>Delete</Button>
