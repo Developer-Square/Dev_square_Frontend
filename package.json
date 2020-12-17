@@ -47,6 +47,8 @@
     "imagemin": "^7.0.1",
     "imagemin-webp": "^6.0.0",
     "jquery": "^3.5.1",
+    "less": "^3.13.0",
+    "less-loader": "^7.1.0",
     "node-sass": "4.14.1",
     "react-bootstrap": "^1.4.0",
     "react-chartjs-2": "^2.11.1",

@@ -10,7 +10,7 @@ export default function BouncingBall({loading}) {
             <>
                 <div className="loading-cover"></div>
                 <div className="wrap">
-                    <div className="loading">
+                    <div>
                         <div className="bounceball"></div>
                         <div className="text">NOW LOADING</div>
                     </div>

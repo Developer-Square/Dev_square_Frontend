@@ -152,6 +152,10 @@ const Pagination = forwardRef((props, ref) => {
                 //Add the next page's data to the redux store
                 dispatch(addTasks(res.data))
                 dispatch(updateGetTasks(true))
+                // eslint-disable-next-line
+                res.data.results.map((task, index) => {
+                    getUser(task.creator)
+                })
             }
         })
         .catch(err => {

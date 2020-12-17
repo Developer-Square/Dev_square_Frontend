@@ -1,5 +1,6 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -8,7 +9,11 @@ import Form from 'react-bootstrap/Form'
 import Api from '../../services/network'
 import notify from '../../helpers/Notify'
 import {assignedTask, setLoading} from '../../redux/action-creator/index'
-import NeverEndingBox from './NeverEndingBox'
+import HandAnimation from './HandAnimation'
+
+const Loader = styled.div`
+    height: 100px;
+`
 
 export default function AssignModal(props) {
     const {admins, show, onHide, task} = props
@@ -49,9 +54,11 @@ export default function AssignModal(props) {
             <Modal.Title>Assign Tasks</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {admins.length !== 0 ?
+                {admins.length === 0 ?
                     <>
-                        <NeverEndingBox loading={Loading} />
+                        <Loader>
+                        <HandAnimation loading={Loading} />
+                        </Loader>
                         <Form.Group {...props}>
                             <Form.Label>Assign to: </Form.Label>
                             <Form.Control as="select" onChange={(e) => assignTask(e, onHide)}>
@@ -63,7 +70,9 @@ export default function AssignModal(props) {
                         </Form.Group>
                     </>
                     :
-                    <NeverEndingBox loading={true} />
+                    <Loader>
+                        <HandAnimation loading={true} />
+                    </Loader>
                 }
             </Modal.Body>
             <Modal.Footer>

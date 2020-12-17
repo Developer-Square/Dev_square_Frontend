@@ -34,7 +34,10 @@ const TaskModal = forwardRef((props, ref) => {
                 if(props.task !== '') {
                     setTitle('Update')
                     const {description, dueDate, stack, difficulty, status} = props.task
-                    setDisabledProject(true)
+                    console.log(props.task.status)
+                    if (props.task.status === 'notStarted') {
+                        setDisabledProject(true)
+                    }
                     setDescription(description)
                     //Change the date to a proper format that can be displayed
                     const date = dueDate.slice(0,10)
@@ -279,8 +282,8 @@ const TaskModal = forwardRef((props, ref) => {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formBasicStatus">
                             <Form.Label>Status</Form.Label>
-                            <Form.Control disabled required as="select" value={status}>
-                                <option>Not Started</option>
+                            <Form.Control disabled={disabledProject} required as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                <option disabled={true}>Not Started</option>
                                 <option>In Progress</option>
                                 <option>On Hold</option>
                             </Form.Control>
