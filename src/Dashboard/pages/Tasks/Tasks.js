@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useRef } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
+import Tooltip from 'react-bootstrap/Tooltip'
+import Form from 'react-bootstrap/Form'
 
 
 //Own Components
@@ -14,9 +16,11 @@ import TaskModal from './TaskModal'
 import Pagination from '../../Dashboard_Components/Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import TaskLoader from './TaskLoader'
-import { addTasks } from '../../../redux/action-creator'
+import BouncingBall from '../../Dashboard_Components/BouncingBall'
+import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import AssignModal from '../../Dashboard_Components/AssignModal'
+import {addSpecificTasks, setLoading} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -25,6 +29,15 @@ const Container = styled.div`
     .rt-tr {
         position: relative;
         cursor: pointer;
+    }
+
+    .form-control {
+        width: auto;
+        margin-top: 10px;
+    }
+
+    .names {
+        text-transform: capitalize;
     }
 `
 
@@ -37,7 +50,6 @@ const CardContainer = styled.div`
 `
 
 const CardTitle = styled.div`
-    width: 100%;
     display: flex;
     align-items: center;
     padding: .75rem 1.25rem;
@@ -51,76 +63,118 @@ const CardTitle = styled.div`
 
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
-    const [tasks, setTasks] = useState('');
-    const [taskIds, setTasksIds] = useState('');
-    const [rowIndex, setRowIndex] = useState('');
+    const [rowId, setRowId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
+    const [assignModal, setAssignModal] = useState(false);
     const [tasktobeupdated, settasktobeupdated] = useState('');
-    const [user, setUser] = useState('');
-    const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch()
+    const [tasktobeassigned, settasktobeassigned] = useState('');
 
-    const {UpdatedTask, CreatedTask} = useSelector(state => state.tasks)
+    const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
+    const dispatch = useDispatch()
     //Using the ref attribute to run a function 
     //in the Task Modal child component
     const childRef = useRef()
+    const paginationRef = useRef()
     const api = new Api()
 
     useEffect(() => {
-        setLoading(true)
-        getTasks()
         // eslint-disable-next-line
-    }, [UpdatedTask, CreatedTask])
+    }, [GetTasks])
 
-    //Get all tasks when the page loads
-    function getTasks() {
-        api.Tasks().getAllTasks()
-        .then(res => {
-            if (res.status === 200) {
-                let taskObject = {}
-                setLoading(false)
-                setTasks(res.data)
-                //Dispatching an action to add tasks to the redux store
-                dispatch(addTasks(res.data.results))
-                notify('success', 'Tasks fetched successfully')
-                //eslint-disable-next-line
-                res.data.results.map((task, index) => {
-                    taskObject[`${index}`] = task.id
-                    getUser(task.creator)
-                })
-                setTasksIds(taskObject)
-            }
-        })
-        .catch(err => {
-            setLoading(false)
-            // const {data} = err.response
-            notify('error', err.message)
-        })
-
+    //Assign a task to a user
+    function handleAssign(e) {
+        //Getting the index of the clicked row
+        let rowId = e.currentTarget.className.slice(24,48)
+        if (Tasks.results.length !== 0) {
+            const {results} = Tasks
+            // eslint-disable-next-line
+            results.map((task, index) => {
+                if (task.id === rowId) {
+                    if (task.status === 'inProgress') {
+                        notify('error', 'Can\'t assign a task that is already in progress')
+                    } else {
+                        settasktobeassigned(task.id)
+                        setAssignModal(true)
+                    }
+                }
+            })
+        } 
     }
 
-    //Get the Developer name    
-    const getUser = async (id) => {
-        const api  = new Api()
-        try {
-            const res = await api.User().getUser(id)
-            if (res.status === 200) {
-                setUser(res.data.name)
-            }  
-        } catch (error) {
-            const {message} = error.response.data
-            setUser(message)
+    //Get the tasks of the specified user
+    function handleUserTasks(e, params) {
+        let name;
+        if (e === null) {
+            name = params
+        } else if (e.target.value.includes('Get')) {
+            paginationRef.current.getAllTasks()
+            name = 'none'
+        } else {
+            name = e.target.value   
         }
+        localStorage.setItem('usertaskname', name)
+        let userTasksArr = []
+        // eslint-disable-next-line
+        Admins.map(admin => {
+            //Compare the name chosen on the form to the ones in
+            //the store to get the user.id n send it
+            if (name.toLowerCase() === admin.name.toLowerCase()) {
+                dispatch(setLoading())
+                api.Tasks().getUsersTasks(admin.id)
+                .then(res => {
+                    if (res.status === 200) {
+                        //If successful take the array of taskIds that is returned and get the
+                        //actual tasks
+                        const {tasks} = res.data
+                        if (tasks.length !== 0) {
+                            //Convert to an object so that it can be sent to the
+                            //store to replace the taskIds so that the right task can be updated
+                            let len = tasks.length
+                            // eslint-disable-next-line
+                            tasks.map(task => {
+                                api.Tasks().getTask(task)
+                                .then(res => {
+                                    if (res.status === 200) {
+                                        //Wait till the mapping is done n then send the final result
+                                        let result = join(res.data, len, userTasksArr)
+                                        if(result !== undefined) {
+                                            dispatch(addSpecificTasks(result))
+                                            dispatch(setLoading())
+                                        }
+                                    }
+                                })
+                                .catch(err => {
+                                    dispatch(setLoading())
+                                    const {message} = err.response.data
+                                    notify('error', message)
+                                })
+                            })
+                        } else {
+                            dispatch(setLoading())
+                            //Send an empty array if the users has no tasks
+                            userTasksArr = []
+                            dispatch(addSpecificTasks(userTasksArr))
+                        }
+                    } 
+                })
+                .catch(err => {
+                    dispatch(setLoading())
+                    const {message} = err.response.data
+                    notify('error', message)
+                })
+            }
+        })
     }
 
     function handleTaskUpdate(e) {
         //Getting the index of the clicked row
-        let rowIndex = parseInt(e.currentTarget.className.slice(4,6))
+        let rowId = e.currentTarget.className.slice(5,29)
         //Map the indexes stored in state to see which one matches the one that was clicked
+        const {results} = Tasks
         // eslint-disable-next-line
-        Object.keys(taskIds).map((key) => {
-            if (parseInt(key) === rowIndex) {
-                api.Tasks().getTask(taskIds[key])
+        results.map((value) => {
+            if (value.id === rowId) {
+                api.Tasks().getTask(value.id)
                 .then(res => {
                     if (res.status === 200) {
                         settasktobeupdated(res.data)
@@ -139,14 +193,31 @@ export default function Tasks() {
 
     function handleDelete(e) {
         //Getting the index of the clicked row
-        let rowIndex = parseInt(e.currentTarget.className.slice(0))
-        setRowIndex(rowIndex)
+        let rowId= e.currentTarget.className.slice(0,24)
+        setRowId(rowId)
         setDeleteModal(true)
     }
 
     const toggleModal = () => {
-        setModalShow(true)
+        childRef.current.clearFormFields()
+        settasktobeupdated('')
+        setModalShow(!modalShow)
     }
+
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Check tasks assigned to a user
+        </Tooltip>
+      );
+
+    const join = (data, len, arr) => {
+        arr.push(data)
+        //Once userTasks has the same number of items as the
+        //one in tasks return the array
+        if (arr.length === len) {
+            return arr
+        }
+    } 
 
     return (
         <>
@@ -155,16 +226,36 @@ export default function Tasks() {
         ref={childRef}
         task={tasktobeupdated}
         show={modalShow}
-        onHide={() => setModalShow(false)}
+        onHide={() => toggleModal()}
         />
-        <ConfirmDelete taskIds={taskIds} rowIndex={rowIndex} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete tasks={Tasks} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
-                    <CardTitle className="card-title">Tasks</CardTitle>
+                    <div className="d-flex justify-content-between">
+                        <CardTitle className="card-title">Tasks</CardTitle>
+                        <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                    >   
+                    {Admins.length !== 0 ? 
+                        <Form.Control as="select" onChange={(e) => handleUserTasks(e)}>
+                            <option>Choose user</option>
+                            <option>Get All Tasks</option>
+                            {Admins.length !== 0 ? Admins.map((admin, index) => (
+                                <option key={index} className="names">{admin.name}</option>
+                            )): 'Loading'}
+                        </Form.Control>
+                        :
+                        <StairsLoader />
+                        }
+                        </OverlayTrigger>
+                    </div>
                     <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
-                            <TaskLoader loading={loading} />
+                            <BouncingBall loading={Loading} />
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
@@ -195,7 +286,7 @@ export default function Tasks() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    {tasks !== '' ? tasks.results.map((task, index) => (
+                                    {Object.keys(Tasks).length !== 0 && Tasks.results.length !== 0 ? Tasks.results.map((task, index) => (
                                         <OverlayTrigger
                                         trigger="click"
                                         key={index}
@@ -205,8 +296,11 @@ export default function Tasks() {
                                             <Popover id={`popover-positioned-bottom`}>
                                             <Popover.Title as="h3">Actions</Popover.Title>
                                             <Popover.Content>
-                                                <Button className={`mr-2 ${index}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
-                                                <Button variant="danger" className={`${index}`} onClick={handleDelete}>Delete</Button>
+                                                <Button className={`mr-2 mb-2 assign col-12 ${task.id}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                <div className="d-flex justify-content-between">
+                                                    <Button className={`mr-2 ${task.id}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                    <Button variant="danger" className={`${task.id}`} onClick={handleDelete}>Delete</Button>
+                                                </div>
                                             </Popover.Content>
                                             </Popover>
                                         }
@@ -214,11 +308,11 @@ export default function Tasks() {
                                         <div className={`rt-tr ${index}`} key={index}>
                                             {/* Checks the index of the grid cell if its odd it gives an odd class name
                                             which turns it grey */}
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(0,4)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(20)}</div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
                                                 {/* While the user's name is still unavailable we give the field a spinner/loader */}
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
-                                                    {user === '' ? <Spinner animation="border" variant="primary" size="sm"/> : user}
+                                                    {TaskCreators.length === 0 ? <Spinner animation="border" variant="primary" size="sm" /> : TaskCreators[index]}
                                                 </div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                 {/* The color of the dot changes according to the task status */}
@@ -232,7 +326,7 @@ export default function Tasks() {
                                 </div>
                             </div>
                         </div>
-                        <Pagination />
+                        <Pagination handleUserTasks={handleUserTasks} ref={paginationRef} limit={Tasks.limit} page={Tasks.page} totalResults={Tasks.totalResults} totalPages={Tasks.totalPages} />
                     </div>
                 </div>
             </CardContainer>

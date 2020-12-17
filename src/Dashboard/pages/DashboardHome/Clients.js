@@ -8,6 +8,10 @@ import '../Tasks/Tasks.scss'
 const Container = styled.div`   
     margin-top: 40px;
     margin-bottom: 30px;
+
+    .rt-tr-group {
+        flex: 1 0 auto;  
+    }
 `
 
 const CardContainer = styled.div`

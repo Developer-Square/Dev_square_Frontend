@@ -90,16 +90,33 @@ class Api {
     Tasks() {
         return {
             createTask: (data) => this.instance.post(`tasks/`, data),
-            getAllTasks: () => this.instance.get(`tasks/`),
+            getAllTasks: (data) => this.instance({
+                method: 'GET',
+                url: 'tasks/',
+                params: {
+                    page: data.page,
+                    limit: data.limit
+                }
+            }),
             getTask: (id) => this.instance.get(`tasks/${id}`),
             updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data),
-            deleteTask: (id) => this.instance.delete(`tasks/${id}`)
+            deleteTask: (id) => this.instance.delete(`tasks/${id}`),
+            getUsersTasks: (id) => this.instance.get(`users/tasks/${id}`),
+            assignUserTask: (id, data) => this.instance.post(`users/${id}`, data)
         }
     }
 
     User() {
         return {
-            getUser: (data) => this.instance.get(`users/${data}`)
+            getUser: (data) => this.instance.get(`users/${data}`),
+            getAllUsers: () => this.instance.get(`users/`),
+            getAllUsersWithParams: (data) => this.instance({
+                method: 'GET',
+                url: 'users/',
+                params: {
+                    role: data.role
+                }
+            })
         }
     }
 

@@ -1,9 +1,17 @@
-import {ADD_TASKS, UPDATED_TASK, CREATED_TASK} from '../action-types/index'
+import {ADD_TASKS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOADING, ADD_TASK_CREATORS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS} from '../action-types/index'
 
 const initialState = {
     CreatedTask: false,
+    CreatedCount: 0,
     UpdatedTask: false,
-    Tasks: []
+    UpdatedCount: 0,
+    GetTasks: false,
+    AssignedTask: false,
+    AssignedCount:0,
+    Loading: false,
+    Tasks: [],
+    TaskCreators: [],
+    Admins: [],
 }
 
 function TasksReducer(state=initialState, action) {
@@ -16,14 +24,49 @@ function TasksReducer(state=initialState, action) {
         case UPDATED_TASK:
             return {
                 ...state,
-                UpdatedTask: !state.UpdatedTask
+                UpdatedTask: action.payload,
+                UpdatedCount: state.UpdatedCount + 1
             }
         case CREATED_TASK:
             return {
                 ...state,
-                CreatedTask: !state.CreatedTask
+                CreatedTask: action.payload,
+                CreatedCount: state.CreatedCount + 1
             }
-    
+        case GET_TASKS:
+            return {
+                ...state,
+                GetTasks: action.payload
+            }
+        case SET_LOADING:
+            return {
+                ...state,
+                Loading: !state.Loading
+            }
+        case ADD_TASK_CREATORS:
+            return {
+                ...state,
+                TaskCreators: [...state.TaskCreators, action.payload]
+            }
+        case ADD_ADMIN_USERS:
+            return {
+                ...state,
+                Admins: action.payload
+            }
+        case ADD_SPECIFIC_TASKS:
+            return {
+                ...state,
+                Tasks: {...state.Tasks, 
+                    results: action.payload
+                }
+            }
+        case ASSINGNED_TASKS:
+        return {
+            ...state,
+            AssignedTask: action.payload,
+            AssignedCount: state.AssignedCount + 1
+        }
+
         default:
             return state;
     }

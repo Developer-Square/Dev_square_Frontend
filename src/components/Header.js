@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react'
+import React, {useState, Fragment} from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 import './Header.scss'
 
 function Header() {
-
+    const [headername, ] = useState('tecHive')
     function scrollFunction(id, top) {
         let offsetTop = document.getElementById(`${id}`).offsetTop
         console.log(offsetTop)
@@ -20,7 +20,7 @@ function Header() {
             <Navbar className="mx-auto" expand="md" variant="dark">
                 <Navbar.Brand href="#home" onClick={() => scrollFunction('landing-section', 0)}>
                     <img src="images/Logo-2.webp" className="img-fluid" alt="Logo"/>
-                    <span className="logo-text pl-2">Cosmic Software Solutions</span></Navbar.Brand>
+                    <span className="logo-text pl-2">{headername}</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
