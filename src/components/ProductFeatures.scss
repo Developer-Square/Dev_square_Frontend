@@ -1,5 +1,5 @@
 :root {
-  --primary-background-color: #ffffff;
+  --primary-background: #E5E5E5;
   --secondary-background-color: #f0f0f0;
   --alternative-background-color: #c4c4c4;
   --navbar-background-color: #201e2b;
@@ -11,21 +11,38 @@
   --tertiary-font-color: #a4a4a4;
 }
 
+#product-section {
+  background: var(--primary-background);
+}
+
+.product {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 35px;
+  color: var(--primary-font-color);
+  padding-top: 50px;
+  margin-bottom: 10px;
+  text-align: center;
+
+  span {
+    color: var(--primary-border-color);
+  }
+}
+
+.product-text {
+  font-family: 'Roboto Mono', monospace;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.1px;
+  margin-bottom: 110px;
+}
+
 .product-features {
   margin-top: 50px;
   margin-bottom: 50px;
-
-  .product {
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 35px;
-    color: var(--primary-font-color);
-    margin-bottom: 20px;
-
-    span {
-      color: var(--primary-border-color);
-    }
-  }
 
   .product-inner-text {
     font-family: "Roboto", sans-serif;
@@ -33,6 +50,12 @@
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 40px;
+  }
+}
+
+@media all and (min-width: 576px) {
+  #product-section {
+    max-width: none;
   }
 }
 
@@ -153,14 +176,6 @@
       font-size: 30px;
     }
 
-    .product-inner-text {
-      font-size: 15px;
-    }
-  }
-}
-
-@media all and (min-width: 1600px) {
-  .product-features {
     .product-inner-text {
       font-size: 16px;
     }
