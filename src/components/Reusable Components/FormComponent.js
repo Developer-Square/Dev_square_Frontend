@@ -20,7 +20,7 @@ export default function FormComponent() {
             e.stopPropagation()
         } else {
             setValidated(true)
-            console.log('Here')
+            console.log('here')
         }
     }
     return (
