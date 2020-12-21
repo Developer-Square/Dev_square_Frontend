@@ -9,10 +9,37 @@
   --primary-font-color: #262626;
   --secondary-font-color: #505050;
   --tertiary-font-color: #a4a4a4;
+  --primary-btn-color: #007bff;
+  --warning-btn-color: #ffc107;
+  --premium-btn-color: #b105f5;
 }
 
 #product-section {
   background: var(--primary-background);
+
+  .col, .quote {
+    display: flex;
+    justify-content: center;
+  }
+
+  .quote {
+    padding-bottom: 60px;
+  }
+
+  .basic {
+    color: var(--primary-btn-color);
+    font-weight: bold;
+  }
+
+  .classic {
+    color: var(--warning-btn-color);
+    font-weight: bold;
+  }
+
+  .unique {
+    color: var(--premium-btn-color);
+    font-weight: bold;
+  }
 }
 
 .product {
@@ -29,7 +56,8 @@
   }
 }
 
-.product-text {
+.product-text,
+.further-info {
   font-family: 'Roboto Mono', monospace;
   font-style: normal;
   font-weight: 500;
@@ -50,6 +78,14 @@
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 40px;
+  }
+}
+
+.further-info {
+  margin-bottom: initial;
+
+  span {
+    font-weight: bold;
   }
 }
 
