@@ -4,13 +4,14 @@ import Button from 'react-bootstrap/Button'
 
 //Own Components
 import CarouselComponent from './CarouselComponent'
+import FormComponent from './FormComponent'
 
 export default function ModalComponent(props) {
     return (
         <div>
             <Modal
                 {...props}
-                size="lg"
+                size={props.type === 'Send us a Quote' ? 'md' : 'lg'}
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
@@ -20,7 +21,7 @@ export default function ModalComponent(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <CarouselComponent packageType={props.pkg}/>
+                {props.type === 'Send us a Quote' ? <FormComponent /> : <CarouselComponent packageType={props.pkg}/>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Close</Button>

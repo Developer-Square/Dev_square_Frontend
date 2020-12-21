@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -6,8 +6,17 @@ import Button from 'react-bootstrap/Button'
 
 import './ProductFeatures.scss'
 import PricingCard from './PricingCard'
+import ModalComponent from "./Reusable Components/ModalComponent";
 
 function ProductFeatures() {
+    const [modalShow, setModalShow] = useState(false)
+    const [type, setType] = useState(false)
+
+    const toggleModal = () => {
+        setModalShow(!modalShow)
+        setType('Send us a Quote')
+    }
+
     let imageBasic = 'images/avatars/rsz_business-basic-1.png'
     let imageClassic = 'images/avatars/rsz_bakery-classic-1.png'
     let imageUnique = 'images/avatars/rsz_interior_design2.png'
@@ -25,8 +34,9 @@ function ProductFeatures() {
     let uniqueFeatures = '5 pages i.e home, about, services, contact and a dashboard with custom metrics and features'
     return (
         <Fragment>
+            <ModalComponent type={type} show={modalShow} onHide={() => toggleModal()}/>
             <Container id="product-section">
-                <div className="heading product">Our Products and <span>Services</span></div>
+                <div className="heading product">Our <span>Products</span></div>
                 <p className="product-text">Our aim is to please our clients by creating reliable and maintainable products.
                 <br />Can't find what you're looking for in the packages below? Send us a Quote of what you want.</p>
                 <Row>
@@ -37,7 +47,7 @@ function ProductFeatures() {
                 <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.
                 Send us a quote of what you want us to build and your price range.</div>
                 <div className="quote">
-                    <Button variant="outline-success">Send Quote</Button>
+                    <Button variant="outline-success" onClick={() => toggleModal()}>Send Quote</Button>
                 </div>
             </Container> 
         </Fragment>

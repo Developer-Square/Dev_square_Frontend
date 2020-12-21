@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
 
 //Own components
-import ModalComponent from './ModalComponent'
+import ModalComponent from './Reusable Components/ModalComponent'
 
 const Container = styled.div`
     position: relative;
