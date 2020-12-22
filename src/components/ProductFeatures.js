@@ -44,7 +44,7 @@ function ProductFeatures() {
                     <Col><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
                     <Col><PricingCard image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
                 </Row>
-                <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.
+                <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.Check out our services in the service section below.
                 Send us a quote of what you want us to build and your price range.</div>
                 <div className="quote">
                     <Button variant="outline-success" onClick={() => toggleModal()}>Send Quote</Button>
