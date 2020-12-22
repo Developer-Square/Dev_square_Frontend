@@ -19,10 +19,10 @@ function ContactAndFooter() {
                         <div className="contact-address">
                             <img src="images/contact.webp" alt="Contact" className="img-fluid"/>
                             <div className="address">
-                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Lotus</div>
-                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Address: California 11011, USA</div>
-                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Email: creativia@example.com</div>
-                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Phone: + 1 911 9919 1991</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">tecHive</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Address: None...</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Email: cosmicsoftwaresolutions.4@gmail.com</div>
+                                <div className="pt-2 pt-xl-3 pl-xl-3 pl-3">Phone: +254 796867328</div>
                             </div>
                         </div>
                         <div className="contact-form">
