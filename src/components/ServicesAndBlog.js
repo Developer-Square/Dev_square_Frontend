@@ -32,8 +32,8 @@ function ServicesAndBlog() {
                                     <p className="title my-auto">HTML/CSS</p>
                                 </div>
                                 <div className="inner-content p-3">
-                                    We also create websites using bare HTML, Css, Js and Jquery to add a bit of functionality.
-                                    This websites are mostly created from scratch.
+                                    We also create websites using bare HTML, Css, Js, Bootstrap and Jquery for the animations.
+                                    These websites are mostly created from scratch. We can also work with other frameworks like AntDesign and Evergreen if requested to.
                                 </div>
                             </Col>
                             <Col xs={12} sm={6} className="service-container">
@@ -53,7 +53,7 @@ function ServicesAndBlog() {
                                     <p className="title my-auto">Mobile APPLICATIONS</p>
                                 </div>
                                 <div className="inner-content p-3">
-                                    We go the full cycle by not only providing you with a website but an app too that your users can use on their phones to access your business/services.
+                                    We go the full cycle by not only providing you with a website but an app too that your users can use on their phones to access your business/services.We will build any android app for you provided the logic is explained and understood. If the app doesn't meet all the requirement mentioned we will revise at zero additional cost.
                                 </div>
                             </Col>
                             <Col xs={12} sm={6} className="service-container">
@@ -83,7 +83,7 @@ function ServicesAndBlog() {
                                     <p className="title my-auto">PHP</p>
                                 </div>
                                 <div className="inner-content p-3">
-                                    We also deal in full stack PHP applications e.g If you'd like your E-commerce website built in PHP, we got you covered.
+                                    We also deal in full stack PHP applications e.g If you'd like your E-commerce website built in PHP, we got you covered.We will build you a php ecommerce website for your business that can be easily customed as per your needs at an affordable price.
                                 </div>
                             </Col>
                             <Col xs={12} sm={6} className="service-container">
@@ -103,7 +103,40 @@ function ServicesAndBlog() {
                                     <p className="title my-auto">Ruby on Rails</p>
                                 </div>
                                 <div className="inner-content-dev p-3">
-                                    We've an experienced Ruby on rails developer that'll take care of all of your Ruby on rails needs.
+                                    We've an experienced Ruby on rails developer that'll take care of all of your Ruby on rails needs.Ruby on Rails framework uses MVC approach to build web applications, It builds web applications quickly and the biggest strength is that it enables the developer to write big applications in a short period of time.
+                                    What we're offering:
+                                    <ul className="pl-2">
+                                        <li>ROR Custom application development</li>
+                                        <li>Ruby MVP Development</li>
+                                        <li>Ruby on Rails layout design</li>
+                                        <li>ROR installation</li>
+                                        <li>Ruby on Rails CMS & Responsive web portal development</li>
+                                        <li>Maintenance and deployment</li>
+                                        <li>RoR eCommerce design</li>
+                                        <li>Web API Development</li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col xs={12} sm={6} className="service-container">
+                                <div className="service-title d-flex justify-content-center">
+                                    <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
+                                    <img src="images/assets/icons/debug.png" alt="services" className="service-icon-responsive img-fluid"/>
+                                    <p className="title my-auto">Debugging Code</p>
+                                </div>
+                                <div className="inner-content-dev p-3">
+                                    We have numerous engineers on our team all with quality experience in their fields and
+                                    we can assist you in debugging your code.
+                                    We can debug the following technologies:
+                                    <ul className="pl-2">
+                                        <li>HTML, Css</li>
+                                        <li>Javascript</li>
+                                        <li>Reactjs</li>
+                                        <li>Ruby on Rails</li>
+                                        <li>Nodejs</li>
+                                        <li>Django</li>
+                                        <li>PHP</li>
+                                        <li>Android</li>
+                                    </ul>
                                 </div>
                             </Col>
                             <Col xs={12} sm={6} className="service-container">
