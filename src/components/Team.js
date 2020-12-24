@@ -17,8 +17,8 @@ function Team() {
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
-                                    <p className="team-name">Ben Ajax</p>
-                                    <p className="team-role">UI/UX Designer</p>
+                                    <p className="team-name">Linus</p>
+                                    <p className="team-role">Nodejs, Reactjs Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
@@ -30,8 +30,8 @@ function Team() {
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-2.webp" alt="team" className="img-fluid profile"/>
-                                    <p className="team-name">Ben Ajax</p>
-                                    <p className="team-role">UI/UX Designer</p>
+                                    <p className="team-name">Sophie</p>
+                                    <p className="team-role">Data Analyst</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
@@ -42,9 +42,9 @@ function Team() {
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-3.webp" alt="team" className="img-fluid profile"/>
-                                    <p className="team-name">Ben Ajax</p>
-                                    <p className="team-role">UI/UX Designer</p>
+                                    <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
+                                    <p className="team-name">Timo</p>
+                                    <p className="team-role">Android, PHP Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
@@ -56,8 +56,34 @@ function Team() {
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
                                     <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
-                                    <p className="team-name">Ben Ajax</p>
-                                    <p className="team-role">UI/UX Designer</p>
+                                    <p className="team-name">Ryan</p>
+                                    <p className="team-role">Reactjs, Python Developer</p>
+                                    <div className="socials d-flex justify-content-around">
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col xs={11} sm={6} lg={3} className="mx-auto ml-lg-0 mr-lg-0">
+                                <div className="team-container">
+                                    <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
+                                    <p className="team-name">Cliton</p>
+                                    <p className="team-role">Ruby on Rails Developer</p>
+                                    <div className="socials d-flex justify-content-around">
+                                        <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
+                                        <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
+                                        <img src="images/linkedin.webp" alt="linkedin" className="img-fluid"/>
+                                        <img src="images/instagram.webp" alt="instagram " className="img-fluid"/>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col xs={11} sm={6} lg={3} className="mx-auto ml-lg-0 mr-lg-0">
+                                <div className="team-container">
+                                    <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
+                                    <p className="team-name">Franklin</p>
+                                    <p className="team-role">Django Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
