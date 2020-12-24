@@ -1,15 +1,65 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import {ToastContainer} from 'react-toastify'
 
+//Own Components
+import notify from '../helpers/Notify'
 import './Contact.scss'
 
 function ContactAndFooter() {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setMessage] = useState('')
+
+    //Sending the request to formspree
+    function submitForm(e) {
+        e.preventDefault();
+        e.stopPropagation()
+
+        const form = e.target
+        //Preparing the data for sending
+        const form_data = {
+            name,
+            email,
+            message
+        }
+        const data = new FormData()
+        for (let key in form_data) {
+            data.append(key, form_data[key])
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open(form.method, form.action);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+            if (xhr.status === 200) {
+            form.reset();
+            notify('success', 'Message sent successfully')
+            } else {
+            notify('error', 'Message not sent')
+            }
+        };
+        xhr.send(data);
+    }
+
     return (
         <Fragment>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Container id="contact-section" className="p-0">
                 <Row>
                     <Col className="contact">
@@ -28,15 +78,15 @@ function ContactAndFooter() {
                         <div className="contact-form">
                             <div className="title text-center">SEND MESSAGE</div>
 
-                            <Form>
+                            <Form onSubmit={submitForm} action="https://formspree.io/f/mknppbbw" method="POST">
                                 <Form.Group>
-                                    <Form.Control type="email" placeholder="Name" className="mx-auto" />
+                                    <Form.Control required value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" className="mx-auto" />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control type="email" placeholder="Email" className="mx-auto" />
+                                    <Form.Control required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="mx-auto" />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control as="textarea" placeholder="Message" rows={3} className="mx-auto" />
+                                    <Form.Control required as="textarea" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" rows={3} className="mx-auto" />
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
                                     SEND
