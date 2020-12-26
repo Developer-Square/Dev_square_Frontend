@@ -19,9 +19,9 @@ function Homepage() {
             <AboutUs />
             <Portfolio />
             <ProductFeatures />
-            <Client />
-            <Team />
             <ServicesAndBlog />
+            <Team />
+            <Client />
             <ContactAndFooter />
         </Fragment>
     )

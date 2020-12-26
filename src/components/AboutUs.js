@@ -21,7 +21,7 @@ function AboutUs() {
             <Container id="aboutus-section">
                 <Row>
                     <div className="d-flex flex-column mx-auto">
-                    <div className="aboutus-header mx-auto">Lotus</div>
+                    <div className="aboutus-header mx-auto">tecHive</div>
                     <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. </p>
                     </div>
                     <Col xs={12} lg={6}>
@@ -34,7 +34,7 @@ function AboutUs() {
                             <div className="d-flex">
                                 <i className="fa fa-plus-circle hidden" aria-hidden="true"></i>
                                 <i className="fa fa-minus-circle" aria-hidden="true"></i>
-                                <div className="mb-0 text">What is Lotus</div>
+                                <div className="mb-0 text">What is tecHive</div>
                             </div>
                             <p className="answer">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et dolor justo. Phasellus eu ligula ac nisl volutpat tincidunt. Vestibulum vitae rhoncus odio Fusce sed enim erat. Mauris dictum lorem eu tortor porta placerat. Suspendisse ac vestibulum eros.

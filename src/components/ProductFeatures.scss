@@ -1,5 +1,5 @@
 :root {
-  --primary-background-color: #ffffff;
+  --primary-background: #E5E5E5;
   --secondary-background-color: #f0f0f0;
   --alternative-background-color: #c4c4c4;
   --navbar-background-color: #201e2b;
@@ -9,23 +9,68 @@
   --primary-font-color: #262626;
   --secondary-font-color: #505050;
   --tertiary-font-color: #a4a4a4;
+  --primary-btn-color: #007bff;
+  --warning-btn-color: #ffc107;
+  --premium-btn-color: #b105f5;
+}
+
+#product-section {
+  background: var(--primary-background);
+
+  .col, .quote {
+    display: flex;
+    justify-content: center;
+  }
+
+  .quote {
+    padding-bottom: 60px;
+  }
+
+  .basic {
+    color: var(--primary-btn-color);
+    font-weight: bold;
+  }
+
+  .classic {
+    color: var(--warning-btn-color);
+    font-weight: bold;
+  }
+
+  .unique {
+    color: var(--premium-btn-color);
+    font-weight: bold;
+  }
+}
+
+.product {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 35px;
+  color: var(--primary-font-color);
+  padding-top: 50px;
+  margin-bottom: 10px;
+  text-align: center;
+
+  span {
+    color: var(--primary-border-color);
+  }
+}
+
+.product-text,
+.further-info {
+  font-family: 'Roboto Mono', monospace;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.1px;
+  margin-bottom: 110px;
 }
 
 .product-features {
   margin-top: 50px;
   margin-bottom: 50px;
-
-  .product {
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 35px;
-    color: var(--primary-font-color);
-    margin-bottom: 20px;
-
-    span {
-      color: var(--primary-border-color);
-    }
-  }
 
   .product-inner-text {
     font-family: "Roboto", sans-serif;
@@ -33,6 +78,20 @@
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 40px;
+  }
+}
+
+.further-info {
+  margin-bottom: initial;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+@media all and (min-width: 576px) {
+  #product-section {
+    max-width: none;
   }
 }
 
@@ -153,14 +212,6 @@
       font-size: 30px;
     }
 
-    .product-inner-text {
-      font-size: 15px;
-    }
-  }
-}
-
-@media all and (min-width: 1600px) {
-  .product-features {
     .product-inner-text {
       font-size: 16px;
     }
