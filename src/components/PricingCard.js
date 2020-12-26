@@ -53,7 +53,7 @@ const Card = styled.div`
     padding-top: 90px;
     font-family: 'Roboto Mono', monospace;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 24px;
     text-align: center;
     letter-spacing: 0.1px;

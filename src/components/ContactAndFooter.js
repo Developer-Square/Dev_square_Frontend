@@ -64,7 +64,9 @@ function ContactAndFooter() {
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
-                            <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
+                            <p className="text-center">
+                            As every project has its own unique requirements, please contact us so that we can discuss the project in detail <br />
+                            We're also available to accept the custom offer to work on full/part-time as a subsidiary to your company.
                             </p>
                         <div className="contact-address">
                             <img src="images/contact.webp" alt="Contact" className="img-fluid"/>
@@ -98,9 +100,9 @@ function ContactAndFooter() {
                         <div className="d-md-flex flex-md-row justify-content-around align-items-center">
                             <div className="footer-logo d-flex justify-content-center mt-md-0">
                                 <img src="images/Logo-2.webp" alt="Footer" className="img-fluid"/>
-                                <div className="logo-text pl-2">Lotus</div>
+                                <div className="logo-text pl-2">tecHive</div>
                             </div>
-                            <div className="copyright text-center">&copy; Copyright, Lotus Creatives</div>
+                            <div className="copyright text-center">&copy; Copyright, tecHive Creatives</div>
                         </div>
                     </Col>
                 </Row>

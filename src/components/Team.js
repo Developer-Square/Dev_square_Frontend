@@ -11,7 +11,8 @@ function Team() {
                 <Row>
                     <Col className="team">
                         <div className="heading text-center">our <span>team</span></div>
-                        <p className="text-center">Lorem ipsum dolor sit amet, consectetur <span>adipiscing elit.</span> Integer sed magna vel velit dignissim luctus eu in urna. Dapibus egestas turpis. 
+                        <p className="text-center">
+                            Listed below is our team of talented developers who will help you achieve your goals, whether its a website you're looking for or an app or even a revolutionary piece of software we will help you get there.
                         </p>
                         <Row>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">

@@ -41,10 +41,11 @@ function ProductFeatures() {
                 <br />Can't find what you're looking for in the packages below? Send us a Quote of what you want.</p>
                 <Row>
                     <Col><PricingCard image={imageBasic} titleColor={colorBasic} title={basicTitle} text={basicText} features={basicFeatures} packageType='basic'/></Col>
-                    <Col><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
-                    <Col><PricingCard image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
+                    <Col className="mt-5"><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
+                    <Col className="mt-5"><PricingCard image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
                 </Row>
-                <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.Check out our services in the service section below.
+                <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.
+                <br />Check out our services in the service section below.
                 Send us a quote of what you want us to build and your price range.</div>
                 <div className="quote">
                     <Button variant="outline-success" onClick={() => toggleModal()}>Send Quote</Button>
