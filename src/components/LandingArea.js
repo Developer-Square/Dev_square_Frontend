@@ -21,10 +21,10 @@ function LandingArea() {
             <Container id="landing-section">
                 <Row>
                     <div>
-                        <div className="image-cover"></div>
                         {/* <img src="images/bg-images/main-bg-1.jpg" className="smaller-screens img-fluid" alt="Landing"/>
                         <img src="images/main-bg-1.jpg" className="larger-screens img-fluid" alt="Landing"/> */}
-                        <CarouselComponent />
+                        <div className="image-cover"></div>
+                        <CarouselComponent placed="landingArea" />
                         <div className="landing-inner-text">
                             <div className="d-flex justify-content-center pb-2 pb-xl-4">why <span className="uncover">tecHive ?</span></div>
                             <div className="d-flex text-container">
