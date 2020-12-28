@@ -92,7 +92,7 @@
   #landing-section {
     img {
       width: fit-content;
-      height: auto;
+      height: 400px;
     }
     .image-cover {
       height: -webkit-fill-available;
@@ -114,6 +114,10 @@
 
 @media all and (min-width: 768px) {
   #landing-section {
+    img {
+      height: 500px;
+    }
+
     .landing-inner-text {
       top: 45%;
       transform: translate(-50%, -55%);
@@ -131,10 +135,16 @@
 
 @media all and (min-width: 992px) {
   #landing-section {
+    img {
+      height: 600px;
+    }
+
     .landing-inner-text {
+      font-size: 30px;
       .text-container {
         .text {
           width: 90%;
+          font-size: 16px;
         }
       }
     }
@@ -144,14 +154,16 @@
 @media all and (min-width: 1366px) {
   #landing-section {
     img {
-      width: 100vw;
+      height: 700px;
     }
 
     .landing-inner-text {
       font-size: 30px;
 
-      p {
-        font-size: 16px;
+      .text-container {
+        .text {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -161,11 +173,14 @@
   #landing-section {
     .btn {
       font-size: 17px;
+      width: 170px;
+      font-size: 18px;
     }
     .landing-inner-text {
-      .fa-angle-right,
-      .fa-angle-left {
-        font-size: 35px;
+      .text-container {
+        .text {
+          width: 80%;
+        }
       }
     }
   }

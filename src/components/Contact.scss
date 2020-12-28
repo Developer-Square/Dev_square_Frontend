@@ -200,8 +200,14 @@
   }
 
   #footer {
+    .footer-logo {
+      .logo-text {
+        font-size: 26px;
+      }
+    }
     .copyright {
       margin-top: 30px;
+      font-size: 16px;
       margin-bottom: 35px;
     }
   }
@@ -274,6 +280,32 @@
   }
 }
 
+@media all and (min-width: 1366px) {
+  #contact-section {
+    .contact {
+      .heading {
+        font-size: 30px;
+      }
+  
+      p {
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  #footer {
+    .footer-logo {
+      .logo-text {
+        font-size: 29px;
+      }
+    }
+    .copyright {
+      font-size: 18px;
+    }
+  }
+}
+
 @media all and (min-width: 1440px) {
   #contact-section {
     .contact {
@@ -286,6 +318,7 @@
           top: 60%;
           width: 404px;
           left: 33%;
+          font-size: 17px;
           transform: translate(-67%, -40%);
           height: 200px;
         }

@@ -45,6 +45,12 @@ const Container = styled.div`
             font-size: 16px;
         }
     }
+
+    @media all and (min-width: 1366px) {
+        .middle-text, ul {
+            font-size: 17px;
+        }
+    }
 `
 const ProfilePic = styled.img`
     position: absolute;
@@ -91,6 +97,12 @@ const Card = styled.div`
         border-radius: 31px;
         width: 100px;
         padding-bottom: 8px;
+    }
+
+    @media all and (min-width: 1366px) {
+        .bottom-text {
+            font-size: 17px
+        }
     }
 `
 

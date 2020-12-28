@@ -453,9 +453,24 @@
 }
 
 @media all and (min-width: 1366px) {
-  #aboutus-section {
+  #aboutus-section { 
+    p {
+      font-size: 18px;
+    }
+
     .aboutus-header {
       margin-bottom: 25px;
+      font-size: 30px;
+    }
+
+    .aboutus-left-section {
+      font-size: 16px;
+
+      .desc {
+        .answer {
+          font-size: 15px;
+        }
+      }
     }
   }
 }
