@@ -34,7 +34,6 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
-    margin-bottom: 55px !important;
   }
 
   p:nth-child(2) {
@@ -45,6 +44,22 @@
 .portfolio-bar {
   margin-top: -2px !important;
   background: var(--primary-border-color);
+}
+
+@media all and (max-width: 410px) {
+  .fashion-lg-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 411px) {
+  .fashion-lg-screens {
+    display: block;
+  }
+
+  .fashion-sm-screens {
+    display: none !important;
+  }
 }
 
 @media all and (min-width: 576px) {
@@ -139,6 +154,16 @@
           }
         }
       }
+    }
+  }
+}
+
+@media all and (min-width: 1366px) {
+  .portfolio {
+    font-size: 30px;
+
+    p {
+      font-size: 15px;
     }
   }
 }

@@ -71,6 +71,26 @@
   margin-bottom: 55px;
 }
 
+@media all and (min-width: 768px) {
+  .team p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@media all and (min-width: 1366px) {
+  .team {
+    .heading {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+}
+
 @media all and (min-width: 1600px) {
   .team {
     .heading {

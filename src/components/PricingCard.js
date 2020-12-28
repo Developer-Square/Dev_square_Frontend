@@ -33,6 +33,24 @@ const Container = styled.div`
         padding-right: .9em;
         padding-left: .9em;
     }
+
+    @media all and (max-width: 320px) {
+        .premium {
+            height: 560px;
+        }
+    }
+
+    @media all and (min-width: 576px) {
+        .middle-text, ul {
+            font-size: 16px;
+        }
+    }
+
+    @media all and (min-width: 1366px) {
+        .middle-text, ul {
+            font-size: 17px;
+        }
+    }
 `
 const ProfilePic = styled.img`
     position: absolute;
@@ -53,7 +71,7 @@ const Card = styled.div`
     padding-top: 90px;
     font-family: 'Roboto Mono', monospace;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 24px;
     text-align: center;
     letter-spacing: 0.1px;
@@ -80,9 +98,15 @@ const Card = styled.div`
         width: 100px;
         padding-bottom: 8px;
     }
+
+    @media all and (min-width: 1366px) {
+        .bottom-text {
+            font-size: 17px
+        }
+    }
 `
 
-export default function PricingCard({image, title, titleColor, text, features, badge, packageType}) {
+export default function PricingCard({package3, image, title, titleColor, text, features, badge, packageType}) {
     const [modalShow, setModalShow] = useState(false)
     const [type, setType] = useState('')
     const [pkg, setPkg] = useState('')
@@ -97,7 +121,7 @@ export default function PricingCard({image, title, titleColor, text, features, b
         <Container>
             <ModalComponent type={type} pkg={pkg} show={modalShow} onHide={() => toggleModal()}/>
             <ProfilePic src={image}/>
-            <Card>
+            <Card className={`${package3}`}>
                 <h4 className={titleColor}>{title}</h4>
                 {/* Show badge on premium package */}
                 {badge ? <Badge pill variant="primary">Recommended</Badge> : null}

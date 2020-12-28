@@ -9,13 +9,24 @@
 #landing-section {
   margin-top: 54px;
   position: relative;
+  .image-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    z-index: 3;
+    background: rgba(0,0,0, 0.4);
+  }
+
   img {
-    width: auto;
-    height: 280px;
+    width: 100%;
+    height: 300px;
   }
 
   .landing-inner-text {
     position: absolute;
+    z-index: 4;
     top: 38%;
     left: 50%;
     transform: translate(-50%, -62%);
@@ -35,8 +46,7 @@
     }
 
     p {
-      font-family: "Lato", sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       line-height: 19px;
       text-align: center;
     }
@@ -75,22 +85,22 @@
 }
 
 @media all and (min-width: 576px) {
+  .landing-container {
+    position: relative;
+  }
+
   #landing-section {
     img {
       width: fit-content;
-      height: auto;
+      height: 400px;
+    }
+    .image-cover {
+      height: -webkit-fill-available;
     }
 
     .landing-inner-text {
       width: 100%;
-
-      .fa-angle-left {
-        margin-right: auto;
-      }
-
-      .fa-angle-right {
-        margin-left: auto;
-      }
+      top: 50%;
 
       .text-container {
         justify-content: center;
@@ -104,12 +114,17 @@
 
 @media all and (min-width: 768px) {
   #landing-section {
+    img {
+      height: 500px;
+    }
+
     .landing-inner-text {
       top: 45%;
       transform: translate(-50%, -55%);
     }
 
     .landing-inner {
+      z-index: 4;
       position: absolute;
       top: 63%;
       left: 50%;
@@ -118,17 +133,37 @@
   }
 }
 
+@media all and (min-width: 992px) {
+  #landing-section {
+    img {
+      height: 600px;
+    }
+
+    .landing-inner-text {
+      font-size: 30px;
+      .text-container {
+        .text {
+          width: 90%;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
 @media all and (min-width: 1366px) {
   #landing-section {
     img {
-      width: 100vw;
+      height: 700px;
     }
 
     .landing-inner-text {
       font-size: 30px;
 
-      p {
-        font-size: 16px;
+      .text-container {
+        .text {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -138,11 +173,14 @@
   #landing-section {
     .btn {
       font-size: 17px;
+      width: 170px;
+      font-size: 18px;
     }
     .landing-inner-text {
-      .fa-angle-right,
-      .fa-angle-left {
-        font-size: 35px;
+      .text-container {
+        .text {
+          width: 80%;
+        }
       }
     }
   }

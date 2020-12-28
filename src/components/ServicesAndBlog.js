@@ -169,7 +169,7 @@ function ServicesAndBlog() {
                     <Col xs={12} id="blog-section" className="blog">
                         <div>
                             {/* <img src="images/rsz_blog.webp" alt="Blog" className="img-fluid"/> */}
-                            <div className="heading text-center">Follow <span>Lotus</span></div>  
+                            <div className="heading text-center">Follow <span>tecHive</span></div>  
                             <div className="d-md-flex justify-content-around blog-icons mx-auto">   
                                 <div className="blog-container d-flex flex-column justify-content-center">
                                     <img src="images/follow-1.webp" alt="Follow" className="img-fluid mx-auto"/>  

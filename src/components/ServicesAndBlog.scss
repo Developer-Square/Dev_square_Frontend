@@ -105,10 +105,37 @@
   }
 }
 
+@media all and (min-width: 576px) {
+  .services p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
 @media all and (min-width: 768px) {
   .blog {
     height: 300px;
   }
+}
+
+@media all and (min-width: 1366px) {
+  .services {
+    .heading {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .inner-content, .inner-content-dev {
+    font-size: 17px;
+  }
+}
+
+.blog-container p {
+  font-size: 17px;
+}
 }
 
 @media all and (min-width: 1600px) {

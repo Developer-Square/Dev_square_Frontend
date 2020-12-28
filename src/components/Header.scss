@@ -37,7 +37,7 @@
   .logo-text {
     font-family: 'Roboto Mono', monospace;
     font-style: italic;
-    font-size: 29px;
+    font-size: 25px;
   }
 }
 
@@ -107,6 +107,29 @@
   }
 }
 
+@media all and (min-width: 992px) {
+  .navbar-brand {
+    .logo-text {
+      font-size: 28px;
+    }
+  }
+}
+
+@media all and (min-width: 1366px) {
+  .navbar {
+    .navbar-nav {
+      .nav-link {
+        font-size: 15px;
+      }
+    }
+  }
+  .navbar-brand {
+    .logo-text {
+      font-size: 30px;
+    }
+  }
+}
+
 @media all and (min-width: 1440px) {
   .navbar {
     padding: 0.8rem 1rem;
@@ -118,12 +141,22 @@
   }
 }
 
+@media all and (min-width: 1600px) {
+  .navbar {
+    .navbar-nav {
+      .nav-link {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 @media all and (min-width: 1920px) {
   .navbar {
     padding: 0.9rem 1rem;
     .navbar-nav {
       .nav-link {
-        font-size: 16px;
+        font-size: 17px;
       }
     }
   }

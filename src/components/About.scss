@@ -337,36 +337,53 @@
     .aboutus-right-section {
       .image-container {
         .left {
-          left: 1%;
+          left: 20%;
         }
 
         .hex {
-          left: 1%;
+          left: 20%;
         }
 
         .middle {
           top: -20px;
-          left: 13%;
+          left: 28%;
         }
 
         .hex-2 {
-          right: 8%;
+          right: 31%;
         }
 
         .right {
-          right: 8%;
+          right: 31%;
         }
       }
     }
   }
 
   .scroll-bar {
-    margin-top: 410px;
+    margin-top: 250px;
   }
 }
 
 @media all and (min-width: 992px) {
   #aboutus-section {
+    p {
+      font-size: 16px;
+    }
+
+    .aboutus-logos p {
+      font-size: 15px;
+    }
+
+    .aboutus-left-section {
+      font-size: 15px;
+      .desc {
+        .answer {
+          font-size: 14px;
+        }
+      }
+    }
+
     .aboutus-right-section {
       margin-top: 80px;
 
@@ -440,15 +457,34 @@
 }
 
 @media all and (min-width: 1366px) {
-  #aboutus-section {
+  #aboutus-section { 
+    p {
+      font-size: 18px;
+    }
+
     .aboutus-header {
       margin-bottom: 25px;
+      font-size: 30px;
+    }
+
+    .aboutus-left-section {
+      font-size: 16px;
+
+      .desc {
+        .answer {
+          font-size: 15px;
+        }
+      }
     }
   }
 }
 
 @media all and (min-width: 1440px) {
   #aboutus-section {
+    .aboutus-logos p {
+      font-size: 16px;
+    }
+
     .aboutus-right-section {
       .image-container {
         left: 58%;
@@ -480,6 +516,11 @@
 
 @media all and (min-width: 1600px) {
   #aboutus-section {
+    .aboutus-logos p {
+      font-size: 17px;
+      line-height: 22px;
+    }
+
     p {
       font-size: 16px;
     }

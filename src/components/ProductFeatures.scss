@@ -58,10 +58,8 @@
 
 .product-text,
 .further-info {
-  font-family: 'Roboto Mono', monospace;
-  font-style: normal;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 24px;
   text-align: center;
   letter-spacing: 0.1px;
@@ -86,6 +84,12 @@
 
   span {
     font-weight: bold;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .further-info {
+    margin-top: 30px;
   }
 }
 
@@ -206,6 +210,16 @@
   }
 }
 
+@media all and (min-width: 1366px) {
+  .product {
+    font-size: 30px;
+  }
+
+  .product-text, .further-info {
+    font-size: 18px;
+  }
+}
+
 @media all and (min-width: 1600px) {
   .product-features {
     .product {
@@ -215,5 +229,11 @@
     .product-inner-text {
       font-size: 16px;
     }
+  }
+
+  .further-info {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
