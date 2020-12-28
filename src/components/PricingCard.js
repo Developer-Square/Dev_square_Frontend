@@ -33,6 +33,18 @@ const Container = styled.div`
         padding-right: .9em;
         padding-left: .9em;
     }
+
+    @media all and (max-width: 320px) {
+        .premium {
+            height: 560px;
+        }
+    }
+
+    @media all and (min-width: 576px) {
+        .middle-text, ul {
+            font-size: 16px;
+        }
+    }
 `
 const ProfilePic = styled.img`
     position: absolute;
@@ -82,7 +94,7 @@ const Card = styled.div`
     }
 `
 
-export default function PricingCard({image, title, titleColor, text, features, badge, packageType}) {
+export default function PricingCard({package3, image, title, titleColor, text, features, badge, packageType}) {
     const [modalShow, setModalShow] = useState(false)
     const [type, setType] = useState('')
     const [pkg, setPkg] = useState('')
@@ -97,7 +109,7 @@ export default function PricingCard({image, title, titleColor, text, features, b
         <Container>
             <ModalComponent type={type} pkg={pkg} show={modalShow} onHide={() => toggleModal()}/>
             <ProfilePic src={image}/>
-            <Card>
+            <Card className={`${package3}`}>
                 <h4 className={titleColor}>{title}</h4>
                 {/* Show badge on premium package */}
                 {badge ? <Badge pill variant="primary">Recommended</Badge> : null}

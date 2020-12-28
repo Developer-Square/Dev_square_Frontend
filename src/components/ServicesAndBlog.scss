@@ -105,6 +105,13 @@
   }
 }
 
+@media all and (min-width: 576px) {
+  .services p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
 @media all and (min-width: 768px) {
   .blog {
     height: 300px;

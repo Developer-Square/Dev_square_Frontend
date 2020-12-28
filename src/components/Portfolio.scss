@@ -46,6 +46,22 @@
   background: var(--primary-border-color);
 }
 
+@media all and (max-width: 410px) {
+  .fashion-lg-screens {
+    display: none;
+  }
+}
+
+@media all and (min-width: 411px) {
+  .fashion-lg-screens {
+    display: block;
+  }
+
+  .fashion-sm-screens {
+    display: none !important;
+  }
+}
+
 @media all and (min-width: 576px) {
   #portfolio-section {
     .portfolio-column {

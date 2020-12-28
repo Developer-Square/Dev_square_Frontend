@@ -30,8 +30,9 @@ function ProductFeatures() {
     let classicText = 'The standard package also comes with a free design with more elaborate features.'
     let uniqueText = 'The unique package also comes with a free design with refined and beautiful features.'
     let basicFeatures = '3 pages'
-    let classicFeatures = '4 pages i.e a home, about, services and a dashboard with basic metrics.'
+    let classicFeatures = '4 pages i.e a home, about, services and a fully functional contact page.'
     let uniqueFeatures = '5 pages i.e home, about, services, contact and a dashboard with custom metrics and features'
+    let package3 = 'premium'
     return (
         <Fragment>
             <ModalComponent type={type} show={modalShow} onHide={() => toggleModal()}/>
@@ -41,8 +42,8 @@ function ProductFeatures() {
                 <br />Can't find what you're looking for in the packages below? Send us a Quote of what you want.</p>
                 <Row>
                     <Col><PricingCard image={imageBasic} titleColor={colorBasic} title={basicTitle} text={basicText} features={basicFeatures} packageType='basic'/></Col>
-                    <Col className="mt-5"><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
-                    <Col className="mt-5"><PricingCard image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
+                    <Col className="mt-5 mt-lg-0"><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
+                    <Col className="mt-5"><PricingCard package3={package3} image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
                 </Row>
                 <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.
                 <br />Check out our services in the service section below.

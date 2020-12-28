@@ -20,17 +20,13 @@ function LandingArea() {
         <Fragment>
             <Container id="landing-section">
                 <Row>
-                    <div>
-                        {/* <img src="images/bg-images/main-bg-1.jpg" className="smaller-screens img-fluid" alt="Landing"/>
-                        <img src="images/main-bg-1.jpg" className="larger-screens img-fluid" alt="Landing"/> */}
+                    <div className="landing-container">
                         <div className="image-cover"></div>
                         <CarouselComponent placed="landingArea" />
                         <div className="landing-inner-text">
                             <div className="d-flex justify-content-center pb-2 pb-xl-4">why <span className="uncover">tecHive ?</span></div>
                             <div className="d-flex text-container">
-                            {/* <i className="fa fa-angle-left pl-1 my-auto" aria-hidden="true"></i> */}
                             <p className="pl-1 pr-1 text">We're are complete professionals at what we do making sure that our clients are well informed about every new step we take in their projects. We also deliver quality, well written and maintainable software.</p>
-                            {/* <i className="fa fa-angle-right pr-1 my-auto" aria-hidden="true"></i> */}
                         </div>
                         </div>
                     </div>

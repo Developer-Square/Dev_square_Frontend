@@ -59,7 +59,7 @@
 .product-text,
 .further-info {
   font-weight: 500;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 24px;
   text-align: center;
   letter-spacing: 0.1px;
@@ -84,6 +84,12 @@
 
   span {
     font-weight: bold;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .further-info {
+    margin-top: 30px;
   }
 }
 

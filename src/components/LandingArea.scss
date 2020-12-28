@@ -16,7 +16,7 @@
     width: 100%;
     height: 300px;
     z-index: 3;
-    background: rgba(0,0,0, 0.3);
+    background: rgba(0,0,0, 0.4);
   }
 
   img {
@@ -85,22 +85,22 @@
 }
 
 @media all and (min-width: 576px) {
+  .landing-container {
+    position: relative;
+  }
+
   #landing-section {
     img {
       width: fit-content;
       height: auto;
     }
+    .image-cover {
+      height: -webkit-fill-available;
+    }
 
     .landing-inner-text {
       width: 100%;
-
-      .fa-angle-left {
-        margin-right: auto;
-      }
-
-      .fa-angle-right {
-        margin-left: auto;
-      }
+      top: 50%;
 
       .text-container {
         justify-content: center;
@@ -120,10 +120,23 @@
     }
 
     .landing-inner {
+      z-index: 4;
       position: absolute;
       top: 63%;
       left: 50%;
       transform: translate(-50%, -37%);
+    }
+  }
+}
+
+@media all and (min-width: 992px) {
+  #landing-section {
+    .landing-inner-text {
+      .text-container {
+        .text {
+          width: 90%;
+        }
+      }
     }
   }
 }

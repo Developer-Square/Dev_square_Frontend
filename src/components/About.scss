@@ -337,36 +337,49 @@
     .aboutus-right-section {
       .image-container {
         .left {
-          left: 1%;
+          left: 20%;
         }
 
         .hex {
-          left: 1%;
+          left: 20%;
         }
 
         .middle {
           top: -20px;
-          left: 13%;
+          left: 28%;
         }
 
         .hex-2 {
-          right: 8%;
+          right: 31%;
         }
 
         .right {
-          right: 8%;
+          right: 31%;
         }
       }
     }
   }
 
   .scroll-bar {
-    margin-top: 410px;
+    margin-top: 250px;
   }
 }
 
 @media all and (min-width: 992px) {
   #aboutus-section {
+    p {
+      font-size: 16px;
+    }
+
+    .aboutus-left-section {
+      font-size: 15px;
+      .desc {
+        .answer {
+          font-size: 14px;
+        }
+      }
+    }
+
     .aboutus-right-section {
       margin-top: 80px;
 

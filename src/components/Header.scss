@@ -107,6 +107,14 @@
   }
 }
 
+@media all and (min-width: 992px) {
+  .navbar-brand {
+    .logo-text {
+      font-size: 28px;
+    }
+  }
+}
+
 @media all and (min-width: 1440px) {
   .navbar {
     padding: 0.8rem 1rem;
