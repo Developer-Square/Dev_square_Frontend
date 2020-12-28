@@ -371,6 +371,10 @@
       font-size: 16px;
     }
 
+    .aboutus-logos p {
+      font-size: 15px;
+    }
+
     .aboutus-left-section {
       font-size: 15px;
       .desc {
@@ -477,6 +481,10 @@
 
 @media all and (min-width: 1440px) {
   #aboutus-section {
+    .aboutus-logos p {
+      font-size: 16px;
+    }
+
     .aboutus-right-section {
       .image-container {
         left: 58%;
@@ -508,6 +516,11 @@
 
 @media all and (min-width: 1600px) {
   #aboutus-section {
+    .aboutus-logos p {
+      font-size: 17px;
+      line-height: 22px;
+    }
+
     p {
       font-size: 16px;
     }
