@@ -18,7 +18,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/nodejs.png" alt="services" className="service-icon img-fluid"/>
+                                    <img src="images/assets/icons/nodejs.webp" alt="services" className="service-icon img-fluid"/>
                                     <p className="title my-auto">Nodejs Applications</p>
                                 </div>
                                 <div className="inner-content-dev p-3">
@@ -49,7 +49,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/mobile-app.png" alt="services" className="service-icon-app img-fluid"/>
+                                    <img src="images/assets/icons/mobile-app.webp" alt="services" className="service-icon-app img-fluid"/>
                                     <p className="title my-auto">Mobile APPLICATIONS</p>
                                 </div>
                                 <div className="inner-content p-3">
@@ -59,7 +59,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/reactjs-48.png" alt="services" className="service-icon-app img-fluid"/>
+                                    <img src="images/assets/icons/reactjs-48.webp" alt="services" className="service-icon-app img-fluid"/>
                                     <p className="title my-auto">Reactjs APPLICATIONS</p>
                                 </div>
                                 <div className="inner-content p-3">
@@ -69,7 +69,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/ui-ux-design-2.png" alt="services" className="service-icon-ui img-fluid"/>
+                                    <img src="images/assets/icons/ui-ux-design-2.webp" alt="services" className="service-icon-ui img-fluid"/>
                                     <p className="title my-auto">UI/UX DESIGN</p>
                                 </div>
                                 <div className="inner-content-dev p-3">
@@ -79,7 +79,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/php.png" alt="services" className="service-icon-responsive img-fluid"/>
+                                    <img src="images/assets/icons/php.webp" alt="services" className="service-icon-responsive img-fluid"/>
                                     <p className="title my-auto">PHP</p>
                                 </div>
                                 <div className="inner-content p-3">
@@ -99,7 +99,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/ruby.png" alt="services" className="service-icon-ui img-fluid"/>
+                                    <img src="images/assets/icons/ruby.webp" alt="services" className="service-icon-ui img-fluid"/>
                                     <p className="title my-auto">Ruby on Rails</p>
                                 </div>
                                 <div className="inner-content-dev p-3">
@@ -120,7 +120,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/debug.png" alt="services" className="service-icon-responsive img-fluid"/>
+                                    <img src="images/assets/icons/debug.webp" alt="services" className="service-icon-responsive img-fluid"/>
                                     <p className="title my-auto">Debugging Code</p>
                                 </div>
                                 <div className="inner-content-dev p-3">
@@ -142,7 +142,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/django.png" alt="services" className="service-icon-responsive img-fluid"/>
+                                    <img src="images/assets/icons/django.webp" alt="services" className="service-icon-responsive img-fluid"/>
                                     <p className="title my-auto">Django Development</p>
                                 </div>
                                 <div className="inner-content p-3">
@@ -152,7 +152,7 @@ function ServicesAndBlog() {
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-2.webp" alt="services" className="img-fluid"/>
-                                    <img src="images/assets/icons/data-analyst.png" alt="services" className="service-icon-responsive img-fluid"/>
+                                    <img src="images/assets/icons/data-analyst.webp" alt="services" className="service-icon-responsive img-fluid"/>
                                     <p className="title my-auto">Data Analyst</p>
                                 </div>
                                 <div className="inner-content p-3">
