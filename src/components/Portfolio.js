@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -8,6 +8,22 @@ import './Portfolio.scss'
 import PortfolioList from './PortfolioList'
 
 function Portfolio() {
+    const [option, setOption] = useState('')
+
+    useEffect(() => {
+        setOption('all')
+    }, [])
+
+    function handleChange (e) {
+        const val = e.target.innerHTML.toLowerCase()
+        const options = document.querySelectorAll('.option')
+        Array.from(options).map(opt => {
+            opt.classList.remove('active')
+            return null;
+        })
+        e.target.classList.add('active')
+        setOption(val)
+    }
     return (
         <Fragment>
             <Container id="portfolio-section">
@@ -16,15 +32,15 @@ function Portfolio() {
                         <div className="portfolio">
                             <div className="heading text-center">portfolio</div>
                             <div className="d-flex portfolio-header mx-auto justify-content-around">
-                                <p>ALL</p>
-                                <p>BUSINESS TYPE</p>
-                                <p>PHOTOGRAPHY</p>
-                                <p>WEDDING</p>
-                                <p className="fashion-lg-screens">FASHION</p>
+                                <p onClick={handleChange} className="option active">ALL</p>
+                                <p onClick={handleChange} className="option">BUSINESS TYPE</p>
+                                <p onClick={handleChange} className="option">PHOTOGRAPHY</p>
+                                <p onClick={handleChange} className="option">WEDDING</p>
+                                <p onClick={handleChange} className="fashion-lg-screens option">FASHION</p>
                             </div>
                             <div className="d-flex justify-content-center fashion-sm-screens"><p>FASHION</p></div>
                             <div className="portfolio-images mx-xl-auto">
-                                <PortfolioList />
+                                <PortfolioList portfolioType={option} />
                             </div>
                         </div>
                         <div className="scroll-bar portfolio-bar mt-2 mx-auto">
