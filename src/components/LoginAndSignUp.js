@@ -9,6 +9,7 @@ import styles from './LoginAndSignUp.module.scss'
 import Api from '../services/network'
 import notify from '../helpers/Notify'
 import {addUser, updateAuth} from '../redux/action-creator/index'
+import MakingPancake from '../Dashboard/Dashboard_Components/MakingPancake'
 
 function LoginAndSignUp({history}) {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function LoginAndSignUp({history}) {
     //When confirm is set to true the whole pages goes blank telling the user
     //to check his/her email.
     const [confirm, setConfirm] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleKeyUp = (e) => {
         if (e.keyCode === 13) {
@@ -50,10 +52,10 @@ function LoginAndSignUp({history}) {
 
     function handleLogin(e) {
         e.preventDefault()
-
         if (email === '' && password === '') {
             notify('error', 'Please fill in all the fields')
         } else {
+            setLoading(true)
             const credentials = {
                 email,
                 password
@@ -63,6 +65,7 @@ function LoginAndSignUp({history}) {
             api.auth().login(credentials)
             .then((res) => {
                 if (res.status === 200) {
+                    setLoading(false)
                     localStorage.setItem('jwtToken', res.data.tokens.access.token)
                     localStorage.setItem('refreshToken', res.data.tokens.refresh.token)
                     localStorage.setItem('userID', res.data.user.id)
@@ -78,6 +81,7 @@ function LoginAndSignUp({history}) {
                     const {message} = error.response.data
                     console.log(message)
                     notify('error', message)
+                    setLoading(false)
                 }
             })
         }
@@ -106,6 +110,9 @@ function LoginAndSignUp({history}) {
 
     return (
         <Fragment>
+            {/* The pancake loader that appears */}
+            <MakingPancake loading={loading}/>
+
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

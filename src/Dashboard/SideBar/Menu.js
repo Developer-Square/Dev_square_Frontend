@@ -59,9 +59,9 @@ function Menu() {
         } else if (location.search('portfolio') !== -1) {
             setPortfolioActive('true')
             setToFalse('portfolio')
-        } else if (location.search('clients') !== -1) {
+        } else if (location.search('projects') !== -1) {
             setProjectsActive('true')
-            setToFalse('clients')
+            setToFalse('projects')
         }
     }, [])
     return (

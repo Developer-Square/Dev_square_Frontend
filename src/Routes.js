@@ -24,7 +24,7 @@ function Routes() {
                 <ThemeContextProvider>
                     <RouteWithLayout path="/dashboard/home" exact component={DashboardHome} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/users" exact component={UsersPage} layout={Dashboard}/>
-                    <RouteWithLayout path="/dashboard/clients" exact component={ProjectsPage} layout={Dashboard}/>
+                    <RouteWithLayout path="/dashboard/projects" exact component={ProjectsPage} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/portfolio" exact component={PortfolioPage} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/tasks" exact component={TasksPage} layout={Dashboard}/>
                 </ThemeContextProvider>
