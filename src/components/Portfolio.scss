@@ -34,10 +34,19 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
+    cursor: pointer;
   }
 
-  p:nth-child(2) {
-    color: var(--primary-border-color);
+  .portfolio-images {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .active {
+    color: var(--primary-border-color)
+  }
+
+  .hide {
+    display: none !important;
   }
 }
 
