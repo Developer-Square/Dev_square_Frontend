@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import cx from 'classnames'
 import {ToastContainer} from 'react-toastify'
+import $ from 'jquery'
 
 //Own Components
 import styles from './LoginAndSignUp.module.scss'
@@ -25,14 +26,15 @@ function LoginAndSignUp({history}) {
     const [confirm, setConfirm] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const handleKeyUp = (e) => {
-        if (e.keyCode === 13) {
-          handleLogin(e)
-        }
-      };
-
     //adding keyup event listener
-    window.document.addEventListener("keyup", handleKeyUp);
+    $(function(){
+        $(document).on('keyup', function(evt){
+            if (evt.key === 13) {
+                evt.preventDefault()
+                handleLogin(evt)
+            }
+        });
+    });
 
     const handleClickSignUp = () => {
         setText(`${styles.sign_up_mode}`)
@@ -51,7 +53,9 @@ function LoginAndSignUp({history}) {
     }
 
     function handleLogin(e) {
+        e.stopPropagation()
         e.preventDefault()
+
         if (email === '' && password === '') {
             notify('error', 'Please fill in all the fields')
         } else {

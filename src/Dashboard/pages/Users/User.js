@@ -88,42 +88,43 @@ const StatusIndicator = styled.div`
 	right: 7rem;
 `
 
-function User({data}) {
+function User({data, index}) {
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
 			$(this).css('animation-delay', delay - 5 + 's')
 		})
 	})
-	const {username, email, rent, deposit, status} = data;
+
+	const {name, email, tasks, status, skills} = data
 
 	return ( 
 		<Container className="-container">
-		<Property className="pl-2">
-			<PropertyImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
-			<PropertyText>
-				<PropertyStreet>{username.address.street}</PropertyStreet>
-				<Subtitle>{username.address.city}</Subtitle>
-			</PropertyText>
-		</Property>
-		<MoveInDate>{email}</MoveInDate>
-		<Rent>{rent}</Rent>
-		<DepositWrapper>
-			<Text>{deposit.amount}</Text>
-			<Subtitle>{deposit.type}</Subtitle>
-		</DepositWrapper>
-		<Status>
-			<Text>{status.message}</Text>
-			{(() => {
-				switch (status.level) {
-					case 1: return <StatusIndicator color="#F17E7E"/>;
-					case 2: return <StatusIndicator color="#FFD056"/>;
-					case 3: return <StatusIndicator color="#75C282"/>;
-					default: return <StatusIndicator color="#AAA5A5"/>;
-				}
-			})()}
-		</Status>
-	</Container>
+			<Property className="pl-2">
+				<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
+				<PropertyText>
+					<PropertyStreet>{name}</PropertyStreet>
+					<Subtitle>{skills !== undefined ? `${skills[0]} developer` : null}</Subtitle>
+				</PropertyText>
+			</Property>
+			<MoveInDate>{email}</MoveInDate>
+			<Rent></Rent>
+			<DepositWrapper>
+				<Text>{tasks !== undefined ? tasks.length : null}</Text>
+				<Subtitle>{}</Subtitle>
+			</DepositWrapper>
+			<Status>
+				<Text>{status === 'available' ? 'Available' : status === 'busy' ? 'Busy' : 'Deactivated'}</Text>
+				{(() => {
+					switch (status) {
+						case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
+						case 'busy': return <StatusIndicator color="#FFD056"/>;
+						case 'available': return <StatusIndicator color="#75C282"/>;
+						default: return <StatusIndicator color="#AAA5A5"/>;
+					}
+				})()}
+			</Status>
+		</Container>
 	)}
 
 export default User;

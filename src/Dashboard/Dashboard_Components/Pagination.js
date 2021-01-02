@@ -86,7 +86,7 @@ const Pagination = forwardRef((props, ref) => {
         const data = {
             role: 'admin'
         }
-        api.User().getAllUsersWithParams(data)
+        api.User().getAllUsersWithRole(data)
         .then(res => {
             if (res.status === 200) {
                 dispatch(addAdminUsers(res.data.results))

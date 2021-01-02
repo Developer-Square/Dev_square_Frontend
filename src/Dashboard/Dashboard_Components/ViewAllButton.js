@@ -1,5 +1,12 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
+import {ToastContainer} from 'react-toastify'
+
+//Own Components
+import Api from '../../services/network' 
+import notify from '../../helpers/Notify'
+import {addUsers, updateGetUsers, setLoading} from '../../redux/action-creator/index'
 
 const Container = styled.div`
     display: flex;
@@ -37,8 +44,44 @@ const Button = styled.a`
     }
 `
 
-function ViewAllButton({title, marginTop, marginBottom, onClick}) {
+function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClick}) {
+    const dispatch = useDispatch()
     const [btnText, setBtnText] = useState('')
+    const [nextPage, setNextPage] = useState(false)
+    //Making an api call
+    const api = new Api()
+    function getNextPage(e) {
+        dispatch(setLoading())
+        const btnType = e.target.className
+        let data = {
+            limit: 10
+        }
+
+        if (btnType.search('prev') !== -1) {
+            if (pageNumber > 1) {
+                data.page = pageNumber - 1
+            } else {
+                data.page = pageNumber
+            }
+        } else if (btnType.search('next') !== -1) {
+            data.page = pageNumber + 1
+        }
+
+        api.User().getAllUsers(data)
+        .then((res) => {
+            if (res.status === 200) {
+                dispatch(addUsers(res.data))
+				notify('success', 'Users fetched successfully')
+                dispatch(updateGetUsers())
+                // dispatch(setLoading())    
+            }
+        })
+        .catch(err => {
+            dispatch(setLoading())
+            const {message} = err.response.data
+			notify('error', message)
+        })
+    }
     //Changing the color and text of the buttons on clicking them
     const handleClick = (e) => {
         onClick()
@@ -47,20 +90,39 @@ function ViewAllButton({title, marginTop, marginBottom, onClick}) {
         if (btn.innerHTML.search('Active') !== -1) {
             btn.classList.add('close-btn-1')
             btn.innerHTML = 'Close All Accounts'
+            //If there are more than 10 users then set the next page to true to reveal the next button
+            if (page > 1) {
+                setNextPage(true)
+            }
         } else if (btn.innerHTML.search('Closed') !== -1) {
-            btn.classList.add('close-btn-2')
+            btn.classList.add('close-btn-1')
             btn.innerHTML = 'Close All Accounts' 
         } else {
             btn.classList.remove('close-btn-1')
-            btn.classList.remove('close-btn-2')
             btn.innerHTML = btnText
+            setNextPage(false)
         }
     }
 
     return (
-        <Container marginTop={marginTop} marginBottom={marginBottom} onClick={handleClick}>
-            <Button className="view-all-button">All {title}</Button>
-        </Container>
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <Container marginTop={marginTop} marginBottom={marginBottom}>
+                <Button className="view-all-button" onClick={handleClick}>All {title}</Button>
+                {nextPage === true && page > 1 ? <Button variant="info" className="ml-3 prev" onClick={getNextPage}>Previous page</Button> : null}
+                {nextPage ? <Button className="view-all-button next ml-3" onClick={getNextPage}>Next Page</Button>: null}
+            </Container>
+        </>
     )
 }
 

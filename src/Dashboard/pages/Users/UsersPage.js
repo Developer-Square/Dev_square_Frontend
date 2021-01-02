@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import {useSelector} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
@@ -15,7 +16,17 @@ const Container = styled.div`
 `
 
 function UsersPage() {
+    const {users} = useSelector(state => state.users)
     const [modalShow, setModalShow] = useState(false);
+    const [count, setCount] = useState('');
+
+    useEffect(() => {
+        //Counting the number of active users
+        if (users.results !== undefined) {
+            setCount(users.results.length)
+        } 
+
+    }, [users])
 
     return (
         <Container>
@@ -32,7 +43,7 @@ function UsersPage() {
             />
             <AddButton onClick={() => setModalShow(true)}  />
             <UsersModal show={modalShow} onHide={() => setModalShow(false)}/>
-			<Users title="Active Accounts" count={6} data={depositData.active} />
+			<Users title="Active Accounts" count={count} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={3} data={depositData.closed} />
         </Container>
     )

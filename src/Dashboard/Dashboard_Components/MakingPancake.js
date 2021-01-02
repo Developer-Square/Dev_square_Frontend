@@ -11,11 +11,11 @@ export default function MakingPancake({loading}) {
                 <div className="wrap">
                     <h1 className="loading-text">Loading in progress..</h1>
                     <div id="cooking">
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
-                        <div class="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
                         <div id="area">
                             <div id="sides">
                                 <div id="pan"></div>
