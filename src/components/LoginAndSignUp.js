@@ -83,7 +83,6 @@ function LoginAndSignUp({history}) {
             .catch((error) => {
                 if (error && error.response) {
                     const {message} = error.response.data
-                    console.log(message)
                     notify('error', message)
                     setLoading(false)
                 }
