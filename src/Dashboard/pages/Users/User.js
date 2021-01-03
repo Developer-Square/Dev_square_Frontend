@@ -1,6 +1,10 @@
 import React from "react";
 import styled from 'styled-components';
 import $ from 'jquery';
+import {useSelector, useDispatch} from 'react-redux'
+
+//Own Components
+import {updateUser, setModalShow} from '../../../redux/action-creator/index'
 
 const Container = styled.div`
 	display: flex;
@@ -89,6 +93,8 @@ const StatusIndicator = styled.div`
 `
 
 function User({data, index}) {
+	const {users} = useSelector(state => state.users)
+	const dispatch = useDispatch()
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
@@ -96,10 +102,22 @@ function User({data, index}) {
 		})
 	})
 
-	const {name, email, tasks, status, skills} = data
+	const {name, email, tasks, status, skills, id} = data
+
+	function handleUpdate(e) {
+		const userId = e.target.className.slice(16,40)
+		users.results.map(user => {
+			if (user.id === userId) {
+				dispatch(updateUser(user))
+				dispatch(setModalShow())
+			}
+			return null
+		})
+
+	}
 
 	return ( 
-		<Container className="-container">
+		<Container className={`${id}-container`} onClick={handleUpdate}>
 			<Property className="pl-2">
 				<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
 				<PropertyText>

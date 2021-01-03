@@ -128,7 +128,9 @@ class Api {
                 params: {
                     role: data.role
                 }
-            })
+            }),
+            createUser: (data) => this.instance.post(`users/`, data),
+            updateUser: (id, data) => this.instance.patch(`users/${id}`, data)
         }
     }
 

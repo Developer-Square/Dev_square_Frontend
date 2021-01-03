@@ -43,13 +43,14 @@ const Content = styled.div`
 function Users({ title, page, pageNumber, data, count }) {
 	const [size, setSize] = useState(3)
 	const {Loading} = useSelector(state => state.tasks)
+	const {updatedCount} = useSelector(state => state.users)
 	const dispatch = useDispatch()
 	const api = new Api()
 
 	useEffect(() => {
 		getUsers()
 		// eslint-disable-next-line 
-	}, [])
+	}, [updatedCount])
 
 	//Get All Users
 	function getUsers() {

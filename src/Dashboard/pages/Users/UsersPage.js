@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
 import AddButton from "../../Dashboard_Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
+import {setModalShow} from '../../../redux/action-creator/index'
 
 import depositData from "../../../DepositData.json";
 
@@ -16,8 +17,8 @@ const Container = styled.div`
 `
 
 function UsersPage() {
-    const {users} = useSelector(state => state.users)
-    const [modalShow, setModalShow] = useState(false);
+    const dispatch = useDispatch()
+    const {users, modalShow, userToBeUpdated} = useSelector(state => state.users)
     const [count, setCount] = useState('');
 
     useEffect(() => {
@@ -25,8 +26,7 @@ function UsersPage() {
         if (users.results !== undefined) {
             setCount(users.results.length)
         } 
-
-    }, [users])
+    }, [users, modalShow])
 
     return (
         <Container>
@@ -41,8 +41,8 @@ function UsersPage() {
                 draggable
                 pauseOnHover
             />
-            <AddButton onClick={() => setModalShow(true)}  />
-            <UsersModal show={modalShow} onHide={() => setModalShow(false)}/>
+            <AddButton onClick={() => dispatch(setModalShow())}  />
+            <UsersModal usertobeupdated={userToBeUpdated} show={modalShow} onHide={() => dispatch(setModalShow())}/>
 			<Users title="Active Accounts" count={count} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={3} data={depositData.closed} />
         </Container>
