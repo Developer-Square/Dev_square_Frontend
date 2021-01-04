@@ -6,7 +6,7 @@ import {ToastContainer} from 'react-toastify'
 //Own Components
 import Api from '../../services/network' 
 import notify from '../../helpers/Notify'
-import {addUsers, updateGetUsers, setLoading} from '../../redux/action-creator/index'
+import {addUsers, updateGetUsers, setLoading, updatePageNumber} from '../../redux/action-creator/index'
 
 const Container = styled.div`
     display: flex;
@@ -66,20 +66,28 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
         } else if (btnType.search('next') !== -1) {
             data.page = pageNumber + 1
         }
-
+        
+        //Store the page number so that when the page updates or refreshes the user
+        //is returned to the right page.
+        dispatch(updatePageNumber(data))
         api.User().getAllUsers(data)
         .then((res) => {
             if (res.status === 200) {
                 dispatch(addUsers(res.data))
 				notify('success', 'Users fetched successfully')
                 dispatch(updateGetUsers())
-                // dispatch(setLoading())    
+                dispatch(setLoading())    
             }
         })
         .catch(err => {
             dispatch(setLoading())
-            const {message} = err.response.data
-			notify('error', message)
+            if (err.response) {
+				const {message} = err.response.data
+				dispatch(setLoading())
+				notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
         })
     }
     //Changing the color and text of the buttons on clicking them

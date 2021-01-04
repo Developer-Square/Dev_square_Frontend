@@ -101,9 +101,13 @@ export default function UsersModal(props) {
                             clearFields()
                         }
                     })
-                    .catch(error => {
-                        const {message} = error.response.data
-                        notify('error', message)
+                    .catch(err => {
+                        if (err.response) {
+                            const {message} = err.response.data
+                            notify('error', message)
+                        } else {
+                            notify('error', 'Something went wrong, Please refresh the page.')
+                        }
                     })
                 } else {
                     api.auth().registerUser(data)
@@ -113,9 +117,13 @@ export default function UsersModal(props) {
                         }
                     })
                     .catch(err => {
-                        const {message} = err.response.data
-                        const customMessage = `User not created! \n ${message}`
-                        notify('error', customMessage)
+                        if (err.response) {
+                            const {message} = err.response.data
+                            const customMessage = `User not created! \n ${message}`
+                            notify('error', customMessage)
+                        } else {
+                            notify('error', 'Something went wrong, Please refresh the page.')
+                        }
                     })
                 }
             } else {

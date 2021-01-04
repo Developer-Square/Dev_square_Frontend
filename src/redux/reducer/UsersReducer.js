@@ -1,11 +1,12 @@
-import {ADD_USERS, UPDATE_GET_USERS, UPDATE_USER, UPDATE_USER_COUNT, MODAL_SHOW} from '../action-types/index'
+import {ADD_USERS, UPDATE_GET_USERS, UPDATE_USER, UPDATE_USER_COUNT, MODAL_SHOW, PAGE_NUMBER} from '../action-types/index'
 
 const initialState = {
    getUsersState: false,
    users: [],
    updatedCount: 0,
    modalShow: false,
-   userToBeUpdated: ''
+   userToBeUpdated: '',
+   pageNumber: ''
 }
 
 function UsersReducer(state=initialState, action) {
@@ -34,6 +35,11 @@ function UsersReducer(state=initialState, action) {
             return {
                 ...state,
                 userToBeUpdated: action.payload
+            }
+        case PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: action.payload
             }
     
         default:

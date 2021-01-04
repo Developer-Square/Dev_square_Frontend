@@ -214,8 +214,12 @@ const TaskModal = forwardRef((props, ref) => {
                         }
                     })
                     .catch(err => {
-                        const {message} = err.response.data
-                        notify('error', message)
+                        if (err.response) {
+                            const {message} = err.response.data
+                            notify('error', message)
+                        } else {
+                            notify('error', 'Something went wrong, Please refresh the page.')
+                        }
                     })
                 } else {
                      //If nothing has been changed show the user a pop message
@@ -242,9 +246,14 @@ const TaskModal = forwardRef((props, ref) => {
                             }
                         })
                         .catch(err => {
-                            const {message} = err.response.data
-                            const customMessage = `Task not created! \n ${message}`
-                            notify('error', customMessage)
+                            if (err.response) {
+                                const {message} = err.response.data
+                                const customMessage = `Task not created! \n ${message}`
+                                notify('error', customMessage)
+                            } else {
+                                notify('error', 'Something went wrong, Please refresh the page.')
+                            }
+                            
                         })
                     }
                 } else {

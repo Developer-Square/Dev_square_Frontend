@@ -88,7 +88,7 @@ export default function Tasks() {
         if (Tasks.results.length !== 0) {
             const {results} = Tasks
             // eslint-disable-next-line
-            results.map((task, index) => {
+            results.map((task) => {
                 if (task.id === rowId) {
                     if (task.status === 'inProgress') {
                         notify('error', 'Can\'t assign a task that is already in progress')
@@ -145,8 +145,12 @@ export default function Tasks() {
                                 })
                                 .catch(err => {
                                     dispatch(setLoading())
-                                    const {message} = err.response.data
-                                    notify('error', message)
+                                    if (err.response) {
+                                        const {message} = err.response.data
+                                        notify('error', message)
+                                    } else {
+                                        notify('error', 'Something went wrong')
+                                    }
                                 })
                             })
                         } else {
@@ -159,15 +163,19 @@ export default function Tasks() {
                 })
                 .catch(err => {
                     dispatch(setLoading())
-                    const {message} = err.response.data
-                    notify('error', message)
+                    if (err.response) {
+                        const {message} = err.response.data
+                        notify('error', message)
+                    } else {
+                        notify('error', 'Something went wrong')
+                    }
                 })
             }
         })
     }
 
     function handleTaskUpdate(e) {
-        //Getting the index of the clicked row
+        //Getting the id of the clicked row
         let rowId = e.currentTarget.className.slice(5,29)
         //Map the indexes stored in state to see which one matches the one that was clicked
         const {results} = Tasks
@@ -184,15 +192,19 @@ export default function Tasks() {
                     }
                 })
                 .catch(err => {
-                    const {message} = err.response.data
-                    notify('error', message)
+                    if (err.response) {
+                        const {message} = err.response.data
+                        notify('error', message)
+                    } else {
+                        notify('error', 'Something went wrong, Please refresh the page.')
+                    }
                 })
             }
         }) 
     }
 
     function handleDelete(e) {
-        //Getting the index of the clicked row
+        //Getting the id of the clicked row
         let rowId= e.currentTarget.className.slice(0,24)
         setRowId(rowId)
         setDeleteModal(true)
@@ -228,7 +240,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete tasks={Tasks} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete deleteType="tasks" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">

@@ -130,7 +130,8 @@ class Api {
                 }
             }),
             createUser: (data) => this.instance.post(`users/`, data),
-            updateUser: (id, data) => this.instance.patch(`users/${id}`, data)
+            updateUser: (id, data) => this.instance.patch(`users/${id}`, data),
+            deleteUser: (data) => this.instance.delete(`users/${data}`)
         }
     }
 

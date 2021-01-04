@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import $ from 'jquery';
 import {useSelector, useDispatch} from 'react-redux'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from 'react-bootstrap/Popover'
+import Button from 'react-bootstrap/Button'
 
 //Own Components
 import {updateUser, setModalShow} from '../../../redux/action-creator/index'
+import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 
 const Container = styled.div`
 	display: flex;
@@ -94,7 +98,10 @@ const StatusIndicator = styled.div`
 
 function User({data, index}) {
 	const {users} = useSelector(state => state.users)
+	const [userId, setUserId] = useState('')
+	const [deleteModal, setDeleteModal] = useState(false)
 	const dispatch = useDispatch()
+
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
@@ -102,10 +109,10 @@ function User({data, index}) {
 		})
 	})
 
-	const {name, email, tasks, status, skills, id} = data
-
+	//User Update
 	function handleUpdate(e) {
-		const userId = e.target.className.slice(16,40)
+		//Getting the id of the clicked row
+        let userId = e.currentTarget.className.slice(5,29)
 		users.results.map(user => {
 			if (user.id === userId) {
 				dispatch(updateUser(user))
@@ -116,33 +123,62 @@ function User({data, index}) {
 
 	}
 
-	return ( 
-		<Container className={`${id}-container`} onClick={handleUpdate}>
-			<Property className="pl-2">
-				<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
-				<PropertyText>
-					<PropertyStreet>{name}</PropertyStreet>
-					<Subtitle>{skills !== undefined ? `${skills[0]} developer` : null}</Subtitle>
-				</PropertyText>
-			</Property>
-			<MoveInDate>{email}</MoveInDate>
-			<Rent></Rent>
-			<DepositWrapper>
-				<Text>{tasks !== undefined ? tasks.length : null}</Text>
-				<Subtitle>{}</Subtitle>
-			</DepositWrapper>
-			<Status>
-				<Text>{status === 'available' ? 'Available' : status === 'busy' ? 'Busy' : 'Deactivated'}</Text>
-				{(() => {
-					switch (status) {
-						case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
-						case 'busy': return <StatusIndicator color="#FFD056"/>;
-						case 'available': return <StatusIndicator color="#75C282"/>;
-						default: return <StatusIndicator color="#AAA5A5"/>;
+	function handleDelete(e) {
+		//Getting the id of the clicked row
+		let user= e.currentTarget.className.slice(0,24)
+		setUserId(user)
+		setDeleteModal(true)
+	}
+
+	const {name, email, tasks, status, skills, id} = data
+
+	return (
+		<OverlayTrigger
+			trigger="click"
+			key={index}
+			placement="bottom-end"
+			rootClose={true}
+			overlay={
+					<Popover id={`popover-positioned-bottom`}>
+						<Popover.Title as="h3">Actions</Popover.Title>
+						<Popover.Content>
+							<Button className={`mr-2 mb-2 assign col-12 ${id}`} variant="outline-success">View User Tasks</Button>
+							<div className="d-flex justify-content-between">
+								<Button className={`mr-2 ${id}`} variant="outline-primary" onClick={handleUpdate}>Update</Button>
+								<Button variant="danger" className={`${id}`} onClick={handleDelete}>Delete</Button>
+							</div>
+						</Popover.Content>
+					</Popover>
 					}
-				})()}
-			</Status>
-		</Container>
+		>
+			<Container className={`-container`}>
+				<ConfirmDelete deleteType="users" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+				<Property className="pl-2">
+					<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
+					<PropertyText>
+						<PropertyStreet>{name}</PropertyStreet>
+						<Subtitle>{skills !== undefined ? `${skills[0]} developer` : null}</Subtitle>
+					</PropertyText>
+				</Property>
+				<MoveInDate>{email}</MoveInDate>
+				<Rent></Rent>
+				<DepositWrapper>
+					<Text>{tasks !== undefined ? tasks.length : null}</Text>
+					<Subtitle>{}</Subtitle>
+				</DepositWrapper>
+				<Status>
+					<Text>{status === 'available' ? 'Available' : status === 'busy' ? 'Busy' : 'Deactivated'}</Text>
+					{(() => {
+						switch (status) {
+							case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
+							case 'busy': return <StatusIndicator color="#FFD056"/>;
+							case 'available': return <StatusIndicator color="#75C282"/>;
+							default: return <StatusIndicator color="#AAA5A5"/>;
+						}
+					})()}
+				</Status>
+			</Container>
+		</OverlayTrigger> 
 	)}
 
 export default User;
