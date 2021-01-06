@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 //Own Components
 import CarouselComponent from './CarouselComponent'
 import FormComponent from './FormComponent'
+import TaskDisplay from '../../Dashboard/pages/Users/TaskDisplay'
 
 export default function ModalComponent(props) {
     return (
@@ -21,7 +22,7 @@ export default function ModalComponent(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                {props.type === 'Send us a Quote' ? <FormComponent /> : <CarouselComponent packageType={props.pkg}/>}
+                {props.type === 'Send us a Quote' ? <FormComponent /> : props.type === 'Here are some pictures' ? <CarouselComponent packageType={props.pkg}/>: props.usertasks !== undefined ? <TaskDisplay name={props.type} usertasks={props.usertasks}/>: null}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Close</Button>

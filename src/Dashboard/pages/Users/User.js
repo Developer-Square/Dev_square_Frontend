@@ -9,6 +9,9 @@ import Button from 'react-bootstrap/Button'
 //Own Components
 import {updateUser, setModalShow} from '../../../redux/action-creator/index'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import Api from '../../../services/network'
+import notify from '../../../helpers/Notify'
+import ModalComponent from '../../../components/Reusable Components/ModalComponent'
 
 const Container = styled.div`
 	display: flex;
@@ -100,7 +103,11 @@ function User({data, index}) {
 	const {users} = useSelector(state => state.users)
 	const [userId, setUserId] = useState('')
 	const [deleteModal, setDeleteModal] = useState(false)
+	const [userTasks, setUserTasks] = useState([])
+	const [username, setUsername] = useState('')
+	const [userTasksModal, setUserTasksModal] = useState(false)
 	const dispatch = useDispatch()
+	const api = new Api()
 
 	$(document).ready(function() {
 		$('.-container').each(function() {
@@ -130,6 +137,29 @@ function User({data, index}) {
 		setDeleteModal(true)
 	}
 
+	function handleView(tasks, name) {
+		tasks.map(task => {
+			api.Tasks().getTask(task)
+			.then(res => {
+				if (res.status === 200) {
+					let userArray = userTasks
+					userArray.push(res.data)
+					setUserTasks(userArray)
+					setUsername(name)
+					setUserTasksModal(true)
+				}
+			})
+			.catch(err => {
+				if (err.response) {
+					const {message} = err.response.data
+					notify('error', message)
+				} else {
+					notify('error', 'Something went wrong, Please refresh the page.')
+				}
+			})
+			return null
+		})
+	}
 	const {name, email, tasks, status, skills, id} = data
 
 	return (
@@ -142,7 +172,9 @@ function User({data, index}) {
 					<Popover id={`popover-positioned-bottom`}>
 						<Popover.Title as="h3">Actions</Popover.Title>
 						<Popover.Content>
-							<Button className={`mr-2 mb-2 assign col-12 ${id}`} variant="outline-success">View User Tasks</Button>
+							{tasks !== undefined && tasks.length >= 1 ? (
+								<Button className={`mr-2 mb-2 assign col-12 ${id}`} variant="outline-success" onClick={() => handleView(tasks, name)}>View User Tasks</Button>
+							): null}
 							<div className="d-flex justify-content-between">
 								<Button className={`mr-2 ${id}`} variant="outline-primary" onClick={handleUpdate}>Update</Button>
 								<Button variant="danger" className={`${id}`} onClick={handleDelete}>Delete</Button>
@@ -152,6 +184,7 @@ function User({data, index}) {
 					}
 		>
 			<Container className={`-container`}>
+            	<ModalComponent type={`${username}'s Tasks`} show={userTasksModal} usertasks={userTasks} onHide={() => setUserTasksModal(false)}/>
 				<ConfirmDelete deleteType="users" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 				<Property className="pl-2">
 					<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>

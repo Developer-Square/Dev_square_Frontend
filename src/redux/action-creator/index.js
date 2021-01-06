@@ -1,4 +1,4 @@
-import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_USER_COUNT, UPDATE_USER, MODAL_SHOW, PAGE_NUMBER} from '../action-types/index'
+import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_USER_COUNT, UPDATE_USER, MODAL_SHOW, PAGE_NUMBER, ADD_USER_TASK} from '../action-types/index'
 
 export const setLoading = () => {
     return {type: SET_LOADING}
@@ -71,4 +71,8 @@ export const setModalShow = () => {
 
 export const updatePageNumber = (data) => {
     return {type: PAGE_NUMBER, payload: data}
+}
+
+export const addUserTasks = (data) => {
+    return {type: ADD_USER_TASK, payload: data}
 }
