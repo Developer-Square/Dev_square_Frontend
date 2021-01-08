@@ -52,8 +52,8 @@ function Projects({ title, data, count }) {
 		<Container>
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
 			<MenuBar username="Username" email="Email" login="Due Date" extra="Project Name" status="Status"/>
-			{userData.slice(0, size).map((user) => (
-				<Project data={user} key={user.username.address.street}/>
+			{userData.slice(0, size).map((user, index) => (
+				<Project data={user} index={index + 1} key={index}/>
 			))}
 			<ViewAllButton title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
