@@ -30,7 +30,7 @@ function UsersPage() {
         if (pageNumber !== '') {
             //Get tasks when page loads
             getUsers(pageNumber)
-        } else {
+        } else if (users.length === 0) {
             getUsers() 
         }
         // eslint-disable-next-line
