@@ -38,7 +38,7 @@ export default function CarouselComponent({packageType, placed}) {
             <img
             className="d-block w-100"
             // Choosing which image to display depending on the props
-            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-4' : packageType === 'classic' ? 'Bakery-classic-4': 'Wedding-planner-unique1'}.webp`: 'images/bg-images/main-bg-6.webp'}
+            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-4' : packageType === 'classic' ? 'Bakery-classic-4': 'Wedding-planner-unique1'}.webp`: 'images/bg-images/main-bg-7.webp'}
             alt="First slide"
             />
         </Carousel.Item>

@@ -77,6 +77,7 @@ export default function UsersModal(props) {
             let data = {
                 email,
                 name,
+                role: role.toLocaleLowerCase(),
                 skills: skillsArray,
                 status: status.toLocaleLowerCase(),
                 password
@@ -110,7 +111,7 @@ export default function UsersModal(props) {
                         }
                     })
                 } else {
-                    api.auth().registerUser(data)
+                    api.User().createUser(data)
                     .then(res => {
                         if (res.status === 201) {
                             notify('success', 'User successfully created')
