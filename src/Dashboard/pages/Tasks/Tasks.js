@@ -241,7 +241,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete deleteType="tasks" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete deleteType="tasks" component="task" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">

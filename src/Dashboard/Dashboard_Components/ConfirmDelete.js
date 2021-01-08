@@ -71,7 +71,7 @@ export default function ConfirmDelete(props) {
                 >
                     <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-sm">
-                        Are you sure you want to delete this task?
+                        Are you sure you want to delete this {props.component}?
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body {...props} className="mx-auto">

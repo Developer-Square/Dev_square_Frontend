@@ -85,6 +85,7 @@ export default function UsersModal(props) {
             //Removing the update field when we are updating
             if (updateStatus === true) {
                 delete data.password
+                delete data.role
             }
             
             // //Checking if the data is empty with the helper function
@@ -198,25 +199,28 @@ export default function UsersModal(props) {
                                 Please fill your status.
                             </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId="formBasicrole">
-                        <Form.Label>User's role</Form.Label>
-                        <Form.Control as="select" value={role} onChange={(e) => setRole(e.target.value)}>
-                            <option>Role...</option>
-                            <option>Admin</option>
-                            <option>User</option>
-                        </Form.Control>
-                            <Form.Control.Feedback type="invalid">
-                                Please fill your role.
-                            </Form.Control.Feedback>
-                    </Form.Group>
                     {updateStatus !== true ?
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Password..." />
-                        <Form.Control.Feedback type="invalid">
-                            Please fill in your Password.
-                        </Form.Control.Feedback>
-                    </Form.Group>
+                    <>
+                        <Form.Group controlId="formBasicrole">
+                            <Form.Label>User's role</Form.Label>
+                            <Form.Control as="select" value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option>Role...</option>
+                                <option>Admin</option>
+                                <option>User</option>
+                            </Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                    Please fill your role.
+                                </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Password..." />
+                            <Form.Control.Feedback type="invalid">
+                                Please fill in your Password.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </>
                     : null
                     }
                     <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e, props)}>

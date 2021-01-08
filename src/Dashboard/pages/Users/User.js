@@ -164,7 +164,7 @@ function User({data, index}) {
 		>
 			<Container className={`-container`}>
             	<ModalComponent type={`${username}'s Tasks`} show={userTasksModal} usertasks={userTasks} onHide={() => setUserTasksModal(false)}/>
-				<ConfirmDelete deleteType="users" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+				<ConfirmDelete deleteType="users" component="user" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 				<Property className="pl-2">
 					<PropertyImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
 					<PropertyText>
