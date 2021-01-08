@@ -1,7 +1,48 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+
+//Own Components
+import notify from '../../../helpers/Notify'
+import Api from '../../../services/network'
+import NeverEndingBox from '../../Dashboard_Components/NeverEndingBox'
+
 
 export default function TaskDisplay({usertasks}) {
-    console.log(usertasks)
+    const [tasks, setTasks] = useState('')
+    const api = new Api()
+    let list = []
+
+    useEffect(() => {
+        let len = 0;
+        if (usertasks !== undefined){
+            usertasks.map((task) => {
+                api.Tasks().getTask(task)
+                .then(res => {
+                    if (res.status === 200) {                 
+                        list.push(res.data)
+                        len += 1
+                        //Making sure the mapping is done then putting the final
+                        //result in the state
+                        console.log(list)
+                        if (usertasks.length === len) {
+                            setTasks(list)
+                        }
+                    }
+                })
+                .catch(err => {
+                    if (err.response) {
+                        const {message} = err.response.data
+                        notify('error', message)
+                    } else {
+                        notify('error', 'Something went wrong, Please refresh the page.')
+                    }
+                })
+                return null
+            })
+        }
+
+       // eslint-disable-next-line 
+    }, [])
+
     return (
         <div className="main-card mb-3 card">
             <div className="card-body"><h5 className="card-title">Results</h5>
@@ -15,7 +56,7 @@ export default function TaskDisplay({usertasks}) {
                     </tr>
                     </thead>
                     <tbody>
-                        {usertasks !== undefined ? usertasks.map((task, index) => (
+                        {tasks !== '' ? tasks.map((task, index) => (
                         <tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td>{task.description}</td>
@@ -23,7 +64,7 @@ export default function TaskDisplay({usertasks}) {
                             <td>{task.status}</td>
                         </tr>
                         ))
-                        : null}
+                        : <NeverEndingBox loading={true} />}
                     </tbody>
                 </table>
             </div>

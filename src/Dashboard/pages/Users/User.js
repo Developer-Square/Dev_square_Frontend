@@ -9,8 +9,6 @@ import Button from 'react-bootstrap/Button'
 //Own Components
 import {updateUser, setModalShow} from '../../../redux/action-creator/index'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
-import Api from '../../../services/network'
-import notify from '../../../helpers/Notify'
 import ModalComponent from '../../../components/Reusable Components/ModalComponent'
 
 const Container = styled.div`
@@ -107,7 +105,6 @@ function User({data, index}) {
 	const [username, setUsername] = useState('')
 	const [userTasksModal, setUserTasksModal] = useState(false)
 	const dispatch = useDispatch()
-	const api = new Api()
 
 	$(document).ready(function() {
 		$('.-container').each(function() {
@@ -138,27 +135,9 @@ function User({data, index}) {
 	}
 
 	function handleView(tasks, name) {
-		tasks.map(task => {
-			api.Tasks().getTask(task)
-			.then(res => {
-				if (res.status === 200) {
-					let userArray = userTasks
-					userArray.push(res.data)
-					setUserTasks(userArray)
-					setUsername(name)
-					setUserTasksModal(true)
-				}
-			})
-			.catch(err => {
-				if (err.response) {
-					const {message} = err.response.data
-					notify('error', message)
-				} else {
-					notify('error', 'Something went wrong, Please refresh the page.')
-				}
-			})
-			return null
-		})
+		setUserTasks(tasks)
+		setUsername(name)
+		setUserTasksModal(true)
 	}
 	const {name, email, tasks, status, skills, id} = data
 
