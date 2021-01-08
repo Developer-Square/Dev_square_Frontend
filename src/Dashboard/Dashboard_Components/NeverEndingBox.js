@@ -6,7 +6,7 @@ export default function NeverEndingBox({loading}) {
     return (
         <>
         {loading ? (
-            <div className="box-container">
+            <div className="box-containers">
                 <div className="loading-cover"></div>
                 <div id="loader">
                     <div id="box"></div>

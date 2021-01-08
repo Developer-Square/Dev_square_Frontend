@@ -95,7 +95,7 @@ function Project({data, index}) {
 			$(this).css('animation-delay', delay - 5 + 's')
 		})
 	})
-	const {name, email, tasks, status, skills, id} = data
+	const {name, email, tasks, status, skills} = data
 
 	return ( 
 		<Container className="-container">

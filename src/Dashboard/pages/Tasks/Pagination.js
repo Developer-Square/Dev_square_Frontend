@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import Api from '../../services/network'
+import Api from '../../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers, updatePageNumber} from '../../redux/action-creator'
-import notify from '../../helpers/Notify'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers, updatePageNumber} from '../../../redux/action-creator'
+import notify from '../../../helpers/Notify'
 
 const Container = styled.div`
     .disabled {
@@ -16,7 +16,7 @@ const Container = styled.div`
 `
 
 const Pagination = forwardRef((props, ref) => {
-    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask} = useSelector(state => state.tasks)
+    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks} = useSelector(state => state.tasks)
     const {pageNumber} = useSelector(state => state.users)
     const api = new Api()
     const dispatch = useDispatch()
@@ -38,7 +38,7 @@ const Pagination = forwardRef((props, ref) => {
         if (pageNumber !== '') {
             //Get tasks when page loads
             getTasks(pageNumber)
-        } else {
+        } else if (Tasks.length === 0) {
             getTasks() 
         }
         //Get admin users

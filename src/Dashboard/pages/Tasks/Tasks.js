@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form'
 import './Tasks.scss'
 import AddButton from '../../Dashboard_Components/AddButton'
 import TaskModal from './TaskModal'
-import Pagination from '../../Dashboard_Components/Pagination'
+import Pagination from './Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import BouncingBall from '../../Dashboard_Components/BouncingBall'
@@ -61,6 +61,7 @@ const CardTitle = styled.div`
     margin-bottom: 0;
 `
 
+//Fetching of the tasks happens in the pagination component
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [rowId, setRowId] = useState('');
