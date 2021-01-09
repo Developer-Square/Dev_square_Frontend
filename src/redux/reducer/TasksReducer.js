@@ -1,9 +1,9 @@
-import {ADD_TASKS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOADING, ADD_TASK_CREATORS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_TASKS} from '../action-types/index'
+import {ADD_TASKS, UPDATED_TASK, CREATED_TASK, GET_TASKS, SET_LOADING, ADD_TASK_CREATORS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_TASKS, MODAL_TASK_SHOW} from '../action-types/index'
 
 const initialState = {
     CreatedTask: false,
     CreatedCount: 0,
-    UpdatedTask: false,
+    UpdatedTask: '',
     UpdatedCount: 0,
     GetTasks: false,
     AssignedTask: false,
@@ -12,6 +12,7 @@ const initialState = {
     Tasks: [],
     TaskCreators: [],
     Admins: [],
+    ModalShow: false
 }
 
 function TasksReducer(state=initialState, action) {
@@ -65,6 +66,11 @@ function TasksReducer(state=initialState, action) {
                 ...state,
                 AssignedTask: action.payload,
                 AssignedCount: state.AssignedCount + 1
+        }
+        case MODAL_TASK_SHOW:
+            return {
+                ...state,
+                ModalShow: !state.ModalShow
         }
         case UPDATE_TASKS:
             return {

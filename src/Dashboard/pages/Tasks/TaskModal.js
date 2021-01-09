@@ -1,5 +1,5 @@
 import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 // import {useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
-import {createdTask, updatedTask, updateTasks} from '../../../redux/action-creator/index'
+import {createdTask, updateTasks} from '../../../redux/action-creator/index'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -24,47 +24,13 @@ const TaskModal = forwardRef((props, ref) => {
     const [title, setTitle] = useState('')
     const [updateProjects, setUpdateProjects] = useState(false)
 
+    const {UpdatedTask, ModalShow} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
 
     //Function call coming from the parent component
     useImperativeHandle(
         ref,
         () => ({
-            updateFormfields() {
-                if(props.task !== '') {
-                    setTitle('Update')
-                    const {description, dueDate, stack, difficulty, status} = props.task
-                    setDescription(description)
-                    //Change the date to a proper format that can be displayed
-                    const date = dueDate.slice(0,10)
-                    props.task.dueDate = date
-                    setDueDate(date)
-                    if (status === 'inProgress') {
-                        setStatus('In Progress')
-                    } else if (status === 'onHold') {
-                        setStatus('On Hold')
-                    } else {
-                        setStatus('Not Started')
-                    }
-                    setStack(stack)
-                    //difficulty originally comes in small letters eg. easy, so it has to be
-                    //capitalized eg. Easy, to fit the value in the frontend
-                    let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
-                    setDifficulty(diff)
-                    //Get the specific project that the task to be updated is attached to
-                    if (projects !== '' && projects !== undefined) {
-                        // eslint-disable-next-line
-                        projects.map(project => {
-                            // eslint-disable-next-line
-                            project.tasks.map(task => {
-                                if (task.includes(props.task.id)) {
-                                    setProjectTasks(project.name)
-                                }
-                            })
-                        })
-                    }
-                }
-            },
             clearFormFields() {
                 setDescription('')
                 setProjectTasks('')
@@ -87,8 +53,42 @@ const TaskModal = forwardRef((props, ref) => {
         setTitle('Create a New')
         //Get projects
         getProjects()
+
+        if(UpdatedTask !== '') {
+            setTitle('Update')
+            const {description, dueDate, stack, difficulty, status} = UpdatedTask
+            setDescription(description)
+            //Change the date to a proper format that can be displayed
+            const date = dueDate.slice(0,10)
+            UpdatedTask.dueDate = date
+            setDueDate(date)
+            if (status === 'inProgress') {
+                setStatus('In Progress')
+            } else if (status === 'onHold') {
+                setStatus('On Hold')
+            } else {
+                setStatus('Not Started')
+            }
+            setStack(stack)
+            //difficulty originally comes in small letters eg. easy, so it has to be
+            //capitalized eg. Easy, to fit the value in the frontend
+            let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
+            setDifficulty(diff)
+            //Get the specific project that the task to be updated is attached to
+            if (projects !== '' && projects !== undefined) {
+                // eslint-disable-next-line
+                projects.map(project => {
+                    // eslint-disable-next-line
+                    project.tasks.map(task => {
+                        if (task.includes(UpdatedTask.id)) {
+                            setProjectTasks(project.name)
+                        }
+                    })
+                })
+            }
+        }
         // eslint-disable-next-line
-    }, [])
+    }, [UpdatedTask, ModalShow])
 
     function getProjects() {
         api.Projects().getAllProjects()
@@ -213,13 +213,12 @@ const TaskModal = forwardRef((props, ref) => {
                 status: stat,
                 dueDate,
                 difficulty: diff,
-                id: props.task.id,
-                creator: props.task.creator,
+                id: UpdatedTask.id,
+                creator: UpdatedTask.creator,
                 stack
             }
             //If props is not empty then its an update
-            if (Object.keys(props.task).length !== 0 && props.task.constructor === Object) {
-                const {task} = props
+            if (Object.keys(UpdatedTask).length !== 0 && UpdatedTask.constructor === Object) {
                 //Send an update request
                 //First check if the user made any changes
                 function shallowEquality(obj1, obj2) {
@@ -240,16 +239,15 @@ const TaskModal = forwardRef((props, ref) => {
 
                 //If there's a difference between the two projects then
                 //update the task
-                if (shallowEquality(task, data) === false) {
+                if (shallowEquality(UpdatedTask, data) === false) {
                     //remove the project attribute as it is not to be sent
                     //along with the task's object
                     delete data.id
-                    api.Tasks().updateTask(task.id, data)
+                    api.Tasks().updateTask(UpdatedTask.id, data)
                     .then(res => {
                         if (res.status === 200) {
                             notify('success', 'Task successfully updated')
                             dispatch(updateTasks(res.data))
-                            dispatch(updatedTask(true))
                             clearFields()
                             props.onHide()
                         }
@@ -263,7 +261,7 @@ const TaskModal = forwardRef((props, ref) => {
                         }
                     })
                 } else if (updateProjects) {
-                    addTaskToProject(props.task.id)
+                    addTaskToProject(UpdatedTask.id)
                 } else {
                      //If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
@@ -306,7 +304,7 @@ const TaskModal = forwardRef((props, ref) => {
         }
     }
 
-    const handleProjects = (e, id) => {
+    const handleProjects = (e) => {
         setUpdateProjects(true)
         setProjectTasks(e)
     }
@@ -356,7 +354,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value, props.id)} required as="select">
+                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}

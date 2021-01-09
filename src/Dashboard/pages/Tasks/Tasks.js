@@ -20,7 +20,7 @@ import BouncingBall from '../../Dashboard_Components/BouncingBall'
 import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 import AssignModal from '../../Dashboard_Components/AssignModal'
-import {addSpecificTasks, setLoading} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading, updatedTask, modalTaskShow} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -183,27 +183,9 @@ export default function Tasks() {
         // eslint-disable-next-line
         results.map((value) => {
             if (value.id === rowId) {
-                // settasktobeupdated(value)
-                // setModalShow(true)
-                // //Run the updateFormfields function in the child component
-                // childRef.current.updateFormfields()
-                api.Tasks().getTask(value.id)
-                .then(res => {
-                    if (res.status === 200) {
-                        settasktobeupdated(res.data)
-                        setModalShow(true)
-                        //Run the updateFormfields function in the child component
-                        childRef.current.updateFormfields()
-                    }
-                })
-                .catch(err => {
-                    if (err.response) {
-                        const {message} = err.response.data
-                        notify('error', message)
-                    } else {
-                        notify('error', 'Something went wrong, Please refresh the page.')
-                    }
-                })
+                dispatch(updatedTask(value))
+                setModalShow(true)
+                dispatch(modalTaskShow())
             }
         }) 
     }
