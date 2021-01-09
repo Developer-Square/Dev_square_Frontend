@@ -10,7 +10,7 @@ import $ from 'jquery'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
-import { updateUserCount } from '../../../redux/action-creator'
+import { updateUserCount, updateUser } from '../../../redux/action-creator'
 
 export default function UsersModal(props) {
     const dispatch = useDispatch()
@@ -99,6 +99,7 @@ export default function UsersModal(props) {
                     .then(res => {
                         if(res.status === 200) {
                             notify('success', 'User updated successfully')
+                            dispatch(updateUser(res.data))
                             dispatch(updateUserCount())
                             clearFields()
                         }
@@ -129,7 +130,6 @@ export default function UsersModal(props) {
                     })
                 }
             } else {
-                console.log(data)
                 notify('error', 'Please fill in all the fields')
             }
         }

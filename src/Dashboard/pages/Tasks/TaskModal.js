@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
-import {createdTask, updatedTask} from '../../../redux/action-creator/index'
+import {createdTask, updatedTask, updateTasks} from '../../../redux/action-creator/index'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -21,8 +21,8 @@ const TaskModal = forwardRef((props, ref) => {
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
     const [projectTasks, setProjectTasks] = useState('')
-    const [disabledProject, setDisabledProject] = useState(false)
     const [title, setTitle] = useState('')
+    const [updateProjects, setUpdateProjects] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -34,17 +34,18 @@ const TaskModal = forwardRef((props, ref) => {
                 if(props.task !== '') {
                     setTitle('Update')
                     const {description, dueDate, stack, difficulty, status} = props.task
-                    console.log(props.task.status)
-                    if (props.task.status === 'notStarted') {
-                        setDisabledProject(true)
-                    }
                     setDescription(description)
                     //Change the date to a proper format that can be displayed
                     const date = dueDate.slice(0,10)
                     props.task.dueDate = date
                     setDueDate(date)
-                    //TODO: change status when a status is assigned
-                    setStatus(status)
+                    if (status === 'inProgress') {
+                        setStatus('In Progress')
+                    } else if (status === 'onHold') {
+                        setStatus('On Hold')
+                    } else {
+                        setStatus('Not Started')
+                    }
                     setStack(stack)
                     //difficulty originally comes in small letters eg. easy, so it has to be
                     //capitalized eg. Easy, to fit the value in the frontend
@@ -71,6 +72,7 @@ const TaskModal = forwardRef((props, ref) => {
                 setDifficulty('Easy')
                 setStatus('Not Started')
                 setDueDate('')
+                setUpdateProjects(false)
             }
         })
     )
@@ -106,21 +108,55 @@ const TaskModal = forwardRef((props, ref) => {
         // eslint-disable-next-line
         projects.map(project => {
             //projectTasks contains the name chosen in the form
-            if (projectTasks === project.name) {
-                if (id !== null) {
-                    project.tasks.push(id)
-                    const data = {tasks: project.tasks}
-                    //Remove the clientId since its not allowed in the backend
-                    api.Projects().updateProject(project.id, data)
-                    .then(res => {
-                        if (res.status === 200) {
-                            notify('success', 'Added task to project successfully')
+            project.tasks.map((task, index) => {
+                if (id !== undefined && id !== '') {
+                    if (task === id) {
+                        //Incase the task was in a previous project, remove it
+                        if (project.name !== projectTasks) {
+                            project.tasks.splice(index, 1)
                         }
-                    })
-                    .catch(err => {
-                        const {message} = err.response.data
-                        notify('error', message)
-                    })
+                        const data = {tasks: project.tasks}
+                        //Remove the clientId since its not allowed in the backend
+                        api.Projects().updateProject(project.id, data)
+                        .then(res => {
+                            if (res.status === 200) {
+                                notify('success', 'Removed task from old project successfully')
+                                clearFields()
+                                props.onHide()
+                            }
+                        })
+                        .catch(err => {
+                            if (err.response) {
+                                const {message} = err.response.data
+                                notify('error', message)
+                            } else {
+                                notify('error', 'Something went wrong, Please refresh the page.')
+                            }
+                        })
+                    } 
+                }
+                return null
+            })
+
+            if (projectTasks === project.name) {
+                if (id !== undefined && id !== '') {
+                    if (project.tasks.includes(id) === false) {
+                        project.tasks.push(id)
+                        const data = {tasks: project.tasks}
+                        //Remove the clientId since its not allowed in the backend
+                        api.Projects().updateProject(project.id, data)
+                        .then(res => {
+                            if (res.status === 200) {
+                                notify('success', 'Added task to project successfully')
+                                clearFields()
+                                props.onHide()
+                            }
+                        })
+                        .catch(err => {
+                            const {message} = err.response.data
+                            notify('error', message)
+                        })   
+                    }
                 }
             } 
             
@@ -156,7 +192,6 @@ const TaskModal = forwardRef((props, ref) => {
         setDifficulty('')
         setStatus('')
         setProjectTasks('')
-        setDisabledProject(false)
     }
 
     function handleSubmit(e, props) {
@@ -208,6 +243,7 @@ const TaskModal = forwardRef((props, ref) => {
                     .then(res => {
                         if (res.status === 200) {
                             notify('success', 'Task successfully updated')
+                            dispatch(updateTasks(res.data))
                             dispatch(updatedTask(true))
                             clearFields()
                             props.onHide()
@@ -221,6 +257,8 @@ const TaskModal = forwardRef((props, ref) => {
                             notify('error', 'Something went wrong, Please refresh the page.')
                         }
                     })
+                } else if (updateProjects) {
+                    addTaskToProject(props.task.id)
                 } else {
                      //If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
@@ -263,6 +301,11 @@ const TaskModal = forwardRef((props, ref) => {
         }
     }
 
+    const handleProjects = (e, id) => {
+        setUpdateProjects(true)
+        setProjectTasks(e)
+    }
+
     return (
         <>
         <Modal
@@ -291,8 +334,8 @@ const TaskModal = forwardRef((props, ref) => {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formBasicStatus">
                             <Form.Label>Status</Form.Label>
-                            <Form.Control disabled={disabledProject} required as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                <option disabled={true}>Not Started</option>
+                            <Form.Control required as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                <option>Not Started</option>
                                 <option>In Progress</option>
                                 <option>On Hold</option>
                             </Form.Control>
@@ -308,7 +351,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control disabled={disabledProject} value={projectTasks} onChange={(e) => setProjectTasks(e.target.value)} required as="select">
+                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value, props.id)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}

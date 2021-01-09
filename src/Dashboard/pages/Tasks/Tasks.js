@@ -183,6 +183,10 @@ export default function Tasks() {
         // eslint-disable-next-line
         results.map((value) => {
             if (value.id === rowId) {
+                // settasktobeupdated(value)
+                // setModalShow(true)
+                // //Run the updateFormfields function in the child component
+                // childRef.current.updateFormfields()
                 api.Tasks().getTask(value.id)
                 .then(res => {
                     if (res.status === 200) {
@@ -280,7 +284,7 @@ export default function Tasks() {
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
-                                    <div className="rt-resizable-header-content">Developer</div>
+                                    <div className="rt-resizable-header-content">Created By</div>
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>

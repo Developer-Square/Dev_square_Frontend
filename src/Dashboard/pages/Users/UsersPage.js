@@ -25,6 +25,7 @@ function UsersPage() {
     const api = new Api()
 
     useEffect(() => {
+        console.log(users)
         //If the user was on a certain page, return them to the 
         //specific page
         if (pageNumber !== '') {
@@ -34,7 +35,7 @@ function UsersPage() {
             getUsers() 
         }
         // eslint-disable-next-line
-    }, [updatedCount])
+    }, [updatedCount, users])
 
     //Get All Users
 	function getUsers(params) {

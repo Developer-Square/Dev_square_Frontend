@@ -7,7 +7,7 @@ import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
 
 //Own Components
-import {updateUser, setModalShow} from '../../../redux/action-creator/index'
+import {userToBeUpdated, setModalShow} from '../../../redux/action-creator/index'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 import ModalComponent from '../../../components/Reusable Components/ModalComponent'
 
@@ -119,7 +119,7 @@ function User({data, index}) {
         let userId = e.currentTarget.className.slice(5,29)
 		users.results.map(user => {
 			if (user.id === userId) {
-				dispatch(updateUser(user))
+				dispatch(userToBeUpdated(user))
 				dispatch(setModalShow())
 			}
 			return null

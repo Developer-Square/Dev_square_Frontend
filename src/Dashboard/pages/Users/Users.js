@@ -41,7 +41,6 @@ const Content = styled.div`
 
 function Users({ title, page, pageNumber, data, count }) {
 	const [size, setSize] = useState(3)
-	const {Loading} = useSelector(state => state.tasks)
 	const {updatedCount} = useSelector(state => state.users)
 
 	useEffect(() => {
@@ -64,10 +63,9 @@ function Users({ title, page, pageNumber, data, count }) {
 			<Title>{title}<UserCount>{count}</UserCount></Title>
 			<MenuBar username="Username" email="Email" extra="Tasks Assigned" status="Status"/>
 			<Content>
-				<Domino loading={Loading} />
 				{data !== undefined ? data.slice(0, size).map((user, index) => (
 					<User data={user} index={index + 1} key={index}/>
-				)): null}
+				)): <Domino loading={true} />}
 			</Content>
 			<ViewAllButton title={title} marginTop="15px" page={page} pageNumber={pageNumber} marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
