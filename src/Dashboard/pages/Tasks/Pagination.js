@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import Api from '../../services/network'
+import Api from '../../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers} from '../../redux/action-creator'
-import notify from '../../helpers/Notify'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers, updatePageNumber} from '../../../redux/action-creator'
+import notify from '../../../helpers/Notify'
 
 const Container = styled.div`
     .disabled {
@@ -16,7 +16,8 @@ const Container = styled.div`
 `
 
 const Pagination = forwardRef((props, ref) => {
-    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask} = useSelector(state => state.tasks)
+    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks} = useSelector(state => state.tasks)
+    const {pageNumber} = useSelector(state => state.users)
     const api = new Api()
     const dispatch = useDispatch()
     const {page, limit, totalPages, handleUserTasks} = props
@@ -32,8 +33,14 @@ const Pagination = forwardRef((props, ref) => {
     )
 
     useEffect(() => {
-        //Get tasks when page loads
-        getTasks()
+        //If the user was on a certain page, return them to the 
+        //specific page
+        if (pageNumber !== '') {
+            //Get tasks when page loads
+            getTasks(pageNumber)
+        } else if (Tasks.length === 0) {
+            getTasks() 
+        }
         //Get admin users
         getAdminUsers()
         //When a user refreshes the page, clear localStorage
@@ -50,14 +57,20 @@ const Pagination = forwardRef((props, ref) => {
     }, [CreatedCount, AssignedCount, UpdatedCount])
 
     //Get all tasks when the page loads
-    function getTasks() {
+    function getTasks(params) {
         //Set Loading to true
         dispatch(setLoading())
         //default attributes
-        const data = {
-            limit: 10,
-            page: 1
+        let data = {}
+        if (params !== undefined) {
+            data = params  
+        } else {
+            data = {
+                limit: 10,
+                page: 1
+            }
         }
+
         api.Tasks().getAllTasks(data)
         .then(res => {
             if (res.status === 200) {
@@ -76,8 +89,13 @@ const Pagination = forwardRef((props, ref) => {
         .catch(err => {
             //Set Loading to false
             dispatch(setLoading())
-             const {message} = err.response.data
-            notify('error', message)
+            if (err.response) {
+                const {message} = err.response.data
+                dispatch(setLoading())
+                notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
         })
 
     }
@@ -86,15 +104,20 @@ const Pagination = forwardRef((props, ref) => {
         const data = {
             role: 'admin'
         }
-        api.User().getAllUsersWithParams(data)
+        api.User().getAllUsersWithRole(data)
         .then(res => {
             if (res.status === 200) {
                 dispatch(addAdminUsers(res.data.results))
             }
         })
         .catch(err => {
-            const {message} = err.response.data
-            notify('error', message)
+            if (err.response) {
+				const {message} = err.response.data
+				dispatch(setLoading())
+				notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
         })
     }
 
@@ -145,6 +168,9 @@ const Pagination = forwardRef((props, ref) => {
         } else {
             prevBtn.classList.add('disabled')
         }
+        //Store the page number so that when the page updates or refreshes the user
+        //is returned to the right page.
+        dispatch(updatePageNumber(fetchData))
         api.Tasks().getAllTasks(fetchData)
         .then(res => {
             if (res.status === 200) {
@@ -160,8 +186,13 @@ const Pagination = forwardRef((props, ref) => {
         })
         .catch(err => {
             dispatch(setLoading())
-            const {message} = err.response.data
-            notify('error', message)
+            if (err.response) {
+				const {message} = err.response.data
+				dispatch(setLoading())
+				notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
         })
     }
     return (

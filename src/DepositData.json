@@ -135,92 +135,74 @@
     ],
     "closed": [
         {
-            "username": {
-                "address": {
-                    "street": "Collins",
-                    "city": "Client"
-                },
-                "imageUrl": "2.jpg"
-            },
+            "name": "Cliford",
+            "skills": [
+                "PHP"
+            ],
+            "tasks": [
+                0,
+                1,
+                3,
+                9
+            ],
             "email": "client21@gmail.com",
-            "rent": "12 March 2020",
-            "deposit": {
-                "amount": 0
-            },
-            "status": {
-                "message": "Deactivated",
-                "level": 1
-            },
-            "client": {
-                "client_message": "Done",
-                "level": 3
-            }
+            "status": "deactivated"
         },
         {
-            "username": {
-                "address": {
-                    "street": "Collins",
-                    "city": "Client"
-                },
-                "imageUrl": "3.jpg"
-            },
+            "name": "Cliford",
+            "skills": [
+                "PHP"
+            ],
+            "tasks": [
+                0,
+                1,
+                3,
+                9
+            ],
             "email": "client21@gmail.com",
-            "rent": "12 March 2020",
-            "deposit": {
-                "amount": 0
-            },
-            "status": {
-                "message": "Deactivated",
-                "level": 1
-            },
-            "client": {
-                "client_message": "Cancelled",
-                "level": 1
-            }
+            "status": "deactivated"
         },
         {
-            "username": {
-                "address": {
-                    "street": "Collins",
-                    "city": "Client"
-                },
-                "imageUrl": "3.jpg"
-            },
+            "name": "Cliford",
+            "skills": [
+                "PHP"
+            ],
+            "tasks": [
+                0,
+                1,
+                3,
+                9
+            ],
             "email": "client21@gmail.com",
-            "rent": "12 March 2020",
-            "deposit": {
-                "amount": 0
-            },
-            "status": {
-                "message": "Deactivated",
-                "level": 1
-            },
-            "client": {
-                "client_message": "Done",
-                "level": 3
-            }
+            "status": "deactivated"
         },
         {
-            "username": {
-                "address": {
-                    "street": "Collins",
-                    "city": "Client"
-                },
-                "imageUrl": "3.jpg"
-            },
+            "name": "Cliford",
+            "skills": [
+                "PHP"
+            ],
+            "tasks": [
+                0,
+                1,
+                3,
+                9
+            ],
             "email": "client21@gmail.com",
-            "rent": "12 March 2020",
-            "deposit": {
-                "amount": 0
-            },
-            "status": {
-                "message": "Deactivated",
-                "level": 1
-            },
-            "client": {
-                "client_message": "Done",
-                "level": 3
-            }
+            "status": "deactivated"
+        },
+        {
+            "name": "Cliford",
+            "skills": [
+                "PHP"
+            ],
+            "tasks": [
+                0,
+                1,
+                3,
+                9
+            ],
+            "email": "client21@gmail.com",
+            "status": "deactivated"
         }
     ]
 }

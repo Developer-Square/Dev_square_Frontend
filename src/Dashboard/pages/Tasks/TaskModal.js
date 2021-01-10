@@ -1,5 +1,5 @@
 import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 // import {useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
-import {createdTask, updatedTask} from '../../../redux/action-creator/index'
+import {createdTask, updateTasks} from '../../../redux/action-creator/index'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -21,49 +21,16 @@ const TaskModal = forwardRef((props, ref) => {
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
     const [projectTasks, setProjectTasks] = useState('')
-    const [disabledProject, setDisabledProject] = useState(false)
     const [title, setTitle] = useState('')
+    const [updateProjects, setUpdateProjects] = useState(false)
 
+    const {UpdatedTask, ModalShow} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
 
     //Function call coming from the parent component
     useImperativeHandle(
         ref,
         () => ({
-            updateFormfields() {
-                if(props.task !== '') {
-                    setTitle('Update')
-                    const {description, dueDate, stack, difficulty, status} = props.task
-                    console.log(props.task.status)
-                    if (props.task.status === 'notStarted') {
-                        setDisabledProject(true)
-                    }
-                    setDescription(description)
-                    //Change the date to a proper format that can be displayed
-                    const date = dueDate.slice(0,10)
-                    props.task.dueDate = date
-                    setDueDate(date)
-                    //TODO: change status when a status is assigned
-                    setStatus(status)
-                    setStack(stack)
-                    //difficulty originally comes in small letters eg. easy, so it has to be
-                    //capitalized eg. Easy, to fit the value in the frontend
-                    let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
-                    setDifficulty(diff)
-                    //Get the specific project that the task to be updated is attached to
-                    if (projects !== '' && projects !== undefined) {
-                        // eslint-disable-next-line
-                        projects.map(project => {
-                            // eslint-disable-next-line
-                            project.tasks.map(task => {
-                                if (task.includes(props.task.id)) {
-                                    setProjectTasks(project.name)
-                                }
-                            })
-                        })
-                    }
-                }
-            },
             clearFormFields() {
                 setDescription('')
                 setProjectTasks('')
@@ -71,6 +38,7 @@ const TaskModal = forwardRef((props, ref) => {
                 setDifficulty('Easy')
                 setStatus('Not Started')
                 setDueDate('')
+                setUpdateProjects(false)
             }
         })
     )
@@ -85,8 +53,42 @@ const TaskModal = forwardRef((props, ref) => {
         setTitle('Create a New')
         //Get projects
         getProjects()
+
+        if(UpdatedTask !== '') {
+            setTitle('Update')
+            const {description, dueDate, stack, difficulty, status} = UpdatedTask
+            setDescription(description)
+            //Change the date to a proper format that can be displayed
+            const date = dueDate.slice(0,10)
+            UpdatedTask.dueDate = date
+            setDueDate(date)
+            if (status === 'inProgress') {
+                setStatus('In Progress')
+            } else if (status === 'onHold') {
+                setStatus('On Hold')
+            } else {
+                setStatus('Not Started')
+            }
+            setStack(stack)
+            //difficulty originally comes in small letters eg. easy, so it has to be
+            //capitalized eg. Easy, to fit the value in the frontend
+            let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
+            setDifficulty(diff)
+            //Get the specific project that the task to be updated is attached to
+            if (projects !== '' && projects !== undefined) {
+                // eslint-disable-next-line
+                projects.map(project => {
+                    // eslint-disable-next-line
+                    project.tasks.map(task => {
+                        if (task.includes(UpdatedTask.id)) {
+                            setProjectTasks(project.name)
+                        }
+                    })
+                })
+            }
+        }
         // eslint-disable-next-line
-    }, [])
+    }, [UpdatedTask, ModalShow])
 
     function getProjects() {
         api.Projects().getAllProjects()
@@ -106,21 +108,59 @@ const TaskModal = forwardRef((props, ref) => {
         // eslint-disable-next-line
         projects.map(project => {
             //projectTasks contains the name chosen in the form
-            if (projectTasks === project.name) {
-                if (id !== null) {
-                    project.tasks.push(id)
-                    const data = {tasks: project.tasks}
-                    //Remove the clientId since its not allowed in the backend
-                    api.Projects().updateProject(project.id, data)
-                    .then(res => {
-                        if (res.status === 200) {
-                            notify('success', 'Added task to project successfully')
+            project.tasks.map((task, index) => {
+                if (id !== undefined && id !== '') {
+                    if (task === id) {
+                        //Incase the task was in a previous project, remove it
+                        if (project.name !== projectTasks) {
+                            project.tasks.splice(index, 1)
                         }
-                    })
-                    .catch(err => {
-                        const {message} = err.response.data
-                        notify('error', message)
-                    })
+                        const data = {tasks: project.tasks}
+                        //Remove the clientId since its not allowed in the backend
+                        api.Projects().updateProject(project.id, data)
+                        .then(res => {
+                            if (res.status === 200) {
+                                notify('success', 'Removed task from old project successfully')
+                                clearFields()
+                                props.onHide()
+                            }
+                        })
+                        .catch(err => {
+                            if (err.response) {
+                                const {message} = err.response.data
+                                notify('error', message)
+                            } else {
+                                notify('error', 'Something went wrong, Please refresh the page.')
+                            }
+                        })
+                    } 
+                }
+                return null
+            })
+
+            if (projectTasks === project.name) {
+                if (id !== undefined && id !== '') {
+                    if (project.tasks.includes(id) === false) {
+                        project.tasks.push(id)
+                        const data = {tasks: project.tasks}
+                        //Remove the clientId since its not allowed in the backend
+                        api.Projects().updateProject(project.id, data)
+                        .then(res => {
+                            if (res.status === 200) {
+                                notify('success', 'Added task to project successfully')
+                                clearFields()
+                                props.onHide()
+                            }
+                        })
+                        .catch(err => {
+                            if (err.response) {
+                                const {message} = err.response.data
+                                notify('error', message)
+                            } else {
+                                notify('error', 'Something went wrong, Please refresh the page.')
+                            }
+                        })   
+                    }
                 }
             } 
             
@@ -156,7 +196,7 @@ const TaskModal = forwardRef((props, ref) => {
         setDifficulty('')
         setStatus('')
         setProjectTasks('')
-        setDisabledProject(false)
+        setUpdateProjects(false)
     }
 
     function handleSubmit(e, props) {
@@ -173,13 +213,12 @@ const TaskModal = forwardRef((props, ref) => {
                 status: stat,
                 dueDate,
                 difficulty: diff,
-                id: props.task.id,
-                creator: props.task.creator,
+                id: UpdatedTask.id,
+                creator: UpdatedTask.creator,
                 stack
             }
             //If props is not empty then its an update
-            if (Object.keys(props.task).length !== 0 && props.task.constructor === Object) {
-                const {task} = props
+            if (Object.keys(UpdatedTask).length !== 0 && UpdatedTask.constructor === Object) {
                 //Send an update request
                 //First check if the user made any changes
                 function shallowEquality(obj1, obj2) {
@@ -200,23 +239,29 @@ const TaskModal = forwardRef((props, ref) => {
 
                 //If there's a difference between the two projects then
                 //update the task
-                if (shallowEquality(task, data) === false) {
+                if (shallowEquality(UpdatedTask, data) === false) {
                     //remove the project attribute as it is not to be sent
                     //along with the task's object
                     delete data.id
-                    api.Tasks().updateTask(task.id, data)
+                    api.Tasks().updateTask(UpdatedTask.id, data)
                     .then(res => {
                         if (res.status === 200) {
                             notify('success', 'Task successfully updated')
-                            dispatch(updatedTask(true))
+                            dispatch(updateTasks(res.data))
                             clearFields()
                             props.onHide()
                         }
                     })
                     .catch(err => {
-                        const {message} = err.response.data
-                        notify('error', message)
+                        if (err.response) {
+                            const {message} = err.response.data
+                            notify('error', message)
+                        } else {
+                            notify('error', 'Something went wrong, Please refresh the page.')
+                        }
                     })
+                } else if (updateProjects) {
+                    addTaskToProject(UpdatedTask.id)
                 } else {
                      //If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
@@ -242,9 +287,14 @@ const TaskModal = forwardRef((props, ref) => {
                             }
                         })
                         .catch(err => {
-                            const {message} = err.response.data
-                            const customMessage = `Task not created! \n ${message}`
-                            notify('error', customMessage)
+                            if (err.response) {
+                                const {message} = err.response.data
+                                const customMessage = `Task not created! \n ${message}`
+                                notify('error', customMessage)
+                            } else {
+                                notify('error', 'Something went wrong, Please refresh the page.')
+                            }
+                            
                         })
                     }
                 } else {
@@ -252,6 +302,11 @@ const TaskModal = forwardRef((props, ref) => {
                 }
             }
         }
+    }
+
+    const handleProjects = (e) => {
+        setUpdateProjects(true)
+        setProjectTasks(e)
     }
 
     return (
@@ -264,7 +319,7 @@ const TaskModal = forwardRef((props, ref) => {
         show={props.show}
         onHide={props.onHide}
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
                 {title} Task
                 </Modal.Title>
@@ -282,8 +337,8 @@ const TaskModal = forwardRef((props, ref) => {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formBasicStatus">
                             <Form.Label>Status</Form.Label>
-                            <Form.Control disabled={disabledProject} required as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                <option disabled={true}>Not Started</option>
+                            <Form.Control required as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                <option>Not Started</option>
                                 <option>In Progress</option>
                                 <option>On Hold</option>
                             </Form.Control>
@@ -299,7 +354,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control disabled={disabledProject} value={projectTasks} onChange={(e) => setProjectTasks(e.target.value)} required as="select">
+                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}

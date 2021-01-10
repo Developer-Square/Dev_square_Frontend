@@ -14,7 +14,7 @@ export default function CarouselComponent({packageType, placed}) {
             <img
             className="d-block w-100"
             // Choosing which image to display depending on the props
-            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-1' : packageType === 'classic' ? 'Bakery-classic-1': 'Interior Design2'}.webp` : 'images/bg-images/main-bg-1.webp'}
+            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-1' : packageType === 'classic' ? 'Bakery-classic-1': 'Interior Design2'}.webp` : 'images/bg-images/main-bg-9.webp'}
             alt="First slide"
             />
         </Carousel.Item>
@@ -22,7 +22,7 @@ export default function CarouselComponent({packageType, placed}) {
             <img
             className="d-block w-100"
             // Choosing which image to display depending on the props
-            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-2' : packageType === 'classic' ? 'Bakery-classic-2': 'Interior Design1'}.webp`: 'images/bg-images/main-bg-9.webp'}
+            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-2' : packageType === 'classic' ? 'Bakery-classic-2': 'Interior Design1'}.webp`: 'images/bg-images/main-bg-12.webp'}
             alt="First slide"
             />
         </Carousel.Item>
@@ -30,7 +30,7 @@ export default function CarouselComponent({packageType, placed}) {
             <img
             className="d-block w-100"
             // Choosing which image to display depending on the props
-            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-3' : packageType === 'classic' ? 'Bakery-classic-3': 'Interior Design3'}.webp`: 'images/bg-images/main-bg-12.webp'}
+            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-3' : packageType === 'classic' ? 'Bakery-classic-3': 'Interior Design3'}.webp`: 'images/bg-images/main-bg-1.webp'}
             alt="First slide"
             />
         </Carousel.Item>
@@ -38,7 +38,7 @@ export default function CarouselComponent({packageType, placed}) {
             <img
             className="d-block w-100"
             // Choosing which image to display depending on the props
-            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-4' : packageType === 'classic' ? 'Bakery-classic-4': 'Wedding-planner-unique1'}.webp`: 'images/bg-images/main-bg-6.webp'}
+            src={placed !== 'landingArea' ? `images/pricing-images/${packageType === 'basic' ? 'Business-basic-4' : packageType === 'classic' ? 'Bakery-classic-4': 'Wedding-planner-unique1'}.webp`: 'images/bg-images/main-bg-7.webp'}
             alt="First slide"
             />
         </Carousel.Item>

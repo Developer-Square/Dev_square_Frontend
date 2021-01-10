@@ -39,8 +39,8 @@ function MenuItem({active, icon, title, history}) {
             history.push('/dashboard/home')
         } else if (title === 'Users') {
             history.push('/dashboard/users')
-        } else if (title === 'Clients') {
-            history.push('/dashboard/clients')
+        } else if (title === 'Projects') {
+            history.push('/dashboard/projects')
         } else if (title === 'Portfolio') {
             history.push('/dashboard/portfolio')
         } else{

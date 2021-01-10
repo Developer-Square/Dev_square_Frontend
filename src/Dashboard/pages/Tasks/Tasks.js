@@ -13,14 +13,14 @@ import Form from 'react-bootstrap/Form'
 import './Tasks.scss'
 import AddButton from '../../Dashboard_Components/AddButton'
 import TaskModal from './TaskModal'
-import Pagination from '../../Dashboard_Components/Pagination'
+import Pagination from './Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import BouncingBall from '../../Dashboard_Components/BouncingBall'
 import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 import AssignModal from '../../Dashboard_Components/AssignModal'
-import {addSpecificTasks, setLoading} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading, updatedTask, modalTaskShow} from '../../../redux/action-creator/index'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -61,12 +61,12 @@ const CardTitle = styled.div`
     margin-bottom: 0;
 `
 
+//Fetching of the tasks happens in the pagination component
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
     const [rowId, setRowId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
     const [assignModal, setAssignModal] = useState(false);
-    const [tasktobeupdated, settasktobeupdated] = useState('');
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
     const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
@@ -88,7 +88,7 @@ export default function Tasks() {
         if (Tasks.results.length !== 0) {
             const {results} = Tasks
             // eslint-disable-next-line
-            results.map((task, index) => {
+            results.map((task) => {
                 if (task.id === rowId) {
                     if (task.status === 'inProgress') {
                         notify('error', 'Can\'t assign a task that is already in progress')
@@ -145,8 +145,12 @@ export default function Tasks() {
                                 })
                                 .catch(err => {
                                     dispatch(setLoading())
-                                    const {message} = err.response.data
-                                    notify('error', message)
+                                    if (err.response) {
+                                        const {message} = err.response.data
+                                        notify('error', message)
+                                    } else {
+                                        notify('error', 'Something went wrong')
+                                    }
                                 })
                             })
                         } else {
@@ -159,40 +163,34 @@ export default function Tasks() {
                 })
                 .catch(err => {
                     dispatch(setLoading())
-                    const {message} = err.response.data
-                    notify('error', message)
+                    if (err.response) {
+                        const {message} = err.response.data
+                        notify('error', message)
+                    } else {
+                        notify('error', 'Something went wrong')
+                    }
                 })
             }
         })
     }
 
     function handleTaskUpdate(e) {
-        //Getting the index of the clicked row
+        //Getting the id of the clicked row
         let rowId = e.currentTarget.className.slice(5,29)
         //Map the indexes stored in state to see which one matches the one that was clicked
         const {results} = Tasks
         // eslint-disable-next-line
         results.map((value) => {
             if (value.id === rowId) {
-                api.Tasks().getTask(value.id)
-                .then(res => {
-                    if (res.status === 200) {
-                        settasktobeupdated(res.data)
-                        setModalShow(true)
-                        //Run the updateFormfields function in the child component
-                        childRef.current.updateFormfields()
-                    }
-                })
-                .catch(err => {
-                    const {message} = err.response.data
-                    notify('error', message)
-                })
+                dispatch(updatedTask(value))
+                setModalShow(true)
+                dispatch(modalTaskShow())
             }
         }) 
     }
 
     function handleDelete(e) {
-        //Getting the index of the clicked row
+        //Getting the id of the clicked row
         let rowId= e.currentTarget.className.slice(0,24)
         setRowId(rowId)
         setDeleteModal(true)
@@ -200,7 +198,7 @@ export default function Tasks() {
 
     const toggleModal = () => {
         childRef.current.clearFormFields()
-        settasktobeupdated('')
+        dispatch(updatedTask(''))
         setModalShow(!modalShow)
     }
 
@@ -224,11 +222,10 @@ export default function Tasks() {
         <AddButton onClick={() => toggleModal()} />
         <TaskModal
         ref={childRef}
-        task={tasktobeupdated}
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete tasks={Tasks} rowId={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete deleteType="tasks" component="task" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
@@ -267,7 +264,7 @@ export default function Tasks() {
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
-                                    <div className="rt-resizable-header-content">Developer</div>
+                                    <div className="rt-resizable-header-content">Created By</div>
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>

@@ -1,4 +1,4 @@
-import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS} from '../action-types/index'
+import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_USER_COUNT, UPDATE_USER, MODAL_SHOW, PAGE_NUMBER, ADD_USER_TASK, USER_TO_BE_UPDATED, UPDATE_TASKS, MODAL_TASK_SHOW} from '../action-types/index'
 
 export const setLoading = () => {
     return {type: SET_LOADING}
@@ -38,6 +38,14 @@ export const assignedTask = (data) => {
     return {type: ASSINGNED_TASKS, payload: data}
 }
 
+export const updateTasks = (data) => {
+    return {type: UPDATE_TASKS, payload: data}
+}
+
+export const modalTaskShow = () => {
+    return {type: MODAL_TASK_SHOW}
+}
+
 //For the AuthReducer
 
 export const addUser = (data) => {
@@ -55,4 +63,28 @@ export const addUsers = (data) => {
 
 export const updateGetUsers = () => {
     return {type: UPDATE_GET_USERS}
+}
+
+export const updateUserCount = () => {
+    return {type: UPDATE_USER_COUNT}
+}
+
+export const userToBeUpdated = (data) => {
+    return {type: USER_TO_BE_UPDATED, payload: data}
+}
+
+export const updateUser = (data) => {
+    return {type: UPDATE_USER, payload: data}
+}
+
+export const setModalShow = () => {
+    return {type: MODAL_SHOW}
+}
+
+export const updatePageNumber = (data) => {
+    return {type: PAGE_NUMBER, payload: data}
+}
+
+export const addUserTasks = (data) => {
+    return {type: ADD_USER_TASK, payload: data}
 }

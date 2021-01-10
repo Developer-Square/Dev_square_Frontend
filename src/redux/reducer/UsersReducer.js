@@ -1,8 +1,13 @@
-import {ADD_USERS, UPDATE_GET_USERS} from '../action-types/index'
+import {ADD_USERS, UPDATE_GET_USERS, USER_TO_BE_UPDATED, UPDATE_USER, UPDATE_USER_COUNT, MODAL_SHOW, PAGE_NUMBER, ADD_USER_TASK} from '../action-types/index'
 
 const initialState = {
    getUsersState: false,
-   users: []
+   users: [],
+   updatedCount: 0,
+   modalShow: false,
+   usertobeupdated: '',
+   pageNumber: '',
+   userTasks: [],
 }
 
 function UsersReducer(state=initialState, action) {
@@ -16,6 +21,44 @@ function UsersReducer(state=initialState, action) {
             return {
                 ...state,
                 getUsersState: !state.getUsersState
+            }
+        case UPDATE_USER:
+            return {
+                ...state,
+                users: {
+                    ...state.users,
+                    results: state.users.results.map(user => {
+                    if (user.id === action.payload.id) {
+                        return action.payload
+                    }
+
+                    return user
+                })}
+            }
+        case UPDATE_USER_COUNT:
+            return {
+                ...state,
+                updatedCount: state.updatedCount + 1
+            }
+        case MODAL_SHOW:
+            return {
+                ...state,
+                modalShow: !state.modalShow
+            }
+        case USER_TO_BE_UPDATED:
+            return {
+                ...state,
+                usertobeupdated: action.payload
+            }
+        case PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: action.payload
+            }
+        case ADD_USER_TASK:
+            return {
+                ...state,
+                userTasks: [...state.userTasks, action.payload]
             }
     
         default:

@@ -88,38 +88,37 @@ const StatusIndicator = styled.div`
 	right: 7rem;
 `
 
-function Project({data}) {
+function Project({data, index}) {
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
 			$(this).css('animation-delay', delay - 5 + 's')
 		})
 	})
-	const {username, email, rent, deposit, client} = data;
+	const {name, email, tasks, status, skills} = data
 
 	return ( 
 		<Container className="-container">
 		<ProjectContainer className="pl-2">
-			<ProjectImg src={require(`../../../../public/images/avatars/${username.imageUrl}`)} className="rounded-circle"/>
+			<ProjectImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
 			<ProjectText>
-				<ProjectStreet>{username.address.street}</ProjectStreet>
-				<Subtitle>{username.address.city}</Subtitle>
+				<ProjectStreet>{name}</ProjectStreet>
+				<Subtitle>{skills !== undefined ? `${skills[0]} developer` : null}</Subtitle>
 			</ProjectText>
 		</ProjectContainer>
 		<Email>{email}</Email>
-		<DueDate>{rent}</DueDate>
+		<DueDate>{}</DueDate>
 		<DepositWrapper>
-			<Text>{deposit.amount}</Text>
-			<Subtitle>{deposit.type}</Subtitle>
+			<Text>{tasks !== undefined ? tasks.length : null}</Text>
+			<Subtitle>{}</Subtitle>
 		</DepositWrapper>
 		<Status>
-			<Text>{client.client_message}</Text>
+			<Text>{status === 'available' ? 'Available' : status === 'busy' ? 'Busy' : 'Deactivated'}</Text>
 			{(() => {
-				switch (client.level) {
-					case 1: return <StatusIndicator color="#F17E7E"/>;
-					case 2: return <StatusIndicator color="#FFD056"/>;
-					case 3: return <StatusIndicator color="#75C282"/>;
-					case 4: return <StatusIndicator color="#007bff"/>;
+				switch (status) {
+					case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
+					case 'busy': return <StatusIndicator color="#FFD056"/>;
+					case 'available': return <StatusIndicator color="#75C282"/>;
 					default: return <StatusIndicator color="#AAA5A5"/>;
 				}
 			})()}
