@@ -7,7 +7,7 @@ import {ToastContainer} from 'react-toastify'
 import AddButton from "../../Dashboard_Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
-import {setModalShow, addUsers, setLoading, updateGetUsers} from '../../../redux/action-creator/index'
+import {setModalShow, addUsers, setLoading, updateGetUsers, userToBeUpdated} from '../../../redux/action-creator/index'
 import Api from '../../../services/network'
 import notify from "../../../helpers/Notify";
 
@@ -20,12 +20,11 @@ const Container = styled.div`
 
 function UsersPage() {
     const dispatch = useDispatch()
-    const {modalShow, userToBeUpdated, updatedCount, users, pageNumber} = useSelector(state => state.users)
+    const {modalShow, usertobeupdated, updatedCount, users, pageNumber} = useSelector(state => state.users)
     const [count, setCount] = useState('');
     const api = new Api()
 
     useEffect(() => {
-        console.log(users)
         //If the user was on a certain page, return them to the 
         //specific page
         if (pageNumber !== '') {
@@ -35,7 +34,7 @@ function UsersPage() {
             getUsers() 
         }
         // eslint-disable-next-line
-    }, [updatedCount, users])
+    }, [updatedCount])
 
     //Get All Users
 	function getUsers(params) {
@@ -69,7 +68,13 @@ function UsersPage() {
 				notify('error', 'Something went wrong, Please refresh the page.')
 			}
 		})
+    }
+    
+    const toggleModal = () => {
+        dispatch(userToBeUpdated(''))
+        dispatch(setModalShow())
 	}
+
 
     return (
         <Container>
@@ -85,7 +90,7 @@ function UsersPage() {
                 pauseOnHover
             />
             <AddButton onClick={() => dispatch(setModalShow())}  />
-            <UsersModal usertobeupdated={userToBeUpdated} show={modalShow} onHide={() => dispatch(setModalShow())}/>
+            <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal()}/>
 			<Users title="Active Accounts" count={count} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={5} data={depositData.closed} />
         </Container>

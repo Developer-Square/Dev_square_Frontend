@@ -67,7 +67,6 @@ export default function Tasks() {
     const [rowId, setRowId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
     const [assignModal, setAssignModal] = useState(false);
-    const [tasktobeupdated, settasktobeupdated] = useState('');
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
     const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
@@ -199,7 +198,7 @@ export default function Tasks() {
 
     const toggleModal = () => {
         childRef.current.clearFormFields()
-        settasktobeupdated('')
+        dispatch(updatedTask(''))
         setModalShow(!modalShow)
     }
 
@@ -223,7 +222,6 @@ export default function Tasks() {
         <AddButton onClick={() => toggleModal()} />
         <TaskModal
         ref={childRef}
-        task={tasktobeupdated}
         show={modalShow}
         onHide={() => toggleModal()}
         />

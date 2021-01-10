@@ -319,7 +319,7 @@ const TaskModal = forwardRef((props, ref) => {
         show={props.show}
         onHide={props.onHide}
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
                 {title} Task
                 </Modal.Title>

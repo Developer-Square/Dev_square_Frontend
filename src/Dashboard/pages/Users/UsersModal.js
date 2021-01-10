@@ -10,7 +10,7 @@ import $ from 'jquery'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
-import { updateUserCount, updateUser } from '../../../redux/action-creator'
+import { updateUserCount, updateUser, userToBeUpdated } from '../../../redux/action-creator'
 
 export default function UsersModal(props) {
     const dispatch = useDispatch()
@@ -49,7 +49,7 @@ export default function UsersModal(props) {
         }
     }, [props])
 
-    const clearFields = () => {
+    const clearFields = (props) => {
         setLname('')
         setFname('')
         setEmail('')
@@ -57,7 +57,10 @@ export default function UsersModal(props) {
         setStatus('')
         setSkills('')
         setRole('')
+        setPassword('')
         setUpdateStatus(false)
+        dispatch(userToBeUpdated(''))
+        props.onHide()
     }
 
     function handleSubmit(e, props) {
@@ -90,8 +93,6 @@ export default function UsersModal(props) {
             
             // //Checking if the data is empty with the helper function
             if (IsNotEmpty(data) === true) {
-                //Hide the modal if the data is Not empty
-                props.onHide()
                 const api = new Api()
                 //Choose whether to update or register a user
                 if (updateStatus === true) {
@@ -101,7 +102,8 @@ export default function UsersModal(props) {
                             notify('success', 'User updated successfully')
                             dispatch(updateUser(res.data))
                             dispatch(updateUserCount())
-                            clearFields()
+                            clearFields(props)
+                            dispatch(userToBeUpdated(''))
                         }
                     })
                     .catch(err => {
@@ -117,6 +119,7 @@ export default function UsersModal(props) {
                     .then(res => {
                         if (res.status === 201) {
                             notify('success', 'User successfully created')
+                            clearFields(props)
                         }
                     })
                     .catch(err => {
@@ -152,9 +155,9 @@ export default function UsersModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
-                Create a New User
+                    {updateStatus ? 'Update': 'Create a New'} User
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -229,7 +232,7 @@ export default function UsersModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={() => clearFields(props)}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

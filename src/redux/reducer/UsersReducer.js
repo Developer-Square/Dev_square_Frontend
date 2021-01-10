@@ -5,7 +5,7 @@ const initialState = {
    users: [],
    updatedCount: 0,
    modalShow: false,
-   userToBeUpdated: '',
+   usertobeupdated: '',
    pageNumber: '',
    userTasks: [],
 }
@@ -48,7 +48,7 @@ function UsersReducer(state=initialState, action) {
         case USER_TO_BE_UPDATED:
             return {
                 ...state,
-                userToBeUpdated: action.payload
+                usertobeupdated: action.payload
             }
         case PAGE_NUMBER:
             return {
