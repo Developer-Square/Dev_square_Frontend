@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
@@ -21,7 +21,6 @@ const Container = styled.div`
 function UsersPage() {
     const dispatch = useDispatch()
     const {modalShow, usertobeupdated, updatedCount, users, pageNumber} = useSelector(state => state.users)
-    const [count, setCount] = useState('');
     const api = new Api()
 
     useEffect(() => {
@@ -52,8 +51,6 @@ function UsersPage() {
 		.then(res => {
 			if (res.status === 200){
                 dispatch(addUsers(res.data))
-                //Counting the number of active users
-                setCount(res.data.results.length)
 				notify('success', 'Users fetched successfully')
 				dispatch(setLoading())
 				dispatch(updateGetUsers())
@@ -91,7 +88,7 @@ function UsersPage() {
             />
             <AddButton onClick={() => dispatch(setModalShow())}  />
             <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal()}/>
-			<Users title="Active Accounts" count={count} page={users.totalPages} pageNumber={users.page} data={users.results} />
+			<Users title="Active Accounts" count={users.results !== undefined ? users.results.length :  null} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={5} data={depositData.closed} />
         </Container>
     )
