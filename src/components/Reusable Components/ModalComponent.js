@@ -14,21 +14,23 @@ export default function ModalComponent(props) {
         setClear(true)
 
     }
+
+    const {type} = props
     return (
         <div>
             <Modal
                 {...props}
-                size={props.type === 'Send us a Quote' ? 'md' : 'lg'}
+                size={type === 'Send us a Quote' || type === 'Review Form' ? 'md' : 'lg'}
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        {props.type}
+                        {type}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                {props.type === 'Send us a Quote' ? <FormComponent /> : props.type === 'Here are some pictures' ? <CarouselComponent packageType={props.pkg}/>: props.usertasks !== undefined ? <TaskDisplay clear={clear} name={props.type} usertasks={props.usertasks}/>: null}
+                {type === 'Send us a Quote' || type === 'Review Form'? <FormComponent type={props.formType} /> : type === 'Here are some pictures' ? <CarouselComponent packageType={props.pkg}/>: props.usertasks !== undefined ? <TaskDisplay clear={clear} name={type} usertasks={props.usertasks}/>: null}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose}>Close</Button>

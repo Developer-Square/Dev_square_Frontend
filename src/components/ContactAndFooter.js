@@ -64,7 +64,7 @@ function ContactAndFooter() {
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
-                            <p className="text-center">
+                            <p className="text-center pl-2 pr-2">
                             As every project has its own unique requirements, please contact us so that we can discuss the project in detail <br />
                             We're also available to accept the custom offer to work on full/part-time as a subsidiary to your company.
                             </p>

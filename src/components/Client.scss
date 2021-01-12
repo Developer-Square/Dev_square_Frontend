@@ -11,39 +11,27 @@
   --tertiary-font-color: #a4a4a4;
 }
 
+@mixin center {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .clients {
   position: relative;
   color: var(--primary-background-color);
 
-  .cover,
-  .heading,
-  p,
-  .inner-heading,
-  .client-pic,
-  .navigation {
+  .cover {
     position: absolute;
     top: 0;
-  }
-
-  .heading,
-  p,
-  .inner-heading,
-  .client-pic,
-  .client-name,
-  .navigation {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .cover {
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 635px;
+    z-index: -1;
+    height: 705px;
   }
 
   .heading {
-    margin-top: 43px;
+    padding-top: 43px;
     font-weight: bold;
     font-size: 28px;
     line-height: 35px;
@@ -58,7 +46,7 @@
     font-weight: normal;
     font-size: 15px;
     line-height: 19px;
-    margin-top: 88px;
+    margin-top: 40px;
     width: fit-content;
 
     span {
@@ -66,42 +54,66 @@
     }
   }
 
+  .header-text {
+    width: 70%;
+    @include center();
+  }
+
   .inner-heading {
-    margin-top: 170px;
+    margin-top: 60px;
     font-weight: 600;
     font-size: 17px;
     line-height: 21px;
   }
 
   .inner-text {
-    margin-top: 200px;
-    width: 89%;
     font-size: 14px;
   }
 
   .client-pic {
-    margin-top: 285px;
+    margin-top: 20px;
+    @include center();
   }
 
   .client-name {
-    margin-top: 370px;
+    margin-top: 20px;
     color: var(--primary-border-color);
+    @include center();
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: center;
   }
 
   .navigation-dots {
-    margin-top: 400px;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
     background: var(--primary-background-color);
+    cursor: pointer;
   }
 
   .middle {
-    background: var(--primary-border-color);
+    background: var(--primary-border-color)
   }
 
-  .logos {
-    margin-top: 450px;
-    margin-bottom: 42px;
+  .review-btn {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--primary-border-color);
+    border: none;
+
+    &:active {
+      background-color: #ed1111 !important;
+      border-color: #ed1111 !important;
+    }
+
+    svg {
+      margin-left: 8px;
+      font-size: 21px;
+    }
   }
 }
 
@@ -113,32 +125,11 @@
 @media all and (max-width: 320px) {
   .clients {
     .inner-heading {
-      margin-top: 190px;
       font-size: 16.5px;
     }
 
-    .inner-text {
-      margin-top: 220px;
-    }
-
-    .client-pic {
-      margin-top: 315px;
-    }
-
-    .client-name {
-      margin-top: 410px;
-    }
-
-    .navigation {
-      top: 40px;
-    }
-
-    .logos {
-      margin-top: 485px;
-    }
-
     .cover {
-      height: 655px;
+      height: 725px;
     }
   }
 }
@@ -149,25 +140,9 @@
       font-size: 16px;
       line-height: 20px;
     }
-    .inner-heading {
-      margin-top: 200px;
-    }
 
     .inner-text {
       font-size: 15px;
-      margin-top: 230px;
-    }
-
-    .client-pic {
-      margin-top: 325px;
-    }
-
-    .client-name {
-      margin-top: 405px;
-    }
-
-    .navigation-dots {
-      margin-top: 432px;
     }
 
     .logos {
@@ -176,7 +151,7 @@
 
     .cover {
       width: 100vw;
-      height: 485px;
+      height: 555px;
     }
   }
 
