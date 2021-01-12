@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Popover from 'react-bootstrap/Popover'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
-export default function PopoverComponent({title, message}) {
+export default function PopoverComponent({title, message, value, onChange}) {
     const popover = (
         <Popover id="popover-basic">
             <Popover.Title as="h3">{title}</Popover.Title>
@@ -12,7 +12,7 @@ export default function PopoverComponent({title, message}) {
     )
     return (
         <OverlayTrigger trigger="click" rootClose={true} placement="top" overlay={popover}>
-            <Form.Check type='checkbox' label={title} />
+            <Form.Check type='checkbox' checked={value} onChange={(e) => onChange(e.target.checked)} label={title} />
         </OverlayTrigger>
     )
 }

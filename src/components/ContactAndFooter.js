@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import notify from '../helpers/Notify'
+import FormSpree from '../helpers/FormSpree'
 import './Contact.scss'
 
 function ContactAndFooter() {
@@ -19,32 +19,15 @@ function ContactAndFooter() {
     function submitForm(e) {
         e.preventDefault();
         e.stopPropagation()
-
-        const form = e.target
+        
         //Preparing the data for sending
         const form_data = {
             name,
             email,
             message
         }
-        const data = new FormData()
-        for (let key in form_data) {
-            data.append(key, form_data[key])
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open(form.method, form.action);
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if (xhr.status === 200) {
-            form.reset();
-            notify('success', 'Message sent successfully')
-            } else {
-            notify('error', 'Message not sent')
-            }
-        };
-        xhr.send(data);
+        const formAction = 'https://formspree.io/f/mknppbbw'
+        FormSpree(form_data, formAction)
     }
 
     return (

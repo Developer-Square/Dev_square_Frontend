@@ -30,7 +30,7 @@ export default function ModalComponent(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                {type === 'Send us a Quote' || type === 'Review Form'? <FormComponent type={props.formType} /> : type === 'Here are some pictures' ? <CarouselComponent packageType={props.pkg}/>: props.usertasks !== undefined ? <TaskDisplay clear={clear} name={type} usertasks={props.usertasks}/>: null}
+                {type === 'Send us a Quote' || type === 'Review Form'? <FormComponent close={handleClose} type={props.formType} /> : type === 'Here are some pictures' ? <CarouselComponent packageType={props.pkg}/>: props.usertasks !== undefined ? <TaskDisplay clear={clear} name={type} usertasks={props.usertasks}/>: null}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose}>Close</Button>

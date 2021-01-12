@@ -1,4 +1,5 @@
 import React, {Fragment, useState} from 'react'
+import { ToastContainer } from 'react-toastify'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -36,6 +37,17 @@ function ProductFeatures() {
     return (
         <Fragment>
             <ModalComponent type={type} show={modalShow} onHide={() => toggleModal()}/>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Container id="product-section">
                 <div className="heading product">Our <span>Products</span></div>
                 <p className="product-text">Our aim is to please our clients by creating reliable and maintainable products.
