@@ -171,20 +171,24 @@ function ServicesAndBlog() {
                             {/* <img src="images/rsz_blog.webp" alt="Blog" className="img-fluid"/> */}
                             <div className="heading text-center">Follow <span>tecHive</span></div>  
                             <div className="d-md-flex justify-content-around blog-icons mx-auto">   
-                                <div className="blog-container d-flex flex-column justify-content-center">
-                                    <img src="images/follow-1.webp" alt="Follow" className="img-fluid mx-auto"/>  
+                                <div className="blog-container facebook d-flex flex-column justify-content-center">
+                                    {/* <img src="images/follow-1.webp" alt="Follow" className="img-fluid facebook mx-auto"/>   */}
+                                    <span class="iconify" data-icon="ant-design:facebook-filled" data-inline="false"></span>
                                     <p className="text-center pt-2">1.3k Followers</p>  
                                 </div>   
-                                <div className="blog-container d-flex flex-column justify-content-center">
-                                    <img src="images/follow-2.webp" alt="Follow" className="img-fluid mx-auto"/>  
+                                <div className="blog-container d-flex flex-column twitter justify-content-center">
+                                    {/* <img src="images/follow-2.webp" alt="Follow" className="img-fluid twitter mx-auto"/>   */}
+                                    <span class="iconify" data-icon="bx:bxl-twitter" data-inline="false"></span>
                                     <p className="text-center pt-2">577k Followers</p>  
                                 </div>   
-                                <div className="blog-container d-flex flex-column justify-content-center">
-                                    <img src="images/follow-3.webp" alt="Follow" className="img-fluid mx-auto"/>  
+                                <div className="blog-container linkedin d-flex flex-column justify-content-center">
+                                    {/* <img src="images/follow-3.webp" alt="Follow" className="img-fluid linkedin mx-auto"/>   */}
+                                    <span class="iconify" data-icon="carbon:logo-linkedin" data-inline="false"></span>
                                     <p className="text-center pt-2">400k Followers</p>  
                                 </div>   
-                                <div className="blog-container d-flex flex-column justify-content-center">
-                                    <img src="images/follow-4.webp" alt="Follow" className="img-fluid mx-auto"/>  
+                                <div className="blog-container instagram d-flex flex-column justify-content-center">
+                                    {/* <img src="images/follow-4.webp" alt="Follow" className="img-fluid instagram mx-auto"/>   */}
+                                    <span class="iconify" data-icon="bx:bxl-instagram" data-inline="false"></span>
                                     <p className="text-center pt-2">3.4k Followers</p>  
                                 </div>             
                             </div>          

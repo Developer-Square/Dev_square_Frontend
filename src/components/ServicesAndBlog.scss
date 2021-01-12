@@ -1,3 +1,13 @@
+//mixins
+@mixin fhover($color) {
+  &:hover {
+    transition: 350ms ease-in-out;
+    color:  $color;
+    transform: scale(1.2) !important;
+    margin-bottom: 10px;
+  } 
+}
+
 .services {
   background: var(--services-background-color);
   color: var(--primary-background-color);
@@ -99,9 +109,31 @@
 
   .blog-container {
     margin-bottom: 20px;
+    align-items: center;
     img {
       width: fit-content;
+      transition: 500ms ease-in-out
     }
+
+    svg {
+      font-size: 77px;
+    }
+  }
+
+  .facebook svg {
+    @include fhover(#385898)
+  }
+  
+  .twitter svg {
+    @include fhover(#55acee)
+  }
+
+  .linkedin svg {
+    @include fhover(#0073b1)
+  }
+
+  .instagram svg {
+    @include fhover(#e4405f)
   }
 }
 

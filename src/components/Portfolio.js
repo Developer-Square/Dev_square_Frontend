@@ -38,7 +38,7 @@ function Portfolio() {
                                 <p onClick={handleChange} className="option">WEDDING</p>
                                 <p onClick={handleChange} className="fashion-lg-screens option">FASHION</p>
                             </div>
-                            <div className="d-flex justify-content-center fashion-sm-screens"><p>FASHION</p></div>
+                            <div className="d-flex justify-content-center fashion-sm-screens"><p onClick={handleChange}>FASHION</p></div>
                             <div className="portfolio-images mx-xl-auto">
                                 <PortfolioList portfolioType={option} />
                             </div>
