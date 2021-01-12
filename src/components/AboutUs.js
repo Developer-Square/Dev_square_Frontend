@@ -64,23 +64,7 @@ function AboutUs() {
                     </Col>
                     <Col xs={12} lg={6}>
                         <div className="aboutus-right-section">
-                            <div className="image-container">
-                                <img src="images/rsz_left-pic.webp" className="medium-sm-screens left img-fluid" alt="left"/>
-                                <img src="images/rsz_left-pic_992px.webp" className="medium-lg-screens left img-fluid" alt="left"/>
-                                <img src="images/left-pic.webp" className="xl-screens left img-fluid" alt="left"/>
-                                <img src="images/rsz_hexagonal-shape.webp" className="medium-sm-screens hex img-fluid"alt="hex"/>
-                                <img src="images/rsz_hexagonal-shape_992px.webp" className="medium-lg-screens hex img-fluid"alt="hex"/>
-                                <img src="images/hexagonal-shape.webp" className="xl-screens hex img-fluid"alt="hex"/>
-                                <img src="images/rsz_middle-pic.webp" className="medium-sm-screens middle img-fluid"alt="middle"/>
-                                <img src="images/rsz_middle-pic_992px.webp" className="medium-lg-screens middle img-fluid"alt="middle"/>
-                                <img src="images/middle-pic.webp" className="xl-screens middle img-fluid"alt="middle"/>
-                                <img src="images/rsz_hexagonal-shape.webp" className="medium-sm-screens hex-2 img-fluid"alt="hex"/>
-                                <img src="images/rsz_hexagonal-shape_992px.webp" className="medium-lg-screens hex-2 img-fluid"alt="hex"/>
-                                <img src="images/hexagonal-shape.webp" className="xl-screens hex-2 img-fluid"alt="hex"/>
-                                <img src="images/rsz_right-pic.webp" className="medium-sm-screens right img-fluid" alt="right"/>
-                                <img src="images/rsz_right-pic_992px.webp" className="medium-lg-screens right img-fluid" alt="right"/>
-                                <img src="images/right-pic.webp" className="xl-screens right img-fluid" alt="right"/>
-                            </div>
+                            <img src="images\welcome-svgs\undraw_on_the_office_fbfs.svg" alt="welcome" className="about-image"/>
                         </div>
                     </Col>
                     <Col>
@@ -92,7 +76,7 @@ function AboutUs() {
                                 <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
                                     <div className="flat-design">
                                         <div className="flat-design-image d-flex justify-content-center">
-                                            <img src="images/Flat-design-image.webp" alt="Icon" className=" img-fluid"/>
+                                            <img src="images/Flat-design-image.webp" alt="Icon" className="img-fluid"/>
                                             <img src="images/love.webp" alt="Icon" className="love-image
                                             img-fluid"/>
                                         </div>

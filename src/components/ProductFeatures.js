@@ -49,7 +49,7 @@ function ProductFeatures() {
                 <br />Check out our services in the service section below.
                 Send us a quote of what you want us to build and your price range.</div>
                 <div className="quote">
-                    <Button variant="outline-success" onClick={() => toggleModal()}>Send Quote</Button>
+                    <Button variant="success" onClick={() => toggleModal()}>Send Quote</Button>
                 </div>
             </Container> 
         </Fragment>

@@ -20,12 +20,14 @@ export default function FormComponent({type}) {
             e.stopPropagation()
         } else {
             setValidated(true)
-            console.log('here')
+            if (e.target.className === 'quoteForm') {
+                console.log('here')
+            }
         }
     }
     return (
         <>
-        {type === 'Review Form' ? (
+        {type !== 'Review Form' ? (
             <Form noValidate validated={validated}>
                 <Form.Row>
                     <Form.Group as={Col}>
@@ -91,7 +93,7 @@ export default function FormComponent({type}) {
                             Please fill in your price.
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={handleSubmit}>
+                <Button variant="primary" className="quoteForm" type="submit" onClick={handleSubmit}>
                     Send
                 </Button>
             </Form>
