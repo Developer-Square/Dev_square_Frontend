@@ -1,7 +1,10 @@
-import React, {Fragment, useState, useEffect} from 'react'
+import React, {Fragment, useState, useEffect, useRef} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
+import $ from 'jquery'
 
 //Own Components
 import './Portfolio.scss'
@@ -9,10 +12,30 @@ import PortfolioList from './PortfolioList'
 
 function Portfolio() {
     const [option, setOption] = useState('')
+    const [show, setShow] = useState(false);
+    const [target, setTarget] = useState(null);
+    const ref = useRef(null);
+
+    const handleClose = () => {
+        setShow(false)
+    }
 
     useEffect(() => {
         setOption('all')
     }, [])
+
+    //To show the form when the user scrolls to the portfolio section
+    $(window).scroll(function() {
+        var hT = $('#portfolio-section').offset().top,
+            hH = $('#portfolio-section').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+        if (wS > (hT+hH-wH)){
+            const portfolioHeader = document.querySelector('.portfolio-header')
+            setShow(!show)
+            setTarget(portfolioHeader)
+        }
+     });
 
     function handleChange (e) {
         const val = e.target.innerHTML.toLowerCase()
@@ -31,7 +54,26 @@ function Portfolio() {
                     <Col className="portfolio-column">
                         <div className="portfolio">
                             <div className="heading text-center">portfolio</div>
-                            <div className="d-flex portfolio-header mx-auto justify-content-around">
+                            
+                            <div ref={ref} className="d-flex portfolio-header mx-auto justify-content-around">
+                                {/* For showing the popover */}
+                                <Overlay
+                                    show={show}
+                                    target={target}
+                                    placement="top"
+                                    container={ref.current}
+                                    containerPadding={20}
+                                >
+                                    <Popover id="popover-contained">
+                                        <Popover.Title as="h3" className="text-dark pop-over" onClick={handleClose}>
+                                            Search Designs 
+                                            <span className="iconify" data-icon="carbon:close" data-inline="false"></span>
+                                        </Popover.Title>
+                                        <Popover.Content>
+                                            Click on any of these titles to search through the designs.
+                                        </Popover.Content>
+                                    </Popover>
+                                </Overlay>
                                 <p onClick={handleChange} className="option active">ALL</p>
                                 <p onClick={handleChange} className="option">BUSINESS TYPE</p>
                                 <p onClick={handleChange} className="option">PHOTOGRAPHY</p>

@@ -171,19 +171,19 @@ function ServicesAndBlog() {
                             <div className="heading text-center">Follow <span>tecHive</span></div>  
                             <div className="d-md-flex justify-content-around blog-icons mx-auto">   
                                 <div className="blog-container facebook d-flex flex-column justify-content-center">
-                                    <span class="iconify" data-icon="ant-design:facebook-filled" data-inline="false"></span>
+                                    <span className="iconify" data-icon="ant-design:facebook-filled" data-inline="false"></span>
                                     <p className="text-center pt-2">1.3k Followers</p>  
                                 </div>   
                                 <div className="blog-container d-flex flex-column twitter justify-content-center">
-                                    <span class="iconify" data-icon="bx:bxl-twitter" data-inline="false"></span>
+                                    <span className="iconify" data-icon="bx:bxl-twitter" data-inline="false"></span>
                                     <p className="text-center pt-2">700 Followers</p>  
                                 </div>   
                                 <div className="blog-container linkedin d-flex flex-column justify-content-center">
-                                    <span class="iconify" data-icon="carbon:logo-linkedin" data-inline="false"></span>
+                                    <span className="iconify" data-icon="carbon:logo-linkedin" data-inline="false"></span>
                                     <p className="text-center pt-2">200 Followers</p>  
                                 </div>   
                                 <div className="blog-container instagram d-flex flex-column justify-content-center">
-                                    <span class="iconify" data-icon="bx:bxl-instagram" data-inline="false"></span>
+                                    <span className="iconify" data-icon="bx:bxl-instagram" data-inline="false"></span>
                                     <p className="text-center pt-2">1.2k Followers</p>  
                                 </div>             
                             </div>          
