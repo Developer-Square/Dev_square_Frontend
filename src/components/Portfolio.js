@@ -30,7 +30,7 @@ function Portfolio() {
             hH = $('#portfolio-section').outerHeight(),
             wH = $(window).height(),
             wS = $(this).scrollTop();
-        if (wS > (hT+hH-wH)){
+        if (wS > (hT+hH-wH) && (hT > wS) && (wS+wH > hT+hH)){
             const portfolioHeader = document.querySelector('.portfolio-header')
             setShow(!show)
             setTarget(portfolioHeader)
