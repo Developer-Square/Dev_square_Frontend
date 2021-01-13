@@ -24,18 +24,6 @@ export default function FormComponent({type, close}) {
     const customizationMessage = 'This is when you choose to add custom features to the design that we provide you'
     const codeMessage = 'This is when you want to receive the code for the website we built for you.'
 
-    const handleFillForm = () => {
-        setFname('Ron')
-        setSname('Kid')
-        setEmail('test@test.com')
-        setPhone('0778678678')
-        setMessage('Heey, I need a website.')
-        setPages('3 pages')
-        setResponsive(true)
-        setDesign(true)
-        setPrice('Ksh 20000')
-    } 
-
     function handleSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget;
@@ -131,9 +119,6 @@ export default function FormComponent({type, close}) {
                 </Form.Group>
                 <Button variant="primary" className="quoteForm" type="submit" onClick={handleSubmit}>
                     Send
-                </Button>
-                <Button variant="warning" type="button" onClick={handleFillForm}>
-                    Fill form
                 </Button>
             </Form>
         ) :
