@@ -16,6 +16,16 @@
   --footer-background-color: #333333;
 }
 
+//mixins
+@mixin fhover($color) {
+  &:hover {
+    transition: 350ms ease-in-out;
+    color:  $color;
+    transform: scale(1.2) !important;
+    margin-bottom: 10px;
+  } 
+}
+
 .contact {
   font-weight: normal;
 
@@ -101,6 +111,21 @@
     margin-top: 40px;
     margin-bottom: 35px;
   }
+
+  .bottom-footer {
+    display: flex;
+    justify-content: center;
+
+    .footer-icon-love svg {
+      font-size: 22px;
+      @include fhover(#e3110e)
+    }
+
+    .footer-icon-kenya svg {
+      font-size: 22px;
+      @include fhover('')
+    }
+  }
 }
 
 @media all and (max-width: 320px) {
@@ -163,6 +188,14 @@
           margin-left: 460px;
         }
       }
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  #footer {
+    .bottom-footer{
+      margin-bottom: 40px;
     }
   }
 }

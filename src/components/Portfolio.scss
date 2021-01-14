@@ -10,6 +10,14 @@
   --tertiary-font-color: #a4a4a4;
 }
 
+.pop-over {
+  svg {
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+  }
+}
+
 .portfolio-column {
   padding-left: 0 !important;
   padding-right: 0 !important;

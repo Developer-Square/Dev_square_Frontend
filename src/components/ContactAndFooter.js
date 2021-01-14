@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import notify from '../helpers/Notify'
+import FormSpree from '../helpers/FormSpree'
 import './Contact.scss'
 
 function ContactAndFooter() {
@@ -19,32 +19,15 @@ function ContactAndFooter() {
     function submitForm(e) {
         e.preventDefault();
         e.stopPropagation()
-
-        const form = e.target
+        
         //Preparing the data for sending
         const form_data = {
             name,
             email,
             message
         }
-        const data = new FormData()
-        for (let key in form_data) {
-            data.append(key, form_data[key])
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open(form.method, form.action);
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if (xhr.status === 200) {
-            form.reset();
-            notify('success', 'Message sent successfully')
-            } else {
-            notify('error', 'Message not sent')
-            }
-        };
-        xhr.send(data);
+        const formAction = 'https://formspree.io/f/mknppbbw'
+        FormSpree(form_data, formAction)
     }
 
     return (
@@ -64,7 +47,7 @@ function ContactAndFooter() {
                 <Row>
                     <Col className="contact">
                         <div className="heading text-center">Find us <span>here</span></div>
-                            <p className="text-center">
+                            <p className="text-center pl-2 pr-2">
                             As every project has its own unique requirements, please contact us so that we can discuss the project in detail <br />
                             We're also available to accept the custom offer to work on full/part-time as a subsidiary to your company.
                             </p>
@@ -103,6 +86,12 @@ function ContactAndFooter() {
                                 <div className="logo-text pl-2">tecHive</div>
                             </div>
                             <div className="copyright text-center">&copy; Copyright, tecHive Creatives</div>
+                        </div>
+                        <div className="bottom-footer text-center">
+                                <p className="mr-1">Made with</p>
+                                <div className="footer-icon-love"><span class="iconify" data-icon="bx:bxs-heart" data-inline="false"></span></div> 
+                                <p className="ml-1 mr-2">from Kenya</p>
+                                <div className="footer-icon-kenya"><span class="iconify" data-icon="twemoji:flag-for-flag-kenya" data-inline="false"></span></div>
                         </div>
                     </Col>
                 </Row>
