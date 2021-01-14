@@ -100,7 +100,8 @@ class Api {
                 url: 'tasks/',
                 params: {
                     page: data.page,
-                    limit: data.limit
+                    limit: data.limit,
+                    ...(data.status !== '' ? {status: data.status} : {})
                 }
             }),
             getTask: (id) => this.instance.get(`tasks/${id}`),

@@ -48,7 +48,7 @@ export default function Clients() {
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
-                    <CardTitle className="card-title">Clients</CardTitle>
+                    <CardTitle className="card-title">Projects</CardTitle>
                     <div className="ReactTable -striped -highlight -fixed">
                         <div className="rt-table" role="grid">
                             <div className="rt-thead bg-white">

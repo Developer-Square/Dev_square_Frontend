@@ -47,7 +47,7 @@ export default function PieChart() {
         <Container>
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
-                    <CardTitle className="card-title">Projects</CardTitle>
+                    <CardTitle className="card-title">Project Stats</CardTitle>
                     <OverlayTrigger
                         placement="top"
                         delay={{ show: 250, hide: 400 }}
