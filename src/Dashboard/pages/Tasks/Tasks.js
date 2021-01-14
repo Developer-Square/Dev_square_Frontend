@@ -185,10 +185,6 @@ export default function Tasks() {
         })
     }
 
-    const smallRecursion = () => {
-        
-    }
-
     function handleTaskUpdate(e) {
         //Getting the id of the clicked row
         let rowId = e.currentTarget.className.slice(5,29)
