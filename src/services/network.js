@@ -139,7 +139,8 @@ class Api {
     Projects() {
         return {
             getAllProjects: () => this.instance.get(`project/`),
-            updateProject: (id, data) => this.instance.patch(`project/${id}`, data)
+            updateProject: (id, data) => this.instance.patch(`project/${id}`, data),
+            getProjectTasks: (id) => this.instance.get(`project/tasks/${id}`)
         }
     }
 }

@@ -57,7 +57,7 @@ export default function TaskList({tasks, creators}) {
                             <ul className="list-group list-group-flush">
                                 {tasks.length !== 0 ? 
                                     tasks.map((task, index) => ( 
-                                        <li className="list-group-item">
+                                        <li key={index} className="list-group-item">
                                             <Indicator className={`dot-${task.status}`}></Indicator>
                                             <div className="content-wrapper">
                                                 <div className="content-left mr-2">

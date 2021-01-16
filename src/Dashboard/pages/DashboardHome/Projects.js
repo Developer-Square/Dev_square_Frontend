@@ -4,6 +4,7 @@ import {Progress} from 'react-sweet-progress'
 
 //Own Components
 import '../Tasks/Tasks.scss'
+import Domino from '../../Dashboard_Components/Domino'
 
 const Container = styled.div`   
     margin-top: 40px;
@@ -11,6 +12,27 @@ const Container = styled.div`
 
     .rt-tr-group {
         flex: 1 0 auto;  
+    }
+
+    .dot-inProgress {
+        color: rgb(253, 126, 20);
+    }
+
+    .dot-completed {
+        color: rgb(58, 196, 125);
+    }
+
+    .dot-onhold {
+        color: #007fff;
+        
+    }
+    .dot-notStarted {
+        color: #8b16f2;
+        
+    }
+    .dot-cancelled {
+        color: #dc3545;
+        
     }
 `
 
@@ -35,13 +57,7 @@ const CardTitle = styled.div`
     margin-bottom: 0;
 `
 
-export default function Clients() {
-    let today = new Date();
-    let day = String(today.getDate()).padStart(2, '0');
-    let month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let year = today.getFullYear();
-
-    today = day + '/' + month + '/' + year;
+export default function Projects({projects}) {
 
     return (
         <>
@@ -54,11 +70,11 @@ export default function Clients() {
                             <div className="rt-thead bg-white">
                                 <div className="rt-tr" role="row">
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
-                                    <div className="rt-resizable-header-content">Client ID</div>
+                                    <div className="rt-resizable-header-content">Project ID</div>
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
-                                    <div className="rt-resizable-header-content">Name</div>
+                                    <div className="rt-resizable-header-content">Description</div>
                                     <div className="rt-resizer"></div>
                                 </div>
                                 <div className="rt-th rt-resizable-header" role="columnheader" tabIndex='-1'>
@@ -85,139 +101,28 @@ export default function Clients() {
                             </div>
                             <div className="rt-body">
                                 <div className="rt-tr-group">
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">345</div>
-                                        <div className="rt-td odd" role="gridcell">Donatello</div>
-                                        <div className="rt-td odd" role="gridcell">Project Takamora</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#007bff'
-                                                    }
-                                                  }}
-                                                percent={25}/>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-in-progress">●</span> In Progress</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">PHP</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">67</div>
-                                        <div className="rt-td" role="gridcell">Michelangelo</div>
-                                        <div className="rt-td" role="gridcell">Project Eren</div>
-                                        <div className="rt-td" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#007bff'
-                                                    }
-                                                  }}
-                                                percent={34}/>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-in-progress">●</span> In Progress</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Reactjs</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">90</div>
-                                        <div className="rt-td odd" role="gridcell">Leonardo </div>
-                                        <div className="rt-td odd" role="gridcell">Project Ippo</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#fbc630'
-                                                    }
-                                                  }}
-                                                percent={50}/>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-in-progress">●</span> In Progress</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">HTML, CSS, JS</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">99</div>
-                                        <div className="rt-td" role="gridcell">Rafael</div>
-                                        <div className="rt-td" role="gridcell">Project Issei</div>
-                                        <div className="rt-td" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#fbc630'
-                                                    }
-                                                  }}
-                                                percent={59}/>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-on-hold">●</span> On Hold</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">JavaScript</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">23</div>
-                                        <div className="rt-td odd" role="gridcell">Shredder </div>
-                                        <div className="rt-td odd" role="gridcell">Project Aoki</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#28a745'
-                                                    }
-                                                  }}
-                                                percent={75}/>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-not-started">●</span> Not Started</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Android</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td" role="gridcell">223</div>
-                                        <div className="rt-td" role="gridcell">April O'Neil </div>
-                                        <div className="rt-td" role="gridcell">Project Miyata</div>
-                                        <div className="rt-td" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: '#007bff'
-                                                    }
-                                                  }}
-                                                percent={23}/>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">
-                                        <span><span className="dot-cancelled">●</span> Cancelled</span>
-                                        </div>
-                                        <div className="rt-td" role="gridcell">{today}</div>
-                                        <div className="rt-td" role="gridcell">Java</div>
-                                    </div>
-                                    <div className="rt-tr">
-                                        <div className="rt-td odd" role="gridcell">26</div>
-                                        <div className="rt-td odd" role="gridcell">Karai </div>
-                                        <div className="rt-td odd" role="gridcell">Project Sendo</div>
-                                        <div className="rt-td odd" role="gridcell">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                      color: 'rgb(40, 167, 69)'
-                                                    }
-                                                  }}
-                                                percent={100}/>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">
-                                        <span><span className="dot-completed">●</span> Completed</span>
-                                        </div>
-                                        <div className="rt-td odd" role="gridcell">{today}</div>
-                                        <div className="rt-td odd" role="gridcell">Nodejs</div>
-                                    </div>
+                                        {projects !== '' ? projects.map((project, index) => (
+                                            <div className="rt-tr">
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{project.id.slice(0,
+                                                    6)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`${project.description}`}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`Project ${project.name}`}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                    <Progress
+                                                        theme={{
+                                                            active: {
+                                                            color: '#007bff'
+                                                            }
+                                                        }}
+                                                        percent={25}/>
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                <span><span className="dot-inProgress">●</span> In Progress</span>
+                                                </div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{project.dueDate.slice(0, 10)}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{project.stack}</div>
+                                            </div>
+                                        )) : <Domino loading={true}/>}
                                 </div>
                             </div>
                         </div>

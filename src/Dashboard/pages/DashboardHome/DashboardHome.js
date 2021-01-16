@@ -12,6 +12,7 @@ import PercentageWidgets from './PercentageWidgets'
 import Projects from './Projects'
 import notify from '../../../helpers/Notify'
 import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks} from '../../../redux/action-creator'
+import {addProjects} from '../../../redux/action-creator/projectActions'
 import Api from '../../../services/network'
 
 
@@ -32,17 +33,20 @@ function DashboardHome() {
     const [onHold, setOnHold] = useState(0)
     const [completed, setCompleted] = useState(0)
     const [tasks, setTasks] = useState('')
+    const [taskIds, setTasksIds] = useState([])
+    const [projects, setProjects] = useState('')
     const [creators, setCreators] = useState([])
     const dispatch = useDispatch()
     const api = new Api()
 
     useEffect(() => {
         getTasks()
+        getProjects()
         // eslint-disable-next-line
     }, [])
 
     //Get the Developer name    
-    const getUser = async (id, index) => {
+    const getUser = async (id, len, index) => {
         const api  = new Api()
         try {
             const res = await api.User().getUser(id)
@@ -51,9 +55,10 @@ function DashboardHome() {
                 nameArr.push(res.data.name)
                 //When the for loop in the getAllTasks function is done push the array of creators into
                 //state
-                if (index === 10) {
+                if (index === len) {
                     setCreators(nameArr)
                 }
+
             }  
         } catch (error) {
             const {message} = error.response.data
@@ -62,7 +67,7 @@ function DashboardHome() {
     }
 
     //Get new the newest tasks by gettint the last items in the array.   
-    const getNewTask = async (totalResults) => {
+    const getNewTasks = async (totalResults) => {
         const api  = new Api()
         let data = {
             limit: totalResults,
@@ -78,11 +83,9 @@ function DashboardHome() {
                 let i = 1;
                 //Reversing the array to get the last 10 items.
                 for (i; i < len; i++) {
-                    if (i <= 10) {
-                        if (results[len - i].status === 'notStarted') {
-                            newTasks.push(results[len - i])
-                            getUser(results[len - i].creator, i)
-                        }
+                    if (results[len - i].status === 'notStarted') {
+                        newTasks.push(results[len - i])
+                        getUser(results[len - i].creator, len, i)
                     }
                 }
                 setTasks(newTasks)
@@ -169,7 +172,7 @@ function DashboardHome() {
                 const {totalResults} = res.data
                 countData(totalResults)
                 //eslint-disable-next-line
-                getNewTask(totalResults)
+                getNewTasks(totalResults)
             }
         })
         .catch(err => {
@@ -186,6 +189,37 @@ function DashboardHome() {
 
     }
 
+    function getProjects() {
+        api.Projects().getAllProjects()
+        .then(res => {
+            if (res.status === 200) {
+                addProjects(res.data.results)
+                setProjects(res.data.results)
+                const {results} = res.data
+                results.map((res,index) => {
+                    let resultsArray = taskIds
+                    resultsArray.push(res.tasks)
+                    
+                    //When mapping is done put the final result in state
+                    if(index === 1) {
+                        setTasksIds(resultsArray)
+                    }
+                    return null;
+                })
+                notify('success', 'Projects fetched successfully')
+            }
+        })
+        .catch(err => {
+            if (err.response) {
+                const {message} = err.response.data
+                dispatch(setLoading())
+                notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
+        })
+    }
+
     return (
         <Container>
             <SpacedElements>
@@ -196,11 +230,11 @@ function DashboardHome() {
             </SpacedElements>
             <Row className="d-flex justify-content-between middle-element">
                 <TaskList tasks={tasks} creators={creators} className="col-5"/>
-                <PieChart className="col-5"/>
+                <PieChart projects={projects} className="col-5"/>
             </Row>
             <Row>
                 <ActiveUsers/>
-                <Projects />
+                <Projects projects={projects} />
             </Row>
             <PercentageWidgets />
         </Container>
