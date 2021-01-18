@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {useSelector} from 'react-redux'
 import styled from 'styled-components'
 import {Form, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Progress} from 'react-sweet-progress'
@@ -41,16 +40,17 @@ const CardTitle = styled.div`
 `
 
 export default function PieChart({projects, taskIds}) {
-    const {AllTasks} = useSelector(state => state.tasks)
+    // const {AllTasks} = useSelector(state => state.tasks)
     const [projectName, setProjectName] = useState('')
     const api = new Api()
 
     useEffect(() => {
-        //calculate()
+        calculate()
         if (projects !== '') {
             getSpecificTasks()
             console.log(projects[0].id, 'here')
         }
+       // eslint-disable-next-line 
     }, [])
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -68,29 +68,7 @@ export default function PieChart({projects, taskIds}) {
     }
 
     function calculate() {
-        if (AllTasks.length !== 0 && taskIds !== '') {
-            AllTasks.map(task => {
-                taskIds.map(taskId => {
-                    let len = taskId.length
-                    taskId.map((Id, index) => {
-                        if (task.id === Id) {
-                            let project = []
-                            project.push(task)
-
-                            if (index === len-1) {
-                                let notStarted = 0
-                                project.map(pro => {
-                                    //
-                                })
-                            }
-                        }
-                        return null
-                    })
-                    return null
-                })
-                return null
-            })
-        }
+        //
     }
 
     return (
@@ -103,7 +81,7 @@ export default function PieChart({projects, taskIds}) {
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >   
-                        <Form.Control as="select" onChange={(e) => setProjectName(e.target.value)}>
+                        <Form.Control as="select" value={projectName} onChange={(e) => setProjectName(e.target.value)}>
                             {projects !== '' ? projects.map(project => (
                                  <option key={project.id}>Project {project.name}</option>
                             )): 'Loading'}

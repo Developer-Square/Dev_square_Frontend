@@ -7,7 +7,9 @@ import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
 import BouncingBall from '../../Dashboard_Components/BouncingBall'
 
 const Container = styled.div`    
-    
+   .scrollbar-container {
+        min-width: 500px;
+   } 
 `
 
 const CardContainer = styled.div`
@@ -90,7 +92,7 @@ export default function TaskList({tasks, creators}) {
                         </div>
                     </div>
                 </div>
-                <ViewAllButton title="Tasks" marginTop="10px" marginBottom="10px"/>
+                <ViewAllButton func={false} title="Tasks" marginTop="10px" marginBottom="10px"/>
             </CardContainer>
         </Container>
         </>

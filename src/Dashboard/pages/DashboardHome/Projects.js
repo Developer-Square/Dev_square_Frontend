@@ -14,6 +14,10 @@ const Container = styled.div`
         flex: 1 0 auto;  
     }
 
+    .rt-tr {
+        cursor: pointer;
+    }
+
     .dot-inProgress {
         color: rgb(253, 126, 20);
     }
@@ -105,7 +109,7 @@ export default function Projects({projects}) {
                                             <div className="rt-tr">
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{project.id.slice(0,
                                                     6)}</div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`${project.description}`}</div>
+                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`${project.description.slice(0, 55)}...`}</div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`Project ${project.name}`}</div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                     <Progress

@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Row from 'react-bootstrap/Row'
 
@@ -11,7 +11,7 @@ import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
 import Projects from './Projects'
 import notify from '../../../helpers/Notify'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks} from '../../../redux/action-creator'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import {addProjects} from '../../../redux/action-creator/projectActions'
 import Api from '../../../services/network'
 
@@ -26,43 +26,39 @@ const SpacedElements = styled.div`
     display: flex;
     justify-content: space-between;
 `
-let nameArr = []
+
 function DashboardHome() {
-    const [notStarted, setNotStarted] = useState(0)
-    const [inProgress, setInProgress] = useState(0)
-    const [onHold, setOnHold] = useState(0)
-    const [completed, setCompleted] = useState(0)
-    const [tasks, setTasks] = useState('')
     const [taskIds, setTasksIds] = useState([])
-    const [projects, setProjects] = useState('')
-    const [creators, setCreators] = useState([])
     const dispatch = useDispatch()
+    const {NewTasks, TasksCountData, TaskCreators} = useSelector(state => state.tasks)
+    const {users} = useSelector(state => state.users)
+    const {projects} = useSelector(state => state.projects)
     const api = new Api()
 
     useEffect(() => {
-        getTasks()
-        getProjects()
+        if (projects.length === 0 && Object.keys(users).length === 0 && NewTasks.length === 0 ) {
+            getTasks()
+            getProjects()
+        }
         // eslint-disable-next-line
     }, [])
 
     //Get the Developer name    
-    const getUser = async (id, len, index) => {
+    const getUser = async (id) => {
         const api  = new Api()
         try {
             const res = await api.User().getUser(id)
             if (res.status === 200) {
                 dispatch(addTaskCreators(res.data.name))
-                nameArr.push(res.data.name)
-                //When the for loop in the getAllTasks function is done push the array of creators into
-                //state
-                if (index === len) {
-                    setCreators(nameArr)
-                }
-
             }  
-        } catch (error) {
-            const {message} = error.response.data
-            notify('error', message)
+        } catch (err) {
+            if (err.response) {
+                const {message} = err.response.data
+                dispatch(setLoading())
+                notify('error', message)
+            } else {
+                notify('error', 'Something went wrong, Please refresh the page.')
+            }
         }
     }
 
@@ -88,7 +84,8 @@ function DashboardHome() {
                         getUser(results[len - i].creator, len, i)
                     }
                 }
-                setTasks(newTasks)
+                dispatch(addNewTasks(newTasks))
+                // setTasks(newTasks)
             }  
         } catch (err) {
             //Set Loading to false
@@ -111,6 +108,7 @@ function DashboardHome() {
 
         let statuses = ['inProgress', 'notStarted', 'onHold']
         //Getting the number of tasks for each section
+        let sendData = {}
         // eslint-disable-next-line
         statuses.map(status => {
             data.status = status
@@ -120,15 +118,25 @@ function DashboardHome() {
                     const {results} = res.data
                     if(results[0] !== undefined) {
                         if (results[0].status === 'inProgress') {
-                            setInProgress(res.data.totalResults)
-                        } else if (results[0].status === 'notStarted') {
-                            setNotStarted(res.data.totalResults)
+                            if (res.data.totalResults !== undefined) {
+                                sendData.inProgress = res.data.totalResults
+                            }
                         } else if (results[0].status === 'onHold') {
-                            setOnHold(res.data.totalResults)
+                            if (res.data.totalResults !== undefined) {
+                                sendData.onHold = res.data.totalResults
+                            }
+                        } else if (results[0].status === 'notStarted') {
+                            if (res.data.totalResults !== undefined) {
+                                sendData.notStarted = res.data.totalResults
+                            }
                         } else {
-                            setCompleted(res.data.totalResults)
+                            if (res.data.totalResults !== undefined) {
+                                sendData.completed = res.data.totalResults
+                            }
                         }
                     }
+                    dispatch(addCountData(sendData))
+                 
                 }
             })
             .catch(err => {
@@ -193,8 +201,7 @@ function DashboardHome() {
         api.Projects().getAllProjects()
         .then(res => {
             if (res.status === 200) {
-                addProjects(res.data.results)
-                setProjects(res.data.results)
+                dispatch(addProjects(res.data.results))
                 const {results} = res.data
                 results.map((res,index) => {
                     let resultsArray = taskIds
@@ -223,17 +230,17 @@ function DashboardHome() {
     return (
         <Container>
             <SpacedElements>
-                <Card number={completed} name="Tasks Completed" icon="clarity:tasks-line" color="#068f21" backgroundIcon="#dcf5e1"/>
-                <Card number={inProgress} name="Tasks In Progress" icon="carbon:in-progress" color="#dbb902" backgroundIcon="#f7e897"/>
-                <Card number={notStarted} name="New Tasks" icon="ant-design:bars-outlined" color="#4504b5" backgroundIcon="#d1bdf2"/>
-                <Card number={onHold} name="Tasks On Hold" icon="mdi:gesture-tap-hold" color="#085ed4" backgroundIcon="#7babed"/>
+                <Card number={TasksCountData === '' ? 0 : TasksCountData.completed === undefined ? 0 : TasksCountData.completed} name="Tasks Completed" icon="clarity:tasks-line" color="#068f21" backgroundIcon="#dcf5e1"/>
+                <Card number={TasksCountData === '' ? 0 : TasksCountData.inProgress === undefined ? 0 : TasksCountData.inProgress} name="Tasks In Progress" icon="carbon:in-progress" color="#dbb902" backgroundIcon="#f7e897"/>
+                <Card number={NewTasks.length !== 0 ? NewTasks.length : 0} name="New Tasks" icon="ant-design:bars-outlined" color="#4504b5" backgroundIcon="#d1bdf2"/>
+                <Card number={TasksCountData === '' ? 0 : TasksCountData.onHold === undefined ? 0 : TasksCountData.onHold} name="Tasks On Hold" icon="mdi:gesture-tap-hold" color="#085ed4" backgroundIcon="#7babed"/>
             </SpacedElements>
             <Row className="d-flex justify-content-between middle-element">
-                <TaskList tasks={tasks} creators={creators} className="col-5"/>
+                <TaskList tasks={NewTasks} creators={TaskCreators} className="col-5"/>
                 <PieChart projects={projects} className="col-5"/>
             </Row>
             <Row>
-                <ActiveUsers/>
+                <ActiveUsers users={users}/>
                 <Projects projects={projects} />
             </Row>
             <PercentageWidgets />

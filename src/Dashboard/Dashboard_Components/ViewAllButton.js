@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
+import {useHistory} from 'react-router-dom'
 
 //Own Components
 import Api from '../../services/network' 
@@ -44,8 +45,9 @@ const Button = styled.a`
     }
 `
 
-function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClick}) {
+function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClick, func}) {
     const dispatch = useDispatch()
+    let history = useHistory()
     const [btnText, setBtnText] = useState('')
     const [nextPage, setNextPage] = useState(false)
     //Making an api call
@@ -92,23 +94,27 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
     }
     //Changing the color and text of the buttons on clicking them
     const handleClick = (e) => {
-        onClick()
-        const btn = e.target
-        setBtnText(btn.innerHTML)
-        if (btn.innerHTML.search('Active') !== -1) {
-            btn.classList.add('close-btn-1')
-            btn.innerHTML = 'Close All Accounts'
-            //If there are more than 10 users then set the next page to true to reveal the next button
-            if (page > 1) {
-                setNextPage(true)
+        if (func) {
+            onClick()
+            const btn = e.target
+            setBtnText(btn.innerHTML)
+            if (btn.innerHTML.search('Active') !== -1) {
+                btn.classList.add('close-btn-1')
+                btn.innerHTML = 'Close All Accounts'
+                //If there are more than 10 users then set the next page to true to reveal the next button
+                if (page > 1) {
+                    setNextPage(true)
+                }
+            } else if (btn.innerHTML.search('Closed') !== -1) {
+                btn.classList.add('close-btn-1')
+                btn.innerHTML = 'Close All Accounts' 
+            } else if (btn.innerHTML.search('Close All Accounts')) {
+                btn.classList.remove('close-btn-1')
+                btn.innerHTML = btnText
+                setNextPage(false)
             }
-        } else if (btn.innerHTML.search('Closed') !== -1) {
-            btn.classList.add('close-btn-1')
-            btn.innerHTML = 'Close All Accounts' 
         } else {
-            btn.classList.remove('close-btn-1')
-            btn.innerHTML = btnText
-            setNextPage(false)
+            history.push('/dashboard/tasks')
         }
     }
 
