@@ -39,36 +39,60 @@ const CardTitle = styled.div`
     font-size: 1.2rem;
 `
 
-export default function PieChart({projects, taskIds}) {
-    // const {AllTasks} = useSelector(state => state.tasks)
+export default function PieChart({projects}) {
     const [projectName, setProjectName] = useState('')
+    const [tasksNumber, setTaskNumber] = useState(0)
     const api = new Api()
 
     useEffect(() => {
-        calculate()
         if (projects !== '') {
             getSpecificTasks()
-            console.log(projects[0].id, 'here')
+            setProjectName(projects[0].name)
         }
        // eslint-disable-next-line 
-    }, [])
+    }, [projects])
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
           Select your project to see the progress
         </Tooltip>
       );
 
-    function getSpecificTasks() {
-        api.Projects().getProjectTasks(projects[0].id)
+    function getSpecificTasks(params) {
+        let data
+        if (params !== undefined) {
+            data = params
+        } else {
+            data = projects[0].id
+        }
+        api.Projects().getProjectTasks(data)
         .then(res => {
             if (res.status === 200) {
-                //
+                let inProgress = 0;
+                let len = res.data.length
+                res.data.map((task, index) => {
+                    if (task.status === "inProgress") {
+                        inProgress += 1
+                    }
+
+                    if (index === len - 1) {
+                        let result = Math.round((inProgress / len) * 100)
+                        setTaskNumber(result)
+                    }
+                    return null;
+                })
             }
         })
     }
 
-    function calculate() {
-        //
+    function handleChange(e) {
+        setProjectName(e.target.value)
+        let project_name = e.target.value.slice(8)
+        projects.map(project => {
+            if (project.name ===  project_name) {
+                getSpecificTasks(project.id)
+            }
+            return null
+        })
     }
 
     return (
@@ -81,7 +105,7 @@ export default function PieChart({projects, taskIds}) {
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >   
-                        <Form.Control as="select" value={projectName} onChange={(e) => setProjectName(e.target.value)}>
+                        <Form.Control as="select" value={projectName} onChange={handleChange}>
                             {projects !== '' ? projects.map(project => (
                                  <option key={project.id}>Project {project.name}</option>
                             )): 'Loading'}
@@ -97,7 +121,7 @@ export default function PieChart({projects, taskIds}) {
                               }
                             }}
                         width={230}
-                        percent={60}
+                        percent={tasksNumber}
                         type="circle" />
                     </div>
                 </div>

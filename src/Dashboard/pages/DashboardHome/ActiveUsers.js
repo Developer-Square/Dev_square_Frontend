@@ -28,11 +28,7 @@ const CardContainer = styled.div`
     .table-striped {
         min-height: 600px;
     }
-
-    tr {
-        cursor: pointer;
-    }
-
+    
     .widget-content-wrapper {
         display: flex;
     }

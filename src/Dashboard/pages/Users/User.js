@@ -120,7 +120,7 @@ function User({data, index}) {
 	$(document).ready(function() {
 		$('.-container').each(function() {
 			let delay = $(this).index();
-			$(this).css('animation-delay', delay - 5 + 's')
+			$(this).css('animation-delay', delay - 9 + 's')
 		})
 	})
 
