@@ -95,7 +95,7 @@ export default function Tasks() {
     //Assign a task to a user
     function handleAssign(e) {
         //Getting the index of the clicked row
-        let rowId = e.currentTarget.className.slice(24,48)
+        let rowId = e.currentTarget.className.slice(30,54)
         if (Tasks.results.length !== 0) {
             const {results} = Tasks
             // eslint-disable-next-line
@@ -187,7 +187,7 @@ export default function Tasks() {
 
     function handleTaskUpdate(e) {
         //Getting the id of the clicked row
-        let rowId = e.currentTarget.className.slice(5,29)
+        let rowId = e.currentTarget.className.slice(11, 35)
         //Map the indexes stored in state to see which one matches the one that was clicked
         const {results} = Tasks
         // eslint-disable-next-line
@@ -202,7 +202,7 @@ export default function Tasks() {
 
     function handleDelete(e) {
         //Getting the id of the clicked row
-        let rowId= e.currentTarget.className.slice(0,24)
+        let rowId= e.currentTarget.className.slice(6, 30)
         setRowId(rowId)
         setDeleteModal(true)
     }
@@ -321,28 +321,28 @@ export default function Tasks() {
                                                         <span className="iconify" data-icon="carbon:close" data-inline="false"></span>
                                                     </Popover.Title>
                                                     <Popover.Content>
-                                                        <Button className={`mr-2 mb-2 assign col-12 ${task.id} button`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                        <Button className={`mr-2 mb-2 assign col-12 ${target.className} button`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                         <div className="d-flex justify-content-between">
-                                                            <Button className={`mr-2 ${task.id} button`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
-                                                            <Button variant="danger" className={`${task.id} button`} onClick={handleDelete}>Delete</Button>
+                                                            <Button className={`mr-2 ${target.className} button`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                            <Button variant="danger" className={`${target.className} button`} onClick={handleDelete}>Delete</Button>
                                                         </div>
                                                     </Popover.Content>
                                                     </Popover>
                                             </Overlay>
                                             {/* Checks the index of the grid cell if its odd it gives an odd class name
                                             which turns it grey */}
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(20)}</div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(20)}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
                                                 {/* While the user's name is still unavailable we give the field a spinner/loader */}
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                     {TaskCreators.length === 0 ? <Spinner animation="border" variant="primary" size="sm" /> : TaskCreators[index]}
                                                 </div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                 {/* The color of the dot changes according to the task status */}
                                                 <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
                                                 </div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
                                         </div>
                                     )): null}
                                 </div>
