@@ -22,6 +22,12 @@ const Container = styled.div`
     .close-btn-2 {
         background: #F17E7E;
     }
+
+    .disable {
+        pointer-events: none;
+        opacity: .5;
+        cursor: default;
+    }
 `
 
 const Button = styled.a`
@@ -133,8 +139,8 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
             />
             <Container marginTop={marginTop} marginBottom={marginBottom}>
                 <Button className="view-all-button" onClick={handleClick}>All {title}</Button>
-                {nextPage === true && page > 1 ? <Button variant="info" className="ml-3 prev" onClick={getNextPage}>Previous page</Button> : null}
-                {nextPage ? <Button className="view-all-button next ml-3" onClick={getNextPage}>Next Page</Button>: null}
+                {nextPage === true && page > 1 ? <Button variant="info" className={`ml-3 prev ${pageNumber === 1 ? 'disable' : 'enable'}`} onClick={getNextPage}>Previous page</Button> : null}
+                {nextPage ? <Button className={`view-all-button next ml-3 ${page - pageNumber === 0 ? 'disable' : 'enable'}`} onClick={getNextPage}>Next Page</Button>: null}
             </Container>
         </>
     )

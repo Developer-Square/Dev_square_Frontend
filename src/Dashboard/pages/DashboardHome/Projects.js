@@ -106,7 +106,7 @@ export default function Projects({projects}) {
                             <div className="rt-body">
                                 <div className="rt-tr-group">
                                         {projects !== '' ? projects.map((project, index) => (
-                                            <div className="rt-tr">
+                                            <div className="rt-tr" key={index}>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{project.id.slice(0,
                                                     6)}</div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{`${project.description.slice(0, 55)}...`}</div>

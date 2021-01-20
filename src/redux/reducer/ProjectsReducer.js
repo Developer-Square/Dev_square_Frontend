@@ -1,7 +1,7 @@
 import {ADD_ALL_PROJECTS} from '../action-types/index'
 
 const initialState = {
-   projects: ''
+   projects: []
 }
 
 function ProjectsReducer(state=initialState, action) {

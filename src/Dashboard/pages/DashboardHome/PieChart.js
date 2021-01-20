@@ -45,7 +45,7 @@ export default function PieChart({projects}) {
     const api = new Api()
 
     useEffect(() => {
-        if (projects !== '') {
+        if (projects.length !== 0) {
             getSpecificTasks()
             setProjectName(projects[0].name)
         }

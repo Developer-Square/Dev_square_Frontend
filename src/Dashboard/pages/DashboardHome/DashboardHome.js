@@ -11,7 +11,7 @@ import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
 import Projects from './Projects'
 import notify from '../../../helpers/Notify'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData, addUsers, updateGetUsers} from '../../../redux/action-creator'
 import {addProjects} from '../../../redux/action-creator/projectActions'
 import Api from '../../../services/network'
 
@@ -36,12 +36,42 @@ function DashboardHome() {
     const api = new Api()
 
     useEffect(() => {
-        if (projects.length === 0 && Object.keys(users).length === 0 && NewTasks.length === 0 ) {
+        //Checking if the redux store is empty before sending out new requests
+        if (Object.keys(users).length === 0) {
+            getUsers() 
+        }
+        if (NewTasks.length === 0 ) {
             getTasks()
+        }
+        if (projects.length === 0) {
             getProjects()
         }
         // eslint-disable-next-line
     }, [])
+
+    //Get All Users
+	function getUsers() {
+        let data = {                
+            limit: 6,
+            page: 1
+        }
+		api.User().getAllUsers(data)
+		.then(res => {
+			if (res.status === 200){
+                dispatch(addUsers(res.data))
+				notify('success', 'Users fetched successfully')
+				dispatch(updateGetUsers())
+			}
+		})
+		.catch(err => {
+			if (err.response) {
+				const {message} = err.response.data
+				notify('error', message)
+			} else {
+				notify('error', 'Something went wrong, Please refresh the page.')
+			}
+		})
+    }
 
     //Get the Developer name    
     const getUser = async (id) => {
@@ -240,7 +270,7 @@ function DashboardHome() {
                 <PieChart projects={projects} className="col-5"/>
             </Row>
             <Row>
-                <ActiveUsers users={users}/>
+                <ActiveUsers users={users.results}/>
                 <Projects projects={projects} />
             </Row>
             <PercentageWidgets />

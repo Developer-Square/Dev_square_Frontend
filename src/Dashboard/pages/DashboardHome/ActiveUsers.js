@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import React from 'react'
 import styled from 'styled-components'
 import {useHistory} from 'react-router-dom'
 
 //Own Components
-import {addUsers, updateGetUsers} from '../../../redux/action-creator/index'
-import Api from '../../../services/network'
-import notify from "../../../helpers/Notify";
 import HandAnimation from '../../Dashboard_Components/HandAnimation'
 
 const Container = styled.div`   
@@ -28,7 +24,7 @@ const CardContainer = styled.div`
     .table-striped {
         min-height: 600px;
     }
-    
+
     .widget-content-wrapper {
         display: flex;
     }
@@ -78,41 +74,8 @@ const CardTitle = styled.div`
     }
 `
 
-export default function ActiveUsers() {
-    const [users, setUsers] = useState('')
+export default function ActiveUsers({users}) {
     let history = useHistory()
-    const dispatch = useDispatch()
-    const api = new Api()
-
-    useEffect(() => {
-        getUsers() 
-        // eslint-disable-next-line
-    }, [])
-
-    //Get All Users
-	function getUsers() {
-        let data = {                
-            limit: 6,
-            page: 1
-        }
-		api.User().getAllUsers(data)
-		.then(res => {
-			if (res.status === 200){
-                dispatch(addUsers(res.data))
-                setUsers(res.data.results)
-				notify('success', 'Users fetched successfully')
-				dispatch(updateGetUsers())
-			}
-		})
-		.catch(err => {
-			if (err.response) {
-				const {message} = err.response.data
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-		})
-    }
 
     const handlePageChange = () => {
         history.push('/dashboard/portfolio')
@@ -136,8 +99,8 @@ export default function ActiveUsers() {
                             </tr>
                             </thead>
                             <tbody>
-                                {users !== '' ? users.map((user, index) => (
-                                    <tr>
+                                {users !== undefined ? users.map((user, index) => (
+                                    <tr key={index}>
                                     <td className="text-center text-muted">#{index + 1}</td>
                                     <td>
                                         <div className="widget-content p-0">
@@ -162,7 +125,7 @@ export default function ActiveUsers() {
                                         <button type="button" id="PopoverCustomT-1" className="btn btn-primary btn-sm">Details</button>
                                     </td>
                                 </tr>
-                                )): <HandAnimation loading={true}/>}
+                                )): <tr><td><HandAnimation loading={true}/></td></tr>}
                             </tbody>
                         </table>
                     </div>
