@@ -46,9 +46,28 @@ function DashboardHome() {
         if (projects.length === 0) {
             getProjects()
         }
+
+        // checkTasks()
         // eslint-disable-next-line
     }, [])
 
+    // const checkTasks = () => {
+    //     let tasks = [
+    //         "5fd77e8e01fe910022be3730",
+    //         "5fd77ea701fe910022be3731",
+    //         "5fda3eebc836e7002224e67e",
+    //         "5fda4414c836e7002224e687",
+    //         "5fd600e4d913ea002214812e",
+    //         "5ffadf1046415300222a644b"
+    //       ]
+    //       tasks.map(task => {
+    //           api.Tasks().getTask(task)
+    //           .then(res => res)
+    //           .catch(err => {
+    //               console.log(task)
+    //           })
+    //       })
+    // }
 
     //Get All Users
 	function getUsers() {
@@ -250,7 +269,6 @@ function DashboardHome() {
         .catch(err => {
             if (err.response) {
                 const {message} = err.response.data
-                dispatch(setLoading())
                 notify('error', message)
 			} else {
 				notify('error', 'Something went wrong, Please refresh the page.')
