@@ -69,10 +69,10 @@ export default function ConfirmDelete(props) {
     }
 
     function handleDelete(e, props) {
-        let len = users.results.length
+        // let len = users.results.length
         let projectLen = []
         let changedArray;
-        let projectId;
+        // let projectId;
         //Remove the task from the project
         const resultArray = projects.map(project => {
             projectLen.push(project.tasks.length)
@@ -127,6 +127,7 @@ export default function ConfirmDelete(props) {
         // })
     }
 
+    // eslint-disable-next-line
     const deleteTaskFromBackend = () => {
         if (deleteType === 'tasks') {
             api.Tasks().deleteTask(id)
