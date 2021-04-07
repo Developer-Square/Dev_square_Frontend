@@ -19,6 +19,7 @@ function Team() {
                                 <div className="team-container">
                                     <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Linus</p>
+                                    <p className="team-role mb-2">Chief Technology Officer, TecHive</p>
                                     <p className="team-role">Nodejs, Reactjs Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
@@ -30,8 +31,9 @@ function Team() {
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-2.webp" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-images/Sophie Profile Pic-cropped-6.jpeg" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Sophie</p>
+                                    <p className="team-role mb-2">Chief Executive Officer, TecHive</p>
                                     <p className="team-role">Data Analyst</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
@@ -56,8 +58,9 @@ function Team() {
                             </Col>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-images/Ryan's Profile Pic-cropped-2.jpeg" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Ryan</p>
+                                    <p className="team-role mb-2">Chief Operations Officer, TecHive</p>
                                     <p className="team-role">Reactjs, Python Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
@@ -70,8 +73,9 @@ function Team() {
                             <Col xs={11} sm={6} lg={3} className="mx-auto ml-lg-0 mr-lg-0">
                                 <div className="team-container">
                                     <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
-                                    <p className="team-name">Cliton</p>
+                                    <p className="team-name">Clinton</p>
                                     <p className="team-role">Ruby on Rails Developer</p>
+                                    <p className="team-role mb-2"></p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>
@@ -85,6 +89,7 @@ function Team() {
                                     <img src="images/team-4.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Franklin</p>
                                     <p className="team-role">Django Developer</p>
+                                    <p className="team-role mb-2"></p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>
                                         <img src="images/twitter.webp" alt="twitter" className="img-fluid"/>

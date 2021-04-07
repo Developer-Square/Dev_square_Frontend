@@ -100,14 +100,16 @@ class Api {
                 url: 'tasks/',
                 params: {
                     page: data.page,
-                    limit: data.limit
+                    limit: data.limit,
+                    ...(data.status !== '' ? {status: data.status} : {})
                 }
             }),
             getTask: (id) => this.instance.get(`tasks/${id}`),
             updateTask: (id, data) => this.instance.patch(`tasks/${id}`, data),
             deleteTask: (id) => this.instance.delete(`tasks/${id}`),
             getUsersTasks: (id) => this.instance.get(`users/tasks/${id}`),
-            assignUserTask: (id, data) => this.instance.post(`users/${id}`, data)
+            assignUserTask: (id, data) => this.instance.post(`users/${id}`, data),
+            deleteUsersTask: (id, data) => this.instance.delete(`/users/tasks/${id}`, {data: data})
         }
     }
 
@@ -131,14 +133,15 @@ class Api {
             }),
             createUser: (data) => this.instance.post(`users/`, data),
             updateUser: (id, data) => this.instance.patch(`users/${id}`, data),
-            deleteUser: (data) => this.instance.delete(`users/${data}`)
+            deleteUser: (data) => this.instance.delete(`users/${data}`),
         }
     }
 
     Projects() {
         return {
             getAllProjects: () => this.instance.get(`project/`),
-            updateProject: (id, data) => this.instance.patch(`project/${id}`, data)
+            updateProject: (id, data) => this.instance.patch(`project/${id}`, data),
+            getProjectTasks: (id) => this.instance.get(`project/tasks/${id}`)
         }
     }
 }

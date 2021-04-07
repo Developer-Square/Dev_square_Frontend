@@ -55,7 +55,7 @@ function Projects({ title, data, count }) {
 			{userData.slice(0, size).map((user, index) => (
 				<Project data={user} index={index + 1} key={index}/>
 			))}
-			<ViewAllButton title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
+			<ViewAllButton func={true} title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
 	);
 }

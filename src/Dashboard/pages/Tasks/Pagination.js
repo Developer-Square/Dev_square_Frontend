@@ -81,7 +81,7 @@ const Pagination = forwardRef((props, ref) => {
                 dispatch(setLoading())
                 notify('success', 'Tasks fetched successfully')
                 //eslint-disable-next-line
-                res.data.results.map((task, index) => {
+                res.data.results.map((task) => {
                     getUser(task.creator)
                 })
             }

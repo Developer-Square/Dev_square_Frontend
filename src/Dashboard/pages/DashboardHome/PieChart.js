@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Form, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Progress} from 'react-sweet-progress'
+
+//Own Components
+import Api from '../../../services/network'
 
 const Container = styled.div`
     .card-body {
@@ -36,28 +39,76 @@ const CardTitle = styled.div`
     font-size: 1.2rem;
 `
 
-export default function PieChart() {
+export default function PieChart({projects}) {
+    const [projectName, setProjectName] = useState('')
+    const [tasksNumber, setTaskNumber] = useState(0)
+    const api = new Api()
+
+    useEffect(() => {
+        if (projects.length !== 0) {
+            getSpecificTasks()
+            setProjectName(projects[0].name)
+        }
+       // eslint-disable-next-line 
+    }, [projects])
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
           Select your project to see the progress
         </Tooltip>
       );
 
+    function getSpecificTasks(params) {
+        let data
+        if (params !== undefined) {
+            data = params
+        } else {
+            data = projects[0].id
+        }
+        api.Projects().getProjectTasks(data)
+        .then(res => {
+            if (res.status === 200) {
+                let inProgress = 0;
+                let len = res.data.length
+                res.data.map((task, index) => {
+                    if (task.status === "inProgress") {
+                        inProgress += 1
+                    }
+
+                    if (index === len - 1) {
+                        let result = Math.round((inProgress / len) * 100)
+                        setTaskNumber(result)
+                    }
+                    return null;
+                })
+            }
+        })
+    }
+
+    function handleChange(e) {
+        setProjectName(e.target.value)
+        let project_name = e.target.value.slice(8)
+        projects.map(project => {
+            if (project.name ===  project_name) {
+                getSpecificTasks(project.id)
+            }
+            return null
+        })
+    }
+
     return (
         <Container>
             <CardContainer className="main-card mb-3 card">
                 <div className="card-body">
-                    <CardTitle className="card-title">Projects</CardTitle>
+                    <CardTitle className="card-title">Project Stats</CardTitle>
                     <OverlayTrigger
                         placement="top"
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >   
-                        <Form.Control as="select">
-                            <option>Project Izuku</option>
-                            <option>Project Eren</option>
-                            <option>Projec Ippo</option>
-                            <option>Projec Issei</option>
+                        <Form.Control as="select" value={projectName} onChange={handleChange}>
+                            {projects !== '' ? projects.map(project => (
+                                 <option key={project.id}>Project {project.name}</option>
+                            )): 'Loading'}
                         </Form.Control>
                     </OverlayTrigger>
 
@@ -65,12 +116,12 @@ export default function PieChart() {
                         <Progress
                         theme={{
                               active: {
-                                trailColor: '#f5af5b',
-                                color: '#9d05f5'
+                                trailColor: '#9d05f5',
+                                color: '#f5af5b'
                               }
                             }}
                         width={230}
-                        percent={60}
+                        percent={tasksNumber}
                         type="circle" />
                     </div>
                 </div>

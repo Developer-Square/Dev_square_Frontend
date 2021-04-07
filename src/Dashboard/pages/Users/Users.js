@@ -67,7 +67,7 @@ function Users({ title, page, pageNumber, data, count }) {
 					<User data={user} index={index + 1} key={index}/>
 				)): <Domino loading={true} />}
 			</Content>
-			<ViewAllButton title={title} marginTop="15px" page={page} pageNumber={pageNumber} marginBottom="10px" onClick={() => toggleSize()}/>
+			<ViewAllButton func={true} title={title} marginTop="15px" page={page} pageNumber={pageNumber} marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
 	);
 }

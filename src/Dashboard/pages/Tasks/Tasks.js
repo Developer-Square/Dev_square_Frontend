@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
@@ -39,6 +40,12 @@ const Container = styled.div`
     .names {
         text-transform: capitalize;
     }
+
+    .pop-over svg {
+        font-size: 22px;
+        float: right;
+        cursor: pointer;
+    }
 `
 
 const CardContainer = styled.div`
@@ -64,6 +71,8 @@ const CardTitle = styled.div`
 //Fetching of the tasks happens in the pagination component
 export default function Tasks() {
     const [modalShow, setModalShow] = useState(false);
+    const [popoverShow, setPopoverShow] = useState(false);
+    const [target, setTarget] = useState('');
     const [rowId, setRowId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
     const [assignModal, setAssignModal] = useState(false);
@@ -76,6 +85,8 @@ export default function Tasks() {
     const childRef = useRef()
     const paginationRef = useRef()
     const api = new Api()
+    //To open the popover responsible for updating, deleting or assigning tasks
+    const popoverRef = useRef()
 
     useEffect(() => {
         // eslint-disable-next-line
@@ -84,7 +95,7 @@ export default function Tasks() {
     //Assign a task to a user
     function handleAssign(e) {
         //Getting the index of the clicked row
-        let rowId = e.currentTarget.className.slice(24,48)
+        let rowId = e.currentTarget.className.slice(30,54)
         if (Tasks.results.length !== 0) {
             const {results} = Tasks
             // eslint-disable-next-line
@@ -176,7 +187,7 @@ export default function Tasks() {
 
     function handleTaskUpdate(e) {
         //Getting the id of the clicked row
-        let rowId = e.currentTarget.className.slice(5,29)
+        let rowId = e.currentTarget.className.slice(11, 35)
         //Map the indexes stored in state to see which one matches the one that was clicked
         const {results} = Tasks
         // eslint-disable-next-line
@@ -191,7 +202,7 @@ export default function Tasks() {
 
     function handleDelete(e) {
         //Getting the id of the clicked row
-        let rowId= e.currentTarget.className.slice(0,24)
+        let rowId= e.currentTarget.className.slice(6, 30)
         setRowId(rowId)
         setDeleteModal(true)
     }
@@ -217,6 +228,15 @@ export default function Tasks() {
         }
     } 
 
+    const handlePopover = (e) => {
+        setPopoverShow(!popoverShow)
+        //To allow the user to use the svg close icon to close the popover
+        if (typeof(e.target.className) !== 'object') {
+            if (e.target.className.indexOf('button') === -1) {
+                setTarget(e.target)
+            }
+        }
+    }
     return (
         <>
         <AddButton onClick={() => toggleModal()} />
@@ -233,20 +253,20 @@ export default function Tasks() {
                     <div className="d-flex justify-content-between">
                         <CardTitle className="card-title">Tasks</CardTitle>
                         <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                    >   
-                    {Admins.length !== 0 ? 
-                        <Form.Control as="select" onChange={(e) => handleUserTasks(e)}>
+                            placement="top"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                        >   
+                            {Admins.length !== 0 ? 
+                            <Form.Control as="select" onChange={(e) => handleUserTasks(e)}>
                             <option>Choose user</option>
                             <option>Get All Tasks</option>
                             {Admins.length !== 0 ? Admins.map((admin, index) => (
                                 <option key={index} className="names">{admin.name}</option>
                             )): 'Loading'}
-                        </Form.Control>
+                            </Form.Control>
                         :
-                        <StairsLoader />
+                            <StairsLoader />
                         }
                         </OverlayTrigger>
                     </div>
@@ -284,41 +304,46 @@ export default function Tasks() {
                             <div className="rt-body">
                                 <div className="rt-tr-group">
                                     {Object.keys(Tasks).length !== 0 && Tasks.results.length !== 0 ? Tasks.results.map((task, index) => (
-                                        <OverlayTrigger
-                                        trigger="click"
-                                        key={index}
-                                        placement="bottom-end"
-                                        rootClose={true}
-                                        overlay={
-                                            <Popover id={`popover-positioned-bottom`}>
-                                            <Popover.Title as="h3">Actions</Popover.Title>
-                                            <Popover.Content>
-                                                <Button className={`mr-2 mb-2 assign col-12 ${task.id}`} variant="outline-success" onClick={handleAssign}>Assign</Button>
-                                                <div className="d-flex justify-content-between">
-                                                    <Button className={`mr-2 ${task.id}`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
-                                                    <Button variant="danger" className={`${task.id}`} onClick={handleDelete}>Delete</Button>
-                                                </div>
-                                            </Popover.Content>
-                                            </Popover>
-                                        }
-                                    >  
-                                        <div className={`rt-tr ${index}`} key={index}>
+                                          
+                                        <div popoverRef={popoverRef} onClick={handlePopover} className={`rt-tr ${task.id}`} key={index}>
+                                            <Overlay
+                                                show={popoverShow}
+                                                target={target}
+                                                container={popoverRef.current}
+                                                containerPadding={20}
+                                                key={index}
+                                                placement="bottom-end"
+                                                rootClose={true}
+                                            >
+                                                <Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
+                                                    <Popover.Title as="h3" className="pop-over">
+                                                        Actions
+                                                        <span className="iconify" data-icon="carbon:close" data-inline="false"></span>
+                                                    </Popover.Title>
+                                                    <Popover.Content>
+                                                        <Button className={`mr-2 mb-2 assign col-12 ${target.className} button`} variant="outline-success" onClick={handleAssign}>Assign</Button>
+                                                        <div className="d-flex justify-content-between">
+                                                            <Button className={`mr-2 ${target.className} button`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>
+                                                            <Button variant="danger" className={`${target.className} button`} onClick={handleDelete}>Delete</Button>
+                                                        </div>
+                                                    </Popover.Content>
+                                                    </Popover>
+                                            </Overlay>
                                             {/* Checks the index of the grid cell if its odd it gives an odd class name
                                             which turns it grey */}
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(20)}</div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.id.slice(20)}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.description}</div>
                                                 {/* While the user's name is still unavailable we give the field a spinner/loader */}
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                     {TaskCreators.length === 0 ? <Spinner animation="border" variant="primary" size="sm" /> : TaskCreators[index]}
                                                 </div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                 {/* The color of the dot changes according to the task status */}
                                                 <span><span className={`dot-${task.status}`}>●</span> {task.status}</span>
                                                 </div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
-                                                <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.dueDate.slice(0, 10)}</div>
+                                                <div className={`rt-td ${task.id} ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">{task.stack}</div>
                                         </div>
-                                    </OverlayTrigger>
                                     )): null}
                                 </div>
                             </div>

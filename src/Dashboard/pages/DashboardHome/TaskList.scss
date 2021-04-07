@@ -1,6 +1,7 @@
 .-container-- {
     .card-body {
         padding: 0;
+        flex: 1 1 auto;
         align-items: center;
     }
 
@@ -15,7 +16,31 @@
     }
 
     .list-group {
+        width: 100%;
         padding: .5rem;
+
+        .dot-inProgress {
+            color: rgb(253, 126, 20);
+            background-color: rgb(253, 126, 20);
+        }
+
+        .dot-completed {
+            color: rgb(58, 196, 125);
+            background-color: rgb(58, 196, 125);
+        }
+
+        .dot-onhold {
+            color: #007fff;
+            background-color: #007fff;
+        }
+        .dot-notStarted {
+            color: #8b16f2;
+            background-color: #8b16f2;
+        }
+        .dot-cancelled {
+            color: #dc3545;
+            background-color: #dc3545;
+        }
     }
 
     .content-wrapper {

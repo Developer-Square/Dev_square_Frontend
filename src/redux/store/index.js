@@ -4,12 +4,14 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import TasksReducer from '../reducer/TasksReducer'
 import AuthReducer from '../reducer/AuthReducer'
 import UsersReducer from '../reducer/UsersReducer'
+import ProjectsReducer from '../reducer/ProjectsReducer'
 
 const store = createStore(
     combineReducers({
         tasks: TasksReducer,
         auth: AuthReducer,
-        users: UsersReducer
+        users: UsersReducer,
+        projects: ProjectsReducer,
     }),
     composeWithDevTools(applyMiddleware(thunk))
 )

@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
+import {useHistory} from 'react-router-dom'
 
 //Own Components
 import Api from '../../services/network' 
@@ -20,6 +21,12 @@ const Container = styled.div`
     }
     .close-btn-2 {
         background: #F17E7E;
+    }
+
+    .disable {
+        pointer-events: none;
+        opacity: .5;
+        cursor: default;
     }
 `
 
@@ -44,8 +51,9 @@ const Button = styled.a`
     }
 `
 
-function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClick}) {
+function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClick, func}) {
     const dispatch = useDispatch()
+    let history = useHistory()
     const [btnText, setBtnText] = useState('')
     const [nextPage, setNextPage] = useState(false)
     //Making an api call
@@ -92,23 +100,27 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
     }
     //Changing the color and text of the buttons on clicking them
     const handleClick = (e) => {
-        onClick()
-        const btn = e.target
-        setBtnText(btn.innerHTML)
-        if (btn.innerHTML.search('Active') !== -1) {
-            btn.classList.add('close-btn-1')
-            btn.innerHTML = 'Close All Accounts'
-            //If there are more than 10 users then set the next page to true to reveal the next button
-            if (page > 1) {
-                setNextPage(true)
+        if (func) {
+            onClick()
+            const btn = e.target
+            setBtnText(btn.innerHTML)
+            if (btn.innerHTML.search('Active') !== -1) {
+                btn.classList.add('close-btn-1')
+                btn.innerHTML = 'Close All Accounts'
+                //If there are more than 10 users then set the next page to true to reveal the next button
+                if (page > 1) {
+                    setNextPage(true)
+                }
+            } else if (btn.innerHTML.search('Closed') !== -1) {
+                btn.classList.add('close-btn-1')
+                btn.innerHTML = 'Close All Accounts' 
+            } else if (btn.innerHTML.search('Close All Accounts')) {
+                btn.classList.remove('close-btn-1')
+                btn.innerHTML = btnText
+                setNextPage(false)
             }
-        } else if (btn.innerHTML.search('Closed') !== -1) {
-            btn.classList.add('close-btn-1')
-            btn.innerHTML = 'Close All Accounts' 
         } else {
-            btn.classList.remove('close-btn-1')
-            btn.innerHTML = btnText
-            setNextPage(false)
+            history.push('/dashboard/tasks')
         }
     }
 
@@ -127,8 +139,8 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
             />
             <Container marginTop={marginTop} marginBottom={marginBottom}>
                 <Button className="view-all-button" onClick={handleClick}>All {title}</Button>
-                {nextPage === true && page > 1 ? <Button variant="info" className="ml-3 prev" onClick={getNextPage}>Previous page</Button> : null}
-                {nextPage ? <Button className="view-all-button next ml-3" onClick={getNextPage}>Next Page</Button>: null}
+                {nextPage === true && page > 1 ? <Button variant="info" className={`ml-3 prev ${pageNumber === 1 ? 'disable' : 'enable'}`} onClick={getNextPage}>Previous page</Button> : null}
+                {nextPage ? <Button className={`view-all-button next ml-3 ${page - pageNumber === 0 ? 'disable' : 'enable'}`} onClick={getNextPage}>Next Page</Button>: null}
             </Container>
         </>
     )
