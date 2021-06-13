@@ -15,6 +15,8 @@ function ServicesAndBlog() {
                         <p className="text-center">Our company provides the services stated below in more detail. It's our company's motto to deliver quality and maintainable websites and apps that please our users.
                         </p>
                         <Row className="limit mx-auto">
+                            {/* Make another file, call it 'ServiceItem' and then reuse it here. Give it props for the images */}
+                            {/* <ServiceItem image1="images/services-shape-1.webp" image2="images/assets/icons/nodejs.webp" className="service-icon"/> title="" description */}
                             <Col xs={12} sm={6} className="service-container">
                                 <div className="service-title d-flex justify-content-center">
                                     <img src="images/services-shape-1.webp" alt="services" className="img-fluid"/>
