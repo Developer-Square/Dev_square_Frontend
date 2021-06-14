@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react'
 
 //Own Components
-import Header from './components/Header'
+import Header from './components/Header/Header'
 import LandingArea from './components/LandingArea'
 import AboutUs from './components/AboutUs'
 import Portfolio from './components/Portfolio'

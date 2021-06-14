@@ -18,11 +18,11 @@ function Header() {
         <Fragment>
             <Navbar className="mx-auto" expand="md" variant="dark">
                 <Navbar.Brand href="#home" onClick={() => scrollFunction('landing-section', 0)}>
-                    <img src="images/Logo-2.webp" className="img-fluid" alt="Logo"/>
-                    <span className="logo-text pl-2">{headername}</span></Navbar.Brand>
+                    <img src="images/Logo-2.webp" className="img-fluid" alt="Logo" data-test="logoImg"/>
+                    <span className="logo-text pl-2" data-test="logoText">{headername}</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav>
+                    <Nav data-test="headerNav">
                         <Nav.Link href="#home" className="mx-auto" onClick={() => scrollFunction('landing-section', 0)}><div className="indicator ml-md-2"></div>Home<div className="indicator-2 ml-md-2"></div></Nav.Link>
                         <Nav.Link href="#about" className="mx-auto" onClick={() => scrollFunction('aboutus-section', 75)}><div className="indicator ml-md-4"></div>About us<div className="indicator-2 ml-md-4"></div></Nav.Link>
                         <Nav.Link href="#portfolio" className="mx-auto" onClick={() => scrollFunction('portfolio-section', 75)}><div className="indicator ml-md-4"></div>Portfolio<div className="indicator-2 ml-md-4"></div></Nav.Link>
