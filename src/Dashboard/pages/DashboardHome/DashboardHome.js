@@ -14,6 +14,7 @@ import notify from '../../../helpers/Notify'
 import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData, addUsers, updateGetUsers} from '../../../redux/action-creator'
 import {addProjects} from '../../../redux/action-creator/projectActions'
 import Api from '../../../services/network'
+import { getUsers } from '../../../helpers/ApiFunctions'
 
 
 const Container = styled.div`
@@ -38,7 +39,11 @@ function DashboardHome() {
     useEffect(() => {
         //Checking if the redux store is empty before sending out new requests
         if (Object.keys(users).length === 0) {
-            getUsers() 
+            let data = {                
+                limit: 6,
+                page: 1
+            }
+            getUsers(data, dispatch)
         }
         if (NewTasks.length === 0 ) {
             getTasks()
@@ -69,29 +74,6 @@ function DashboardHome() {
     //       })
     // }
 
-    //Get All Users
-	function getUsers() {
-        let data = {                
-            limit: 6,
-            page: 1
-        }
-		api.User().getAllUsers(data)
-		.then(res => {
-			if (res.status === 200){
-                dispatch(addUsers(res.data))
-				notify('success', 'Users fetched successfully')
-				dispatch(updateGetUsers())
-			}
-		})
-		.catch(err => {
-			if (err.response) {
-				const {message} = err.response.data
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-		})
-    }
 
     //Get the Developer name    
     const getUser = async (id) => {

@@ -10,7 +10,8 @@ import $ from 'jquery'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
-import { updateUserCount, updateUser, userToBeUpdated } from '../../../redux/action-creator'
+import {createUpdateUserDetails} from '../../../helpers/ApiFunctions'
+import { userToBeUpdated } from '../../../redux/action-creator'
 
 export default function UsersModal(props) {
     const dispatch = useDispatch()
@@ -95,43 +96,7 @@ export default function UsersModal(props) {
             if (IsNotEmpty(data) === true) {
                 const api = new Api()
                 //Choose whether to update or register a user
-                if (updateStatus === true) {
-                    api.User().updateUser(taskupdateid, data)
-                    .then(res => {
-                        if(res.status === 200) {
-                            notify('success', 'User updated successfully')
-                            dispatch(updateUser(res.data))
-                            dispatch(updateUserCount())
-                            clearFields(props)
-                            dispatch(userToBeUpdated(''))
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            notify('error', message)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
-                } else {
-                    api.User().createUser(data)
-                    .then(res => {
-                        if (res.status === 201) {
-                            notify('success', 'User successfully created')
-                            clearFields(props)
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            const customMessage = `User not created! \n ${message}`
-                            notify('error', customMessage)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
-                }
+                createUpdateUserDetails(updateStatus, taskupdateid, data, props, dispatch, clearFields)
             } else {
                 notify('error', 'Please fill in all the fields')
             }

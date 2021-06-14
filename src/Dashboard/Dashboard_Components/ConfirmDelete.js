@@ -15,29 +15,13 @@ export default function ConfirmDelete(props) {
     const api = new Api()
     const {id, deleteType} = props
 
-    //Get All Users
-	function getUsers() {
-        let data = {                
-            limit: 6,
-            page: 1
-        }
-		api.User().getAllUsers(data)
-		.then(res => {
-			if (res.status === 200){
-                dispatch(addUsers(res.data))
-				notify('success', 'Users fetched successfully')
-				dispatch(updateGetUsers())
-			}
-		})
-		.catch(err => {
-			if (err.response) {
-				const {message} = err.response.data
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-		})
+    let data = {                
+        limit: 6,
+        page: 1
     }
+    // getUsers(data, dispatch)
+    //Get All Users
+
 
     function getProjects() {
         api.Projects().getAllProjects()

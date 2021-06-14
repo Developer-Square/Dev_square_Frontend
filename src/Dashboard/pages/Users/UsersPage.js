@@ -12,6 +12,7 @@ import Api from '../../../services/network'
 import notify from "../../../helpers/Notify";
 
 import depositData from "../../../DepositData.json";
+import { getUsers } from '../../../helpers/ApiFunctions';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -28,44 +29,12 @@ function UsersPage() {
         //specific page
         if (pageNumber !== '') {
             // Get tasks when page loads
-            getUsers(pageNumber)
+            getUsers(pageNumber, dispatch)
         } else if (users.length === 0) {
-            getUsers() 
+            getUsers(undefined, dispatch) 
         }
         // eslint-disable-next-line
     }, [updatedCount])
-
-    //Get All Users
-	function getUsers(params) {
-        let data = {}
-		if (params !== undefined) {
-            data = params  
-        } else {
-            data = {
-                limit: 10,
-                page: 1
-            }
-        }
-		dispatch(setLoading())
-		api.User().getAllUsers(data)
-		.then(res => {
-			if (res.status === 200){
-                dispatch(addUsers(res.data))
-				notify('success', 'Users fetched successfully')
-				dispatch(setLoading())
-				dispatch(updateGetUsers())
-			}
-		})
-		.catch(err => {
-			if (err.response) {
-				const {message} = err.response.data
-				dispatch(setLoading())
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-		})
-    }
     
     const toggleModal = () => {
         dispatch(userToBeUpdated(''))

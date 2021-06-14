@@ -6,8 +6,9 @@ import {ToastContainer} from 'react-toastify'
 //Own Components
 import Api from '../../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers, updatePageNumber} from '../../../redux/action-creator'
+import {addTasks, updateGetTasks, setLoading, addTaskCreators, updatePageNumber} from '../../../redux/action-creator'
 import notify from '../../../helpers/Notify'
+import { getAdminUsers } from '../../../helpers/ApiFunctions'
 
 const Container = styled.div`
     .disabled {
@@ -41,8 +42,11 @@ const Pagination = forwardRef((props, ref) => {
         } else if (Tasks.length === 0) {
             getTasks() 
         }
+        const data = {
+            role: 'admin'
+        }
         //Get admin users
-        getAdminUsers()
+        getAdminUsers(data, dispatch)
         //When a user refreshes the page, clear localStorage
         if (CreatedCount === 0 && UpdatedCount === 0 && AssignedCount === 0) {
             localStorage.setItem('usertaskname', 'none')
@@ -100,26 +104,7 @@ const Pagination = forwardRef((props, ref) => {
 
     }
 
-    function getAdminUsers() {
-        const data = {
-            role: 'admin'
-        }
-        api.User().getAllUsersWithRole(data)
-        .then(res => {
-            if (res.status === 200) {
-                dispatch(addAdminUsers(res.data.results))
-            }
-        })
-        .catch(err => {
-            if (err.response) {
-				const {message} = err.response.data
-				dispatch(setLoading())
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
-    }
+
 
     //Get the Developer name    
     const getUser = async (id) => {
