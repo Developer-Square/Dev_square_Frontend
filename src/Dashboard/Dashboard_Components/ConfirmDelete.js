@@ -15,17 +15,6 @@ export default function ConfirmDelete(props) {
     const api = new Api()
     const {id, deleteType} = props
 
-
-    useEffect(() => {
-        if (Object.keys(users).length === 0) {
-            getUsers()
-        }
-        if (projects.length === 0) {
-            getProjects()
-        }
-        // eslint-disable-next-line
-    }, [])
-
     //Get All Users
 	function getUsers() {
         let data = {                

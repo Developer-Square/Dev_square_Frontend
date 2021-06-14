@@ -27,7 +27,7 @@ function UsersPage() {
         //If the user was on a certain page, return them to the 
         //specific page
         if (pageNumber !== '') {
-            //Get tasks when page loads
+            // Get tasks when page loads
             getUsers(pageNumber)
         } else if (users.length === 0) {
             getUsers() 
