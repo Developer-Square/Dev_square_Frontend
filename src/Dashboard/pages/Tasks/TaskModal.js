@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import IsNotEmpty from '../../../helpers/IsNotEmpty'
 import notify from '../../../helpers/Notify'
-import {createdTask, updateTasks} from '../../../redux/action-creator/index'
+import {createUpdateTask} from '../../../helpers/ApiFunctions'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -243,23 +243,7 @@ const TaskModal = forwardRef((props, ref) => {
                     //remove the project attribute as it is not to be sent
                     //along with the task's object
                     delete data.id
-                    api.Tasks().updateTask(UpdatedTask.id, data)
-                    .then(res => {
-                        if (res.status === 200) {
-                            notify('success', 'Task successfully updated')
-                            dispatch(updateTasks(res.data))
-                            clearFields()
-                            props.onHide()
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            notify('error', message)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
+                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update')
                 } else if (updateProjects) {
                     addTaskToProject(UpdatedTask.id)
                 } else {
@@ -275,27 +259,7 @@ const TaskModal = forwardRef((props, ref) => {
                     if (IsNotEmpty(data) === true) {
                         //Hide the modal if the data is Not empty
                         props.onHide()
-                        api.Tasks().createTask(data)
-                        .then(res => {
-                            if (res.status === 201) {
-                                //Once a task is created we get its ID and pass it to the addToTask Function
-                                //so that we can add it to its specific project
-                                addTaskToProject(res.data.id)
-                                dispatch(createdTask(true))
-                                clearFields()
-                                notify('success', 'Task successfully created')
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                const customMessage = `Task not created! \n ${message}`
-                                notify('error', customMessage)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                            
-                        })
+                        createUpdateTask('', data, dispatch, clearFields, props, addTaskToProject)
                     }
                 } else {
                     notify('error', 'You have not selected the project')

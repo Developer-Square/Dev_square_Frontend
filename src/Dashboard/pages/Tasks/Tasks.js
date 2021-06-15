@@ -131,6 +131,7 @@ export default function Tasks() {
             //the store to get the user.id n send it
             if (name.toLowerCase() === admin.name.toLowerCase()) {
                 dispatch(setLoading())
+                // TODO: Find a way to use the tasks in state.
                 api.Tasks().getUsersTasks(admin.id)
                 .then(res => {
                     if (res.status === 200) {
@@ -207,6 +208,7 @@ export default function Tasks() {
         setDeleteModal(true)
     }
 
+    // Opens and closes the modal.
     const toggleModal = () => {
         childRef.current.clearFormFields()
         dispatch(updatedTask(''))

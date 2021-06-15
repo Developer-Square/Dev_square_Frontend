@@ -1,4 +1,4 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask} from '../redux/action-creator/index'
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
 import notify from "./Notify";
@@ -28,6 +28,24 @@ export function getUsers(params, dispatch) {
         }
     })
     .catch(err => {
+        displayErrorMsg(err, dispatch)
+    })
+}
+
+    // Get the Developer name    
+export function getUser (id, dispatch, location)  {
+    api.User().getUser(id).then(res => {
+        if (res.status === 200) {
+            // If the function is being called from the Profile.js then dispatch the following.
+            if (location === 'profile') {
+                dispatch(addUser(res.data))
+                dispatch(updateAuth())
+            } else {
+                // Else dispatch action from the Pagination.js
+                dispatch(addTaskCreators(res.data.name))
+            }
+        } 
+    }).catch(err => {
         displayErrorMsg(err, dispatch)
     })
 }
@@ -70,13 +88,83 @@ export function createUpdateUserDetails(updateStatus, taskupdateid, data, props,
             }
         })
         .catch(err => {
-            if (err.response) {
-                const {message} = err.response.data
-                const customMessage = `User not created! \n ${message}`
-                notify('error', customMessage)
-            } else {
-                notify('error', 'Something went wrong, Please refresh the page.')
+            const {message} = err.response.data
+            const customMessage = `User not created! \n ${message}`
+            displayErrorMsg(err, dispatch, customMessage)
+        })
+    }
+}
+
+// Tasks
+// Get all tasks when the page loads
+export function getTasks(params, dispatch) {
+        //Set Loading to true
+        dispatch(setLoading())
+        //default attributes
+        let data = {}
+        if (params !== undefined) {
+            data = params  
+        } else {
+            data = {
+                limit: 10,
+                page: 1
             }
+        }
+
+        api.Tasks().getAllTasks(data)
+        .then(res => {
+            if (res.status === 200) {
+                //Dispatching an action to add tasks to the redux store
+                dispatch(addTasks(res.data))
+                dispatch(updateGetTasks(true))
+                //Set Loading to false
+                dispatch(setLoading())
+                notify('success', 'Tasks fetched successfully')
+                //eslint-disable-next-line
+                res.data.results.map((task) => {
+                    getUser(task.creator, dispatch)
+                })
+            }
+        })
+        .catch(err => {
+            //Set Loading to false
+            displayErrorMsg(err, dispatch)
+        })
+
+}
+
+// Creates or updates a task using the modal.
+export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, addTaskToProject) {
+    if (instruction === 'update') {
+        api.Tasks().updateTask(UpdatedTask.id, data)
+        .then(res => {
+            if (res.status === 200) {
+                notify('success', 'Task successfully updated')
+                dispatch(updateTasks(res.data))
+                clearFields()
+                props.onHide()
+            }
+        })
+        .catch(err => {
+            displayErrorMsg(err, dispatch)
+        })
+    } else {
+        api.Tasks().createTask(data)
+        .then(res => {
+            if (res.status === 201) {
+                //Once a task is created we get its ID and pass it to the addToTask Function
+                //so that we can add it to its specific project
+                addTaskToProject(res.data.id)
+                dispatch(createdTask(true))
+                clearFields()
+                notify('success', 'Task successfully created')
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            const {message} = err.response.data
+            const customMessage = `Task not created! \n ${message}`
+            displayErrorMsg(err, dispatch, customMessage)
         })
     }
 }
