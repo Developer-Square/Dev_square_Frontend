@@ -7,9 +7,7 @@ import {ToastContainer} from 'react-toastify'
 import AddButton from "../../Dashboard_Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
-import {setModalShow, addUsers, setLoading, updateGetUsers, userToBeUpdated} from '../../../redux/action-creator/index'
-import Api from '../../../services/network'
-import notify from "../../../helpers/Notify";
+import {setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
 
 import depositData from "../../../DepositData.json";
 import { getUsers } from '../../../helpers/ApiFunctions';
@@ -22,7 +20,6 @@ const Container = styled.div`
 function UsersPage() {
     const dispatch = useDispatch()
     const {modalShow, usertobeupdated, updatedCount, users, pageNumber} = useSelector(state => state.users)
-    const api = new Api()
 
     useEffect(() => {
         //If the user was on a certain page, return them to the 
