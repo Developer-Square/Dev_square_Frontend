@@ -1,4 +1,4 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addProjects} from '../redux/action-creator/index'
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
 import notify from "./Notify";
@@ -205,7 +205,8 @@ export function getProjects(dispatch) {
     api.Projects().getAllProjects()
     .then(res => {
         if (res.status === 200) {
-            // setProjects(res.data.results)
+            dispatch(addProjects(res.data.results))
+            notify('success', 'Projects fetched successfully')
         }
     })
     .catch(err => {

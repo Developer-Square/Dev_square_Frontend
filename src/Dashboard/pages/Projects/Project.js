@@ -56,7 +56,7 @@ const ProjectImg = styled.img`
 `
 
 const ProjectStreet = styled(Text)`
-	font-size: 1rem;
+	font-size: 0.9rem;
 `
 
 const Email = styled(Text)`
@@ -95,7 +95,8 @@ function Project({data, index}) {
 			$(this).css('animation-delay', delay - 5 + 's')
 		})
 	})
-	const {name, email, tasks, status, skills} = data
+	const status = 'inProgress'
+	const {name, dueDate, stack, description} = data
 
 	return ( 
 		<Container className="-container">
@@ -103,22 +104,22 @@ function Project({data, index}) {
 			<ProjectImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
 			<ProjectText>
 				<ProjectStreet>{name}</ProjectStreet>
-				<Subtitle>{skills !== undefined ? `${skills[0]} developer` : null}</Subtitle>
+				<Subtitle>{}</Subtitle>
 			</ProjectText>
 		</ProjectContainer>
-		<Email>{email}</Email>
-		<DueDate>{}</DueDate>
+		<Email>{description !== undefined ? `${description.slice(0, 50)}...`: 'Loading'}</Email>
+		<DueDate>{dueDate}</DueDate>
 		<DepositWrapper>
-			<Text>{tasks !== undefined ? tasks.length : null}</Text>
+			<Text>{stack}</Text>
 			<Subtitle>{}</Subtitle>
 		</DepositWrapper>
 		<Status>
-			<Text>{status === 'available' ? 'Available' : status === 'busy' ? 'Busy' : 'Deactivated'}</Text>
+			<Text>{status === 'notStarted' ? 'NotStarted' : status === 'inProgress' ? 'InProgress' : 'Deactivated'}</Text>
 			{(() => {
 				switch (status) {
 					case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
-					case 'busy': return <StatusIndicator color="#FFD056"/>;
-					case 'available': return <StatusIndicator color="#75C282"/>;
+					case 'inProgress': return <StatusIndicator color="#FFD056"/>;
+					case 'notStarted': return <StatusIndicator color="#75C282"/>;
 					default: return <StatusIndicator color="#AAA5A5"/>;
 				}
 			})()}

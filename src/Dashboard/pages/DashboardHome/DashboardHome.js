@@ -14,7 +14,7 @@ import notify from '../../../helpers/Notify'
 import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import {addProjects} from '../../../redux/action-creator/projectActions'
 import Api from '../../../services/network'
-import { getUsers } from '../../../helpers/ApiFunctions'
+import { getUsers, getProjects } from '../../../helpers/ApiFunctions'
 
 
 const Container = styled.div`
@@ -49,31 +49,12 @@ function DashboardHome() {
             getTasks()
         }
         if (projects.length === 0) {
-            getProjects()
+            getProjects(dispatch)
+            getProjectTasks()
         }
 
-        // checkTasks()
         // eslint-disable-next-line
     }, [])
-
-    // const checkTasks = () => {
-    //     let tasks = [
-    //         "5fd77e8e01fe910022be3730",
-    //         "5fd77ea701fe910022be3731",
-    //         "5fda3eebc836e7002224e67e",
-    //         "5fda4414c836e7002224e687",
-    //         "5fd600e4d913ea002214812e",
-    //         "5ffadf1046415300222a644b"
-    //       ]
-    //       tasks.map(task => {
-    //           api.Tasks().getTask(task)
-    //           .then(res => res)
-    //           .catch(err => {
-    //               console.log(task)
-    //           })
-    //       })
-    // }
-
 
     //Get the Developer name    
     const getUser = async (id) => {
@@ -228,34 +209,24 @@ function DashboardHome() {
         })
 
     }
-
-    function getProjects() {
-        api.Projects().getAllProjects()
-        .then(res => {
-            if (res.status === 200) {
-                dispatch(addProjects(res.data.results))
-                const {results} = res.data
-                results.map((res,index) => {
-                    let resultsArray = taskIds
-                    resultsArray.push(res.tasks)
-                    
-                    //When mapping is done put the final result in state
-                    if(index === 1) {
-                        setTasksIds(resultsArray)
-                    }
-                    return null;
-                })
-                notify('success', 'Projects fetched successfully')
-            }
-        })
-        .catch(err => {
-            if (err.response) {
-                const {message} = err.response.data
-                notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
+    /**
+     * Gets a projects tasks which are later calculated to 
+     * get how many are completed compared to the ones that incomplete.
+     * This is then displayed using the pie chart on the dashboard.
+     */
+    function getProjectTasks() {
+        if (projects !== undefined) { 
+            projects.map((res,index) => {
+                let resultsArray = taskIds
+                resultsArray.push(res.tasks)
+                
+                //When mapping is done put the final result in state
+                if(index === 1) {
+                    setTasksIds(resultsArray)
+                }
+                return null;
+            })
+        }
     }
 
     return (
