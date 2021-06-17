@@ -8,7 +8,7 @@ import $ from 'jquery'
 
 //Own Components
 import notify from '../../../helpers/Notify'
-import IsNotEmpty from '../../../helpers/IsNotEmpty'
+import {IsNotEmpty} from '../../../helpers/Reusable Functions'
 import {createUpdateUserDetails} from '../../../helpers/ApiFunctions'
 import { userToBeUpdated } from '../../../redux/action-creator'
 

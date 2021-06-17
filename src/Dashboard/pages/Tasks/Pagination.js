@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import Api from '../../../services/network'
 import './Pagination.scss'
 import {updatePageNumber} from '../../../redux/action-creator'
 import { getAdminUsers, getTasks} from '../../../helpers/ApiFunctions'
@@ -18,7 +17,6 @@ const Container = styled.div`
 const Pagination = forwardRef((props, ref) => {
     const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks} = useSelector(state => state.tasks)
     const {pageNumber} = useSelector(state => state.users)
-    const api = new Api()
     const dispatch = useDispatch()
     const {page, limit, totalPages, handleUserTasks} = props
 
@@ -54,11 +52,10 @@ const Pagination = forwardRef((props, ref) => {
         //this ensures that tasks returned belong to them and not just any tasks
         if (UpdatedTask === true) {
             let e = null
-            handleUserTasks(e, localStorage.getItem('usertaskname'))
+            handleUserTasks(e, localStorage.getItem('userdetails'))
         }
         // eslint-disable-next-line
     }, [CreatedCount, AssignedCount, UpdatedCount])
-
 
     function fetchPrevAndNextPage(e) {
         //Setting the params to control the pagination

@@ -8,9 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 //Own Components
 import Api from '../../../services/network'
-import IsNotEmpty from '../../../helpers/IsNotEmpty'
+import {IsNotEmpty, converter} from '../../../helpers/Reusable Functions'
 import notify from '../../../helpers/Notify'
-import {createUpdateTask} from '../../../helpers/ApiFunctions'
+import {createUpdateTask, addTaskToProject} from '../../../helpers/ApiFunctions'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -102,92 +102,6 @@ const TaskModal = forwardRef((props, ref) => {
             notify('error', message)
         })
     }
-    
-    //Add the task to the specific project selected
-    function addTaskToProject(id) {
-        // eslint-disable-next-line
-        projects.map(project => {
-            //projectTasks contains the name chosen in the form
-            project.tasks.map((task, index) => {
-                if (id !== undefined && id !== '') {
-                    if (task === id) {
-                        //Incase the task was in a previous project, remove it
-                        if (project.name !== projectTasks) {
-                            project.tasks.splice(index, 1)
-                        }
-                        const data = {tasks: project.tasks}
-                        //Remove the clientId since its not allowed in the backend
-                        api.Projects().updateProject(project.id, data)
-                        .then(res => {
-                            if (res.status === 200) {
-                                notify('success', 'Removed task from old project successfully')
-                                clearFields()
-                                props.onHide()
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                notify('error', message)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                        })
-                    } 
-                }
-                return null
-            })
-
-            if (projectTasks === project.name) {
-                if (id !== undefined && id !== '') {
-                    if (project.tasks.includes(id) === false) {
-                        project.tasks.push(id)
-                        const data = {tasks: project.tasks}
-                        //Remove the clientId since its not allowed in the backend
-                        api.Projects().updateProject(project.id, data)
-                        .then(res => {
-                            if (res.status === 200) {
-                                notify('success', 'Added task to project successfully')
-                                clearFields()
-                                props.onHide()
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                notify('error', message)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                        })   
-                    }
-                }
-            } 
-            
-        })
-    }
-
-    //Converts words like 'Not Started' into camelCase e.g. 'notStarted'
-    //since the backend only receives camelCase strings in some instances
-    const converter = (input) => {
-        let regex = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g
-        let data = input.match(regex)
-        
-        let result = ""
-        if(data !== null) {
-            for (let i = 0; i < data.length; i++) {
-                let tempStr = data[i].toLowerCase();
-                
-                if (i !== 0) {
-                    //Convert first letter to Uppercase( the word is in lowercase )
-                    tempStr = tempStr.substr(0, 1).toUpperCase() + tempStr.substr(1)
-                }
-    
-                result += tempStr
-            }
-        }
-        return result
-    }
 
     const clearFields = () => {
         setDescription('')
@@ -245,7 +159,7 @@ const TaskModal = forwardRef((props, ref) => {
                     delete data.id
                     createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update')
                 } else if (updateProjects) {
-                    addTaskToProject(UpdatedTask.id)
+                    addTaskToProject(UpdatedTask.id, projectTasks, projects, dispatch, props)
                 } else {
                      //If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
@@ -259,7 +173,7 @@ const TaskModal = forwardRef((props, ref) => {
                     if (IsNotEmpty(data) === true) {
                         //Hide the modal if the data is Not empty
                         props.onHide()
-                        createUpdateTask('', data, dispatch, clearFields, props, addTaskToProject)
+                        createUpdateTask('', data, dispatch, clearFields, props, '', projectTasks, projects)
                     }
                 } else {
                     notify('error', 'You have not selected the project')

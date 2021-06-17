@@ -7,8 +7,8 @@ export function displayErrorMsg(err, dispatch, customMessage) {
     if (err.response) {
         const {message} = err.response.data
         if (customMessage !== undefined) {
-            const customMessage = `User not created! \n ${message}`
-            notify('error', customMessage)
+            const custom = `${customMessage} \n ${message}`
+            notify('error', custom)
         } else {
             notify('error', message)
         }

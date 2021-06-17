@@ -88,8 +88,7 @@ export function createUpdateUserDetails(updateStatus, taskupdateid, data, props,
             }
         })
         .catch(err => {
-            const {message} = err.response.data
-            const customMessage = `User not created! \n ${message}`
+            const customMessage = 'User not created!'
             displayErrorMsg(err, dispatch, customMessage)
         })
     }
@@ -134,7 +133,7 @@ export function getTasks(params, dispatch) {
 }
 
 // Creates or updates a task using the modal.
-export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, addTaskToProject) {
+export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, projectTasks, projects) {
     if (instruction === 'update') {
         api.Tasks().updateTask(UpdatedTask.id, data)
         .then(res => {
@@ -154,17 +153,85 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
             if (res.status === 201) {
                 //Once a task is created we get its ID and pass it to the addToTask Function
                 //so that we can add it to its specific project
-                addTaskToProject(res.data.id)
+                addTaskToProject(res.data.id, projectTasks, projects, dispatch, clearFields, props)
                 dispatch(createdTask(true))
                 clearFields()
                 notify('success', 'Task successfully created')
             }
         })
         .catch(err => {
-            console.log(err)
-            const {message} = err.response.data
-            const customMessage = `Task not created! \n ${message}`
+            const customMessage = 'Task not created!'
             displayErrorMsg(err, dispatch, customMessage)
         })
     }
+}
+
+    //Add the task to the specific project selected
+export function addTaskToProject(id, projectTasks, projects, dispatch, clearFields, props) {
+        // eslint-disable-next-line
+        projects.map(project => {
+            //projectTasks contains the name chosen in the form
+            project.tasks.map((task, index) => {
+                if (id !== undefined && id !== '') {
+                    if (task === id) {
+                        //Incase the task was in a previous project, remove it
+                        if (project.name !== projectTasks) {
+                            project.tasks.splice(index, 1)
+                        }
+                        const data = {tasks: project.tasks}
+                        updateProject(project, data, dispatch, clearFields, props)
+                    } 
+                }
+                return null
+            })
+
+            if (projectTasks === project.name) {
+                if (id !== undefined && id !== '') {
+                    if (project.tasks.includes(id) === false) {
+                        project.tasks.push(id)
+                        const data = {tasks: project.tasks}
+                        updateProject(project, data, dispatch, clearFields, props)
+                    }
+                }
+            } 
+            
+        })
+    }
+
+// Projects    
+// TODO: Make a change in TaskModal page to start using the projects in the store
+// once you create the projects page.
+export function getProjects(dispatch) {
+    api.Projects().getAllProjects()
+    .then(res => {
+        if (res.status === 200) {
+            // setProjects(res.data.results)
+        }
+    })
+    .catch(err => {
+        displayErrorMsg(err, dispatch)
+    })
+}
+
+/**
+ * @param  {} project
+ * @param  {} data
+ * @param  {} dispatch
+ * @param  {} clearFields
+ * @param  {} props
+ * 
+ * Update an existing project.
+ */
+export function updateProject(project, data, dispatch, clearFields, props) {
+    api.Projects().updateProject(project.id, data)
+    .then(res => {
+        if (res.status === 200) {
+            notify('success', 'Removed task from old project successfully')
+            clearFields()
+            props.onHide()
+        }
+    })
+    .catch(err => {
+        displayErrorMsg(err, dispatch)
+    })
 }

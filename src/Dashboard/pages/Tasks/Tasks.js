@@ -22,6 +22,7 @@ import StairsLoader from '../../Dashboard_Components/StairsLoader'
 import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
 import AssignModal from '../../Dashboard_Components/AssignModal'
 import {addSpecificTasks, setLoading, updatedTask, modalTaskShow} from '../../../redux/action-creator/index'
+import { displayErrorMsg } from '../../../helpers/ErrorMessage'
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -114,76 +115,63 @@ export default function Tasks() {
 
     //Get the tasks of the specified user
     function handleUserTasks(e, params) {
-        let name;
+        let userDetails;
         if (e === null) {
-            name = params
+            userDetails = params
         } else if (e.target.value.includes('Get')) {
             paginationRef.current.getAllTasks()
-            name = 'none'
+            userDetails = 'none'
         } else {
-            name = e.target.value   
+            // Get the id of the selected option using the e.target.value and store it
+            // in the browser so that it can be used to fetch that user's tasks
+            const selectedElement = document.getElementsByClassName(`${e.target.value}`)
+            userDetails = selectedElement[0].id   
         }
-        localStorage.setItem('usertaskname', name)
+
+        localStorage.setItem('userdetails', userDetails)
         let userTasksArr = []
-        // eslint-disable-next-line
-        Admins.map(admin => {
-            //Compare the name chosen on the form to the ones in
-            //the store to get the user.id n send it
-            if (name.toLowerCase() === admin.name.toLowerCase()) {
-                dispatch(setLoading())
-                // TODO: Find a way to use the tasks in state.
-                api.Tasks().getUsersTasks(admin.id)
-                .then(res => {
-                    if (res.status === 200) {
-                        //If successful take the array of taskIds that is returned and get the
-                        //actual tasks
-                        const {tasks} = res.data
-                        if (tasks.length !== 0) {
-                            //Convert to an object so that it can be sent to the
-                            //store to replace the taskIds so that the right task can be updated
-                            let len = tasks.length
-                            // eslint-disable-next-line
-                            tasks.map(task => {
-                                api.Tasks().getTask(task)
-                                .then(res => {
-                                    if (res.status === 200) {
-                                        //Wait till the mapping is done n then send the final result
-                                        let result = join(res.data, len, userTasksArr)
-                                        if(result !== undefined) {
-                                            dispatch(addSpecificTasks(result))
-                                            dispatch(setLoading())
-                                        }
-                                    }
-                                })
-                                .catch(err => {
+        dispatch(setLoading())
+        // Get the specific user's tasks
+        api.Tasks().getUsersTasks(userDetails)
+        .then(res => {
+            if (res.status === 200) {
+                //If successful take the array of taskIds that is returned and get the
+                //actual tasks
+                const {tasks} = res.data
+                if (tasks.length !== 0) {
+                    //Convert to an object so that it can be sent to the
+                    //store to replace the taskIds so that the right task can be updated
+                    let len = tasks.length
+                    // eslint-disable-next-line
+                    tasks.map(task => {
+                        api.Tasks().getTask(task)
+                        .then(res => {
+                            if (res.status === 200) {
+                                //Wait till the mapping is done n then send the final result
+                                let result = join(res.data, len, userTasksArr)
+                                if(result !== undefined) {
+                                    console.log(result)
+                                    dispatch(addSpecificTasks(result))
                                     dispatch(setLoading())
-                                    if (err.response) {
-                                        const {message} = err.response.data
-                                        notify('error', message)
-                                    } else {
-                                        notify('error', 'Something went wrong')
-                                    }
-                                })
-                            })
-                        } else {
-                            dispatch(setLoading())
-                            //Send an empty array if the users has no tasks
-                            userTasksArr = []
-                            dispatch(addSpecificTasks(userTasksArr))
-                        }
-                    } 
-                })
-                .catch(err => {
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            displayErrorMsg(err, dispatch)
+                        })
+                    })
+                } else {
                     dispatch(setLoading())
-                    if (err.response) {
-                        const {message} = err.response.data
-                        notify('error', message)
-                    } else {
-                        notify('error', 'Something went wrong')
-                    }
-                })
-            }
+                    //Send an empty array if the users has no tasks
+                    userTasksArr = []
+                    dispatch(addSpecificTasks(userTasksArr))
+                }
+            } 
         })
+        .catch(err => {
+            displayErrorMsg(err, dispatch)
+        })
+                
     }
 
     function handleTaskUpdate(e) {
@@ -264,7 +252,7 @@ export default function Tasks() {
                             <option>Choose user</option>
                             <option>Get All Tasks</option>
                             {Admins.length !== 0 ? Admins.map((admin, index) => (
-                                <option key={index} className="names">{admin.name}</option>
+                                <option key={index} id={admin.id} className={`names ${admin.name}`}>{admin.name}</option>
                             )): 'Loading'}
                             </Form.Control>
                         :
