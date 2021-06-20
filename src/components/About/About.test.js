@@ -11,7 +11,7 @@ const setUp = (props={}) => {
     return component
 }
 
-const textContent = ['aboutUsHeader', 'aboutUsHeaderContent', 'aboutUsLeftSection']
+const textContent = ['aboutUsHeader', 'aboutUsHeaderContent', 'aboutUsLeftSection', 'techiveDescription', 'experiences', 'learnMore', 'learnMoreAnswer', 'experiencesAnswer', 'techiveDescriptionAnswer']
 const htmlElements = ['aboutUsHeader', 'aboutUsSection']
 
 describe('About us component', () => {
@@ -33,13 +33,34 @@ describe('About us component', () => {
             expect(wrapper.text()).toBeTruthy()
         })
     })
-})
 
-// TODO: Test that the about-us header-text is being displayed
-// TODO: Test that the about-us left section text is being displayed
-// TODO: Test that the tecHive question is being displayed
-// TODO: Test that the tecHive answer is being displayed
-// TODO: Test that the experiences question is being displayed
-// TODO: Test that the experiences answer is being displayed
-// TODO: Test that the learn-more question is being displayed
-// TODO: Test that the learn-more answer is being displayed
+    it('Should call handleChange function when question tab is clicked', () => {
+        const handleChange =  jest.fn();
+        const event  = {
+            // You can use currentTarget or target
+            currentTarget: {children: [{children: 
+                [{
+                    classList: {
+                            toggle: () => {}
+                    }
+                }, {
+                    classList: {
+                        toggle: () => {}
+                    }
+                }]
+            }, {
+                classList: {
+                    toggle: () => {}
+            }
+            }], classList: {
+                toggle: () => {}
+        }, className: {
+            includes: () => {}
+        }}
+        }
+        const component = shallow(<div onClick={handleChange}></div>)
+        component.find('div').simulate('click', event)
+
+        expect(handleChange).toBeCalled()
+    })
+})

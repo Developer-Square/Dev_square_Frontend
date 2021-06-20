@@ -38,13 +38,13 @@ function AboutUs() {
                             Let us take you on a journey that will help you understand and hopefully trust us better. Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. Hard work is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products.
                             </div>
                         
-                        <div className="desc definition mb-2 show" onClick={handleChange}>
+                        <div className="desc definition mb-2 show" id="definition" onClick={handleChange}>
                             <div className="d-flex">
                                 <i className="fa fa-plus-circle hidden" aria-hidden="true"></i>
                                 <i className="fa fa-minus-circle" aria-hidden="true"></i>
-                                <div className="mb-0 text">What is tecHive</div>
+                                <div className="mb-0 text" data-testid="techiveDescription">What is tecHive</div>
                             </div>
-                            <p className="answer">
+                            <p className="answer" data-testid="techiveDescriptionAnswer">
                                 TecHive is a company that was born out of the need for quality. Me and my colleagues have been victims of badly built software numerous times, whether its that school website that is always crashing or its that online shop that always gets your order wrong or that internet provider that's always providing poor internet.<br/>
                                 So we sat down and decided to form a company that would deal in quality software only. We were tired of always calling the help center to get issues fixed. We decided quality first was the way to go, creating a product and getting it right the first time(Philip Crosby, Zero Defects Program). Since if you create a quality product the first time, then you'll have fewer issues later on.<br/>
                                Joining the technology industry, we quickly realized that TRUST is very important. Clients need to know that you can do the task they're asking for. So we took that need for trust and we added it to our values. Now we not only build quality software but also make sure we build a bond of trust between us and the client. This method has worked for us so far and we intend to build it into our brand.
@@ -54,9 +54,9 @@ function AboutUs() {
                             <div className="d-flex">
                                     <i className="fa fa-plus-circle" aria-hidden="true"></i>
                                     <i className="fa fa-minus-circle hidden" aria-hidden="true"></i>
-                                    <div className="mb-0 text">Experiences</div>
+                                    <div className="mb-0 text" data-testid="experiences">Experiences</div>
                             </div>
-                            <p className="answer hidden">
+                            <p className="answer hidden" data-testid="experiencesAnswer">
                                 TecHive has dealt with a few clients as of the time of writing and we as a team have gained considerable experience in fields such as project handling, meeting deadlines, handling payments e.t.c. We've encountered new tools such as Notion, that helped us improve on our project management activities and deliver features in an organized manner.
                                 We've worked for small and medium sized organization delivering all kinds of software, from mobile apps using Flutter to websites using pure html,css and js and complex web apps using Reactjs and Nodejs.
                                 In all our projects we've always kept three things consistent, which are our values as a company. They include: <br/>
@@ -71,9 +71,9 @@ function AboutUs() {
                             <div className="d-flex">
                                         <i className="fa fa-plus-circle" aria-hidden="true"></i>
                                         <i className="fa fa-minus-circle hidden" aria-hidden="true"></i>
-                                        <div className="mb-0 text">Learn more</div>
+                                        <div className="mb-0 text" data-testid="learnMore">Learn more</div>
                             </div>
-                            <p className="answer hidden">
+                            <p className="answer hidden" data-testid="learnMoreAnswer">
                             Don't take our word for it. Check out the products we can build for you in the <span>portfolio section</span>. Also don't hesitate to <span>contact</span> us using email, phone number or through whatsapp to see what we can do for you.
                             </p>
                         </div>
