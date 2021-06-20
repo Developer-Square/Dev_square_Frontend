@@ -6,23 +6,27 @@ import './Header.scss'
 
 function Header() {
     const [headername, ] = useState('tecHive')
-    function scrollFunction(id, top) {
-        let offsetTop = document.getElementById(`${id}`).offsetTop
-        window.scrollTo({
-            top: offsetTop - top,
-            behavior: 'smooth'
-        })
+    
+    const scrollFunction = (id, top) => {
+        let offset = document.getElementById(`${id}`)
+        if (offset !== null) {
+            let offsetTop = offset.offsetTop
+            window.scrollTo({
+                top: offsetTop - top,
+                behavior: 'smooth'
+            })
+        }
     }
 
     return (
         <Fragment>
             <Navbar className="mx-auto" expand="md" variant="dark">
                 <Navbar.Brand href="#home" onClick={() => scrollFunction('landing-section', 0)}>
-                    <img src="images/Logo-2.webp" className="img-fluid" alt="Logo" data-test="logoImg"/>
+                    <img src="images/Logo-2.webp" className="img-fluid" alt="Logo" data-testid="logoImg"/>
                     <span className="logo-text pl-2" data-testid="logoText">{headername}</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav data-test="headerNav">
+                    <Nav data-testid="headerNav">
                         <Nav.Link data-testid="home" href="#home" className="mx-auto" onClick={() => scrollFunction('landing-section', 0)}><div className="indicator ml-md-2"></div>Home<div className="indicator-2 ml-md-2"></div></Nav.Link>
                         <Nav.Link data-testid="about us" href="#about" className="mx-auto" onClick={() => scrollFunction('aboutus-section', 75)}><div className="indicator ml-md-4"></div>About us<div className="indicator-2 ml-md-4"></div></Nav.Link>
                         <Nav.Link data-testid="portfolio" href="#portfolio" className="mx-auto" onClick={() => scrollFunction('portfolio-section', 75)}><div className="indicator ml-md-4"></div>Portfolio<div className="indicator-2 ml-md-4"></div></Nav.Link>

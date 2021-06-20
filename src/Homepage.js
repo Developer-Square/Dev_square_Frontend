@@ -3,7 +3,7 @@ import React, {Fragment, useEffect} from 'react'
 //Own Components
 import Header from './components/Header/Header'
 import LandingArea from './components/LandingArea'
-import AboutUs from './components/AboutUs'
+import AboutUs from './components/About/AboutUs'
 import Portfolio from './components/Portfolio'
 import ProductFeatures from './components/ProductFeatures'
 import Client from './components/Client'

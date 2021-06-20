@@ -11,7 +11,7 @@ const setUp = (props={}) => {
 }
 
 // Testing an element's text.
-const testingMultipleElements = (id, text, type) => {
+const testingMultipleElements = (id, text ,type ) => {
     render(<Header />)
     if (type === 'multiple') {
         expect(screen.getAllByTestId(`${id}`)[0]).toHaveTextContent(`${text}`);
@@ -20,7 +20,9 @@ const testingMultipleElements = (id, text, type) => {
     }
 }
 
-let navText = ['Home', 'About us', 'Portfolio', 'Services', 'Clients', 'Team', 'Blog', 'Contact']
+
+const navText = ['Home', 'About us', 'Portfolio', 'Services', 'Clients', 'Team', 'Blog', 'Contact']
+const htmlElements = ['logoImg', 'headerNav']
 
 
 describe('Header Component', () => {
@@ -29,23 +31,23 @@ describe('Header Component', () => {
         component = setUp()
     })
 
-    it('Should render logo image', () => {
-        const wrapper = findByTestAttr(component, 'logoImg')
-        expect(wrapper.length).toBe(1)
+    it('Should render all the major elements in the component', () => {
+        htmlElements.map(element => {
+            const wrapper = findByTestAttr(component, element)
+            expect(wrapper.length).toBe(1)
+        })
     })
 
     it('Should render logo text', () => {
         testingMultipleElements('logoText', 'tecHive')
     })
 
-    it('Should render the nav menu', () => {
-        const wrapper = findByTestAttr(component, 'headerNav')
-        expect(wrapper.length).toBe(1)
-    })
-
     it('Should render home nav text', () => {
+        // Check whether all the nav items text matches the right text.
         navText.map(item => {
             const text = testingMultipleElements(item.toLowerCase(), item, 'multiple')
         })
     })
+
+    // TODO: Test the scrollFunction.
 })

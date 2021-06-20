@@ -22,17 +22,19 @@ function AboutUs() {
         }
         icons[1].classList.toggle('hidden')
     }
+
     return (
         <Fragment>
-            <Container id="aboutus-section">
+            <Container id="aboutus-section" data-testid="aboutUsSection">
                 <Row>
                     <div className="d-flex flex-column mx-auto col-12">
-                    <div className="aboutus-header mx-auto">tecHive</div>
-                    <p className="text-center">We are a team of great and passionate individuals that you can put your <span>trust in.</span></p>
+                        <div className="aboutus-header mx-auto" data-testid="aboutUsHeader">tecHive</div>
+                        <p className="text-center" data-testid="aboutUsHeaderContent">We are a team of great and passionate individuals that you can put your <span>trust in.</span></p>
                     </div>
+                    
                     <Col xs={12} lg={6}>
                         <div className="aboutus-left-section">
-                            <div className="mb-2 pl-1 pr-1">
+                            <div className="mb-2 pl-1 pr-1" data-testid="aboutUsLeftSection">
                             Let us take you on a journey that will help you understand and hopefully trust us better. Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. Hard work is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products.
                             </div>
                         
