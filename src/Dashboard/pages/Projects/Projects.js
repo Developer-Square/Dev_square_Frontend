@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import styled from "styled-components";
 
 //Own Components
-import MenuBar from "../../Dashboard_Components/MenuBar";
+import MenuBar from "../../Reusable Components/MenuBar";
 import Project from './Project'
-import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
+import ViewAllButton from '../../Reusable Components/ViewAllButton'
 
 const Container = styled.div`
 	padding-bottom: 40px;

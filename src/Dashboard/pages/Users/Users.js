@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 
 //Own Components
-import MenuBar from "../../Dashboard_Components/MenuBar";
+import MenuBar from "../../Reusable Components/MenuBar";
 import User from './User'
-import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
-import Domino from '../../Dashboard_Components/Domino'
+import ViewAllButton from '../../Reusable Components/ViewAllButton'
+import Domino from '../../Reusable Components/Domino'
 
 
 const Container = styled.div`

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const API_URL = 'https://developer-square-be.herokuapp.com/v1/'
+export const API_URL = 'https://techive-server.herokuapp.com/v1/'
 
 class Api {
     constructor() {

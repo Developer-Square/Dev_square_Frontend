@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 
 //Own Components
 import {userToBeUpdated, setModalShow} from '../../../redux/action-creator/index'
-import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import ConfirmDelete from '../../Reusable Components/ConfirmDelete'
 import ModalComponent from '../../../components/Reusable Components/ModalComponent'
 
 const Container = styled.div`

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 //Own Components
-import AddButton from "../../Dashboard_Components/AddButton";
+import AddButton from "../../Reusable Components/AddButton";
 import Projects from "./Projects";
 import ProjectsModal from './ProjectsModal'
 

@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import AddButton from "../../Dashboard_Components/AddButton";
+import AddButton from "../../Reusable Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
 import {setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'

@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Homepage from './Homepage'
 import LoginAndSignUp from './components/LoginAndSignUp'
 import Dashboard from './Dashboard/Dashboard'
-import DashboardHome from './Dashboard/pages/DashboardHome/DashboardHome'
+import Home from './Dashboard/pages/Home/Home'
 import UsersPage from './Dashboard/pages/Users/UsersPage'
 import PortfolioPage from './Dashboard/pages/Portfolio/PorfolioPage'
 import TasksPage from './Dashboard/pages/Tasks/TasksPage'
@@ -22,7 +22,7 @@ function Routes() {
                 <Route path="/login" exact component={LoginAndSignUp}/>
                 <Route path="/reset/password" component={ResetPassword}/>
                 <ThemeContextProvider>
-                    <RouteWithLayout path="/dashboard/home" exact component={DashboardHome} layout={Dashboard}/>
+                    <RouteWithLayout path="/dashboard/home" exact component={Home} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/users" exact component={UsersPage} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/projects" exact component={ProjectsPage} layout={Dashboard}/>
                     <RouteWithLayout path="/dashboard/portfolio" exact component={PortfolioPage} layout={Dashboard}/>
