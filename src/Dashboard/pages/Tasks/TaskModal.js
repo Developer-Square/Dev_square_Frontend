@@ -20,7 +20,7 @@ const TaskModal = forwardRef((props, ref) => {
     const [status, setStatus] = useState('')
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
-    const [projectTasks, setProjectTasks] = useState('')
+    const [projectName, setProjectTasks] = useState('')
     const [title, setTitle] = useState('')
     const [updateProjects, setUpdateProjects] = useState(false)
 
@@ -159,21 +159,21 @@ const TaskModal = forwardRef((props, ref) => {
                     delete data.id
                     createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update')
                 } else if (updateProjects) {
-                    addTaskToProject(UpdatedTask.id, projectTasks, projects, dispatch, props)
+                    addTaskToProject(UpdatedTask.id, projectName, projects, dispatch, props)
                 } else {
                      //If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
                 }
             } else {
                 //Send a create task request 
-                if (projectTasks !== '' && projectTasks !== 'Select the project') {
+                if (projectName !== '' && projectName !== 'Select the project') {
                     delete data.id               
                     data.creator = localStorage.getItem('userID')
                     //Checking if the data is empty with the helper function
                     if (IsNotEmpty(data) === true) {
-                        //Hide the modal if the data is Not empty
+                        //Hide the modal and send the details if the data is Not empty
                         props.onHide()
-                        createUpdateTask('', data, dispatch, clearFields, props, '', projectTasks, projects)
+                        createUpdateTask('', data, dispatch, clearFields, props, '', projectName, projects)
                     }
                 } else {
                     notify('error', 'You have not selected the project')
@@ -232,7 +232,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value)} required as="select">
+                        <Form.Control value={projectName} onChange={(e) => handleProjects(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}

@@ -1,4 +1,5 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addProjects} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask} from '../redux/action-creator/index'
+import { updateProject, addProjects, addNewProjects } from '../redux/action-creator/projectActions';
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
 import notify from "./Notify";
@@ -133,7 +134,7 @@ export function getTasks(params, dispatch) {
 }
 
 // Creates or updates a task using the modal.
-export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, projectTasks, projects) {
+export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, projectName, projects) {
     if (instruction === 'update') {
         api.Tasks().updateTask(UpdatedTask.id, data)
         .then(res => {
@@ -153,7 +154,7 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
             if (res.status === 201) {
                 //Once a task is created we get its ID and pass it to the addToTask Function
                 //so that we can add it to its specific project
-                addTaskToProject(res.data.id, projectTasks, projects, dispatch, clearFields, props)
+                addTaskToProject(res.data.id, projectName, projects, dispatch, clearFields, props)
                 dispatch(createdTask(true))
                 clearFields()
                 notify('success', 'Task successfully created')
@@ -167,30 +168,33 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
 }
 
     //Add the task to the specific project selected
-export function addTaskToProject(id, projectTasks, projects, dispatch, clearFields, props) {
+export function addTaskToProject(id, projectName, projects, dispatch, clearFields, props) {
         // eslint-disable-next-line
         projects.map(project => {
-            //projectTasks contains the name chosen in the form
+            //projectName contains the name chosen in the form
             project.tasks.map((task, index) => {
                 if (id !== undefined && id !== '') {
                     if (task === id) {
-                        //Incase the task was in a previous project, remove it
-                        if (project.name !== projectTasks) {
+                        // Incase the task was in a previous project, remove it e.g. during 
+                        // an task update we might want to remove a task from its current project to 
+                        // another project. 
+                        if (project.name !== projectName) {
                             project.tasks.splice(index, 1)
                         }
                         const data = {tasks: project.tasks}
-                        updateProject(project, data, dispatch, clearFields, props)
+                        createUpdateProject(project, data, dispatch, clearFields, props, 'update')
                     } 
                 }
                 return null
             })
 
-            if (projectTasks === project.name) {
+            if (projectName === project.name) {
                 if (id !== undefined && id !== '') {
                     if (project.tasks.includes(id) === false) {
                         project.tasks.push(id)
                         const data = {tasks: project.tasks}
-                        updateProject(project, data, dispatch, clearFields, props)
+                        console.log(project)
+                        createUpdateProject(project, data, dispatch, clearFields, props, 'update')
                     }
                 }
             } 
@@ -214,6 +218,7 @@ export function getProjects(dispatch) {
     })
 }
 
+
 /**
  * @param  {} project
  * @param  {} data
@@ -223,16 +228,32 @@ export function getProjects(dispatch) {
  * 
  * Update an existing project.
  */
-export function updateProject(project, data, dispatch, clearFields, props) {
-    api.Projects().updateProject(project.id, data)
-    .then(res => {
-        if (res.status === 200) {
-            notify('success', 'Removed task from old project successfully')
-            clearFields()
-            props.onHide()
-        }
-    })
-    .catch(err => {
-        displayErrorMsg(err, dispatch)
-    })
+export function createUpdateProject(project, data, dispatch, clearFields, props, instruction) {
+    if (instruction === 'update') {
+        api.Projects().updateProject(project.id, data)
+        .then(res => {
+            if (res.status === 200) {
+                notify('success', 'Removed task from old project successfully')
+                clearFields()
+                props.onHide()
+            }
+        })
+        .catch(err => {
+            displayErrorMsg(err, dispatch)
+        })
+    } else {
+        api.Projects().createProject(data)
+        .then(res => {
+            if (res.status === 201) {
+                notify('success', 'Created project successfully')
+                clearFields()
+                props.onHide()
+                dispatch(addNewProjects(res.data))
+                dispatch(updateProject())
+            }
+        })
+        .catch(err => {
+            displayErrorMsg(err, dispatch)
+        })
+    }
 }

@@ -5,7 +5,6 @@ import Spinner from 'react-bootstrap/Spinner'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import notify from '../../helpers/Notify'
 import { getUser } from '../../helpers/ApiFunctions'
 
 const Container = styled.div`
@@ -26,8 +25,11 @@ function Profile() {
     const {user} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log(user)
             //Get a user's credentials
-            getUser(`${localStorage.getItem('userID')}`, dispatch, 'profile')
+            if (!user) {
+                getUser(`${localStorage.getItem('userID')}`, dispatch, 'profile')
+            }
         // eslint-disable-next-line
     }, [])
 

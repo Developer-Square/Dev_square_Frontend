@@ -17,14 +17,15 @@ const Container = styled.div`
 
 function ProjectsPage() {
     const [modalShow, setModalShow] = useState(false);
-    const {projects} = useSelector(state => state.projects)
+    const {projects, updateProjectCount} = useSelector(state => state.projects)
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (projects.length === 0) {
             getProjects(dispatch)
         }
-    }, [])
+        // eslint-disable-next-line
+    }, [projects.length, updateProjectCount])
 
     return (
         <>

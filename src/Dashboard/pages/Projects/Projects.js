@@ -51,7 +51,7 @@ function Projects({ title, data, count }) {
 	return (
 		<Container>
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
-			<MenuBar username="Project Name" email="Description" login="Due Date" extra="Stack" status="Status"/>
+			<MenuBar username="Project Name" email="Description" login="Due Date" extra="Stack" status="Status" page="projects"/>
 			{userData.slice(0, size).map((user, index) => (
 				<Project data={user} index={index + 1} key={index}/>
 			))}

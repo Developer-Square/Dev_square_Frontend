@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button'
 //Own Component
 import Api from '../../services/network'
 import notify from '../../helpers/Notify'
-import {updatedTask, updateUserCount, addUsers, updateGetUsers, addProjects} from '../../redux/action-creator/index'
+import {updatedTask, updateUserCount, addUsers, updateGetUsers} from '../../redux/action-creator/index'
+import {addProjects} from '../../redux/action-creator/projectActions'
 
 export default function ConfirmDelete(props) {
     const dispatch = useDispatch()

@@ -39,7 +39,7 @@ const Subtitle = styled(Text)`
 `
 
 const ProjectContainer = styled.div`
-	width: 30%;
+	width: 25%;
 	display: flex;
 	align-items: center;
 `
@@ -60,7 +60,7 @@ const ProjectStreet = styled(Text)`
 `
 
 const Email = styled(Text)`
-	width: 15%;
+	width: 20%;
 `
 
 const DueDate = styled(Text)`
@@ -108,7 +108,7 @@ function Project({data, index}) {
 			</ProjectText>
 		</ProjectContainer>
 		<Email>{description !== undefined ? `${description.slice(0, 50)}...`: 'Loading'}</Email>
-		<DueDate>{dueDate}</DueDate>
+		<DueDate>{dueDate ? dueDate.slice(0, 10) : 'Loading'}</DueDate>
 		<DepositWrapper>
 			<Text>{stack}</Text>
 			<Subtitle>{}</Subtitle>

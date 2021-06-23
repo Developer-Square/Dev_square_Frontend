@@ -11,10 +11,9 @@ import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
 import Projects from './Projects'
 import notify from '../../../helpers/Notify'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
-import {addProjects} from '../../../redux/action-creator/projectActions'
+import { setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import Api from '../../../services/network'
-import { getUsers, getProjects } from '../../../helpers/ApiFunctions'
+import { getUsers, getProjects, getTasks } from '../../../helpers/ApiFunctions'
 
 
 const Container = styled.div`
@@ -31,7 +30,7 @@ const SpacedElements = styled.div`
 function DashboardHome() {
     const [taskIds, setTasksIds] = useState([])
     const dispatch = useDispatch()
-    const {NewTasks, TasksCountData, TaskCreators} = useSelector(state => state.tasks)
+    const {NewTasks, TasksCountData, TaskCreators, Tasks} = useSelector(state => state.tasks)
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
     const api = new Api()
@@ -43,10 +42,16 @@ function DashboardHome() {
                 limit: 6,
                 page: 1
             }
-            getUsers(data, dispatch)
+            // console.log(localStorage.getItem('jwtToken'))
+            if (localStorage.getItem('jwtToken')) {
+                getUsers(data, dispatch)
+            }
         }
         if (NewTasks.length === 0 ) {
-            getTasks()
+            getTasks(undefined, dispatch)
+            countData(Tasks.totalResults)
+            //eslint-disable-next-line
+            getNewTasks(Tasks.totalResults)
         }
         if (projects.length === 0) {
             getProjects(dispatch)
@@ -166,49 +171,6 @@ function DashboardHome() {
         })
     }
 
-     //Get all tasks when the page loads
-     function getTasks(params) {
-        //Set Loading to true
-        dispatch(setLoading())
-        //default attributes
-        let data = {}
-        if (params !== undefined) {
-            data = params  
-        } else {
-            data = {
-                limit: 10,
-                page: 1
-            }
-        }
-
-        api.Tasks().getAllTasks(data)
-        .then(res => {
-            if (res.status === 200) {
-                //Dispatching an action to add tasks to the redux store
-                dispatch(addTasks(res.data))
-                dispatch(updateGetTasks(true))
-                //Set Loading to false
-                dispatch(setLoading())
-                notify('success', 'Tasks fetched successfully')
-                const {totalResults} = res.data
-                countData(totalResults)
-                //eslint-disable-next-line
-                getNewTasks(totalResults)
-            }
-        })
-        .catch(err => {
-            //Set Loading to false
-            dispatch(setLoading())
-            if (err.response) {
-                const {message} = err.response.data
-                dispatch(setLoading())
-                notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
-
-    }
     /**
      * Gets a projects tasks which are later calculated to 
      * get how many are completed compared to the ones that incomplete.
