@@ -13,7 +13,9 @@ import Projects from './Projects'
 import notify from '../../../helpers/Notify'
 import { setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import Api from '../../../services/network'
-import { getUsers, getProjects, getTasks } from '../../../helpers/ApiFunctions'
+import { getUsers, getProjects, getTasks, getUser } from '../../../helpers/ApiFunctions'
+import { IsNotEmpty } from '../../../helpers/Reusable Functions'
+import { displayErrorMsg } from '../../../helpers/ErrorMessage'
 
 
 const Container = styled.div`
@@ -28,9 +30,8 @@ const SpacedElements = styled.div`
 `
 
 function DashboardHome() {
-    const [taskIds, setTasksIds] = useState([])
     const dispatch = useDispatch()
-    const {NewTasks, TasksCountData, TaskCreators, Tasks} = useSelector(state => state.tasks)
+    const {NewTasks, TasksCountData, TaskCreators, Tasks, AllTasks} = useSelector(state => state.tasks)
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
     const api = new Api()
@@ -49,38 +50,26 @@ function DashboardHome() {
         }
         if (NewTasks.length === 0 ) {
             getTasks(undefined, dispatch)
+            // Get the tasks with a status of 'NotStarted'
+            getNewTasks(Tasks.totalResults)
             countData(Tasks.totalResults)
             //eslint-disable-next-line
-            getNewTasks(Tasks.totalResults)
         }
         if (projects.length === 0) {
             getProjects(dispatch)
-            getProjectTasks()
         }
 
         // eslint-disable-next-line
-    }, [])
+    }, [NewTasks.length, TaskCreators.length])
 
-    //Get the Developer name    
-    const getUser = async (id) => {
-        const api  = new Api()
-        try {
-            const res = await api.User().getUser(id)
-            if (res.status === 200) {
-                dispatch(addTaskCreators(res.data.name))
-            }  
-        } catch (err) {
-            if (err.response) {
-                const {message} = err.response.data
-                dispatch(setLoading())
-                notify('error', message)
-            } else {
-                notify('error', 'Something went wrong, Please refresh the page.')
-            }
-        }
-    }
-
-    //Get new the newest tasks by gettint the last items in the array.   
+  
+    /**
+     * @param  {} totalResults
+     * Get new the newest tasks by getting the last items in the array. 
+     * We need to get call @getAllTasks api to get all the tasks so 
+     * that we can map over all of them and find the ones that are not
+     * started.
+     */
     const getNewTasks = async (totalResults) => {
         const api  = new Api()
         let data = {
@@ -99,94 +88,41 @@ function DashboardHome() {
                 for (i; i < len; i++) {
                     if (results[len - i].status === 'notStarted') {
                         newTasks.push(results[len - i])
-                        getUser(results[len - i].creator, len, i)
+
+                        //Get the Developer name    
+                        getUser(results[len - i].creator, dispatch)
                     }
                 }
                 dispatch(addNewTasks(newTasks))
                 // setTasks(newTasks)
             }  
         } catch (err) {
-            //Set Loading to false
-            if (err.response) {
-                const {message} = err.response.data
-                dispatch(setLoading())
-                notify('error', message)
-            } else {
-                notify('error', 'Something went wrong, Please refresh the page.')
-            }
+            displayErrorMsg(err, dispatch)
         }
     }
 
     //Count data to be put in the tasks cards
     function countData (totalResults) {
-        let data = {
-            limit: totalResults,
-            page: 1
-        }
-
-        let statuses = ['inProgress', 'notStarted', 'onHold']
         //Getting the number of tasks for each section
-        let sendData = {}
+        let sendData = {
+            inProgress: 0,
+            notStarted: 0,
+            onHold: 0,
+            completed: 0
+        }
         // eslint-disable-next-line
-        statuses.map(status => {
-            data.status = status
-            api.Tasks().getAllTasks(data)
-            .then(res => {
-                if (res.status === 200) {
-                    const {results} = res.data
-                    if(results[0] !== undefined) {
-                        if (results[0].status === 'inProgress') {
-                            if (res.data.totalResults !== undefined) {
-                                sendData.inProgress = res.data.totalResults
-                            }
-                        } else if (results[0].status === 'onHold') {
-                            if (res.data.totalResults !== undefined) {
-                                sendData.onHold = res.data.totalResults
-                            }
-                        } else if (results[0].status === 'notStarted') {
-                            if (res.data.totalResults !== undefined) {
-                                sendData.notStarted = res.data.totalResults
-                            }
-                        } else {
-                            if (res.data.totalResults !== undefined) {
-                                sendData.completed = res.data.totalResults
-                            }
-                        }
-                    }
-                    dispatch(addCountData(sendData))
-                 
-                }
-            })
-            .catch(err => {
-                //Set Loading to false
-                dispatch(setLoading())
-                if (err.response) {
-                    const {message} = err.response.data
-                    dispatch(setLoading())
-                    notify('error', message)
+        if (IsNotEmpty(AllTasks)) {
+            AllTasks.map(task => {
+                if (task.status === 'inProgress') {
+                    sendData.inProgress += 1
+                } else if (task.status === 'onHold') {
+                        sendData.onHold += 1
+                } else if (task.status === 'notStarted') {
+                    sendData.notStarted += 1
                 } else {
-                    notify('error', 'Something went wrong, Please refresh the page.')
+                    sendData.completed += 1
                 }
-            })
-        })
-    }
-
-    /**
-     * Gets a projects tasks which are later calculated to 
-     * get how many are completed compared to the ones that incomplete.
-     * This is then displayed using the pie chart on the dashboard.
-     */
-    function getProjectTasks() {
-        if (projects !== undefined) { 
-            projects.map((res,index) => {
-                let resultsArray = taskIds
-                resultsArray.push(res.tasks)
-                
-                //When mapping is done put the final result in state
-                if(index === 1) {
-                    setTasksIds(resultsArray)
-                }
-                return null;
+                dispatch(addCountData(sendData))
             })
         }
     }
