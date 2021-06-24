@@ -245,6 +245,7 @@ export function createUpdateProject(project, data, dispatch, clearFields, props,
         api.Projects().createProject(data)
         .then(res => {
             if (res.status === 201) {
+                console.log(res.data)
                 notify('success', 'Created project successfully')
                 clearFields()
                 props.onHide()

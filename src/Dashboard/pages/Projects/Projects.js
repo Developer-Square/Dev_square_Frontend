@@ -5,6 +5,7 @@ import styled from "styled-components";
 import MenuBar from "../../Reusable Components/MenuBar";
 import Project from './Project'
 import ViewAllButton from '../../Reusable Components/ViewAllButton'
+import Domino from "../../Reusable Components/Domino";
 
 const Container = styled.div`
 	padding-bottom: 40px;
@@ -31,30 +32,30 @@ const DepositCount = styled.div`
 	border-radius: 20px;
 `;
 
+const Content = styled.div`
+	position: relative;
+`
+
 function Projects({ title, data, count }) {
 	const [size, setSize] = useState(3)
 
-	let userData = []
-
 	const toggleSize = () => {
 		if (size === 3) {
-			setSize(userData.length)
+			setSize(data.length)
 		} else {
 			setSize(3)
 		}
 	}
 
-	data.map((deposit) => {
-		return userData.push(deposit)
-	})
-
 	return (
 		<Container>
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
 			<MenuBar username="Project Name" email="Description" login="Due Date" extra="Stack" status="Status" page="projects"/>
-			{userData.slice(0, size).map((user, index) => (
-				<Project data={user} index={index + 1} key={index}/>
-			))}
+			<Content>
+				{data !== undefined ? data.slice(0, size).map((user, index) => (
+					<Project data={user} index={index + 1} key={index}/>
+				)):  <Domino loading={true}/>}
+			</Content>
 			<ViewAllButton func={true} title={title} marginTop="15px" marginBottom="10px" onClick={() => toggleSize()}/>
 		</Container>
 	);

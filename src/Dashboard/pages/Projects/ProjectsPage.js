@@ -32,7 +32,7 @@ function ProjectsPage() {
         <AddButton onClick={() => setModalShow(true)}  />
         <Container className="projects">
             <ProjectsModal show={modalShow} onHide={() => setModalShow(false)}/>
-			<Projects title="Active Projects" count={6} data={projects} />
+			<Projects title="Active Projects" count={projects.length} data={projects} />
 			<Projects title="Closed Projects" count={3} data={depositData.closed} />
         </Container>
         </>
