@@ -1,9 +1,13 @@
 import React, {useState, useRef} from "react";
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components';
 import $ from 'jquery';
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
+import { handleUpdate } from "../../../helpers/Reusable Functions";
+import { setModalShow } from "../../../redux/action-creator";
+import { projectToBeUpdated } from "../../../redux/action-creator/projectActions";
 
 const Container = styled.div`
 	display: flex;
@@ -94,6 +98,8 @@ const StatusIndicator = styled.div`
 function Project({data, index}) {
 	const [popoverShow, setPopoverShow] = useState(false);
     const [target, setTarget] = useState('');
+	const {projects, projecttobeupdated} = useSelector(state => state.projects)
+	const dispatch = useDispatch()
 
 	//To open the popover responsible for updating, deleting or assigning tasks
     const popoverRef = useRef()
@@ -117,10 +123,9 @@ function Project({data, index}) {
     }
 
 	function handleViewTasks() {}
-	function handleUpdate() {}
 	function handleDelete() {}
 
-	const {name, dueDate, stack, description, clientId} = data
+	const {name, dueDate, stack, description, id} = data
 
 	return ( 
 		<Container popoverRef={popoverRef} onClick={handlePopover} className="-container">
@@ -140,11 +145,11 @@ function Project({data, index}) {
 					<Popover.Content>
 						{/* // Should look at a project's tasks */}
 						{/* {data !== undefined && data.length >= 1 ? (
-							<Button className={`mr-2 mb-2 assign col-12 ${clientId} button`} variant="outline-success" onClick={handleViewTasks}>View Project Tasks</Button>
+							<Button className={`mr-2 mb-2 assign col-12 ${id} button`} variant="outline-success" onClick={handleViewTasks}>View Project Tasks</Button>
 						): null} */}
 						<div className="d-flex justify-content-between">
-							<Button className={`mr-2 ${clientId} button`} variant="outline-primary" onClick={handleUpdate}>Update</Button>
-							<Button variant="danger" className={`${clientId} button`} onClick={handleDelete}>Delete</Button>
+							<Button className={`mr-2 ${id} button`} variant="outline-primary" onClick={(e) => handleUpdate(e, projects, dispatch, projectToBeUpdated, setModalShow, 'projects')}>Update</Button>
+							<Button variant="danger" className={`${id} button`} onClick={handleDelete}>Delete</Button>
 						</div>
 					</Popover.Content>
 				</Popover>

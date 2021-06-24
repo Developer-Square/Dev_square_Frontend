@@ -1,8 +1,9 @@
-import {ADD_ALL_PROJECTS, ADD_NEW_PROJECTS, UPDATE_PROJECT} from '../action-types/index'
+import {ADD_ALL_PROJECTS, ADD_NEW_PROJECTS, PROJECT_TO_BE_UPDATED, UPDATE_PROJECT} from '../action-types/index'
 
 const initialState = {
    projects: [],
-   updateProjectCount: 0
+   updateProjectCount: 0,
+   projecttobeupdated: '',
 }
 
 function ProjectsReducer(state=initialState, action) {
@@ -21,6 +22,11 @@ function ProjectsReducer(state=initialState, action) {
             return {
                 ...state,
                 updateProjectCount: state.updateProjectCount + 1
+            }
+        case PROJECT_TO_BE_UPDATED:
+            return {
+                ...state,
+                projecttobeupdated: action.payload
             }
     
         default:

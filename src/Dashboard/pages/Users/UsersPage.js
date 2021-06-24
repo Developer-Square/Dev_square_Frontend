@@ -8,9 +8,9 @@ import AddButton from "../../Reusable Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
 import {setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
-
 import depositData from "../../../DepositData.json";
 import { getUsers } from '../../../helpers/ApiFunctions';
+import { toggleModal } from '../../../helpers/Reusable Functions';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -32,11 +32,6 @@ function UsersPage() {
         }
         // eslint-disable-next-line
     }, [updatedCount])
-    
-    const toggleModal = () => {
-        dispatch(userToBeUpdated(''))
-        dispatch(setModalShow())
-	}
 
 
     return (
@@ -53,7 +48,7 @@ function UsersPage() {
                 pauseOnHover
             />
             <AddButton onClick={() => dispatch(setModalShow())}  />
-            <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal()}/>
+            <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal(dispatch, userToBeUpdated, setModalShow)}/>
 			<Users title="Active Accounts" count={users.results !== undefined ? users.results.length :  null} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={5} data={depositData.closed} />
         </Container>

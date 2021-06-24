@@ -149,10 +149,7 @@ export default function UsersModal(props) {
                     </Form.Row>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>List your skills e.g PHP, Java</Form.Label>
-                        <Form.Control required as="textarea" rows={4} value={skills} onChange={(e) => setSkills(e.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
-                            Please add a skill.
-                        </Form.Control.Feedback>
+                        <Form.Control as="textarea" rows={4} value={skills} onChange={(e) => setSkills(e.target.value)}/>
                     </Form.Group>
                     <Form.Group controlId="formBasicstatus">
                         <Form.Label>User's status</Form.Label>

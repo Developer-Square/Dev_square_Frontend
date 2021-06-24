@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -16,6 +16,16 @@ export default function ProjectsModal(props) {
     const [stack, setStack] = useState('')
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (props.projecttobeupdated !== '') {
+            const {name, description, tasks, dueDate, stack, id} = props.projecttobeupdated
+            setName(name)
+            setDescription(description)
+            setDueDate(dueDate.slice(0, 10))
+            setStack(stack)
+        }
+    }, [props])
+
     const clearFields = () => {
         setName('')
         setDescription('')
@@ -23,7 +33,7 @@ export default function ProjectsModal(props) {
         setStack('')
     }
 
-    function handleSubmit(e, props) {
+    function handleSubmit(e, formProps) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -39,8 +49,14 @@ export default function ProjectsModal(props) {
                 stack
             }
             if (IsNotEmpty(data)) {
-                // Create or Update a project
-                createUpdateProject('', data, dispatch, clearFields, props)
+                const {projecttobeupdated} = props
+                if (projecttobeupdated !== '') {
+                    // Update a project
+                    createUpdateProject(projecttobeupdated, data, dispatch, clearFields, formProps, 'update')
+                } else {
+                    // Create a project
+                    createUpdateProject('', data, dispatch, clearFields, formProps)
+                }
             } else {
                 notify('error', 'Please fill in all the fields')
             }
@@ -57,7 +73,7 @@ export default function ProjectsModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                Create a New Project
+                {props.projecttobeupdated !== '' ? 'Update' : 'Create'} a Project
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -65,19 +81,19 @@ export default function ProjectsModal(props) {
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Project Name</Form.Label>
-                        <Form.Control type="text" placeholder="name..." onChange={(e) => setName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="name..." value={name} onChange={(e) => setName(e.target.value)}/>
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Project Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} onChange={(e) => setDescription(e.target.value)}/>
+                        <Form.Control as="textarea" rows={3} value={description} onChange={(e) => setDescription(e.target.value)}/>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Due Date</Form.Label>
-                        <Form.Control type="date" placeholder="Date" onChange={(e) => setDueDate(e.target.value)}/>
+                        <Form.Control type="date" placeholder="Date" value={dueDate} onChange={(e) => setDueDate(e.target.value)}/>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Stack to be used</Form.Label>
-                        <Form.Control as="textarea" rows={3} onChange={(e) => setStack(e.target.value)}/>
+                        <Form.Control as="textarea" rows={3} value={stack} onChange={(e) => setStack(e.target.value)}/>
                     </Form.Group>
                     <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e, props)}>
                         Submit

@@ -25,7 +25,6 @@ function Profile() {
     const {user} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     useEffect(() => {
-        console.log(user)
             //Get a user's credentials
             if (!user) {
                 getUser(`${localStorage.getItem('userID')}`, dispatch, 'profile')
