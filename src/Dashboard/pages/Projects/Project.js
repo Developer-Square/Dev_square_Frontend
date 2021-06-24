@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button'
 import { handleUpdate } from "../../../helpers/Reusable Functions";
 import { setModalShow } from "../../../redux/action-creator";
 import { projectToBeUpdated } from "../../../redux/action-creator/projectActions";
+import ConfirmDelete from "../../Reusable Components/ConfirmDelete";
 
 const Container = styled.div`
 	display: flex;
@@ -98,6 +99,8 @@ const StatusIndicator = styled.div`
 function Project({data, index}) {
 	const [popoverShow, setPopoverShow] = useState(false);
     const [target, setTarget] = useState('');
+    const [userId, setUserId] = useState('');
+    const [deleteModal, setDeleteModal] = useState(false);
 	const {projects, projecttobeupdated} = useSelector(state => state.projects)
 	const dispatch = useDispatch()
 
@@ -112,6 +115,13 @@ function Project({data, index}) {
 	})
 	const status = 'inProgress'
 
+	function handleDelete(e) {
+		//Getting the id of the clicked row
+		let user= e.currentTarget.className.slice(0,24)
+		setUserId(user)
+		setDeleteModal(true)
+	}
+
 	const handlePopover = (e) => {
         setPopoverShow(!popoverShow)
         //To allow the user to use the svg close icon to close the popover
@@ -122,63 +132,63 @@ function Project({data, index}) {
         }
     }
 
-	function handleViewTasks() {}
-	function handleDelete() {}
-
 	const {name, dueDate, stack, description, id} = data
 
 	return ( 
-		<Container popoverRef={popoverRef} onClick={handlePopover} className="-container">
-			<Overlay
-				show={popoverShow}
-				target={target}
-				container={popoverRef.current}
-				containerPadding={20}
-				placement="bottom-end"
-				rootClose={true}
-			>
-				<Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
-					<Popover.Title as="h3" className="pop-over">
-						Actions
-						<span className="iconify" data-icon="carbon:close" data-inline="false"></span>
-					</Popover.Title>
-					<Popover.Content>
-						{/* // Should look at a project's tasks */}
-						{/* {data !== undefined && data.length >= 1 ? (
-							<Button className={`mr-2 mb-2 assign col-12 ${id} button`} variant="outline-success" onClick={handleViewTasks}>View Project Tasks</Button>
-						): null} */}
-						<div className="d-flex justify-content-between">
-							<Button className={`mr-2 ${id} button`} variant="outline-primary" onClick={(e) => handleUpdate(e, projects, dispatch, projectToBeUpdated, setModalShow, 'projects')}>Update</Button>
-							<Button variant="danger" className={`${id} button`} onClick={handleDelete}>Delete</Button>
-						</div>
-					</Popover.Content>
-				</Popover>
-			</Overlay>
-			<ProjectContainer className="pl-2">
-				<ProjectImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
-				<ProjectText>
-					<ProjectStreet>{name}</ProjectStreet>
+		<>
+			<ConfirmDelete deleteType="projects" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+			<Container popoverRef={popoverRef} onClick={handlePopover} className="-container">
+				<Overlay
+					show={popoverShow}
+					target={target}
+					container={popoverRef.current}
+					containerPadding={20}
+					placement="bottom-end"
+					rootClose={true}
+				>
+					<Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
+						<Popover.Title as="h3" className="pop-over">
+							Actions
+							<span className="iconify" data-icon="carbon:close" data-inline="false"></span>
+						</Popover.Title>
+						<Popover.Content>
+							{/* // Should look at a project's tasks */}
+							{/* {data !== undefined && data.length >= 1 ? (
+								<Button className={`mr-2 mb-2 assign col-12 ${id} button`} variant="outline-success" onClick={handleViewTasks}>View Project Tasks</Button>
+							): null} */}
+							<div className="d-flex justify-content-between">
+								<Button className={`mr-2 ${id} button`} variant="outline-primary" onClick={(e) => handleUpdate(e, projects, dispatch, projectToBeUpdated, setModalShow, 'projects')}>Update</Button>
+								<Button variant="danger" className={`${id} button`} onClick={handleDelete}>Delete</Button>
+							</div>
+						</Popover.Content>
+					</Popover>
+				</Overlay>
+				<ProjectContainer className="pl-2">
+					<ProjectImg src={require(`../../../../public/images/avatars/${index}.jpg`)} className="rounded-circle"/>
+					<ProjectText>
+						<ProjectStreet>{name}</ProjectStreet>
+						<Subtitle>{}</Subtitle>
+					</ProjectText>
+				</ProjectContainer>
+				<Email>{description !== undefined ? `${description.slice(0, 50)}...`: 'Loading'}</Email>
+				<DueDate>{dueDate ? dueDate.slice(0, 10) : 'Loading'}</DueDate>
+				<DepositWrapper>
+					<Text>{stack}</Text>
 					<Subtitle>{}</Subtitle>
-				</ProjectText>
-			</ProjectContainer>
-			<Email>{description !== undefined ? `${description.slice(0, 50)}...`: 'Loading'}</Email>
-			<DueDate>{dueDate ? dueDate.slice(0, 10) : 'Loading'}</DueDate>
-			<DepositWrapper>
-				<Text>{stack}</Text>
-				<Subtitle>{}</Subtitle>
-			</DepositWrapper>
-			<Status>
-				<Text>{status === 'notStarted' ? 'NotStarted' : status === 'inProgress' ? 'InProgress' : 'Deactivated'}</Text>
-				{(() => {
-					switch (status) {
-						case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
-						case 'inProgress': return <StatusIndicator color="#FFD056"/>;
-						case 'notStarted': return <StatusIndicator color="#75C282"/>;
-						default: return <StatusIndicator color="#AAA5A5"/>;
-					}
-				})()}
-			</Status>
-	</Container>
+				</DepositWrapper>
+				<Status>
+					<Text>{status === 'notStarted' ? 'NotStarted' : status === 'inProgress' ? 'InProgress' : 'Deactivated'}</Text>
+					{(() => {
+						switch (status) {
+							case 'deactivated': return <StatusIndicator color="#F17E7E"/>;
+							case 'inProgress': return <StatusIndicator color="#FFD056"/>;
+							case 'notStarted': return <StatusIndicator color="#75C282"/>;
+							default: return <StatusIndicator color="#AAA5A5"/>;
+						}
+					})()}
+				</Status>
+		</Container>
+	</>
 	)}
 
 export default Project;

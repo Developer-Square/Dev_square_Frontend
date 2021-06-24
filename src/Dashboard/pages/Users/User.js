@@ -152,7 +152,7 @@ function User({data, index}) {
 	return (
 			<>
 				<ModalComponent type={`${username}'s Tasks`} show={userTasksModal} usertasks={userTasks} onHide={() => setUserTasksModal(false)}/>
-				<ConfirmDelete deleteType="users" component="user" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+				<ConfirmDelete deleteType="users" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 				<Container popoverRef={popoverRef} onClick={handlePopover} className={`-container`}>
 					<Overlay
 						show={popoverShow}

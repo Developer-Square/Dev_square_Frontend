@@ -161,7 +161,8 @@ class Api {
                 getAllProjects: () => this.instance.get(`project/`),
                 createProject: (data) => this.instance.post(`project/`, data),
                 updateProject: (id, data) => this.instance.patch(`project/${id}`, data),
-                getProjectTasks: (id) => this.instance.get(`project/tasks/${id}`)
+                getProjectTasks: (id) => this.instance.get(`project/tasks/${id}`),
+                deleteProject: (id) => this.instance.delete(`project/${id}`)
             }
         }
     }

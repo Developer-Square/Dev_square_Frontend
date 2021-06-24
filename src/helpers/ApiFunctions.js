@@ -94,6 +94,29 @@ export function createUpdateUserDetails(updateStatus, taskupdateid, data, props,
         })
     }
 }
+/**
+ * @param  {} id
+ * @param  {} dispatch
+ * @param  {} type
+ * @param  {} deleteType
+ * Reusable function for deleting users or projects
+ */
+export function deleteUser(id, dispatch, props) {
+    api.User().deleteUser(id)
+    .then(res => {
+        if (res.status === 204) {
+            notify('success', 'User deleted successfully')
+            props.onHide()
+            // Update the store so that the user page refreshes and gets
+            // the new data from the backend.
+            dispatch(updateUserCount())
+        }
+    })
+    .catch(err => {
+        props.onHide()
+        displayErrorMsg(err, dispatch)
+    })
+}
 
 // Tasks
 // Get all tasks when the page loads
@@ -257,4 +280,19 @@ export function createUpdateProject(project, data, dispatch, clearFields, props,
             displayErrorMsg(err, dispatch)
         })
     }
+}
+
+export function deleteProjects(id, dispatch, props) {
+    api.Projects().deleteProject(id)
+            .then(res => {
+                if (res.status === 204) {
+                    dispatch(updateUserCount())
+                    props.onHide()
+                    notify('success', 'Project deleted successfully')
+                }
+            })
+            .catch(err => {
+                props.onHide()
+                displayErrorMsg(err, dispatch)
+            })
 }
