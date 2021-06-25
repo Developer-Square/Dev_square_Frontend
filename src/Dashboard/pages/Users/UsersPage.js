@@ -10,7 +10,7 @@ import UsersModal from './UsersModal'
 import {setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
 import depositData from "../../../DepositData.json";
 import { getUsers } from '../../../helpers/ApiFunctions';
-import { toggleModal } from '../../../helpers/Reusable Functions';
+import { IsNotEmpty, toggleModal } from '../../../helpers/Reusable Functions';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -27,11 +27,11 @@ function UsersPage() {
         if (pageNumber !== '') {
             // Get tasks when page loads
             getUsers(pageNumber, dispatch)
-        } else if (users.length === 0 || updatedCount > 0) {
+        } else if (IsNotEmpty(users) || updatedCount > 0) {
             getUsers(undefined, dispatch) 
         }
         // eslint-disable-next-line
-    }, [updatedCount])
+    }, [Object.values(users).length, updatedCount])
 
 
     return (

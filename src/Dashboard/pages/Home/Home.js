@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Row from 'react-bootstrap/Row'
@@ -10,8 +10,7 @@ import PieChart from './PieChart'
 import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
 import Projects from './Projects'
-import notify from '../../../helpers/Notify'
-import { setLoading, addTaskCreators, addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
+import { addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import Api from '../../../services/network'
 import { getUsers, getProjects, getTasks, getUser } from '../../../helpers/ApiFunctions'
 import { IsNotEmpty } from '../../../helpers/Reusable Functions'
@@ -34,7 +33,6 @@ function DashboardHome() {
     const {NewTasks, TasksCountData, TaskCreators, Tasks, AllTasks} = useSelector(state => state.tasks)
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
-    const api = new Api()
 
     useEffect(() => {
         //Checking if the redux store is empty before sending out new requests
@@ -110,8 +108,8 @@ function DashboardHome() {
             onHold: 0,
             completed: 0
         }
-        // eslint-disable-next-line
         if (IsNotEmpty(AllTasks)) {
+        // eslint-disable-next-line
             AllTasks.map(task => {
                 if (task.status === 'inProgress') {
                     sendData.inProgress += 1

@@ -63,7 +63,7 @@ export default function UsersModal(props) {
         props.onHide()
     }
 
-    function handleSubmit(e, props) {
+    function handleSubmit(e, formProps) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -94,7 +94,7 @@ export default function UsersModal(props) {
             // //Checking if the data is empty with the helper function
             if (IsNotEmpty(data) === true) {
                 //Choose whether to update or register a user
-                createUpdateUserDetails(updateStatus, taskupdateid, data, props, dispatch, clearFields)
+                createUpdateUserDetails(updateStatus, taskupdateid, data, formProps, dispatch, clearFields)
             } else {
                 notify('error', 'Please fill in all the fields')
             }

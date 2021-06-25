@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { error } from 'jquery'
 
 export const API_URL = 'https://techive-server.herokuapp.com/v1/'
 

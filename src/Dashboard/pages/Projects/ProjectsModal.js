@@ -18,7 +18,7 @@ export default function ProjectsModal(props) {
 
     useEffect(() => {
         if (props.projecttobeupdated !== '') {
-            const {name, description, tasks, dueDate, stack, id} = props.projecttobeupdated
+            const {name, description, dueDate, stack} = props.projecttobeupdated
             setName(name)
             setDescription(description)
             setDueDate(dueDate.slice(0, 10))

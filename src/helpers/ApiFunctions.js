@@ -1,4 +1,4 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addNewUsers} from '../redux/action-creator/index'
 import { updateProject, addProjects, addNewProjects } from '../redux/action-creator/projectActions';
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
@@ -64,12 +64,21 @@ export function getAdminUsers(data, dispatch) {
     })
 }
 
-// Update a user's details in the UserModal
+/**
+ * @param  {} updateStatus
+ * @param  {} taskupdateid
+ * @param  {} data
+ * @param  {} props
+ * @param  {} dispatch
+ * @param  {} clearFields
+ * Update and Create users in the UserModal
+ */
 export function createUpdateUserDetails(updateStatus, taskupdateid, data, props, dispatch, clearFields) {
     if (updateStatus === true) {
         api.User().updateUser(taskupdateid, data)
         .then(res => {
             if(res.status === 200) {
+                props.onHide()
                 notify('success', 'User updated successfully')
                 dispatch(updateUser(res.data))
                 dispatch(updateUserCount())
@@ -78,6 +87,7 @@ export function createUpdateUserDetails(updateStatus, taskupdateid, data, props,
             }
         })
         .catch(err => {
+            props.onHide()
             displayErrorMsg(err)
         })
     } else {
@@ -85,10 +95,14 @@ export function createUpdateUserDetails(updateStatus, taskupdateid, data, props,
         .then(res => {
             if (res.status === 201) {
                 notify('success', 'User successfully created')
+                dispatch(addNewUsers(res.data))
                 clearFields(props)
             }
+            props.onHide()
+
         })
         .catch(err => {
+            props.onHide()
             const customMessage = 'User not created!'
             displayErrorMsg(err, dispatch, customMessage)
         })

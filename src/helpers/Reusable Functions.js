@@ -57,7 +57,7 @@ const handleUpdate = (e, items, dispatch, itemToBeUpdated, setModalShow, locatio
         })
     } else {
         items.results.map(user => {
-            dispatchUpdateDetails(user.clientId, rowId, user, dispatch, itemToBeUpdated, setModalShow)
+            dispatchUpdateDetails(user.id, rowId, user, dispatch, itemToBeUpdated, setModalShow)
             return null
         }) 
     }

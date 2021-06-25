@@ -101,7 +101,7 @@ function Project({data, index}) {
     const [target, setTarget] = useState('');
     const [userId, setUserId] = useState('');
     const [deleteModal, setDeleteModal] = useState(false);
-	const {projects, projecttobeupdated} = useSelector(state => state.projects)
+	const {projects} = useSelector(state => state.projects)
 	const dispatch = useDispatch()
 
 	//To open the popover responsible for updating, deleting or assigning tasks
