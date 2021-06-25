@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col'
 
 //Own Components
 import Api from '../../../services/network'
-import {IsNotEmpty, converter} from '../../../helpers/Reusable Functions'
+import {IsNotEmpty, converter, shallowEquality} from '../../../helpers/Reusable Functions'
 import notify from '../../../helpers/Notify'
 import {createUpdateTask, addTaskToProject} from '../../../helpers/ApiFunctions'
 
@@ -135,22 +135,6 @@ const TaskModal = forwardRef((props, ref) => {
             if (Object.keys(UpdatedTask).length !== 0 && UpdatedTask.constructor === Object) {
                 //Send an update request
                 //First check if the user made any changes
-                function shallowEquality(obj1, obj2) {
-                    const keys1 = Object.keys(obj1)
-                    const keys2 = Object.keys(obj2)
-                    //checking if the number of keys are the same between the two objects
-                    if (keys1.length !== keys2.length) {
-                        return false
-                    }
-
-                    for (let key of keys1) {
-                        if (obj1[key] !== obj2[key]) {
-                            return false 
-                        }
-                    }
-                    return true
-                }
-
                 //If there's a difference between the two projects then
                 //update the task
                 if (shallowEquality(UpdatedTask, data) === false) {

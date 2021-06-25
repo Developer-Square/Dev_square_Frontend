@@ -64,9 +64,26 @@ const handleUpdate = (e, items, dispatch, itemToBeUpdated, setModalShow, locatio
 
 }
 
+function shallowEquality(obj1, obj2) {
+    const keys1 = Object.keys(obj1)
+    const keys2 = Object.keys(obj2)
+    //checking if the number of keys are the same between the two objects
+    if (keys1.length !== keys2.length) {
+        return false
+    }
+
+    for (let key of keys1) {
+        if (obj1[key] !== obj2[key]) {
+            return false 
+        }
+    }
+    return true
+}
+
 module.exports = {
     IsNotEmpty: IsNotEmpty, 
     converter: converter,
     handleUpdate: handleUpdate,
-    toggleModal: toggleModal
+    toggleModal: toggleModal,
+    shallowEquality: shallowEquality
 };
