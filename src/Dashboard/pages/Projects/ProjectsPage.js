@@ -31,7 +31,7 @@ function ProjectsPage() {
 
     return (
         <>
-        <AddButton onClick={() => setModalShow(true)}  />
+        <AddButton onClick={() => dispatch(setModalShow())}  />
         <Container className="projects">
             <ProjectsModal show={modalShow} projecttobeupdated={projecttobeupdated} onHide={() => toggleModal(dispatch, projectToBeUpdated, setModalShow)}/>
 			<Projects title="Active Projects" count={projects.length} data={projects} />

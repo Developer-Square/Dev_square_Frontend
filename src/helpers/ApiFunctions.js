@@ -273,7 +273,6 @@ export function createUpdateProject(project, data, dispatch, clearFields, props,
                 clearFields()
                 props.onHide()
                 dispatch(addNewProjects(res.data))
-                dispatch(updateProject())
             }
         })
         .catch(err => {
@@ -286,7 +285,7 @@ export function deleteProjects(id, dispatch, props) {
     api.Projects().deleteProject(id)
             .then(res => {
                 if (res.status === 204) {
-                    dispatch(updateUserCount())
+                    dispatch(updateProject())
                     props.onHide()
                     notify('success', 'Project deleted successfully')
                 }

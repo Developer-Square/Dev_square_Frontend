@@ -27,7 +27,7 @@ function UsersPage() {
         if (pageNumber !== '') {
             // Get tasks when page loads
             getUsers(pageNumber, dispatch)
-        } else if (users.length === 0) {
+        } else if (users.length === 0 || updatedCount > 0) {
             getUsers(undefined, dispatch) 
         }
         // eslint-disable-next-line
