@@ -36,7 +36,7 @@ const Pagination = forwardRef((props, ref) => {
         if (pageNumber !== '') {
             //Get tasks when page loads
             getTasks(pageNumber, dispatch)
-        } else if (Tasks.length === 0) {
+        } else if (Tasks.length === 0 || UpdatedCount > 0) {
             getTasks(undefined, dispatch) 
         }
         const data = {

@@ -1,4 +1,4 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addNewUsers} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addNewUsers, assignedTask, updatedTask} from '../redux/action-creator/index'
 import { updateProject, addProjects, addNewProjects } from '../redux/action-creator/projectActions';
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
@@ -73,9 +73,9 @@ export function getAdminUsers(data, dispatch) {
  * @param  {} clearFields
  * Update and Create users in the UserModal
  */
-export function createUpdateUserDetails(updateStatus, taskupdateid, data, props, dispatch, clearFields) {
+export function createUpdateUserDetails(updateStatus, userupdateid, data, props, dispatch, clearFields) {
     if (updateStatus === true) {
-        api.User().updateUser(taskupdateid, data)
+        api.User().updateUser(userupdateid, data)
         .then(res => {
             if(res.status === 200) {
                 props.onHide()
@@ -238,6 +238,57 @@ export function addTaskToProject(id, projectName, projects, dispatch, clearField
             
         })
     }
+/**
+ * @param  {} e
+ * @param  {} props
+ * Assign tasks to users and update tasks to show that they're assigned.
+ */
+export function assignTask(name, admins, dispatch, task, props) {
+    // eslint-disable-next-line
+    admins.map(admin => {
+        if (admin.name.toLowerCase() === name.toLowerCase()) {
+            let userId = admin.id
+            let taskId = {
+                taskId: task.id
+            }
+            api.Tasks().assignUserTask(userId, taskId)
+            .then(res => {
+                if (res.status === 200) {
+                    notify('success', 'Task assigned successfully')
+                    // Update task 'assigned: false' to 'assigned: true'
+                    const data = {
+                        assigned: true
+                    }
+                    createUpdateTask(task, data, dispatch, () => {}, props, 'update')
+                    dispatch(assignedTask())
+                    dispatch(setLoading())
+                }
+            })
+            .catch(err => {
+                props.onHide()
+                displayErrorMsg(err, dispatch)
+            })
+        }
+    })
+}
+
+export function deleteTask(id, props, dispatch) {
+    api.Tasks().deleteTask(id)
+    .then(res => {
+        if (res.status === 204) {
+            notify('success', 'Task deleted successfully')
+            props.onHide()
+            dispatch(updatedTask(''))
+        }
+    })
+    .catch(err => {
+        props.onHide()
+        // diplayErrorMsg has a dispatch setLoading so this one is to
+        // counter the effect of that setLoading.
+        dispatch(setLoading())
+        displayErrorMsg(err, dispatch)
+    })
+}
 
 // Projects    
 // TODO: Make a change in TaskModal page to start using the projects in the store

@@ -105,7 +105,7 @@ export default function Tasks() {
                     if (task.status === 'inProgress') {
                         notify('error', 'Can\'t assign a task that is already in progress')
                     } else {
-                        settasktobeassigned(task.id)
+                        settasktobeassigned(task)
                         setAssignModal(true)
                     }
                 }
@@ -150,7 +150,6 @@ export default function Tasks() {
                                 //Wait till the mapping is done n then send the final result
                                 let result = join(res.data, len, userTasksArr)
                                 if(result !== undefined) {
-                                    console.log(result)
                                     dispatch(addSpecificTasks(result))
                                     dispatch(setLoading())
                                 }
@@ -235,7 +234,7 @@ export default function Tasks() {
         show={modalShow}
         onHide={() => toggleModal()}
         />
-        <ConfirmDelete deleteType="tasks" component="task" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete deleteType="tasks" id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
@@ -311,6 +310,7 @@ export default function Tasks() {
                                                         <span className="iconify" data-icon="carbon:close" data-inline="false"></span>
                                                     </Popover.Title>
                                                     <Popover.Content>
+                                                        {/* The assign button should be hidden if the task has an attribute of 'assigned: true' */}
                                                         <Button className={`mr-2 mb-2 assign col-12 ${target.className} button`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                         <div className="d-flex justify-content-between">
                                                             <Button className={`mr-2 ${target.className} button`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>

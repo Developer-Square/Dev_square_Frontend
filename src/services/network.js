@@ -123,7 +123,7 @@ class Api {
                 deleteTask: (id) => this.instance.delete(`tasks/${id}`),
                 getUsersTasks: (id) => this.instance.get(`users/tasks/${id}`),
                 assignUserTask: (id, data) => this.instance.post(`users/${id}`, data),
-                deleteUsersTask: (id, data) => this.instance.delete(`/users/tasks/${id}`, {data: data})
+                // deleteUsersTask: (id, data) => this.instance.delete(`/users/tasks/${id}`, {data: data})
             }
         }
     }
