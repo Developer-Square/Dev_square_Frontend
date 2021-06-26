@@ -18,10 +18,10 @@ const Text = styled.h1`
 `;
 
 const Username = styled(Text)`
-	width: 30%;
+	width: ${props => props.page === 'projects' ? '25%' : '30%' };
 `;
 const Email = styled(Text)`
-	width: 15%;
+	width: ${props => props.page === 'projects' ? '20%' : '15%' };
 `;
 const Login = styled(Text)`
 	width: 10%;
@@ -31,11 +31,11 @@ const Task = styled(Text)`
 `;
 const Status = styled(Text)``;
 
-function MenuBar({username, email, login, extra, status }) {
+function MenuBar({username, email, login, extra, status, page}) {
 	return (
 		<Container>
-			<Username>{username}</Username>
-			<Email>{email}</Email>
+			<Username page={page}>{username}</Username>
+			<Email page={page}>{email}</Email>
 			<Login>{login}</Login>
 			<Task>{extra}</Task>
 			<Status>{status}</Status>

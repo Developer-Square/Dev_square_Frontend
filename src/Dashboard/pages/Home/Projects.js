@@ -5,7 +5,7 @@ import {Progress} from 'react-sweet-progress'
 //Own Components
 import '../Tasks/Tasks.scss'
 import Api from '../../../services/network'
-import Domino from '../../Dashboard_Components/Domino'
+import Domino from '../../Reusable Components/Domino'
 
 const Container = styled.div`   
     margin-top: 40px;

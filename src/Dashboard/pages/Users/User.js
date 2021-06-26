@@ -8,8 +8,9 @@ import Button from 'react-bootstrap/Button'
 
 //Own Components
 import {userToBeUpdated, setModalShow} from '../../../redux/action-creator/index'
-import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
+import ConfirmDelete from '../../Reusable Components/ConfirmDelete'
 import ModalComponent from '../../../components/Reusable Components/ModalComponent'
+import {handleUpdate} from '../../../helpers/Reusable Functions'
 
 const Container = styled.div`
 	display: flex;
@@ -124,20 +125,6 @@ function User({data, index}) {
 		})
 	})
 
-	//User Update
-	function handleUpdate(e) {
-		//Getting the id of the clicked row
-        let userId = e.currentTarget.className.slice(5,29)
-		users.results.map(user => {
-			if (user.id === userId) {
-				dispatch(userToBeUpdated(user))
-				dispatch(setModalShow())
-			}
-			return null
-		})
-
-	}
-
 	function handleDelete(e) {
 		//Getting the id of the clicked row
 		let user= e.currentTarget.className.slice(0,24)
@@ -165,7 +152,7 @@ function User({data, index}) {
 	return (
 			<>
 				<ModalComponent type={`${username}'s Tasks`} show={userTasksModal} usertasks={userTasks} onHide={() => setUserTasksModal(false)}/>
-				<ConfirmDelete deleteType="users" component="user" packages={users} id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+				<ConfirmDelete deleteType="users" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 				<Container popoverRef={popoverRef} onClick={handlePopover} className={`-container`}>
 					<Overlay
 						show={popoverShow}
@@ -185,7 +172,7 @@ function User({data, index}) {
 									<Button className={`mr-2 mb-2 assign col-12 ${id} button`} variant="outline-success" onClick={() => handleView(tasks, name)}>View User Tasks</Button>
 								): null}
 								<div className="d-flex justify-content-between">
-									<Button className={`mr-2 ${id} button`} variant="outline-primary" onClick={handleUpdate}>Update</Button>
+									<Button className={`mr-2 ${id} button`} variant="outline-primary" onClick={(e) => handleUpdate(e, users, dispatch, userToBeUpdated, setModalShow)}>Update</Button>
 									<Button variant="danger" className={`${id} button`} onClick={handleDelete}>Delete</Button>
 								</div>
 							</Popover.Content>

@@ -4,14 +4,13 @@ import {useSelector, useDispatch} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import AddButton from "../../Dashboard_Components/AddButton";
+import AddButton from "../../Reusable Components/AddButton";
 import Users from "./Users";
 import UsersModal from './UsersModal'
-import {setModalShow, addUsers, setLoading, updateGetUsers, userToBeUpdated} from '../../../redux/action-creator/index'
-import Api from '../../../services/network'
-import notify from "../../../helpers/Notify";
-
+import {setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
 import depositData from "../../../DepositData.json";
+import { getUsers } from '../../../helpers/ApiFunctions';
+import { IsNotEmpty, toggleModal } from '../../../helpers/Reusable Functions';
 
 const Container = styled.div`
     margin-top: 60px;
@@ -21,56 +20,18 @@ const Container = styled.div`
 function UsersPage() {
     const dispatch = useDispatch()
     const {modalShow, usertobeupdated, updatedCount, users, pageNumber} = useSelector(state => state.users)
-    const api = new Api()
 
     useEffect(() => {
         //If the user was on a certain page, return them to the 
         //specific page
         if (pageNumber !== '') {
-            //Get tasks when page loads
-            getUsers(pageNumber)
-        } else if (users.length === 0) {
-            getUsers() 
+            // Get tasks when page loads
+            getUsers(pageNumber, dispatch)
+        } else if (IsNotEmpty(users) || updatedCount > 0) {
+            getUsers(undefined, dispatch) 
         }
         // eslint-disable-next-line
-    }, [updatedCount])
-
-    //Get All Users
-	function getUsers(params) {
-        let data = {}
-		if (params !== undefined) {
-            data = params  
-        } else {
-            data = {
-                limit: 10,
-                page: 1
-            }
-        }
-		dispatch(setLoading())
-		api.User().getAllUsers(data)
-		.then(res => {
-			if (res.status === 200){
-                dispatch(addUsers(res.data))
-				notify('success', 'Users fetched successfully')
-				dispatch(setLoading())
-				dispatch(updateGetUsers())
-			}
-		})
-		.catch(err => {
-			if (err.response) {
-				const {message} = err.response.data
-				dispatch(setLoading())
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-		})
-    }
-    
-    const toggleModal = () => {
-        dispatch(userToBeUpdated(''))
-        dispatch(setModalShow())
-	}
+    }, [Object.values(users).length, updatedCount])
 
 
     return (
@@ -87,7 +48,7 @@ function UsersPage() {
                 pauseOnHover
             />
             <AddButton onClick={() => dispatch(setModalShow())}  />
-            <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal()}/>
+            <UsersModal usertobeupdated={usertobeupdated} show={modalShow} onHide={() => toggleModal(dispatch, userToBeUpdated, setModalShow)}/>
 			<Users title="Active Accounts" count={users.results !== undefined ? users.results.length :  null} page={users.totalPages} pageNumber={users.page} data={users.results} />
 			<Users title="Closed Accounts" count={5} data={depositData.closed} />
         </Container>

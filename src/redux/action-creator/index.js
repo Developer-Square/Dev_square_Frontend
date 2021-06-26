@@ -1,4 +1,4 @@
-import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_USER_COUNT, UPDATE_USER, MODAL_SHOW, PAGE_NUMBER, ADD_USER_TASK, USER_TO_BE_UPDATED, UPDATE_TASKS, MODAL_TASK_SHOW, ADD_TASKS_ALL, ADD_ALL_PROJECTS, ADD_NEW_TASKS, ADD_COUNT_DATA} from '../action-types/index'
+import {ADD_TASKS, ADD_USER, CREATED_TASK, GET_TASKS, UPDATED_TASK, UPDATE_AUTH, SET_LOADING, ADD_TASK_CREATORS, ADD_USERS, UPDATE_GET_USERS, ADD_ADMIN_USERS, ADD_SPECIFIC_TASKS, ASSINGNED_TASKS, UPDATE_USER_COUNT, UPDATE_USER, MODAL_SHOW, PAGE_NUMBER, ADD_USER_TASK, USER_TO_BE_UPDATED, UPDATE_TASKS, MODAL_TASK_SHOW, ADD_TASKS_ALL, ADD_NEW_TASKS, ADD_COUNT_DATA, ADD_NEW_USERS} from '../action-types/index'
 
 export const setLoading = () => {
     return {type: SET_LOADING}
@@ -68,7 +68,7 @@ export const updateAuth = () => {
     return {type: UPDATE_AUTH}
 }
 
-//For the UsersReducer
+// For the UsersReducer
 export const addUsers = (data) => {
     return {type: ADD_USERS, payload: data}
 }
@@ -101,8 +101,6 @@ export const addUserTasks = (data) => {
     return {type: ADD_USER_TASK, payload: data}
 }
 
-//For the Projects Reducer
-
-export const addProjects = (data) => {
-    return {type: ADD_ALL_PROJECTS, payload: data}
+export const addNewUsers = (data) => {
+    return {type: ADD_NEW_USERS, payload: data}
 }

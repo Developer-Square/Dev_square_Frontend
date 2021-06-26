@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 //Own Components
 import notify from '../../../helpers/Notify'
 import Api from '../../../services/network'
-import NeverEndingBox from '../../Dashboard_Components/NeverEndingBox'
+import NeverEndingBox from '../../Reusable Components/NeverEndingBox'
 
 
 export default function TaskDisplay({usertasks}) {

@@ -4,10 +4,9 @@ import styled from 'styled-components'
 import {ToastContainer} from 'react-toastify'
 
 //Own Components
-import Api from '../../../services/network'
 import './Pagination.scss'
-import {addTasks, updateGetTasks, setLoading, addTaskCreators, addAdminUsers, updatePageNumber} from '../../../redux/action-creator'
-import notify from '../../../helpers/Notify'
+import {updatePageNumber} from '../../../redux/action-creator'
+import { getAdminUsers, getTasks} from '../../../helpers/ApiFunctions'
 
 const Container = styled.div`
     .disabled {
@@ -18,7 +17,6 @@ const Container = styled.div`
 const Pagination = forwardRef((props, ref) => {
     const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks} = useSelector(state => state.tasks)
     const {pageNumber} = useSelector(state => state.users)
-    const api = new Api()
     const dispatch = useDispatch()
     const {page, limit, totalPages, handleUserTasks} = props
 
@@ -27,7 +25,7 @@ const Pagination = forwardRef((props, ref) => {
         ref,
         () => ({
             getAllTasks() {
-                getTasks()
+                getTasks(undefined, dispatch)
             },
         })
     )
@@ -37,12 +35,15 @@ const Pagination = forwardRef((props, ref) => {
         //specific page
         if (pageNumber !== '') {
             //Get tasks when page loads
-            getTasks(pageNumber)
+            getTasks(pageNumber, dispatch)
         } else if (Tasks.length === 0) {
-            getTasks() 
+            getTasks(undefined, dispatch) 
+        }
+        const data = {
+            role: 'admin'
         }
         //Get admin users
-        getAdminUsers()
+        getAdminUsers(data, dispatch)
         //When a user refreshes the page, clear localStorage
         if (CreatedCount === 0 && UpdatedCount === 0 && AssignedCount === 0) {
             localStorage.setItem('usertaskname', 'none')
@@ -51,92 +52,12 @@ const Pagination = forwardRef((props, ref) => {
         //this ensures that tasks returned belong to them and not just any tasks
         if (UpdatedTask === true) {
             let e = null
-            handleUserTasks(e, localStorage.getItem('usertaskname'))
+            handleUserTasks(e, localStorage.getItem('userdetails'))
         }
         // eslint-disable-next-line
     }, [CreatedCount, AssignedCount, UpdatedCount])
 
-    //Get all tasks when the page loads
-    function getTasks(params) {
-        //Set Loading to true
-        dispatch(setLoading())
-        //default attributes
-        let data = {}
-        if (params !== undefined) {
-            data = params  
-        } else {
-            data = {
-                limit: 10,
-                page: 1
-            }
-        }
-
-        api.Tasks().getAllTasks(data)
-        .then(res => {
-            if (res.status === 200) {
-                //Dispatching an action to add tasks to the redux store
-                dispatch(addTasks(res.data))
-                dispatch(updateGetTasks(true))
-                //Set Loading to false
-                dispatch(setLoading())
-                notify('success', 'Tasks fetched successfully')
-                //eslint-disable-next-line
-                res.data.results.map((task) => {
-                    getUser(task.creator)
-                })
-            }
-        })
-        .catch(err => {
-            //Set Loading to false
-            dispatch(setLoading())
-            if (err.response) {
-                const {message} = err.response.data
-                dispatch(setLoading())
-                notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
-
-    }
-
-    function getAdminUsers() {
-        const data = {
-            role: 'admin'
-        }
-        api.User().getAllUsersWithRole(data)
-        .then(res => {
-            if (res.status === 200) {
-                dispatch(addAdminUsers(res.data.results))
-            }
-        })
-        .catch(err => {
-            if (err.response) {
-				const {message} = err.response.data
-				dispatch(setLoading())
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
-    }
-
-    //Get the Developer name    
-    const getUser = async (id) => {
-        const api  = new Api()
-        try {
-            const res = await api.User().getUser(id)
-            if (res.status === 200) {
-                dispatch(addTaskCreators(res.data.name))
-            }  
-        } catch (error) {
-            const {message} = error.response.data
-            notify('error', message)
-        }
-    }
-
     function fetchPrevAndNextPage(e) {
-        dispatch(setLoading())
         //Setting the params to control the pagination
         let fetchData = {
             limit,
@@ -171,29 +92,7 @@ const Pagination = forwardRef((props, ref) => {
         //Store the page number so that when the page updates or refreshes the user
         //is returned to the right page.
         dispatch(updatePageNumber(fetchData))
-        api.Tasks().getAllTasks(fetchData)
-        .then(res => {
-            if (res.status === 200) {
-                dispatch(setLoading())
-                //Add the next page's data to the redux store
-                dispatch(addTasks(res.data))
-                dispatch(updateGetTasks(true))
-                // eslint-disable-next-line
-                res.data.results.map((task, index) => {
-                    getUser(task.creator)
-                })
-            }
-        })
-        .catch(err => {
-            dispatch(setLoading())
-            if (err.response) {
-				const {message} = err.response.data
-				dispatch(setLoading())
-				notify('error', message)
-			} else {
-				notify('error', 'Something went wrong, Please refresh the page.')
-			}
-        })
+        getTasks(fetchData, dispatch)
     }
     return (
         <>

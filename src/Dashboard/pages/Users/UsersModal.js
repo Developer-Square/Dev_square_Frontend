@@ -7,10 +7,10 @@ import Col from 'react-bootstrap/Col'
 import $ from 'jquery'
 
 //Own Components
-import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import IsNotEmpty from '../../../helpers/IsNotEmpty'
-import { updateUserCount, updateUser, userToBeUpdated } from '../../../redux/action-creator'
+import {IsNotEmpty} from '../../../helpers/Reusable Functions'
+import {createUpdateUserDetails} from '../../../helpers/ApiFunctions'
+import { userToBeUpdated } from '../../../redux/action-creator'
 
 export default function UsersModal(props) {
     const dispatch = useDispatch()
@@ -63,7 +63,7 @@ export default function UsersModal(props) {
         props.onHide()
     }
 
-    function handleSubmit(e, props) {
+    function handleSubmit(e, formProps) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -93,45 +93,8 @@ export default function UsersModal(props) {
             
             // //Checking if the data is empty with the helper function
             if (IsNotEmpty(data) === true) {
-                const api = new Api()
                 //Choose whether to update or register a user
-                if (updateStatus === true) {
-                    api.User().updateUser(taskupdateid, data)
-                    .then(res => {
-                        if(res.status === 200) {
-                            notify('success', 'User updated successfully')
-                            dispatch(updateUser(res.data))
-                            dispatch(updateUserCount())
-                            clearFields(props)
-                            dispatch(userToBeUpdated(''))
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            notify('error', message)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
-                } else {
-                    api.User().createUser(data)
-                    .then(res => {
-                        if (res.status === 201) {
-                            notify('success', 'User successfully created')
-                            clearFields(props)
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            const customMessage = `User not created! \n ${message}`
-                            notify('error', customMessage)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
-                }
+                createUpdateUserDetails(updateStatus, taskupdateid, data, formProps, dispatch, clearFields)
             } else {
                 notify('error', 'Please fill in all the fields')
             }
@@ -186,10 +149,7 @@ export default function UsersModal(props) {
                     </Form.Row>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>List your skills e.g PHP, Java</Form.Label>
-                        <Form.Control required as="textarea" rows={4} value={skills} onChange={(e) => setSkills(e.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
-                            Please add a skill.
-                        </Form.Control.Feedback>
+                        <Form.Control as="textarea" rows={4} value={skills} onChange={(e) => setSkills(e.target.value)}/>
                     </Form.Group>
                     <Form.Group controlId="formBasicstatus">
                         <Form.Label>User's status</Form.Label>
