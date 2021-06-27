@@ -4,8 +4,8 @@ import {Progress} from 'react-sweet-progress'
 
 //Own Components
 import '../Tasks/Tasks.scss'
-import Api from '../../../services/network'
 import Domino from '../../Reusable Components/Domino'
+import {calculateProjectTasks} from '../../../helpers/ApiFunctions'
 
 const Container = styled.div`   
     margin-top: 40px;
@@ -64,40 +64,18 @@ const CardTitle = styled.div`
 
 export default function Projects({projects}) {
     const [tasksNumber, setTaskNumber] = useState([])
-    const api = new Api()
+    // console.log(tasksNumber, 'projects')
 
     useEffect(() => {
-        if (projects.length !== 0) {
-            let projectResults = []
-            // eslint-disable-next-line
-            projects.map(project => {
-                getSpecificTasks(project.id, projectResults)
-            })
-        }
-        // eslint-disable-next-line
+        // if (projects.length !== 0) {
+        //     let projectResults = []
+        //     // eslint-disable-next-line
+        //     projects.map((project) => {
+        //         calculateProjectTasks(project, setTaskNumber)
+        //     })
+        // }
+        // // eslint-disable-next-line
     }, [projects])
-
-    function getSpecificTasks(params, projectResults) {
-        api.Projects().getProjectTasks(params)
-        .then(res => {
-            if (res.status === 200) {
-                let inProgress = 0;
-                let len = res.data.length
-                res.data.map((task, index) => {
-                    if (task.status === "inProgress") {
-                        inProgress += 1
-                    }
-
-                    if (index === len - 1) {
-                        let result = Math.round((inProgress / len) * 100)
-                        projectResults.push(result)
-                        setTaskNumber(projectResults)
-                    }
-                    return null;
-                })
-            }
-        })
-    }
 
     return (
         <>

@@ -100,7 +100,7 @@ function DashboardHome() {
     }
 
     //Count data to be put in the tasks cards
-    function countData (totalResults) {
+    function countData () {
         //Getting the number of tasks for each section
         let sendData = {
             inProgress: 0,
@@ -135,7 +135,7 @@ function DashboardHome() {
             </SpacedElements>
             <Row className="d-flex justify-content-between middle-element">
                 <TaskList tasks={NewTasks} creators={TaskCreators} className="col-5"/>
-                <PieChart projects={projects} className="col-5"/>
+                <PieChart projects={projects} tasks={Tasks} className="col-5"/>
             </Row>
             <Row>
                 <ActiveUsers users={users.results}/>

@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Form, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import {Progress} from 'react-sweet-progress'
+import { calculateProjectTasks } from '../../../helpers/ApiFunctions'
 
 //Own Components
-import Api from '../../../services/network'
 
 const Container = styled.div`
     .card-body {
@@ -39,14 +39,15 @@ const CardTitle = styled.div`
     font-size: 1.2rem;
 `
 
-export default function PieChart({projects}) {
+export default function PieChart({projects, tasks}) {
     const [projectName, setProjectName] = useState('')
     const [tasksNumber, setTaskNumber] = useState(0)
-    const api = new Api()
+    console.log(tasksNumber, 'piecharts')
+
 
     useEffect(() => {
-        if (projects.length !== 0) {
-            getSpecificTasks()
+        if (projects.length && tasks.results) {
+            calculateProjectTasks(projects[0], setTaskNumber, tasks.results)
             setProjectName(projects[0].name)
         }
        // eslint-disable-next-line 
@@ -57,39 +58,13 @@ export default function PieChart({projects}) {
         </Tooltip>
       );
 
-    function getSpecificTasks(params) {
-        let data
-        if (params !== undefined) {
-            data = params
-        } else {
-            data = projects[0].id
-        }
-        api.Projects().getProjectTasks(data)
-        .then(res => {
-            if (res.status === 200) {
-                let inProgress = 0;
-                let len = res.data.length
-                res.data.map((task, index) => {
-                    if (task.status === "inProgress") {
-                        inProgress += 1
-                    }
-
-                    if (index === len - 1) {
-                        let result = Math.round((inProgress / len) * 100)
-                        setTaskNumber(result)
-                    }
-                    return null;
-                })
-            }
-        })
-    }
-
     function handleChange(e) {
         setProjectName(e.target.value)
         let project_name = e.target.value.slice(8)
+        console.log(project_name)
         projects.map(project => {
             if (project.name ===  project_name) {
-                getSpecificTasks(project.id)
+                calculateProjectTasks(project, setTaskNumber, tasks.results)
             }
             return null
         })

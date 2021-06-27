@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Api from '../../../services/network'
 import {IsNotEmpty, converter, shallowEquality} from '../../../helpers/Reusable Functions'
 import notify from '../../../helpers/Notify'
-import {createUpdateTask, addTaskToProject} from '../../../helpers/ApiFunctions'
+import {createUpdateTask} from '../../../helpers/ApiFunctions'
 
 const TaskModal = forwardRef((props, ref) => {
     const [description, setDescription] = useState('')
@@ -20,9 +20,8 @@ const TaskModal = forwardRef((props, ref) => {
     const [status, setStatus] = useState('')
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
-    const [projectName, setProjectTasks] = useState('')
+    const [projectName, setProjectName] = useState('')
     const [title, setTitle] = useState('')
-    const [updateProjects, setUpdateProjects] = useState(false)
 
     const {UpdatedTask, ModalShow} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
@@ -33,12 +32,11 @@ const TaskModal = forwardRef((props, ref) => {
         () => ({
             clearFormFields() {
                 setDescription('')
-                setProjectTasks('')
+                setProjectName('')
                 setStack('')
                 setDifficulty('Easy')
                 setStatus('Not Started')
                 setDueDate('')
-                setUpdateProjects(false)
             }
         })
     )
@@ -75,13 +73,13 @@ const TaskModal = forwardRef((props, ref) => {
             let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
             setDifficulty(diff)
             //Get the specific project that the task to be updated is attached to
-            if (projects !== '' && projects !== undefined) {
+            if (projects) {
                 // eslint-disable-next-line
                 projects.map(project => {
                     // eslint-disable-next-line
                     project.tasks.map(task => {
-                        if (task.includes(UpdatedTask.id)) {
-                            setProjectTasks(project.name)
+                        if (task === UpdatedTask.id) {
+                            setProjectName(project.name)
                         }
                     })
                 })
@@ -109,8 +107,7 @@ const TaskModal = forwardRef((props, ref) => {
         setStack('')
         setDifficulty('')
         setStatus('')
-        setProjectTasks('')
-        setUpdateProjects(false)
+        setProjectName('')
     }
 
     function handleSubmit(e, props) {
@@ -131,31 +128,29 @@ const TaskModal = forwardRef((props, ref) => {
                 creator: UpdatedTask.creator,
                 stack
             }
-            //If props is not empty then its an update
+            // If props is not empty then its an update
             if (Object.keys(UpdatedTask).length !== 0 && UpdatedTask.constructor === Object) {
-                //Send an update request
-                //First check if the user made any changes
-                //If there's a difference between the two projects then
-                //update the task
+                // Send an update request
+                // First check if the user made any changes
+                // If there's a difference between the two projects then
+                // update the task
                 if (shallowEquality(UpdatedTask, data) === false) {
-                    //remove the project attribute as it is not to be sent
-                    //along with the task's object
+                    // remove the project attribute as it is not to be sent
+                    // along with the task's object
                     delete data.id
-                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update')
-                } else if (updateProjects) {
-                    addTaskToProject(UpdatedTask.id, projectName, projects, dispatch, props)
+                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update', projectName, projects)
                 } else {
-                     //If nothing has been changed show the user a pop message
+                     // If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
                 }
             } else {
-                //Send a create task request 
+                // Send a create task request 
                 if (projectName !== '' && projectName !== 'Select the project') {
                     delete data.id               
                     data.creator = localStorage.getItem('userID')
-                    //Checking if the data is empty with the helper function
+                    // Checking if the data is empty with the helper function
                     if (IsNotEmpty(data) === true) {
-                        //Hide the modal and send the details if the data is Not empty
+                        // Hide the modal and send the details if the data is Not empty
                         props.onHide()
                         createUpdateTask('', data, dispatch, clearFields, props, '', projectName, projects)
                     }
@@ -167,8 +162,7 @@ const TaskModal = forwardRef((props, ref) => {
     }
 
     const handleProjects = (e) => {
-        setUpdateProjects(true)
-        setProjectTasks(e)
+        setProjectName(e)
     }
 
     return (

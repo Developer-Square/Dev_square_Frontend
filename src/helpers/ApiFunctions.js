@@ -189,6 +189,7 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
             if (res.status === 200) {
                 notify('success', 'Task successfully updated')
                 dispatch(updateTasks(res.data))
+                addTaskToProject(res.data.id, projectName, projects, dispatch, clearFields, props)
                 clearFields()
                 props.onHide()
             }
@@ -219,9 +220,9 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
 export function addTaskToProject(id, projectName, projects, dispatch, clearFields, props) {
         // eslint-disable-next-line
         projects.map(project => {
-            //projectName contains the name chosen in the form
+            // projectName contains the name chosen in the form
             project.tasks.map((task, index) => {
-                if (id !== undefined && id !== '') {
+                if (id) {
                     if (task === id) {
                         // Incase the task was in a previous project, remove it e.g. during 
                         // an task update we might want to remove a task from its current project to 
@@ -237,11 +238,10 @@ export function addTaskToProject(id, projectName, projects, dispatch, clearField
             })
 
             if (projectName === project.name) {
-                if (id !== undefined && id !== '') {
+                if (id) {
                     if (project.tasks.includes(id) === false) {
                         project.tasks.push(id)
                         const data = {tasks: project.tasks}
-                        console.log(project)
                         createUpdateProject(project, data, dispatch, clearFields, props, 'update')
                     }
                 }
@@ -318,6 +318,38 @@ export async function getProjects(dispatch) {
         }
     } catch (err) {
         displayErrorMsg(err, dispatch)
+    }
+}
+
+export function calculateProjectTasks(project, setTaskNumber, tasks) {
+    let inProgress = 0;
+    
+    if (project.tasks.length) {
+        let len = project.tasks.length
+        // First map through a project's tasks to get its tasks.
+        // eslint-disable-next-line
+        project.tasks.map((taskId, index) => {
+            // Map through the all the tasks and compare their ids to
+            // the ones in the chosen project, if the ids match then
+            // check the task's status to see if its inProgress.
+            tasks.map(task => {
+                if (taskId === task.id) {
+                    if (task.status === "inProgress") {
+                        inProgress += 1
+                    }
+                }
+                return null;
+            })
+
+            // When the mapping is done, set the result
+            if (index === len - 1) {
+                let result = Math.round((inProgress / len) * 100)
+                setTaskNumber(result)
+                console.log(result)
+            }
+        })
+    } else {
+        setTaskNumber(0)
     }
 }
 
