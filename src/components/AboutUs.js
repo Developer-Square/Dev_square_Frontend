@@ -28,12 +28,12 @@ function AboutUs() {
                 <Row>
                     <div className="d-flex flex-column mx-auto col-12">
                     <div className="aboutus-header mx-auto">tecHive</div>
-                    <p className="text-center">We are a team of great and passionate individuals that you can put your <span>trust in 😇.</span></p>
+                    <p className="text-center">We are a team of great and passionate individuals that you can put your <span>trust in <span role="img" aria-label="emoji">😇</span>.</span></p>
                     </div>
                     <Col xs={12} lg={6}>
                         <div className="aboutus-left-section">
                             <div className="mb-2 pl-1 pr-1">
-                            Let us take you on a journey that will help you understand and hopefully trust us better. Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. Hard work 💪 is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products.
+                            Let us take you on a journey that will help you understand and hopefully trust us better. Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. Hard work <span role="img" aria-label="emoji">💪</span> is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products.
                             </div>
                         
                         <div className="desc definition mb-2 show" onClick={handleChange}>
@@ -43,8 +43,8 @@ function AboutUs() {
                                 <div className="mb-0 text">What is tecHive</div>
                             </div>
                             <p className="answer">
-                                TecHive is a company that was born out of the need for quality. Me and my colleagues have been victims of badly built software numerous times, whether its that school website that is always crashing or its that online shop that always gets your order wrong or that internet provider that's always providing poor internet 🙁.<br/>
-                                So we sat down and decided to form a company that would deal in quality software only 😃. We were tired of always calling the help center to get issues fixed. We decided quality first was the way to go, creating a product and getting it right the first time(Philip Crosby, Zero Defects Program) 😎. Since if you create a quality product the first time, then you'll have fewer issues later on.<br/> ...Read more
+                                TecHive is a company that was born out of the need for quality. Me and my colleagues have been victims of badly built software numerous times, whether its that school website that is always crashing or its that online shop that always gets your order wrong or that internet provider that's always providing poor internet <span role="img" aria-label="emoji">🙁</span>.<br/>
+                                So we sat down and decided to form a company that would deal in quality software only <span role="img" aria-label="emoji">😃</span>. We were tired of always calling the help center to get issues fixed. We decided quality first was the way to go, creating a product and getting it right the first time(Philip Crosby, Zero Defects Program) <span role="img" aria-label="emoji">😎</span>. Since if you create a quality product the first time, then you'll have fewer issues later on.<br/> ...Read more
                                {/*Joining the technology industry, we quickly realized that TRUST is very important. Clients need to know that you can do the task they're asking for. So we took that need for trust and we added it to our values. Now we not only build quality software but also make sure we build a bond of trust between us and the client. This method has worked for us so far and we intend to build it into our brand. */}
                             </p>
                         </div>

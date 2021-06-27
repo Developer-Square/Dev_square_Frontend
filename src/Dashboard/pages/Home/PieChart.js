@@ -42,7 +42,6 @@ const CardTitle = styled.div`
 export default function PieChart({projects, tasks}) {
     const [projectName, setProjectName] = useState('')
     const [tasksNumber, setTaskNumber] = useState(0)
-    console.log(tasksNumber, 'piecharts')
 
 
     useEffect(() => {

@@ -345,7 +345,6 @@ export function calculateProjectTasks(project, setTaskNumber, tasks) {
             if (index === len - 1) {
                 let result = Math.round((inProgress / len) * 100)
                 setTaskNumber(result)
-                console.log(result)
             }
         })
     } else {
