@@ -38,17 +38,11 @@ export async function getUsers(params, dispatch) {
 }
 
     // Get the Developer name    
-export function getUser (id, dispatch, location)  {
+export function getUser (id, dispatch)  {
     api.User().getUser(id).then(res => {
         if (res.status === 200) {
-            // If the function is being called from the Profile.js then dispatch the following.
-            if (location === 'profile') {
-                dispatch(addUser(res.data))
-                dispatch(updateAuth())
-            } else {
-                // Else dispatch action from the Pagination.js
-                dispatch(addTaskCreators(res.data.name))
-            }
+            dispatch(addUser(res.data))
+            dispatch(updateAuth())
         } 
     }).catch(err => {
         displayErrorMsg(err, dispatch)
@@ -56,16 +50,21 @@ export function getUser (id, dispatch, location)  {
 }
 
 // Get admin users so that you can filter tasks by name in tasks page.
-export function getAdminUsers(data, dispatch) {
-    api.User().getAllUsersWithRole(data)
-    .then(res => {
+export async function getAdminUsers(data, dispatch) {
+    let results
+    try {
+        const res = await api.User().getAllUsersWithRole(data)
+
         if (res.status === 200) {
             dispatch(addAdminUsers(res.data.results))
-        }
-    })
-    .catch(err => {
+            results = res.data
+            // We need these results to compare them with the taskCreators Ids
+            return results
+        } 
+    } catch (err) {
         displayErrorMsg(err, dispatch)
-    })
+        return {}
+    }
 }
 
 /**
@@ -138,7 +137,7 @@ export function deleteUser(id, dispatch, props) {
 
 // Tasks
 // Get all tasks when the page loads
-export function getTasks(params, dispatch) {
+export function getTasks(params, dispatch, adminIds) {
         //Set Loading to true
         dispatch(setLoading())
         //default attributes
@@ -161,9 +160,17 @@ export function getTasks(params, dispatch) {
                 //Set Loading to false
                 dispatch(setLoading())
                 notify('success', 'Tasks fetched successfully')
-                //eslint-disable-next-line
+                // Map over the every task and identify its creator's id
+                // then map over the adminIds array and compare the task creator id
+                // admin id to find the name of the admin who created the task
+                // eslint-disable-next-line
                 res.data.results.map((task) => {
-                    getUser(task.creator, dispatch)
+                    // eslint-disable-next-line
+                    adminIds.results.map(admin => {
+                        if (admin.id === task.creator) {
+                            dispatch(addTaskCreators(admin.name))
+                        }
+                    })
                 })
             }
         })

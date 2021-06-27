@@ -7,6 +7,7 @@ import {ToastContainer} from 'react-toastify'
 import './Pagination.scss'
 import {updatePageNumber} from '../../../redux/action-creator'
 import { getAdminUsers, getTasks} from '../../../helpers/ApiFunctions'
+import notify from '../../../helpers/Notify'
 
 const Container = styled.div`
     .disabled {
@@ -31,19 +32,26 @@ const Pagination = forwardRef((props, ref) => {
     )
 
     useEffect(() => {
-        //If the user was on a certain page, return them to the 
-        //specific page
-        if (pageNumber !== '') {
-            //Get tasks when page loads
-            getTasks(pageNumber, dispatch)
-        } else if (Tasks.length === 0 || UpdatedCount > 0) {
-            getTasks(undefined, dispatch) 
-        }
         const data = {
             role: 'admin'
         }
-        //Get admin users
-        getAdminUsers(data, dispatch)
+        // Get admin users
+        getAdminUsers(data, dispatch).then(res => {
+            if (Object.values(res).length) {
+                // If the user was on a certain page, return them to the 
+                // specific page
+                if (pageNumber !== '') {
+                    //Get tasks when page loads
+                    getTasks(pageNumber, dispatch, res)
+                } else if (Tasks.length === 0 || UpdatedCount > 0) {
+                    getTasks(undefined, dispatch, res) 
+                }
+            }
+        }).catch((err) => {
+            notify('error', err)
+        })
+
+     
         //When a user refreshes the page, clear localStorage
         if (CreatedCount === 0 && UpdatedCount === 0 && AssignedCount === 0) {
             localStorage.setItem('usertaskname', 'none')
