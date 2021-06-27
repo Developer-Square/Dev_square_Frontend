@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 //Own Component
-import { createUpdateProject, createUpdateUserDetails, deleteProjects, deleteTask, deleteUser } from '../../helpers/ApiFunctions'
+import { createUpdateProject, createUpdateUserDetails, deleteProjects, deleteTask, deleteUser, getProjects, getUsers } from '../../helpers/ApiFunctions'
 
 export default function ConfirmDelete(props) {
     const dispatch = useDispatch()
@@ -16,11 +16,11 @@ export default function ConfirmDelete(props) {
      * Check if the task is part of any project and if so,
      * remove the task and update the project's details.
      */
-    function deleteTaskFromProject(formProps) {
-        if (projects.length) {
-            const len = projects.length
+    async function deleteTaskFromProject(formProps, projectData) {
+        if (projectData.length) {
+            const len = projectData.length
             // eslint-disable-next-line
-            projects.map((project, index) => {
+            projectData.map((project, index) => {
                 if (project.tasks.includes(id)) {
                     // Make new array without the deleted task and
                     // send a request to update the user.
@@ -36,6 +36,13 @@ export default function ConfirmDelete(props) {
                     deleteTask(id, formProps, dispatch)
                 }
             })
+        } else {
+            const results =  await getProjects(dispatch)
+            // Create a recursive function to perform the task deletion
+            // after all the projects have been fetched
+            if (results.length) {
+                deleteTaskFromProject(formProps, results)
+            }
         }
     }
 
@@ -43,11 +50,11 @@ export default function ConfirmDelete(props) {
      * Check if the task is assigned to any user and if so,
      * remove the task and update the user's details.
      */
-    function deleteTaskFromUser(formProps) {
-        if (Object.values(users).length) {
-            const len = users.results.length
+    async function deleteTaskFromUser(formProps, userData) {
+        if (Object.values(userData).length) {
+            const len = userData.results.length
             // eslint-disable-next-line
-            users.results.map((user, index) => {
+            userData.results.map((user, index) => {
                 if (user.tasks.includes(id)) {
                     // Make new array without the deleted task and
                     // send a request to update the user.
@@ -60,9 +67,16 @@ export default function ConfirmDelete(props) {
 
                 // Check if the map is done then move to the next step.
                 if (index === len-1) {
-                    deleteTaskFromProject(formProps)
+                    deleteTaskFromProject(formProps, projects)
                 }
             })
+        } else {
+            const results = await getUsers('', dispatch)
+            if (Object.values(results).length) {
+                // Create a recursive function to perform the task deletion
+                // after all the users have been fetched
+                deleteTaskFromUser(formProps, results)
+            }
         }
     }
 
@@ -72,7 +86,7 @@ export default function ConfirmDelete(props) {
         } else if (deleteType === 'projects') {
             deleteProjects(id, dispatch, formProps)
         } else {
-            deleteTaskFromUser(formProps)
+            deleteTaskFromUser(formProps, users)
         }
     }
     

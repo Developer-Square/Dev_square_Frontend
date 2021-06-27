@@ -7,8 +7,8 @@ import notify from "./Notify";
 const api = new Api()
 
 // Get all users
-export function getUsers(params, dispatch) {
-
+export async function getUsers(params, dispatch) {
+    let results
     let data = {}
     if (params !== undefined) {
         data = params  
@@ -18,19 +18,23 @@ export function getUsers(params, dispatch) {
             page: 1
         }
     }
-    dispatch(setLoading())
-    api.User().getAllUsers(data)
-    .then(res => {
+    try {
+        dispatch(setLoading())
+        const res = await api.User().getAllUsers(data)
+
         if (res.status === 200){
             dispatch(addUsers(res.data))
             notify('success', 'Users fetched successfully')
             dispatch(setLoading())
             dispatch(updateGetUsers())
+            // We need this data when deleting tasks from a user's task array.
+            results = res.data
+            return results
         }
-    })
-    .catch(err => {
+    } catch (err) {
         displayErrorMsg(err, dispatch)
-    })
+        return {}
+    }
 }
 
     // Get the Developer name    
@@ -293,17 +297,21 @@ export function deleteTask(id, props, dispatch) {
 // Projects    
 // TODO: Make a change in TaskModal page to start using the projects in the store
 // once you create the projects page.
-export function getProjects(dispatch) {
-    api.Projects().getAllProjects()
-    .then(res => {
+export async function getProjects(dispatch) {
+    let results
+    try {
+        const res = await api.Projects().getAllProjects()
+    
         if (res.status === 200) {
             dispatch(addProjects(res.data.results))
             notify('success', 'Projects fetched successfully')
+            // We need this data when deleting tasks from a user's task array.
+            results = res.data.results
+            return results
         }
-    })
-    .catch(err => {
+    } catch (err) {
         displayErrorMsg(err, dispatch)
-    })
+    }
 }
 
 

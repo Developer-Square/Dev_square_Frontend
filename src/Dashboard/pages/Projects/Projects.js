@@ -52,7 +52,7 @@ function Projects({ title, data, count }) {
 			<Title>{title}<DepositCount>{count}</DepositCount></Title>
 			<MenuBar username="Project Name" email="Description" login="Due Date" extra="Stack" status="Status" page="projects"/>
 			<Content>
-				{data !== undefined ? data.slice(0, size).map((user, index) => (
+				{data.length ? data.slice(0, size).map((user, index) => (
 					<Project data={user} index={index + 1} key={index}/>
 				)):  <Domino loading={true}/>}
 			</Content>
