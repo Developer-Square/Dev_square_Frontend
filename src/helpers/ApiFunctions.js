@@ -321,9 +321,8 @@ export async function getProjects(dispatch) {
     }
 }
 
-export function calculateProjectTasks(project, setTaskNumber, tasks) {
+export function calculateProjectTasks(project, setTaskNumber, tasks, setProjectPercentage, projectResults) {
     let inProgress = 0;
-    
     if (project.tasks.length) {
         let len = project.tasks.length
         // First map through a project's tasks to get its tasks.
@@ -344,11 +343,24 @@ export function calculateProjectTasks(project, setTaskNumber, tasks) {
             // When the mapping is done, set the result
             if (index === len - 1) {
                 let result = Math.round((inProgress / len) * 100)
-                setTaskNumber(result)
+                // Check to see if projectResults is defined which would mean
+                // the function is being called for HomeProjects.js rather than
+                // PieChart.js
+                if (projectResults) {
+                    projectResults.push(result)
+                    setProjectPercentage(projectResults)
+                } else {
+                    setTaskNumber(result)
+                }
             }
         })
     } else {
-        setTaskNumber(0)
+        if (projectResults) {
+            projectResults.push(0)
+            setProjectPercentage(projectResults)
+        } else {
+            setTaskNumber(0)
+        }
     }
 }
 

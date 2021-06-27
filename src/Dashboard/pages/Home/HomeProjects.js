@@ -62,19 +62,18 @@ const CardTitle = styled.div`
     margin-bottom: 0;
 `
 
-export default function Projects({projects}) {
-    const [tasksNumber, setTaskNumber] = useState([])
-    // console.log(tasksNumber, 'projects')
+export default function Projects({projects, tasks}) {
+    const [projectPercentage, setProjectPercentage] = useState('')
 
     useEffect(() => {
-        // if (projects.length !== 0) {
-        //     let projectResults = []
-        //     // eslint-disable-next-line
-        //     projects.map((project) => {
-        //         calculateProjectTasks(project, setTaskNumber)
-        //     })
-        // }
-        // // eslint-disable-next-line
+        if (projects.length && tasks.results) {
+            let projectResults = []
+            // eslint-disable-next-line
+            projects.map((project) => {
+                calculateProjectTasks(project, setProjectPercentage, tasks.results, setProjectPercentage, projectResults)
+            })
+        }
+        // eslint-disable-next-line
     }, [projects])
 
     return (
@@ -132,7 +131,7 @@ export default function Projects({projects}) {
                                                             color: '#007bff'
                                                             }
                                                         }}
-                                                        percent={tasksNumber[index]}/>
+                                                        percent={projectPercentage[index]}/>
                                                 </div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                 <span><span className="dot-inProgress">●</span> In Progress</span>

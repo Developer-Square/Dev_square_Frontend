@@ -9,7 +9,7 @@ import TaskList from './TaskList'
 import PieChart from './PieChart'
 import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
-import Projects from './Projects'
+import Projects from './HomeProjects'
 import { addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import Api from '../../../services/network'
 import { getUsers, getProjects, getTasks, getUser } from '../../../helpers/ApiFunctions'
@@ -139,7 +139,7 @@ function DashboardHome() {
             </Row>
             <Row>
                 <ActiveUsers users={users.results}/>
-                <Projects projects={projects} />
+                <Projects projects={projects} tasks={Tasks} />
             </Row>
             <PercentageWidgets />
         </Container>
