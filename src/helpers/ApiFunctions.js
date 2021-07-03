@@ -137,7 +137,7 @@ export function deleteUser(id, dispatch, props) {
 
 // Tasks
 // Get all tasks when the page loads
-export function getTasks(params, dispatch, adminIds) {
+export function getTasks(params, dispatch, adminIds, location) {
         //Set Loading to true
         dispatch(setLoading())
         //default attributes
@@ -173,7 +173,7 @@ export function getTasks(params, dispatch, adminIds) {
                             }
                         })
                     })
-                }
+                } 
             }
         })
         .catch(err => {

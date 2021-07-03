@@ -16,7 +16,7 @@ const Container = styled.div`
 `
 
 const Pagination = forwardRef((props, ref) => {
-    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks} = useSelector(state => state.tasks)
+    const {CreatedCount, AssignedCount, UpdatedCount, UpdatedTask, Tasks, TaskCreators} = useSelector(state => state.tasks)
     const {pageNumber} = useSelector(state => state.users)
     const dispatch = useDispatch()
     const {page, limit, totalPages, handleUserTasks} = props
@@ -43,7 +43,7 @@ const Pagination = forwardRef((props, ref) => {
                 if (pageNumber !== '') {
                     //Get tasks when page loads
                     getTasks(pageNumber, dispatch, res)
-                } else if (Tasks.length === 0 || UpdatedCount > 0) {
+                } else if (Tasks.length === 0 || UpdatedCount > 0 || TaskCreators.length === 0) {
                     getTasks(undefined, dispatch, res) 
                 }
             }

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Row from 'react-bootstrap/Row'
@@ -33,10 +33,14 @@ function DashboardHome() {
     const {NewTasks, TasksCountData, TaskCreators, Tasks, AllTasks} = useSelector(state => state.tasks)
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
+    // To avoid repeated calls to the backend before the redux store is updated
+    const [usersFecthed, setUsersFetched] = useState(false)
+    const [tasksFecthed, setTasksFetched] = useState(false)
+    const [projectsFecthed, setProjectsFetched] = useState(false)
 
     useEffect(() => {
         //Checking if the redux store is empty before sending out new requests
-        if (Object.keys(users).length === 0) {
+        if (Object.keys(users).length === 0 && !usersFecthed) {
             let data = {                
                 limit: 6,
                 page: 1
@@ -44,17 +48,19 @@ function DashboardHome() {
             // console.log(localStorage.getItem('jwtToken'))
             if (localStorage.getItem('jwtToken')) {
                 getUsers(data, dispatch)
+                setUsersFetched(currUsers => currUsers = true)
             }
         }
-        if (NewTasks.length === 0 ) {
-            getTasks(undefined, dispatch)
+        if (NewTasks.length === 0 && !tasksFecthed) {
+            getTasks(undefined, dispatch, undefined, 'homepage')
             // Get the tasks with a status of 'NotStarted'
             getNewTasks(Tasks.totalResults)
             countData(Tasks.totalResults)
-            //eslint-disable-next-line
+            setTasksFetched(currUsers => currUsers = true)
         }
-        if (projects.length === 0) {
+        if (projects.length === 0 && !projectsFecthed) {
             getProjects(dispatch)
+            setProjectsFetched(currUsers => currUsers = true)
         }
 
         // eslint-disable-next-line
