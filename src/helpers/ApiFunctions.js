@@ -164,14 +164,16 @@ export function getTasks(params, dispatch, adminIds) {
                 // then map over the adminIds array and compare the task creator id
                 // admin id to find the name of the admin who created the task
                 // eslint-disable-next-line
-                res.data.results.map((task) => {
-                    // eslint-disable-next-line
-                    adminIds.results.map(admin => {
-                        if (admin.id === task.creator) {
-                            dispatch(addTaskCreators(admin.name))
-                        }
+                if (adminIds) { 
+                    res.data.results.map((task) => {
+                        // eslint-disable-next-line
+                        adminIds.results.map(admin => {
+                            if (admin.id === task.creator) {
+                                dispatch(addTaskCreators(admin.name))
+                            }
+                        })
                     })
-                })
+                }
             }
         })
         .catch(err => {

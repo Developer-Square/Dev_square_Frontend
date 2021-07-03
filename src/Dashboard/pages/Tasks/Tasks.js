@@ -130,47 +130,49 @@ export default function Tasks() {
 
         localStorage.setItem('userdetails', userDetails)
         let userTasksArr = []
-        dispatch(setLoading())
-        // Get the specific user's tasks
-        api.Tasks().getUsersTasks(userDetails)
-        .then(res => {
-            if (res.status === 200) {
-                //If successful take the array of taskIds that is returned and get the
-                //actual tasks
-                const {tasks} = res.data
-                if (tasks.length !== 0) {
-                    //Convert to an object so that it can be sent to the
-                    //store to replace the taskIds so that the right task can be updated
-                    let len = tasks.length
-                    // eslint-disable-next-line
-                    tasks.map(task => {
-                        api.Tasks().getTask(task)
-                        .then(res => {
-                            if (res.status === 200) {
-                                //Wait till the mapping is done n then send the final result
-                                let result = join(res.data, len, userTasksArr)
-                                if(result !== undefined) {
-                                    dispatch(addSpecificTasks(result))
-                                    dispatch(setLoading())
+        
+        if (userDetails !== 'none') {
+            dispatch(setLoading())
+            // Get the specific user's tasks
+            api.Tasks().getUsersTasks(userDetails)
+            .then(res => {
+                if (res.status === 200) {
+                    //If successful take the array of taskIds that is returned and get the
+                    //actual tasks
+                    const {tasks} = res.data
+                    if (tasks.length !== 0) {
+                        //Convert to an object so that it can be sent to the
+                        //store to replace the taskIds so that the right task can be updated
+                        let len = tasks.length
+                        // eslint-disable-next-line
+                        tasks.map(task => {
+                            api.Tasks().getTask(task)
+                            .then(res => {
+                                if (res.status === 200) {
+                                    //Wait till the mapping is done n then send the final result
+                                    let result = join(res.data, len, userTasksArr)
+                                    if(result) {
+                                        dispatch(addSpecificTasks(result))
+                                        dispatch(setLoading())
+                                    }
                                 }
-                            }
+                            })
+                            .catch(err => {
+                                displayErrorMsg(err, dispatch)
+                            })
                         })
-                        .catch(err => {
-                            displayErrorMsg(err, dispatch)
-                        })
-                    })
-                } else {
-                    dispatch(setLoading())
-                    //Send an empty array if the users has no tasks
-                    userTasksArr = []
-                    dispatch(addSpecificTasks(userTasksArr))
-                }
-            } 
-        })
-        .catch(err => {
-            displayErrorMsg(err, dispatch)
-        })
-                
+                    } else {
+                        dispatch(setLoading())
+                        //Send an empty array if the users has no tasks
+                        userTasksArr = []
+                        dispatch(addSpecificTasks(userTasksArr))
+                    }
+                } 
+            })
+            .catch(err => {
+                displayErrorMsg(err, dispatch)
+            })
+        }
     }
 
     function handleTaskUpdate(e) {
