@@ -19,6 +19,7 @@ const Container = styled.div`
     .close-btn-1 {
         background: #F17E7E;
     }
+
     .close-btn-2 {
         background: #F17E7E;
     }
@@ -111,10 +112,11 @@ function ViewAllButton({title, pageNumber, page, marginTop, marginBottom, onClic
                 if (page > 1) {
                     setNextPage(true)
                 }
-            } else if (btn.innerHTML.search('Closed') !== -1) {
-                btn.classList.add('close-btn-1')
-                btn.innerHTML = 'Close All Accounts' 
-            } else if (btn.innerHTML.search('Close All Accounts')) {
+            } else if (btn.innerHTML.search('Close') !== -1) {
+                btn.classList.remove('close-btn-1')
+                btn.innerHTML = 'All Active Accounts'
+                // For the closed accounts 
+            } else if (btn.innerHTML.search('Close All Accounts') !== -1) {
                 btn.classList.remove('close-btn-1')
                 btn.innerHTML = btnText
                 setNextPage(false)
