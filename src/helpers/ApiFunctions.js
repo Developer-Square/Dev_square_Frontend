@@ -1,4 +1,4 @@
-import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addNewUsers, assignedTask, updatedTask} from '../redux/action-creator/index'
+import {addUsers, setLoading, updateGetUsers, addAdminUsers, updateUser, updateUserCount, userToBeUpdated, addTaskCreators, addTasks, updateGetTasks, addUser, updateAuth, updateTasks, createdTask, addNewUsers, assignedTask, taskToBeUpdated} from '../redux/action-creator/index'
 import { updateProject, addProjects, addNewProjects } from '../redux/action-creator/projectActions';
 import Api from '../services/network'
 import { displayErrorMsg } from './ErrorMessage';
@@ -292,7 +292,7 @@ export function deleteTask(id, props, dispatch) {
         if (res.status === 204) {
             notify('success', 'Task deleted successfully')
             props.onHide()
-            dispatch(updatedTask(''))
+            dispatch(taskToBeUpdated(''))
         }
     })
     .catch(err => {

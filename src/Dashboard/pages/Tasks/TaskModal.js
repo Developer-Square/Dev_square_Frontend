@@ -11,8 +11,9 @@ import Api from '../../../services/network'
 import {IsNotEmpty, converter, shallowEquality} from '../../../helpers/Reusable Functions'
 import notify from '../../../helpers/Notify'
 import {createUpdateTask} from '../../../helpers/ApiFunctions'
+import { userToBeUpdated } from '../../../redux/action-creator'
 
-const TaskModal = forwardRef((props, ref) => {
+const TaskModal = (props) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
@@ -25,21 +26,6 @@ const TaskModal = forwardRef((props, ref) => {
 
     const {UpdatedTask, ModalShow} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
-
-    //Function call coming from the parent component
-    useImperativeHandle(
-        ref,
-        () => ({
-            clearFormFields() {
-                setDescription('')
-                setProjectName('')
-                setStack('')
-                setDifficulty('Easy')
-                setStatus('Not Started')
-                setDueDate('')
-            }
-        })
-    )
 
     //Creating a new instance of the api class
     const api = new Api()
@@ -101,13 +87,15 @@ const TaskModal = forwardRef((props, ref) => {
         })
     }
 
-    const clearFields = () => {
+    const clearFields = (props) => {
         setDescription('')
         setDueDate('')
         setStack('')
         setDifficulty('')
         setStatus('')
         setProjectName('')
+        dispatch(userToBeUpdated(''))
+        props.onHide()
     }
 
     function handleSubmit(e, props) {
@@ -172,8 +160,6 @@ const TaskModal = forwardRef((props, ref) => {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={props.show}
-        onHide={props.onHide}
         >
             <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -182,7 +168,7 @@ const TaskModal = forwardRef((props, ref) => {
             </Modal.Header>
             <Modal.Body>
                 <h5 className="text-center">Fill the form below</h5>
-                <Form noValidate validated={validated} {...props}>
+                <Form noValidate validated={validated}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Task Name</Form.Label>
                         <Form.Control required type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Task Name..." />
@@ -240,11 +226,11 @@ const TaskModal = forwardRef((props, ref) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={() => clearFields(props)}>Close</Button>
             </Modal.Footer>
         </Modal>
         </>
     )
-})
+}
 
 export default TaskModal;

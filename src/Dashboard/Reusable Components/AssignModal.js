@@ -25,7 +25,7 @@ export default function AssignModal(props) {
         assignTask(name, admins, dispatch, task, props)
     }
     return (
-        <Modal size="sm" {...props} show={show} onHide={onHide}>
+        <Modal size="sm" {...props} onHide={onHide}>
             <Modal.Header closeButton>
             <Modal.Title>Assign Tasks</Modal.Title>
             </Modal.Header>
@@ -33,7 +33,7 @@ export default function AssignModal(props) {
                 {admins.length !== 0 ?
                     <> 
                         <HandAnimation loading={Loading} />
-                        <Form.Group {...props}>
+                        <Form.Group>
                             <Form.Label>Assign to: </Form.Label>
                             <Form.Control as="select" onChange={(e) => assignTasksToUsers(e, props)}>
                                 <option>Choose user</option>

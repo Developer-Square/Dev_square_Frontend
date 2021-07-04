@@ -26,11 +26,12 @@ export default function ProjectsModal(props) {
         }
     }, [props])
 
-    const clearFields = () => {
+    const clearFields = (props) => {
         setName('')
         setDescription('')
         setDueDate('')
         setStack('')
+        props.onHide()
     }
 
     function handleSubmit(e, formProps) {
@@ -61,11 +62,6 @@ export default function ProjectsModal(props) {
                 notify('error', 'Please fill in all the fields')
             }
         }
-    }
-
-    function handleClose() {
-        clearFields()
-        props.onHide()
     }
 
     return (
@@ -106,7 +102,7 @@ export default function ProjectsModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={handleClose}>Close</Button>
+                <Button onClick={() => clearFields(props)}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

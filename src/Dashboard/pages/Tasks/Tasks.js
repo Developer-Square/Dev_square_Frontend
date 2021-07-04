@@ -21,8 +21,10 @@ import BouncingBall from '../../Reusable Components/BouncingBall'
 import StairsLoader from '../../Reusable Components/StairsLoader'
 import ConfirmDelete from '../../Reusable Components/ConfirmDelete'
 import AssignModal from '../../Reusable Components/AssignModal'
-import {addSpecificTasks, setLoading, updatedTask, modalTaskShow} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading, taskToBeUpdated, modalTaskShow, setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
 import { displayErrorMsg } from '../../../helpers/ErrorMessage'
+import { toggleModal } from '../../../helpers/Reusable Functions';
+
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -71,7 +73,6 @@ const CardTitle = styled.div`
 
 //Fetching of the tasks happens in the pagination component
 export default function Tasks() {
-    const [modalShow, setModalShow] = useState(false);
     const [popoverShow, setPopoverShow] = useState(false);
     const [target, setTarget] = useState('');
     const [rowId, setRowId] = useState('');
@@ -80,18 +81,19 @@ export default function Tasks() {
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
     const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
+    const {modalShow} = useSelector(state => state.users)
+
     const dispatch = useDispatch()
     //Using the ref attribute to run a function 
-    //in the Task Modal child component
-    const childRef = useRef()
+    //in the child component
     const paginationRef = useRef()
     const api = new Api()
     //To open the popover responsible for updating, deleting or assigning tasks
     const popoverRef = useRef()
 
-    useEffect(() => {
-        // eslint-disable-next-line
-    }, [GetTasks])
+    // useEffect(() => {
+    //     // eslint-disable-next-line
+    // }, [])
 
     //Assign a task to a user
     function handleAssign(e) {
@@ -183,9 +185,8 @@ export default function Tasks() {
         // eslint-disable-next-line
         results.map((value) => {
             if (value.id === rowId) {
-                dispatch(updatedTask(value))
-                setModalShow(true)
-                dispatch(modalTaskShow())
+                dispatch(taskToBeUpdated(value))
+                dispatch(setModalShow())
             }
         }) 
     }
@@ -195,13 +196,6 @@ export default function Tasks() {
         let rowId= e.currentTarget.className.slice(6, 30)
         setRowId(rowId)
         setDeleteModal(true)
-    }
-
-    // Opens and closes the modal.
-    const toggleModal = () => {
-        childRef.current.clearFormFields()
-        dispatch(updatedTask(''))
-        setModalShow(!modalShow)
     }
 
     const renderTooltip = (props) => (
@@ -230,11 +224,10 @@ export default function Tasks() {
     }
     return (
         <>
-        <AddButton onClick={() => toggleModal()} />
+        <AddButton onClick={() => dispatch(setModalShow())} />
         <TaskModal
-        ref={childRef}
         show={modalShow}
-        onHide={() => toggleModal()}
+        onHide={() => toggleModal(dispatch, userToBeUpdated, setModalShow)}
         />
         <ConfirmDelete deleteType="tasks" id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
@@ -296,7 +289,7 @@ export default function Tasks() {
                                 <div className="rt-tr-group">
                                     {Object.keys(Tasks).length !== 0 && Tasks.results.length !== 0 ? Tasks.results.map((task, index) => (
                                           
-                                        <div popoverRef={popoverRef} onClick={handlePopover} className={`rt-tr ${task.id}`} key={index}>
+                                        <div popoverref={popoverRef} onClick={handlePopover} className={`rt-tr ${task.id}`} key={index}>
                                             <Overlay
                                                 show={popoverShow}
                                                 target={target}
@@ -305,6 +298,7 @@ export default function Tasks() {
                                                 key={index}
                                                 placement="bottom-end"
                                                 rootClose={true}
+                                                onHide={() => {}}
                                             >
                                                 <Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
                                                     <Popover.Title as="h3" className="pop-over">
