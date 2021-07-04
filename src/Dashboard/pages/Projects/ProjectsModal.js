@@ -63,6 +63,11 @@ export default function ProjectsModal(props) {
         }
     }
 
+    function handleClose() {
+        clearFields()
+        props.onHide()
+    }
+
     return (
         <Modal
         {...props}
@@ -71,7 +76,7 @@ export default function ProjectsModal(props) {
         centered
         className="-container-"
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
                 {props.projecttobeupdated !== '' ? 'Update' : 'Create'} a Project
                 </Modal.Title>
@@ -101,7 +106,7 @@ export default function ProjectsModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

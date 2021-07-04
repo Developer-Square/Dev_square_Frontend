@@ -60,7 +60,6 @@ export default function PieChart({projects, tasks}) {
     function handleChange(e) {
         setProjectName(e.target.value)
         let project_name = e.target.value.slice(8)
-        console.log(project_name)
         projects.map(project => {
             if (project.name ===  project_name) {
                 calculateProjectTasks(project, setTaskNumber, tasks.results)

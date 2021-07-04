@@ -125,7 +125,7 @@ export default function UsersModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <h5 className="text-center">Fill the form below</h5>
-                <Form noValidate validated={validated} {...props}>
+                <Form noValidate validated={validated}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email..." />

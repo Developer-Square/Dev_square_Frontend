@@ -165,6 +165,7 @@ export function getTasks(params, dispatch, adminIds, location) {
                 // admin id to find the name of the admin who created the task
                 // eslint-disable-next-line
                 if (adminIds) { 
+                    // eslint-disable-next-line
                     res.data.results.map((task) => {
                         // eslint-disable-next-line
                         adminIds.results.map(admin => {

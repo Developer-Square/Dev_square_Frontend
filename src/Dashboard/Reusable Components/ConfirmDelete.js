@@ -10,7 +10,7 @@ export default function ConfirmDelete(props) {
     const dispatch = useDispatch()
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
-    const {id, deleteType} = props
+    const {id, deletetype} = props
 
     /**
      * Check if the task is part of any project and if so,
@@ -81,9 +81,9 @@ export default function ConfirmDelete(props) {
     }
 
     function handleDelete(formProps) {
-        if (deleteType === 'users') {
+        if (deletetype === 'users') {
             deleteUser(id, dispatch, formProps)
-        } else if (deleteType === 'projects') {
+        } else if (deletetype === 'projects') {
             deleteProjects(id, dispatch, formProps)
         } else {
             deleteTaskFromUser(formProps, users)
@@ -104,7 +104,7 @@ export default function ConfirmDelete(props) {
                         Are you sure you want to delete this {props.component}?
                     </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body {...props} className="mx-auto">
+                    <Modal.Body className="mx-auto">
                         <Button variant="outline-primary" className="mr-3" onClick={props.onHide}>No</Button>
                         <Button variant="danger" onClick={() => handleDelete(props)}>Yes</Button>
                     </Modal.Body>
