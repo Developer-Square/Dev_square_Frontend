@@ -87,7 +87,7 @@ const TaskModal = (props) => {
         })
     }
 
-    const clearFields = (props) => {
+    const clearFields = () => {
         setDescription('')
         setDueDate('')
         setStack('')
@@ -98,7 +98,7 @@ const TaskModal = (props) => {
         props.onHide()
     }
 
-    function handleSubmit(e, props) {
+    function handleSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -126,7 +126,7 @@ const TaskModal = (props) => {
                     // remove the project attribute as it is not to be sent
                     // along with the task's object
                     delete data.id
-                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, 'update', projectName, projects)
+                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, 'update', projectName, projects)
                 } else {
                      // If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
@@ -139,8 +139,7 @@ const TaskModal = (props) => {
                     // Checking if the data is empty with the helper function
                     if (IsNotEmpty(data) === true) {
                         // Hide the modal and send the details if the data is Not empty
-                        props.onHide()
-                        createUpdateTask('', data, dispatch, clearFields, props, '', projectName, projects)
+                        createUpdateTask('', data, dispatch, clearFields, '', projectName, projects)
                     }
                 } else {
                     notify('error', 'You have not selected the project')
@@ -226,7 +225,7 @@ const TaskModal = (props) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => clearFields(props)}>Close</Button>
+                <Button onClick={clearFields}>Close</Button>
             </Modal.Footer>
         </Modal>
         </>

@@ -76,21 +76,19 @@ export async function getAdminUsers(data, dispatch) {
  * @param  {} clearFields
  * Update and Create users in the UserModal
  */
-export function createUpdateUserDetails(updateStatus, userupdateid, data, props, dispatch, clearFields) {
+export function createUpdateUserDetails(updateStatus, userupdateid, data, dispatch, clearFields) {
     if (updateStatus === true) {
         api.User().updateUser(userupdateid, data)
         .then(res => {
             if(res.status === 200) {
-                props.onHide()
                 notify('success', 'User updated successfully')
                 dispatch(updateUser(res.data))
                 dispatch(updateUserCount())
-                clearFields(props)
+                clearFields()
                 dispatch(userToBeUpdated(''))
             }
         })
         .catch(err => {
-            props.onHide()
             displayErrorMsg(err)
         })
     } else {
@@ -99,13 +97,11 @@ export function createUpdateUserDetails(updateStatus, userupdateid, data, props,
             if (res.status === 201) {
                 notify('success', 'User successfully created')
                 dispatch(addNewUsers(res.data))
-                clearFields(props)
+                clearFields()
             }
-            props.onHide()
 
         })
         .catch(err => {
-            props.onHide()
             const customMessage = 'User not created!'
             displayErrorMsg(err, dispatch, customMessage)
         })
@@ -185,19 +181,19 @@ export function getTasks(params, dispatch, adminIds, location) {
 }
 
 // Creates or updates a task using the modal.
-export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props, instruction, projectName, projects) {
+export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, instruction, projectName, projects) {
     if (instruction === 'update') {
         api.Tasks().updateTask(UpdatedTask.id, data)
         .then(res => {
             if (res.status === 200) {
                 notify('success', 'Task successfully updated')
                 dispatch(updateTasks(res.data))
-                addTaskToProject(res.data.id, projectName, projects, dispatch, clearFields, props)
+                addTaskToProject(res.data.id, projectName, projects, dispatch, () => {})
                 clearFields()
-                props.onHide()
             }
         })
         .catch(err => {
+            console.error(err)
             displayErrorMsg(err, dispatch)
         })
     } else {
@@ -206,7 +202,7 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
             if (res.status === 201) {
                 //Once a task is created we get its ID and pass it to the addToTask Function
                 //so that we can add it to its specific project
-                addTaskToProject(res.data.id, projectName, projects, dispatch, clearFields, props)
+                addTaskToProject(res.data.id, projectName, projects, dispatch, () => {})
                 dispatch(createdTask(true))
                 clearFields()
                 notify('success', 'Task successfully created')
@@ -220,7 +216,7 @@ export function createUpdateTask(UpdatedTask, data, dispatch, clearFields, props
 }
 
     //Add the task to the specific project selected
-export function addTaskToProject(id, projectName, projects, dispatch, clearFields, props) {
+export function addTaskToProject(id, projectName, projects, dispatch, clearFields) {
         // eslint-disable-next-line
         projects.map(project => {
             // projectName contains the name chosen in the form
@@ -234,7 +230,7 @@ export function addTaskToProject(id, projectName, projects, dispatch, clearField
                             project.tasks.splice(index, 1)
                         }
                         const data = {tasks: project.tasks}
-                        createUpdateProject(project, data, dispatch, clearFields, props, 'update')
+                        createUpdateProject(project, data, dispatch, clearFields, 'update')
                     } 
                 }
                 return null
@@ -245,7 +241,7 @@ export function addTaskToProject(id, projectName, projects, dispatch, clearField
                     if (project.tasks.includes(id) === false) {
                         project.tasks.push(id)
                         const data = {tasks: project.tasks}
-                        createUpdateProject(project, data, dispatch, clearFields, props, 'update')
+                        createUpdateProject(project, data, dispatch, clearFields, 'update')
                     }
                 }
             } 
@@ -377,15 +373,14 @@ export function calculateProjectTasks(project, setTaskNumber, tasks, setProjectP
  * 
  * Update an existing project.
  */
-export function createUpdateProject(project, data, dispatch, clearFields, props, instruction) {
+export function createUpdateProject(project, data, dispatch, clearFields, instruction) {
     if (instruction === 'update') {
         api.Projects().updateProject(project.id, data)
         .then(res => {
             if (res.status === 200) {
                 notify('success', 'Project updated successfully')
                 dispatch(updateProject())
-                clearFields()
-                props.onHide()
+                if (clearFields) clearFields()
             }
         })
         .catch(err => {
@@ -397,7 +392,6 @@ export function createUpdateProject(project, data, dispatch, clearFields, props,
             if (res.status === 201) {
                 notify('success', 'Created project successfully')
                 clearFields()
-                props.onHide()
                 dispatch(addNewProjects(res.data))
             }
         })

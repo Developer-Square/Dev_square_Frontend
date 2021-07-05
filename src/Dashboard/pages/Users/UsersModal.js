@@ -49,7 +49,7 @@ export default function UsersModal(props) {
         }
     }, [props])
 
-    const clearFields = (props) => {
+    const clearFields = () => {
         setLname('')
         setFname('')
         setEmail('')
@@ -63,7 +63,7 @@ export default function UsersModal(props) {
         props.onHide()
     }
 
-    function handleSubmit(e, formProps) {
+    function handleSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -94,7 +94,7 @@ export default function UsersModal(props) {
             // //Checking if the data is empty with the helper function
             if (IsNotEmpty(data) === true) {
                 //Choose whether to update or register a user
-                createUpdateUserDetails(updateStatus, taskupdateid, data, formProps, dispatch, clearFields)
+                createUpdateUserDetails(updateStatus, taskupdateid, data, dispatch, clearFields)
             } else {
                 notify('error', 'Please fill in all the fields')
             }
@@ -186,13 +186,13 @@ export default function UsersModal(props) {
                     </>
                     : null
                     }
-                    <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e, props)}>
+                    <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                         Submit
                     </Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => clearFields(props)}>Close</Button>
+                <Button onClick={clearFields}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

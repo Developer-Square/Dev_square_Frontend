@@ -91,10 +91,6 @@ export default function Tasks() {
     //To open the popover responsible for updating, deleting or assigning tasks
     const popoverRef = useRef()
 
-    // useEffect(() => {
-    //     // eslint-disable-next-line
-    // }, [])
-
     //Assign a task to a user
     function handleAssign(e) {
         //Getting the index of the clicked row

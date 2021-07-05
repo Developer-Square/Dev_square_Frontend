@@ -26,7 +26,7 @@ export default function ProjectsModal(props) {
         }
     }, [props])
 
-    const clearFields = (props) => {
+    const clearFields = () => {
         setName('')
         setDescription('')
         setDueDate('')
@@ -34,7 +34,7 @@ export default function ProjectsModal(props) {
         props.onHide()
     }
 
-    function handleSubmit(e, formProps) {
+    function handleSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -53,10 +53,10 @@ export default function ProjectsModal(props) {
                 const {projecttobeupdated} = props
                 if (projecttobeupdated !== '') {
                     // Update a project
-                    createUpdateProject(projecttobeupdated, data, dispatch, clearFields, formProps, 'update')
+                    createUpdateProject(projecttobeupdated, data, dispatch, clearFields, 'update')
                 } else {
                     // Create a project
-                    createUpdateProject('', data, dispatch, clearFields, formProps)
+                    createUpdateProject('', data, dispatch, clearFields)
                 }
             } else {
                 notify('error', 'Please fill in all the fields')
@@ -96,13 +96,13 @@ export default function ProjectsModal(props) {
                         <Form.Label>Stack to be used</Form.Label>
                         <Form.Control as="textarea" rows={3} value={stack} onChange={(e) => setStack(e.target.value)}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e, props)}>
+                    <Button variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                         Submit
                     </Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => clearFields(props)}>Close</Button>
+                <Button onClick={clearFields}>Close</Button>
             </Modal.Footer>
         </Modal>
     )
