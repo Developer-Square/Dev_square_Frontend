@@ -152,7 +152,7 @@ function User({data, index}) {
 	return (
 			<>
 				<ModalComponent type={`${username}'s Tasks`} show={userTasksModal} usertasks={userTasks} onHide={() => setUserTasksModal(false)}/>
-				<ConfirmDelete deleteType="users" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+				<ConfirmDelete deletetype="users" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 				<Container popoverRef={popoverRef} onClick={handlePopover} className={`-container`}>
 					<Overlay
 						show={popoverShow}
@@ -161,6 +161,7 @@ function User({data, index}) {
 						containerPadding={20}
 						placement="bottom-end"
 						rootClose={true}
+						onHide={() => {}}
 					>
 						<Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
 							<Popover.Title as="h3" className="pop-over">

@@ -47,6 +47,7 @@ function Team() {
                                 <div className="team-container">
                                     <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Timo</p>
+                                    <p className="team-role mb-2">Lead</p>
                                     <p className="team-role">Android, PHP Developer</p>
                                     <div className="socials d-flex justify-content-around">
                                         <img src="images/facebook.webp" alt="facebook" className="img-fluid"/>

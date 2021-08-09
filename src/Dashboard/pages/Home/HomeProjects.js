@@ -4,8 +4,8 @@ import {Progress} from 'react-sweet-progress'
 
 //Own Components
 import '../Tasks/Tasks.scss'
-import Api from '../../../services/network'
 import Domino from '../../Reusable Components/Domino'
+import {calculateProjectTasks} from '../../../helpers/ApiFunctions'
 
 const Container = styled.div`   
     margin-top: 40px;
@@ -62,42 +62,19 @@ const CardTitle = styled.div`
     margin-bottom: 0;
 `
 
-export default function Projects({projects}) {
-    const [tasksNumber, setTaskNumber] = useState([])
-    const api = new Api()
+export default function Projects({projects, tasks}) {
+    const [projectPercentage, setProjectPercentage] = useState('')
 
     useEffect(() => {
-        if (projects.length !== 0) {
+        if (projects.length && tasks.results) {
             let projectResults = []
             // eslint-disable-next-line
-            projects.map(project => {
-                getSpecificTasks(project.id, projectResults)
+            projects.map((project) => {
+                calculateProjectTasks(project, setProjectPercentage, tasks.results, setProjectPercentage, projectResults)
             })
         }
         // eslint-disable-next-line
     }, [projects])
-
-    function getSpecificTasks(params, projectResults) {
-        api.Projects().getProjectTasks(params)
-        .then(res => {
-            if (res.status === 200) {
-                let inProgress = 0;
-                let len = res.data.length
-                res.data.map((task, index) => {
-                    if (task.status === "inProgress") {
-                        inProgress += 1
-                    }
-
-                    if (index === len - 1) {
-                        let result = Math.round((inProgress / len) * 100)
-                        projectResults.push(result)
-                        setTaskNumber(projectResults)
-                    }
-                    return null;
-                })
-            }
-        })
-    }
 
     return (
         <>
@@ -154,7 +131,7 @@ export default function Projects({projects}) {
                                                             color: '#007bff'
                                                             }
                                                         }}
-                                                        percent={tasksNumber[index]}/>
+                                                        percent={projectPercentage[index]}/>
                                                 </div>
                                                 <div className={`rt-td ${index % 2 !== 0 ? '' : 'odd'}`} role="gridcell">
                                                 <span><span className="dot-inProgress">●</span> In Progress</span>

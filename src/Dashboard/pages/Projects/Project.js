@@ -136,7 +136,7 @@ function Project({data, index}) {
 
 	return ( 
 		<>
-			<ConfirmDelete deleteType="projects" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+			<ConfirmDelete deletetype="projects" id={userId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
 			<Container popoverRef={popoverRef} onClick={handlePopover} className="-container">
 				<Overlay
 					show={popoverShow}
@@ -145,6 +145,7 @@ function Project({data, index}) {
 					containerPadding={20}
 					placement="bottom-end"
 					rootClose={true}
+					onHide={() => {}}
 				>
 					<Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
 						<Popover.Title as="h3" className="pop-over">

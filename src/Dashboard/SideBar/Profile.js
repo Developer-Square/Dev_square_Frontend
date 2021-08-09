@@ -27,7 +27,7 @@ function Profile() {
     useEffect(() => {
             //Get a user's credentials
             if (!user) {
-                getUser(`${localStorage.getItem('userID')}`, dispatch, 'profile')
+                getUser(`${localStorage.getItem('userID')}`, dispatch)
             }
         // eslint-disable-next-line
     }, [])

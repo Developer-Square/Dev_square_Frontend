@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import Row from 'react-bootstrap/Row'
@@ -9,7 +9,7 @@ import TaskList from './TaskList'
 import PieChart from './PieChart'
 import ActiveUsers from './ActiveUsers'
 import PercentageWidgets from './PercentageWidgets'
-import Projects from './Projects'
+import Projects from './HomeProjects'
 import { addAllTasks, addNewTasks, addCountData} from '../../../redux/action-creator'
 import Api from '../../../services/network'
 import { getUsers, getProjects, getTasks, getUser } from '../../../helpers/ApiFunctions'
@@ -33,10 +33,14 @@ function DashboardHome() {
     const {NewTasks, TasksCountData, TaskCreators, Tasks, AllTasks} = useSelector(state => state.tasks)
     const {users} = useSelector(state => state.users)
     const {projects} = useSelector(state => state.projects)
+    // To avoid repeated calls to the backend before the redux store is updated
+    const [usersFecthed, setUsersFetched] = useState(false)
+    const [tasksFecthed, setTasksFetched] = useState(false)
+    const [projectsFecthed, setProjectsFetched] = useState(false)
 
     useEffect(() => {
         //Checking if the redux store is empty before sending out new requests
-        if (Object.keys(users).length === 0) {
+        if (Object.keys(users).length === 0 && !usersFecthed) {
             let data = {                
                 limit: 6,
                 page: 1
@@ -44,17 +48,19 @@ function DashboardHome() {
             // console.log(localStorage.getItem('jwtToken'))
             if (localStorage.getItem('jwtToken')) {
                 getUsers(data, dispatch)
+                setUsersFetched(currUsers => currUsers = true)
             }
         }
-        if (NewTasks.length === 0 ) {
-            getTasks(undefined, dispatch)
+        if (NewTasks.length === 0 && !tasksFecthed) {
+            getTasks(undefined, dispatch, undefined, 'homepage')
             // Get the tasks with a status of 'NotStarted'
             getNewTasks(Tasks.totalResults)
             countData(Tasks.totalResults)
-            //eslint-disable-next-line
+            setTasksFetched(currUsers => currUsers = true)
         }
-        if (projects.length === 0) {
+        if (projects.length === 0 && !projectsFecthed) {
             getProjects(dispatch)
+            setProjectsFetched(currUsers => currUsers = true)
         }
 
         // eslint-disable-next-line
@@ -100,7 +106,7 @@ function DashboardHome() {
     }
 
     //Count data to be put in the tasks cards
-    function countData (totalResults) {
+    function countData () {
         //Getting the number of tasks for each section
         let sendData = {
             inProgress: 0,
@@ -135,11 +141,11 @@ function DashboardHome() {
             </SpacedElements>
             <Row className="d-flex justify-content-between middle-element">
                 <TaskList tasks={NewTasks} creators={TaskCreators} className="col-5"/>
-                <PieChart projects={projects} className="col-5"/>
+                <PieChart projects={projects} tasks={Tasks} className="col-5"/>
             </Row>
             <Row>
                 <ActiveUsers users={users.results}/>
-                <Projects projects={projects} />
+                <Projects projects={projects} tasks={Tasks} />
             </Row>
             <PercentageWidgets />
         </Container>
