@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from 'react'
+import React, {useState, useRef } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
@@ -21,7 +21,7 @@ import BouncingBall from '../../Reusable Components/BouncingBall'
 import StairsLoader from '../../Reusable Components/StairsLoader'
 import ConfirmDelete from '../../Reusable Components/ConfirmDelete'
 import AssignModal from '../../Reusable Components/AssignModal'
-import {addSpecificTasks, setLoading, taskToBeUpdated, modalTaskShow, setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
+import {addSpecificTasks, setLoading, taskToBeUpdated, setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
 import { displayErrorMsg } from '../../../helpers/ErrorMessage'
 import { toggleModal } from '../../../helpers/Reusable Functions';
 
@@ -80,7 +80,7 @@ export default function Tasks() {
     const [assignModal, setAssignModal] = useState(false);
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
-    const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
+    const {Tasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
     const {modalShow} = useSelector(state => state.users)
 
     const dispatch = useDispatch()

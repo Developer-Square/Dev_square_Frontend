@@ -15,7 +15,7 @@ const Loader = styled.div`
 `
 
 export default function AssignModal(props) {
-    const {admins, show, onHide, task} = props
+    const {admins, onHide, task} = props
     const {Loading} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
 

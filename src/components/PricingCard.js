@@ -125,7 +125,7 @@ export default function PricingCard({package3, image, title, titleColor, text, f
                 <h4 className={titleColor}>{title}</h4>
                 {/* Show badge on premium package */}
                 {badge ? <Badge pill variant="primary">Recommended</Badge> : null}
-                <div className="middle-text pl-1 pr-1">{text} It includes the following features:
+                <div className="middle-text pl-1 pr-1">{text} It includes the following:
                     <ul>
                         <li><span className="iconify" data-icon="typcn:tick-outline" data-inline="false"></span>{features}</li>
                         <li><span className="iconify" data-icon="typcn:tick-outline" data-inline="false"></span>Responsive Design</li>

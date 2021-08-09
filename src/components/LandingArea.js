@@ -26,7 +26,7 @@ function LandingArea() {
                         <div className="landing-inner-text">
                             <div className="d-flex justify-content-center pb-2 pb-xl-4">why <span className="uncover">tecHive ?</span></div>
                             <div className="d-flex text-container">
-                            <p className="pl-1 pr-1 text">We're are complete professionals at what we do making sure that our clients are well informed about every new step we take in their projects. We also deliver quality, well written and maintainable software.</p>
+                            <p className="pl-1 pr-1 text">We're are a team of professionals dedicated in delivering quality and providing desirable web and app development services.</p>
                         </div>
                         </div>
                     </div>

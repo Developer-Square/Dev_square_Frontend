@@ -1,5 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
+import styled from 'styled-components';
 
 import './ServicesAndBlog.scss'
 
@@ -16,12 +17,16 @@ export default function ServiceItem({ img1, img2, title, description, descClass,
         <p>{description}</p>
 
         {optionalList.length !== 0 ? optionalList.map(item => (
-          <ul>
+          <List>
             <li>{item}</li>
-          </ul>
+          </List>
         )) : null}
       </div>
     </Col>
   );
 }
+
+const List = styled.ul`
+  list-style: none;
+`
 

@@ -9,10 +9,10 @@ import './ServicesAndBlog.scss'
 function ServicesAndBlog() {
     const images = [["services-shape-1", "images/assets/icons/nodejs.webp"], ["services-shape-2", "images/services-icon-2.webp"], ["services-shape-2","images/services-icon-3.webp"], ["services-shape-2","images/assets/icons/mobile-app.webp"], ["services-shape-2","images/assets/icons/reactjs-48.webp"], ["services-shape-1","images/assets/icons/ui-ux-design-2.webp"], ["services-shape-2","images/assets/icons/php.webp"], ["services-shape-2","images/services-icon-6.webp"], ["services-shape-1","images/assets/icons/ruby.webp"], ["services-shape-1","images/assets/icons/debug.webp"], ["services-shape-2","images/assets/icons/django.webp"], ["services-shape-2","images/assets/icons/data-analyst.webp"]];
     
-    const titles = ["HTML/CSS", "WORDPRESS", "Mobile APPLICATIONS", "Reactjs APPLICATIONS", "UI/UX DESIGN", "RESPONSIVE LAYOUT", "Ruby on Rails", "Debugging Code", "Django Development", "Data Analyst"];
+    const titles = ["Nodejs", "HTML/CSS", "WORDPRESS", "Mobile APPLICATIONS", "Reactjs Web Apps", "UI/UX DESIGN", "PHP Products", "RESPONSIVE LAYOUT", "Ruby on Rails", "Debugging Code", "Django Development", "Data Analyst"];
     
     const descriptions = [
-        "We create full Nodejs applications with features you as the user can specify. You could also choose with Nodejs backend with a React frontend", 
+        "We create full Nodejs applications with features you as the user can specify. You could also choose a Nodejs backend with a React frontend", 
         "We also create websites using bare HTML, Css, Js, Bootstrap and Jquery for the animations.These websites are mostly created from scratch.We can also work with other frameworks like AntDesign and Evergreen if requested to.",
         "We can also create a wordpress website for you with specified plugins. Most requested wordpress websites are E-commerce websites, we can create those too.",
         "We go the full cycle by not only providing you with a website but an app too that your users can use on their phones to access your business/services.We will build any android app for you provided the logic is explained and understood. If the app doesn't meet all the requirement mentioned we will revise at zero additional cost.",
