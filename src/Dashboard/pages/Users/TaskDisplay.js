@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 //Own Components
 import notify from '../../../helpers/Notify'
 import Api from '../../../services/network'
-import NeverEndingBox from '../../Dashboard_Components/NeverEndingBox'
+import NeverEndingBox from '../../Reusable Components/NeverEndingBox'
 
 
 export default function TaskDisplay({usertasks}) {
@@ -22,7 +22,6 @@ export default function TaskDisplay({usertasks}) {
                         len += 1
                         //Making sure the mapping is done then putting the final
                         //result in the state
-                        console.log(list)
                         if (usertasks.length === len) {
                             setTasks(list)
                         }
@@ -64,7 +63,11 @@ export default function TaskDisplay({usertasks}) {
                             <td>{task.status}</td>
                         </tr>
                         ))
-                        : <NeverEndingBox loading={true} />}
+                        :   <tr>
+                                <td>
+                                    <NeverEndingBox loading={true} />
+                                </td>
+                            </tr>}
                     </tbody>
                 </table>
             </div>

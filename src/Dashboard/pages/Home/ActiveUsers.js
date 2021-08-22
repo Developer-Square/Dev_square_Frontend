@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useHistory} from 'react-router-dom'
 
 //Own Components
-import HandAnimation from '../../Dashboard_Components/HandAnimation'
+import HandAnimation from '../../Reusable Components/HandAnimation'
 
 const Container = styled.div`   
     margin-bottom: 50px;

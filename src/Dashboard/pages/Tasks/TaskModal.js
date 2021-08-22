@@ -1,4 +1,4 @@
-import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 // import {useSelector} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
@@ -8,11 +8,12 @@ import Col from 'react-bootstrap/Col'
 
 //Own Components
 import Api from '../../../services/network'
-import IsNotEmpty from '../../../helpers/IsNotEmpty'
+import {IsNotEmpty, converter, shallowEquality} from '../../../helpers/Reusable Functions'
 import notify from '../../../helpers/Notify'
-import {createdTask, updateTasks} from '../../../redux/action-creator/index'
+import {createUpdateTask} from '../../../helpers/ApiFunctions'
+import { userToBeUpdated } from '../../../redux/action-creator'
 
-const TaskModal = forwardRef((props, ref) => {
+const TaskModal = (props) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [stack, setStack] = useState('')
@@ -20,28 +21,11 @@ const TaskModal = forwardRef((props, ref) => {
     const [status, setStatus] = useState('')
     const [validated, setValidated] = useState(false)
     const [projects, setProjects] = useState('')
-    const [projectTasks, setProjectTasks] = useState('')
+    const [projectName, setProjectName] = useState('')
     const [title, setTitle] = useState('')
-    const [updateProjects, setUpdateProjects] = useState(false)
 
     const {UpdatedTask, ModalShow} = useSelector(state => state.tasks)
     const dispatch = useDispatch()
-
-    //Function call coming from the parent component
-    useImperativeHandle(
-        ref,
-        () => ({
-            clearFormFields() {
-                setDescription('')
-                setProjectTasks('')
-                setStack('')
-                setDifficulty('Easy')
-                setStatus('Not Started')
-                setDueDate('')
-                setUpdateProjects(false)
-            }
-        })
-    )
 
     //Creating a new instance of the api class
     const api = new Api()
@@ -75,13 +59,13 @@ const TaskModal = forwardRef((props, ref) => {
             let diff = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
             setDifficulty(diff)
             //Get the specific project that the task to be updated is attached to
-            if (projects !== '' && projects !== undefined) {
+            if (projects) {
                 // eslint-disable-next-line
                 projects.map(project => {
                     // eslint-disable-next-line
                     project.tasks.map(task => {
-                        if (task.includes(UpdatedTask.id)) {
-                            setProjectTasks(project.name)
+                        if (task === UpdatedTask.id) {
+                            setProjectName(project.name)
                         }
                     })
                 })
@@ -102,92 +86,6 @@ const TaskModal = forwardRef((props, ref) => {
             notify('error', message)
         })
     }
-    
-    //Add the task to the specific project selected
-    function addTaskToProject(id) {
-        // eslint-disable-next-line
-        projects.map(project => {
-            //projectTasks contains the name chosen in the form
-            project.tasks.map((task, index) => {
-                if (id !== undefined && id !== '') {
-                    if (task === id) {
-                        //Incase the task was in a previous project, remove it
-                        if (project.name !== projectTasks) {
-                            project.tasks.splice(index, 1)
-                        }
-                        const data = {tasks: project.tasks}
-                        //Remove the clientId since its not allowed in the backend
-                        api.Projects().updateProject(project.id, data)
-                        .then(res => {
-                            if (res.status === 200) {
-                                notify('success', 'Removed task from old project successfully')
-                                clearFields()
-                                props.onHide()
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                notify('error', message)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                        })
-                    } 
-                }
-                return null
-            })
-
-            if (projectTasks === project.name) {
-                if (id !== undefined && id !== '') {
-                    if (project.tasks.includes(id) === false) {
-                        project.tasks.push(id)
-                        const data = {tasks: project.tasks}
-                        //Remove the clientId since its not allowed in the backend
-                        api.Projects().updateProject(project.id, data)
-                        .then(res => {
-                            if (res.status === 200) {
-                                notify('success', 'Added task to project successfully')
-                                clearFields()
-                                props.onHide()
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                notify('error', message)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                        })   
-                    }
-                }
-            } 
-            
-        })
-    }
-
-    //Converts words like 'Not Started' into camelCase e.g. 'notStarted'
-    //since the backend only receives camelCase strings in some instances
-    const converter = (input) => {
-        let regex = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g
-        let data = input.match(regex)
-        
-        let result = ""
-        if(data !== null) {
-            for (let i = 0; i < data.length; i++) {
-                let tempStr = data[i].toLowerCase();
-                
-                if (i !== 0) {
-                    //Convert first letter to Uppercase( the word is in lowercase )
-                    tempStr = tempStr.substr(0, 1).toUpperCase() + tempStr.substr(1)
-                }
-    
-                result += tempStr
-            }
-        }
-        return result
-    }
 
     const clearFields = () => {
         setDescription('')
@@ -195,11 +93,12 @@ const TaskModal = forwardRef((props, ref) => {
         setStack('')
         setDifficulty('')
         setStatus('')
-        setProjectTasks('')
-        setUpdateProjects(false)
+        setProjectName('')
+        dispatch(userToBeUpdated(''))
+        props.onHide()
     }
 
-    function handleSubmit(e, props) {
+    function handleSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -217,85 +116,30 @@ const TaskModal = forwardRef((props, ref) => {
                 creator: UpdatedTask.creator,
                 stack
             }
-            //If props is not empty then its an update
+            // If props is not empty then its an update
             if (Object.keys(UpdatedTask).length !== 0 && UpdatedTask.constructor === Object) {
-                //Send an update request
-                //First check if the user made any changes
-                function shallowEquality(obj1, obj2) {
-                    const keys1 = Object.keys(obj1)
-                    const keys2 = Object.keys(obj2)
-                    //checking if the number of keys are the same between the two objects
-                    if (keys1.length !== keys2.length) {
-                        return false
-                    }
-
-                    for (let key of keys1) {
-                        if (obj1[key] !== obj2[key]) {
-                            return false 
-                        }
-                    }
-                    return true
-                }
-
-                //If there's a difference between the two projects then
-                //update the task
+                // Send an update request
+                // First check if the user made any changes
+                // If there's a difference between the two projects then
+                // update the task
                 if (shallowEquality(UpdatedTask, data) === false) {
-                    //remove the project attribute as it is not to be sent
-                    //along with the task's object
+                    // remove the project attribute as it is not to be sent
+                    // along with the task's object
                     delete data.id
-                    api.Tasks().updateTask(UpdatedTask.id, data)
-                    .then(res => {
-                        if (res.status === 200) {
-                            notify('success', 'Task successfully updated')
-                            dispatch(updateTasks(res.data))
-                            clearFields()
-                            props.onHide()
-                        }
-                    })
-                    .catch(err => {
-                        if (err.response) {
-                            const {message} = err.response.data
-                            notify('error', message)
-                        } else {
-                            notify('error', 'Something went wrong, Please refresh the page.')
-                        }
-                    })
-                } else if (updateProjects) {
-                    addTaskToProject(UpdatedTask.id)
+                    createUpdateTask(UpdatedTask, data, dispatch, clearFields, 'update', projectName, projects)
                 } else {
-                     //If nothing has been changed show the user a pop message
+                     // If nothing has been changed show the user a pop message
                     notify('info', 'You have Not changed anything')
                 }
             } else {
-                //Send a create task request 
-                if (projectTasks !== '' && projectTasks !== 'Select the project') {
+                // Send a create task request 
+                if (projectName !== '' && projectName !== 'Select the project') {
                     delete data.id               
                     data.creator = localStorage.getItem('userID')
-                    //Checking if the data is empty with the helper function
+                    // Checking if the data is empty with the helper function
                     if (IsNotEmpty(data) === true) {
-                        //Hide the modal if the data is Not empty
-                        props.onHide()
-                        api.Tasks().createTask(data)
-                        .then(res => {
-                            if (res.status === 201) {
-                                //Once a task is created we get its ID and pass it to the addToTask Function
-                                //so that we can add it to its specific project
-                                addTaskToProject(res.data.id)
-                                dispatch(createdTask(true))
-                                clearFields()
-                                notify('success', 'Task successfully created')
-                            }
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                const {message} = err.response.data
-                                const customMessage = `Task not created! \n ${message}`
-                                notify('error', customMessage)
-                            } else {
-                                notify('error', 'Something went wrong, Please refresh the page.')
-                            }
-                            
-                        })
+                        // Hide the modal and send the details if the data is Not empty
+                        createUpdateTask('', data, dispatch, clearFields, '', projectName, projects)
                     }
                 } else {
                     notify('error', 'You have not selected the project')
@@ -305,8 +149,7 @@ const TaskModal = forwardRef((props, ref) => {
     }
 
     const handleProjects = (e) => {
-        setUpdateProjects(true)
-        setProjectTasks(e)
+        setProjectName(e)
     }
 
     return (
@@ -316,8 +159,6 @@ const TaskModal = forwardRef((props, ref) => {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={props.show}
-        onHide={props.onHide}
         >
             <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -326,7 +167,7 @@ const TaskModal = forwardRef((props, ref) => {
             </Modal.Header>
             <Modal.Body>
                 <h5 className="text-center">Fill the form below</h5>
-                <Form noValidate validated={validated} {...props}>
+                <Form noValidate validated={validated}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Task Name</Form.Label>
                         <Form.Control required type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Task Name..." />
@@ -354,7 +195,7 @@ const TaskModal = forwardRef((props, ref) => {
                     </Form.Row>
                     <Form.Group controlId="formBasicProjects">
                         <Form.Label>Project to attach to</Form.Label>
-                        <Form.Control value={projectTasks} onChange={(e) => handleProjects(e.target.value)} required as="select">
+                        <Form.Control value={projectName} onChange={(e) => handleProjects(e.target.value)} required as="select">
                             <option>Select the project</option>
                             {/* Mapping out the available projects and adding a spinner if the projects aren't
                             available yet */}
@@ -384,11 +225,11 @@ const TaskModal = forwardRef((props, ref) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={clearFields}>Close</Button>
             </Modal.Footer>
         </Modal>
         </>
     )
-})
+}
 
 export default TaskModal;

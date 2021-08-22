@@ -77,14 +77,21 @@
       }
     }
 
-    .show, .show-learn-more {
-      margin-bottom: 500px !important;
+    .show, .show-experiences, .show-learn-more {
       transition: margin 1s;
       color: var(--primary-border-color) !important;
     }
 
+    .show {
+      margin-bottom: 210px !important;
+    }
+
+    .show-experiences {
+      margin-bottom: 400px !important;
+    }
+
     .show-learn-more {
-      margin-bottom: 120px !important;
+      margin-bottom: 120px !important ; 
     }
   }
 
@@ -160,19 +167,13 @@
     .aboutus-left-section {
       margin-top: 30px;
       .show {
-        margin-bottom: 550px !important;
+        margin-bottom: 220px !important;
+      }
+  
+      .show-experiences {
+        margin-bottom: 420px !important;
       }
     }
-  }
-}
-
-@media all and (min-width: 375px) {
-  #aboutus-section {
-  .aboutus-left-section {
-    .show {
-      margin-bottom: 470px !important;
-    }
-  }
   }
 }
 
@@ -180,55 +181,43 @@
   #aboutus-section {
     .aboutus-left-section {
       .show {
-        margin-bottom: 425px !important;
+        margin-bottom: 200px !important;
+      }
+      
+  
+      .show-experiences {
+        margin-bottom: 360px !important;
+      }
+
+      .desc {
+        .answer {
+          line-height: 23px;
+        }
       }
     }
   }
 }
 
-@media all and (min-width: 414px) {
-  #aboutus-section {
-    .aboutus-left-section {
-      .show {
-        margin-bottom: 420px !important;
-      }
-    }
-
-    .aboutus-right-section {
-      .image-container {
-        .left {
-          left: 4%;
-        }
-
-        .hex {
-          left: 4%;
-        }
-
-        .middle {
-          left: 17%;
-        }
-
-        .hex-2 {
-          right: 11%;
-        }
-
-        .right {
-          right: 11%;
-        }
-      }
-    }
-  }
-}
 
 @media all and (min-width: 576px) {
   #aboutus-section {
     .aboutus-left-section {
       .show {
-        margin-bottom: 340px !important;
+        margin-bottom: 190px !important;
+      }
+
+      .show-experiences {
+        margin-bottom: 300px !important;
       }
 
       .show-learn-more {
         margin-bottom: 140px !important;
+      }
+
+      .desc {
+        .answer {
+          line-height: 24px;
+        }
       }
     }
   }
@@ -238,7 +227,11 @@
   #aboutus-section {
     .aboutus-left-section {
       .show {
-        margin-bottom: 270px !important;
+        margin-bottom: 150px !important;
+      }
+
+      .show-experiences {
+        margin-bottom: 280px !important;
       }
     }
   }
@@ -262,7 +255,11 @@
         }
       }
       .show {
-        margin-bottom: 400px !important;
+        margin-bottom: 190px !important;
+      }
+
+      .show-experiences {
+        margin-bottom: 310px !important;
       }
     }
   }
@@ -275,7 +272,11 @@
     }
     .aboutus-left-section {
       .show {
-        margin-bottom: 330px !important;
+        margin-bottom: 180px !important;
+      }
+
+      .show-experiences {
+        margin-bottom: 290px !important;
       }
     }
   }

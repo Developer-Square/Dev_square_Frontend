@@ -87,6 +87,7 @@
 @media all and (min-width: 576px) {
   .landing-container {
     position: relative;
+    width: 100%;
   }
 
   #landing-section {
@@ -95,7 +96,7 @@
       height: 400px;
     }
     .image-cover {
-      height: -webkit-fill-available;
+      height: 100%;
     }
 
     .landing-inner-text {

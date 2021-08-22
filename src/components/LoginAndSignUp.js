@@ -10,7 +10,7 @@ import styles from './LoginAndSignUp.module.scss'
 import Api from '../services/network'
 import notify from '../helpers/Notify'
 import {addUser, updateAuth} from '../redux/action-creator/index'
-import MakingPancake from '../Dashboard/Dashboard_Components/MakingPancake'
+import MakingPancake from '../Dashboard/Reusable Components/MakingPancake'
 
 function LoginAndSignUp({history}) {
     const dispatch = useDispatch()

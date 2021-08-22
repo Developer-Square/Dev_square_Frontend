@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from 'react'
+import React, {useState, useRef } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import styled from 'styled-components'
 import Spinner from 'react-bootstrap/Spinner'
@@ -12,16 +12,19 @@ import Form from 'react-bootstrap/Form'
 
 //Own Components
 import './Tasks.scss'
-import AddButton from '../../Dashboard_Components/AddButton'
+import AddButton from '../../Reusable Components/AddButton'
 import TaskModal from './TaskModal'
 import Pagination from './Pagination'
 import Api from '../../../services/network'
 import notify from '../../../helpers/Notify'
-import BouncingBall from '../../Dashboard_Components/BouncingBall'
-import StairsLoader from '../../Dashboard_Components/StairsLoader'
-import ConfirmDelete from '../../Dashboard_Components/ConfirmDelete'
-import AssignModal from '../../Dashboard_Components/AssignModal'
-import {addSpecificTasks, setLoading, updatedTask, modalTaskShow} from '../../../redux/action-creator/index'
+import BouncingBall from '../../Reusable Components/BouncingBall'
+import StairsLoader from '../../Reusable Components/StairsLoader'
+import ConfirmDelete from '../../Reusable Components/ConfirmDelete'
+import AssignModal from '../../Reusable Components/AssignModal'
+import {addSpecificTasks, setLoading, taskToBeUpdated, setModalShow, userToBeUpdated} from '../../../redux/action-creator/index'
+import { displayErrorMsg } from '../../../helpers/ErrorMessage'
+import { toggleModal } from '../../../helpers/Reusable Functions';
+
 
 const Container = styled.div`   
     margin-top: 80px;
@@ -70,7 +73,6 @@ const CardTitle = styled.div`
 
 //Fetching of the tasks happens in the pagination component
 export default function Tasks() {
-    const [modalShow, setModalShow] = useState(false);
     const [popoverShow, setPopoverShow] = useState(false);
     const [target, setTarget] = useState('');
     const [rowId, setRowId] = useState('');
@@ -78,19 +80,16 @@ export default function Tasks() {
     const [assignModal, setAssignModal] = useState(false);
     const [tasktobeassigned, settasktobeassigned] = useState('');
 
-    const {Tasks, GetTasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
+    const {Tasks, Loading, TaskCreators, Admins} = useSelector(state => state.tasks)
+    const {modalShow} = useSelector(state => state.users)
+
     const dispatch = useDispatch()
     //Using the ref attribute to run a function 
-    //in the Task Modal child component
-    const childRef = useRef()
+    //in the child component
     const paginationRef = useRef()
     const api = new Api()
     //To open the popover responsible for updating, deleting or assigning tasks
     const popoverRef = useRef()
-
-    useEffect(() => {
-        // eslint-disable-next-line
-    }, [GetTasks])
 
     //Assign a task to a user
     function handleAssign(e) {
@@ -104,7 +103,7 @@ export default function Tasks() {
                     if (task.status === 'inProgress') {
                         notify('error', 'Can\'t assign a task that is already in progress')
                     } else {
-                        settasktobeassigned(task.id)
+                        settasktobeassigned(task)
                         setAssignModal(true)
                     }
                 }
@@ -114,75 +113,64 @@ export default function Tasks() {
 
     //Get the tasks of the specified user
     function handleUserTasks(e, params) {
-        let name;
+        let userDetails;
         if (e === null) {
-            name = params
+            userDetails = params
         } else if (e.target.value.includes('Get')) {
             paginationRef.current.getAllTasks()
-            name = 'none'
+            userDetails = 'none'
         } else {
-            name = e.target.value   
+            // Get the id of the selected option using the e.target.value and store it
+            // in the browser so that it can be used to fetch that user's tasks
+            const selectedElement = document.getElementsByClassName(`${e.target.value}`)
+            userDetails = selectedElement[0].id   
         }
-        localStorage.setItem('usertaskname', name)
+
+        localStorage.setItem('userdetails', userDetails)
         let userTasksArr = []
-        // eslint-disable-next-line
-        Admins.map(admin => {
-            //Compare the name chosen on the form to the ones in
-            //the store to get the user.id n send it
-            if (name.toLowerCase() === admin.name.toLowerCase()) {
-                dispatch(setLoading())
-                api.Tasks().getUsersTasks(admin.id)
-                .then(res => {
-                    if (res.status === 200) {
-                        //If successful take the array of taskIds that is returned and get the
-                        //actual tasks
-                        const {tasks} = res.data
-                        if (tasks.length !== 0) {
-                            //Convert to an object so that it can be sent to the
-                            //store to replace the taskIds so that the right task can be updated
-                            let len = tasks.length
-                            // eslint-disable-next-line
-                            tasks.map(task => {
-                                api.Tasks().getTask(task)
-                                .then(res => {
-                                    if (res.status === 200) {
-                                        //Wait till the mapping is done n then send the final result
-                                        let result = join(res.data, len, userTasksArr)
-                                        if(result !== undefined) {
-                                            dispatch(addSpecificTasks(result))
-                                            dispatch(setLoading())
-                                        }
+        
+        if (userDetails !== 'none') {
+            dispatch(setLoading())
+            // Get the specific user's tasks
+            api.Tasks().getUsersTasks(userDetails)
+            .then(res => {
+                if (res.status === 200) {
+                    //If successful take the array of taskIds that is returned and get the
+                    //actual tasks
+                    const {tasks} = res.data
+                    if (tasks.length !== 0) {
+                        //Convert to an object so that it can be sent to the
+                        //store to replace the taskIds so that the right task can be updated
+                        let len = tasks.length
+                        // eslint-disable-next-line
+                        tasks.map(task => {
+                            api.Tasks().getTask(task)
+                            .then(res => {
+                                if (res.status === 200) {
+                                    //Wait till the mapping is done n then send the final result
+                                    let result = join(res.data, len, userTasksArr)
+                                    if(result) {
+                                        dispatch(addSpecificTasks(result))
+                                        dispatch(setLoading())
                                     }
-                                })
-                                .catch(err => {
-                                    dispatch(setLoading())
-                                    if (err.response) {
-                                        const {message} = err.response.data
-                                        notify('error', message)
-                                    } else {
-                                        notify('error', 'Something went wrong')
-                                    }
-                                })
+                                }
                             })
-                        } else {
-                            dispatch(setLoading())
-                            //Send an empty array if the users has no tasks
-                            userTasksArr = []
-                            dispatch(addSpecificTasks(userTasksArr))
-                        }
-                    } 
-                })
-                .catch(err => {
-                    dispatch(setLoading())
-                    if (err.response) {
-                        const {message} = err.response.data
-                        notify('error', message)
+                            .catch(err => {
+                                displayErrorMsg(err, dispatch)
+                            })
+                        })
                     } else {
-                        notify('error', 'Something went wrong')
+                        dispatch(setLoading())
+                        //Send an empty array if the users has no tasks
+                        userTasksArr = []
+                        dispatch(addSpecificTasks(userTasksArr))
                     }
-                })
-            }
-        })
+                } 
+            })
+            .catch(err => {
+                displayErrorMsg(err, dispatch)
+            })
+        }
     }
 
     function handleTaskUpdate(e) {
@@ -193,9 +181,8 @@ export default function Tasks() {
         // eslint-disable-next-line
         results.map((value) => {
             if (value.id === rowId) {
-                dispatch(updatedTask(value))
-                setModalShow(true)
-                dispatch(modalTaskShow())
+                dispatch(taskToBeUpdated(value))
+                dispatch(setModalShow())
             }
         }) 
     }
@@ -205,12 +192,6 @@ export default function Tasks() {
         let rowId= e.currentTarget.className.slice(6, 30)
         setRowId(rowId)
         setDeleteModal(true)
-    }
-
-    const toggleModal = () => {
-        childRef.current.clearFormFields()
-        dispatch(updatedTask(''))
-        setModalShow(!modalShow)
     }
 
     const renderTooltip = (props) => (
@@ -239,13 +220,12 @@ export default function Tasks() {
     }
     return (
         <>
-        <AddButton onClick={() => toggleModal()} />
+        <AddButton onClick={() => dispatch(setModalShow())} />
         <TaskModal
-        ref={childRef}
         show={modalShow}
-        onHide={() => toggleModal()}
+        onHide={() => toggleModal(dispatch, userToBeUpdated, setModalShow)}
         />
-        <ConfirmDelete deleteType="tasks" component="task" packages={Tasks} id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
+        <ConfirmDelete deleteType="tasks" id={rowId} show={deleteModal} onHide={() => setDeleteModal(false)}/>
         <AssignModal admins={Admins} task={tasktobeassigned} show={assignModal} onHide={() => setAssignModal(false)}/>
         <Container className="col-12 container">
             <CardContainer className="main-card mb-3 card">
@@ -262,7 +242,7 @@ export default function Tasks() {
                             <option>Choose user</option>
                             <option>Get All Tasks</option>
                             {Admins.length !== 0 ? Admins.map((admin, index) => (
-                                <option key={index} className="names">{admin.name}</option>
+                                <option key={index} id={admin.id} className={`names ${admin.name}`}>{admin.name}</option>
                             )): 'Loading'}
                             </Form.Control>
                         :
@@ -305,7 +285,7 @@ export default function Tasks() {
                                 <div className="rt-tr-group">
                                     {Object.keys(Tasks).length !== 0 && Tasks.results.length !== 0 ? Tasks.results.map((task, index) => (
                                           
-                                        <div popoverRef={popoverRef} onClick={handlePopover} className={`rt-tr ${task.id}`} key={index}>
+                                        <div popoverref={popoverRef} onClick={handlePopover} className={`rt-tr ${task.id}`} key={index}>
                                             <Overlay
                                                 show={popoverShow}
                                                 target={target}
@@ -314,6 +294,7 @@ export default function Tasks() {
                                                 key={index}
                                                 placement="bottom-end"
                                                 rootClose={true}
+                                                onHide={() => {}}
                                             >
                                                 <Popover id={`popover-positioned-bottom`} onClick={handlePopover}>
                                                     <Popover.Title as="h3" className="pop-over">
@@ -321,6 +302,7 @@ export default function Tasks() {
                                                         <span className="iconify" data-icon="carbon:close" data-inline="false"></span>
                                                     </Popover.Title>
                                                     <Popover.Content>
+                                                        {/* The assign button should be hidden if the task has an attribute of 'assigned: true' */}
                                                         <Button className={`mr-2 mb-2 assign col-12 ${target.className} button`} variant="outline-success" onClick={handleAssign}>Assign</Button>
                                                         <div className="d-flex justify-content-between">
                                                             <Button className={`mr-2 ${target.className} button`} variant="outline-primary" onClick={handleTaskUpdate}>Update</Button>

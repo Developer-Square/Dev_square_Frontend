@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 //Own Components
 import './TaskList.scss'
-import ViewAllButton from '../../Dashboard_Components/ViewAllButton'
-import BouncingBall from '../../Dashboard_Components/BouncingBall'
+import ViewAllButton from '../../Reusable Components/ViewAllButton'
+import BouncingBall from '../../Reusable Components/BouncingBall'
 
 const Container = styled.div`    
    .scrollbar-container {
