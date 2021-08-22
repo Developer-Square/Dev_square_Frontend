@@ -22,7 +22,7 @@ const CardContainer = styled.div`
 
 export default function PortfolioCard({profileImg, bgImg, name, role}) {
     const [btnText, setBtnText] = useState('')
-    const [modalShow, setModalShow] = useState('')
+    const [modalShow, setModalShow] = useState(false)
 
     const handleReport = (e) => {
         const btn = e.target
@@ -50,7 +50,7 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
             <CardContainer className="main-card mb-3 card">
                 <div className="dropdown-menu-header">
                     <div className="dropdown-menu-header-inner bg-dark">
-                        <div class="menu-header-image">
+                        <div className="menu-header-image">
                             <img src={`/images/profile/${bgImg}.webp`} className="img-fluid" alt="profile"/>
                         </div>
                         <div className="menu-header-content btn-pane-right">
@@ -60,12 +60,12 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 </div>
                             </div>
                             <div>
-                                <h5 class="menu-header-title">{name}</h5>
-                                <h6 class="menu-header-subtitle">{role}</h6>
+                                <h5 className="menu-header-title">{name}</h5>
+                                <h6 className="menu-header-subtitle">{role}</h6>
                             </div>
                             <div className="menu-header-btn-pane">
-                                <button class="btn btn-success">View Stats</button>
-                                <button class="btn btn-info ml-2" onClick={() => setModalShow(true)}>Edit Portfolio</button>
+                                <button className="btn btn-success">View Stats</button>
+                                <button className="btn btn-info ml-2" onClick={() => setModalShow(true)}>Edit Portfolio</button>
                             </div>
                         </div>
                     </div>
@@ -74,16 +74,16 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                     <li className="list-group-item" id="container">
                         <div className="widget-content pt-1 pl-0 pr-0" id="widget">
                             <div className="text-center" id="widget-wrapper">
-                                <h5 class="widget-heading mb-0">Month Totals</h5>
-                                <h6 class="mt-3 mb-3">
-                                    <span class="pr-2">
-                                        <b class="text-danger">12</b> tasks created,
+                                <h5 className="widget-heading mb-0">Month Totals</h5>
+                                <h6 className="mt-3 mb-3">
+                                    <span className="pr-2">
+                                        <b className="text-danger">12</b> tasks created,
                                     </span>
                                     <span>
-                                        <b class="text-success">24</b> tasks done
+                                        <b className="text-success">24</b> tasks done
                                     </span>
                                 </h6>
-                                <button class="btn-wide btn-pill btn btn-outline-primary" onClick={handleReport} id="button">Full Report</button>
+                                <button className="btn-wide btn-pill btn btn-outline-primary" onClick={handleReport} id="button">Full Report</button>
                             </div>
                         </div>
                     </li>
@@ -106,7 +106,7 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">Task Completion</div>
-                                    <div class="widget-subheading">Out of all the tasks assigned</div>
+                                    <div className="widget-subheading">Out of all the tasks assigned</div>
                                 </div>
                                 <div className="widget-content-right">
                                     <div className="widget-numbers widget-numbers-sm text-success">
@@ -135,7 +135,7 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">Users Created</div>
-                                    <div class="widget-subheading">Out of all the users</div>
+                                    <div className="widget-subheading">Out of all the users</div>
                                 </div>
                                 <div className="widget-content-right">
                                     <div className="widget-numbers widget-numbers-sm text-warning">
@@ -164,7 +164,7 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 </div>
                                 <div className="widget-content-left">
                                     <div className="widget-heading">Clients Created</div>
-                                    <div class="widget-subheading">Out of all the clients</div>
+                                    <div className="widget-subheading">Out of all the clients</div>
                                 </div>
                                 <div className="widget-content-right">
                                     <div className="widget-numbers widget-numbers-sm text-info">
