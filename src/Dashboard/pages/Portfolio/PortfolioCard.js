@@ -20,7 +20,7 @@ const CardContainer = styled.div`
     transition: all .2s;
 `
 
-export default function PortfolioCard({profileImg, bgImg, name, role}) {
+export default function PortfolioCard({profileImg, bgImg, name, role, user}) {
     const [btnText, setBtnText] = useState('')
     const [modalShow, setModalShow] = useState(false)
 
@@ -36,16 +36,12 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
         const widgetWrapper = btnParent.parentElement
         const container = widgetWrapper.parentElement
         const containerSibling1 = container.nextElementSibling
-        const containerSibling2 = containerSibling1.nextElementSibling
-        const containerSibling3 = containerSibling2.nextElementSibling
         containerSibling1.classList.toggle('show-full-report')
-        containerSibling2.classList.toggle('show-full-report')
-        containerSibling3.classList.toggle('show-full-report')
         btn.classList.toggle('btn-outline-danger')
     }
     return (
         <>
-        <PortfolioModal show={modalShow} onHide={() => setModalShow(false)}/>
+        <PortfolioModal user={user} show={modalShow} onHide={() => setModalShow(false)}/>
         <Container className="--container col-4">
             <CardContainer className="main-card mb-3 card">
                 <div className="dropdown-menu-header">
@@ -64,7 +60,6 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 <h6 className="menu-header-subtitle">{role}</h6>
                             </div>
                             <div className="menu-header-btn-pane">
-                                <button className="btn btn-success">View Stats</button>
                                 <button className="btn btn-info ml-2" onClick={() => setModalShow(true)}>Edit Portfolio</button>
                             </div>
                         </div>
@@ -110,65 +105,7 @@ export default function PortfolioCard({profileImg, bgImg, name, role}) {
                                 </div>
                                 <div className="widget-content-right">
                                     <div className="widget-numbers widget-numbers-sm text-success">
-                                        <span>44</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item report" id="report">
-                        <div className="widget-content p-0">
-                            <div className="widget-content-wrapper">
-                                <div className="widget-content-left mr-3">
-                                    <div className="icon-container m-0">
-                                        <div className="progress-circle-wrapper">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                    color: '#f7b924',
-                                                    trailColor: '#ccc'
-                                                    }
-                                                }}
-                                                type="circle" width={54} percent={50} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="widget-content-left">
-                                    <div className="widget-heading">Users Created</div>
-                                    <div className="widget-subheading">Out of all the users</div>
-                                </div>
-                                <div className="widget-content-right">
-                                    <div className="widget-numbers widget-numbers-sm text-warning">
-                                        <span>14</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item report" id="report">
-                        <div className="widget-content p-0">
-                            <div className="widget-content-wrapper">
-                                <div className="widget-content-left mr-3">
-                                    <div className="icon-container m-0">
-                                        <div className="progress-circle-wrapper">
-                                            <Progress
-                                                theme={{
-                                                    active: {
-                                                    color: '#17a2b8',
-                                                    trailColor: '#ccc'
-                                                    }
-                                                }}
-                                                type="circle" width={54} percent={30} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="widget-content-left">
-                                    <div className="widget-heading">Clients Created</div>
-                                    <div className="widget-subheading">Out of all the clients</div>
-                                </div>
-                                <div className="widget-content-right">
-                                    <div className="widget-numbers widget-numbers-sm text-info">
-                                        <span>4</span>
+                                        <span>{user.tasks.length}</span>
                                     </div>
                                 </div>
                             </div>

@@ -89,9 +89,9 @@ function ContactAndFooter() {
                         </div>
                         <div className="bottom-footer text-center">
                                 <p className="mr-1">Made with</p>
-                                <div className="footer-icon-love"><span class="iconify" data-icon="bx:bxs-heart" data-inline="false"></span></div> 
+                                <div className="footer-icon-love"><span className="iconify" data-icon="bx:bxs-heart" data-inline="false"></span></div> 
                                 <p className="ml-1 mr-2">from Kenya</p>
-                                <div className="footer-icon-kenya"><span class="iconify" data-icon="twemoji:flag-for-flag-kenya" data-inline="false"></span></div>
+                                <div className="footer-icon-kenya"><span className="iconify" data-icon="twemoji:flag-for-flag-kenya" data-inline="false"></span></div>
                         </div>
                     </Col>
                 </Row>

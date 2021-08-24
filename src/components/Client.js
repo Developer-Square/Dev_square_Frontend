@@ -34,23 +34,15 @@ function Client() {
                                     <p className="inner-text">I like how they delivered my website on time and also the communication from the product manager. Would recommend them to anyone</p>
                                     <img src="images/client-pic.webp" alt="Client" className="img-fluid client-pic"/>
                                     <p className="client-name">James Kimotho</p>
-                                    <div className="navigation d-flex">
-                                        <div className="navigation-dots mr-3"></div>
-                                        <div className="navigation-dots middle"></div>
-                                        <div className="navigation-dots ml-3"></div>
-                                    </div>
                                 </Col>
                                 <Col xs={12} md={6} className="d-flex mt-5 mt-md-0 flex-column justify-content-center">
                                     <p className="mt-0">Please feel free to leave a review about our services or our website in general.</p>
                                     <Button variant="primary" className="review-btn" onClick={handleReview}>
                                         Add a Review
-                                        <span class="iconify" data-icon="ant-design:plus-circle-outlined" data-inline="false"></span>
+                                        <span className="iconify" data-icon="ant-design:plus-circle-outlined" data-inline="false"></span>
                                     </Button>
                                 </Col>
                             </Row>
-                        </div>
-                        <div className="scroll-bar portfolio-bar client-bar mt-2 mx-auto">
-                            <img src="images/rsz_scroll-bar.webp" className="scroll-dot img-fluid" alt="scroll" />
                         </div>
                     </Col>
                 </Row>

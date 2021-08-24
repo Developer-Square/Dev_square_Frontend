@@ -25,8 +25,8 @@ function Header() {
                     <Nav>
                         <Nav.Link href="#home" className="mx-auto" onClick={() => scrollFunction('landing-section', 0)}><div className="indicator ml-md-2"></div>Home<div className="indicator-2 ml-md-2"></div></Nav.Link>
                         <Nav.Link href="#about" className="mx-auto" onClick={() => scrollFunction('aboutus-section', 75)}><div className="indicator ml-md-4"></div>About us<div className="indicator-2 ml-md-4"></div></Nav.Link>
-                        <Nav.Link href="#portfolio" className="mx-auto" onClick={() => scrollFunction('portfolio-section', 75)}><div className="indicator ml-md-4"></div>Portfolio<div className="indicator-2 ml-md-4"></div></Nav.Link>
-                        <Nav.Link href="#services" className="mx-auto" onClick={() => scrollFunction('product-section', 75)}><div className="indicator ml-md-4"></div>Services<div className="indicator-2 ml-md-4"></div></Nav.Link>
+                        <Nav.Link href="#portfolio" className="mx-auto" onClick={() => scrollFunction('portfolio-section', 75)}><div className="indicator ml-md-4"></div>Designs<div className="indicator-2 ml-md-4"></div></Nav.Link>
+                        <Nav.Link href="#services" className="mx-auto" onClick={() => scrollFunction('product-section', 75)}><div className="indicator ml-md-4"></div>Terms<div className="indicator-2 ml-md-4"></div></Nav.Link>
                         <Nav.Link href="#clients" className="mx-auto" onClick={() => scrollFunction('client-section', 75)}><div className="indicator ml-md-3"></div>Clients<div className="indicator-2 ml-md-3"></div></Nav.Link>
                         <Nav.Link href="#Team" className="mx-auto" onClick={() => scrollFunction('team-section', 75)}><div className="indicator ml-md-2"></div>Team<div className="indicator-2 ml-md-2"></div></Nav.Link>
                         <Nav.Link href="#blog" className="mx-auto" onClick={() => scrollFunction('blog-section', 75)}><div className="indicator ml-md-2"></div>Blog<div className="indicator-2 ml-md-2"></div></Nav.Link>
