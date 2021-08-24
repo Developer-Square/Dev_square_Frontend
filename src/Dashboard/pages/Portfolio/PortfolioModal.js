@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import {useDispatch} from 'react-redux'
+// import {useDispatch} from 'react-redux'
 
-import { createUpdateUserDetails } from '../../../helpers/ApiFunctions'
+// import { createUpdateUserDetails } from '../../../helpers/ApiFunctions'
 
 
 export default function PortfolioModal(props) {
     const [name, setName] = useState('')
     const [stack, setStack] = useState('')
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     useEffect(() => {
         setName(props.user?.name)
