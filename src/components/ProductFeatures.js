@@ -1,12 +1,9 @@
 import React, {Fragment, useState} from 'react'
 import { ToastContainer } from 'react-toastify'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 import './ProductFeatures.scss'
-import PricingCard from './PricingCard'
 import ModalComponent from "./Reusable Components/ModalComponent";
 
 function ProductFeatures() {
@@ -17,23 +14,6 @@ function ProductFeatures() {
         setModalShow(!modalShow)
         setType('Send us a Quote')
     }
-
-    let imageBasic = 'images/avatars/rsz_business-basic-1.png'
-    let imageClassic = 'images/avatars/rsz_bakery-classic-1.png'
-    let imageUnique = 'images/avatars/rsz_interior_design2.png'
-    let basicTitle = 'Basic Package'
-    let classicTitle = 'Classic Package'
-    let uniqueTitle = 'Unique Package'
-    let colorBasic = 'basic'
-    let colorClassic = 'classic'
-    let colorUnique = 'unique'
-    let basicText = 'The basic package comes with a free design with basic features or you can provide your own, it\'s written in HTML, CSS and JS.'
-    let classicText = 'The standard package also comes with a free design with more elaborate features.'
-    let uniqueText = 'The unique package also comes with a free design with refined and beautiful features.'
-    let basicFeatures = '1 page with different sections i.e. landing, about us and a contact us section'
-    let classicFeatures = '3 pages i.e a home, about and a fully functional contact page.'
-    let uniqueFeatures = '5 pages i.e home, about, services, contact and a dashboard with custom metrics and features'
-    let package3 = 'premium'
     return (
         <Fragment>
             <ModalComponent type={type} show={modalShow} onHide={() => toggleModal()}/>
@@ -49,19 +29,22 @@ function ProductFeatures() {
                 pauseOnHover
             />
             <Container id="product-section">
-                <div className="heading product">Our <span>Products</span></div>
-                <p className="product-text">Our aim is to please our clients by creating reliable and maintainable products.
-                <br />Can't find what you're looking for in the packages below? Send us a Quote of what you want.</p>
-                <Row>
-                    <Col><PricingCard image={imageBasic} titleColor={colorBasic} title={basicTitle} text={basicText} features={basicFeatures} packageType='basic'/></Col>
-                    <Col className="mt-5 mt-lg-0"><PricingCard image={imageClassic} titleColor={colorClassic} title={classicTitle} text={classicText} features={classicFeatures} packageType='classic'/></Col>
-                    <Col className="mt-5 mt-xl-0"><PricingCard package3={package3} image={imageUnique} titleColor={colorUnique} title={uniqueTitle} text={uniqueText} features={uniqueFeatures} badge packageType='unique'/></Col>
-                </Row>
-                <div className="further-info text-center mb-3"><span>Please note Login functionality is NOT included in any of the above packages.</span> <br />We also make PHP products(E-commerce Websites), Android apps, Django and Nodejs features, Ruby on rails web apps and lastly we have a Data Analyst on the team that can serve as a consultant.
-                <br />Check out our services in the service section below.
-                Send us a quote of what you want us to build and your price range.</div>
+                <div className="heading product">Our Terms</div>
+                <p className="product-text">Our aim is to provide value to our clients and we want to build you something that will bring more value to your business. We focus on bringing your vision to life. 
+                </p>
+                <p className="product-description">Think of us as your guide to growing your business and achieving your goals by establishing an online presence with your website or app. Here's a short breakdown of how we work: <br />
+                    <ul>
+                        <li>We have a meet-up where you tell us about your vision or problem you're trying to solve. This will generally be a high level discussion of how the app/website will work.</li>
+                        <li>We as tecHive go back, discuss and research about your idea and send you, the client, a proposal with a clear breakdown of the problem you're trying to solve, what it'll take to solve it and the cost of the project.</li>
+                        <li>When you sign the contract and agree to our terms we can now draft a contract that both parties will sign. Only then can work on the project begin.</li>
+                    </ul>
+                </p>
+                <div className="further-info text-center mb-3">
+                With us you're assured of getting back the value for your money. <br />
+                Get a quote from us for what you want us to build or contact us via Whatsapp or the contact form at the bottom.
+                </div>
                 <div className="quote">
-                    <Button variant="success" onClick={() => toggleModal()}>Send Quote</Button>
+                    <Button variant="success" onClick={() => toggleModal()}>Get Quote</Button>
                 </div>
             </Container> 
         </Fragment>

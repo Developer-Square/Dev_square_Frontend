@@ -3,7 +3,6 @@
   --secondary-background-color: #f0f0f0;
   --navbar-background-color: #201e2b;
   --primary-link-color: #ccc;
-  --primary-border-color: #ff0036;
   --primary-button-color: #131313;
   --primary-font-color: #262626;
   --secondary-font-color: #505050;
@@ -50,17 +49,12 @@
   }
 
   .active {
-    color: var(--primary-border-color)
+    color: var(--primary-background-color);
   }
 
   .hide {
     display: none !important;
   }
-}
-
-.portfolio-bar {
-  margin-top: -2px !important;
-  background: var(--primary-border-color);
 }
 
 @media all and (max-width: 410px) {
