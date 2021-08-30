@@ -36,7 +36,8 @@ function AboutUs() {
                     <Col xs={12} lg={6}>
                         <div className="aboutus-left-section">
                             <div className="mb-4 pl-1 pr-1">
-                            Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. Hard work <span role="img" aria-label="emoji">💪</span> is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products.
+                            Everyone at tecHive understands the value of trust and quality and how to maintain them. We've built it into our culture and we all embrace it. 
+                            {/* Hard work <span role="img" aria-label="emoji">💪</span> is very important but we believe that the first step to customer satisfaction is TRUST and providing QUALITY products. */}
                             </div>
                         
                         <div className="desc definition mb-2 show" onClick={handleChange}>
@@ -59,7 +60,8 @@ function AboutUs() {
                                     <div className="mb-0 text">Experiences</div>
                             </div>
                             <p className="answer hidden">
-                                TecHive has dealt with a some clients as of the time of writing and we as a team have gained considerable experience in fields such as project handling, meeting deadlines, handling payments e.t.c. We've encountered new tools that have helped us improve on our project management activities and deliver features in an organized manner.
+                                TecHive has dealt with a some clients as of the time of writing and we as a team have gained considerable experience in fields such as project handling, meeting deadlines, handling payments e.t.c. 
+                                {/* We've encountered new tools that have helped us improve on our project management activities and deliver features in an organized manner. */}
                                 {/* We've worked for small and medium sized organization delivering all kinds of software, from mobile apps using Flutter to websites using pure html,css and js and complex web apps using Reactjs and Nodejs. */}
                                 In all our projects we've always kept five things consistent. They include: <br/>
                                 <br/>
@@ -85,64 +87,6 @@ function AboutUs() {
                     <Col xs={12} lg={6}>
                         <div className="aboutus-right-section">
                             <img src="images\welcome-svgs\undraw_on_the_office_fbfs.svg" alt="welcome" className="about-image"/>
-                        </div>
-                    </Col>
-                    <Col lg={12}>
-                        <div className="scroll-bar mx-auto">
-                            <img src="images/rsz_scroll-dot.webp" className="scroll-dot img-fluid" alt="scroll" />
-                        </div>
-                        <div className="aboutus-logos">
-                            <Row>
-                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
-                                    <div className="flat-design">
-                                        <div className="flat-design-image d-flex justify-content-center">
-                                            <img src="images/Flat-design-image.webp" alt="Icon" className="img-fluid"/>
-                                            <img src="images/love.webp" alt="Icon" className="love-image
-                                            img-fluid"/>
-                                        </div>
-                                        <div className="inner-text">READY DESIGN</div>
-                                        <p>
-                                            We provide ready made designs to any of our clients, if one of the ready made designs pleases a client. It's provided to them at no extra cost.
-                                        </p>
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
-                                    <div className="retina">
-                                        <div className="retina-image d-flex justify-content-center">
-                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
-                                            <img src="images/Retina-icon.webp" alt="Icon" className="retina-icon img-fluid"/>
-                                        </div>
-                                        <div className="inner-text">INDUSTRY STANDARDS</div>
-                                        <p>
-                                            We make sure to keep up with the emerging trends and industry standards to ensure that the code is written in accordance with these industry standards.
-                                        </p>
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
-                                    <div className="responsive">
-                                        <div className="responsive-image d-flex justify-content-center">
-                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
-                                            <img src="images/Responsive.webp" alt="Icon" className="Responsive img-fluid"/>
-                                        </div>
-                                        <div className="inner-text">RESPONSIVE</div>
-                                        <p>
-                                            All our websites are built using a mobile first design to ensure that they can be used on devices of all sizes. It's a habit that we intend to turn into our culture.
-                                        </p>
-                                    </div>
-                                </Col>
-                                <Col xs={12} sm={6} lg={3} className="mb-2 mb-sm-3">
-                                    <div className="clean">
-                                        <div className="clean-image d-flex justify-content-center">
-                                            <img src="images/Retina.webp" alt="Icon" className="img-fluid"/>
-                                            <img src="images/clean&useful.webp" alt="Icon" className="clean img-fluid"/>
-                                        </div>
-                                        <div className="inner-text">CLEAN & USEFUL</div>
-                                        <p>
-                                            All code written by our team is clean, quality and maintainable.
-                                        </p>
-                                    </div>
-                                </Col>
-                            </Row>
                         </div>
                     </Col>
                 </Row>

@@ -7,7 +7,7 @@ import ServiceItem from './ServiceItem';
 import './ServicesAndBlog.scss'
 
 function ServicesAndBlog() {
-    const images = [["services-shape-1", "images/assets/icons/nodejs.webp"], ["services-shape-2", "images/services-icon-2.webp"], ["services-shape-2","images/services-icon-3.webp"], ["services-shape-2","images/assets/icons/mobile-app.webp"], ["services-shape-2","images/assets/icons/reactjs-48.webp"], ["services-shape-1","images/assets/icons/ui-ux-design-2.webp"], ["services-shape-2","images/assets/icons/php.webp"], ["services-shape-2","images/services-icon-6.webp"], ["services-shape-1","images/assets/icons/ruby.webp"], ["services-shape-1","images/assets/icons/debug.webp"], ["services-shape-2","images/assets/icons/django.webp"], ["services-shape-2","images/assets/icons/data-analyst.webp"]];
+    const images = [["services-shape-2", "images/assets/icons/nodejs.webp"], ["services-shape-2", "images/services-icon-2.webp"], ["services-shape-2","images/services-icon-3.webp"], ["services-shape-2","images/assets/icons/mobile-app.webp"], ["services-shape-2","images/assets/icons/reactjs-48.webp"], ["services-shape-2","images/assets/icons/ui-ux-design-2.webp"], ["services-shape-2","images/assets/icons/php.webp"], ["services-shape-2","images/services-icon-6.webp"], ["services-shape-2","images/assets/icons/ruby.webp"], ["services-shape-2","images/assets/icons/debug.webp"], ["services-shape-2","images/assets/icons/django.webp"], ["services-shape-2","images/assets/icons/data-analyst.webp"]];
     
     const titles = ["Nodejs", "HTML/CSS", "WORDPRESS", "Mobile APPLICATIONS", "Reactjs Web Apps", "UI/UX DESIGN", "PHP Products", "RESPONSIVE LAYOUT", "Ruby on Rails", "Debugging Code", "Django Development", "Data Analyst"];
     
@@ -46,6 +46,7 @@ function ServicesAndBlog() {
                         <Row className="limit mx-auto">
                             {images.map((item, index) => (
                                 <ServiceItem 
+                                    key={index}
                                     img1={item[0]}
                                     img2={item[1]} 
                                     title={titles[index]}
@@ -56,11 +57,6 @@ function ServicesAndBlog() {
                                 />
                             ))}                       
                         </Row>
-                    </Col>
-                    <Col xs={12}>
-                        <div className="scroll-bar services-bar mt-2 mx-auto">
-                            <img src="images/rsz_scroll-bar.webp" className="scroll-dot img-fluid" alt="scroll" />
-                        </div>
                     </Col>
                     <Col xs={12} id="blog-section" className="blog">
                         <div>

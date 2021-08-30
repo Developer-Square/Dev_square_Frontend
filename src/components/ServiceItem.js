@@ -16,8 +16,8 @@ export default function ServiceItem({ img1, img2, title, description, descClass,
       <div className={`${descClass} p-3`}>
         <p>{description}</p>
 
-        {optionalList.length !== 0 ? optionalList.map(item => (
-          <List>
+        {optionalList.length !== 0 ? optionalList.map((item, index) => (
+          <List key={index}>
             <li>{item}</li>
           </List>
         )) : null}

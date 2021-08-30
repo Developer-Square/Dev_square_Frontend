@@ -25,7 +25,7 @@ function UsersPage() {
         //If the user was on a certain page, return them to the 
         //specific page
         if (pageNumber !== '') {
-            // Get tasks when page loads
+            // Get users when page loads
             getUsers(pageNumber, dispatch)
         } else if (IsNotEmpty(users) || updatedCount > 0) {
             getUsers(undefined, dispatch) 

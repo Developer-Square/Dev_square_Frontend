@@ -3,7 +3,6 @@
   --secondary-background-color: #f0f0f0;
   --navbar-background-color: #201e2b;
   --primary-link-color: #ccc;
-  --primary-border-color: #ff0036;
   --primary-button-color: #131313;
   --primary-font-color: #262626;
   --secondary-font-color: #505050;
@@ -11,12 +10,13 @@
 
 #aboutus-section {
   margin-top: 40px;
+  margin-bottom: 50px;
   .aboutus-header {
     margin-top: 15px;
     font-weight: normal;
     font-size: 28px;
     line-height: 35px;
-    color: var(--primary-border-color);
+    color: var(--primary-button-color);
   }
 
   p {
@@ -27,7 +27,7 @@
     color: var(--primary-font-color);
 
     span {
-      color: var(--primary-border-color);
+      color: var(--primary-button-color);
     }
   }
 
@@ -79,7 +79,7 @@
 
     .show, .show-experiences, .show-learn-more {
       transition: margin 1s;
-      color: var(--primary-border-color) !important;
+      color: var(--primary-button-color) !important;
     }
 
     .show {

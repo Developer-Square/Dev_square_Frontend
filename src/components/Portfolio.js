@@ -55,7 +55,7 @@ function Portfolio() {
                 <Row>
                     <Col className="portfolio-column">
                         <div className="portfolio">
-                            <div className="heading text-center">portfolio</div>
+                            <div className="heading text-center">available designs</div>
                             
                             <div ref={ref} className="d-flex portfolio-header mx-auto justify-content-around">
                                 {/* For showing the popover */}
@@ -86,9 +86,6 @@ function Portfolio() {
                             <div className="portfolio-images mx-xl-auto">
                                 <PortfolioList portfolioType={option} />
                             </div>
-                        </div>
-                        <div className="scroll-bar portfolio-bar mt-2 mx-auto">
-                            <img src="images/rsz_scroll-bar.webp" className="scroll-dot img-fluid" alt="scroll" />
                         </div>
                     </Col>
                 </Row>

@@ -4,7 +4,6 @@
   --alternative-background-color: #c4c4c4;
   --navbar-background-color: #201e2b;
   --primary-link-color: #ccc;
-  --primary-border-color: #ff0036;
   --primary-button-color: #131313;
   --primary-font-color: #262626;
   --secondary-font-color: #505050;
@@ -20,6 +19,7 @@
 .clients {
   position: relative;
   color: var(--primary-background-color);
+  margin-bottom: 160px;
 
   .cover {
     position: absolute;
@@ -37,7 +37,7 @@
     line-height: 35px;
 
     span {
-      color: var(--primary-border-color);
+      color: var(--primary-background-color);
     }
   }
 
@@ -50,7 +50,7 @@
     width: fit-content;
 
     span {
-      color: var(--primary-border-color);
+      color: var(--primary-background-color);
     }
   }
 
@@ -77,32 +77,14 @@
 
   .client-name {
     margin-top: 20px;
-    color: var(--primary-border-color);
+    color: var(--primary-background-color);
     @include center();
-  }
-
-  .navigation {
-    display: flex;
-    justify-content: center;
-  }
-
-  .navigation-dots {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--primary-background-color);
-    cursor: pointer;
-  }
-
-  .middle {
-    background: var(--primary-border-color)
   }
 
   .review-btn {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    background: var(--primary-border-color);
     border: none;
 
     &:active {
@@ -138,7 +120,7 @@
   .clients {
     p {
       font-size: 16px;
-      line-height: 20px;
+      line-height: 24px;
     }
 
     .inner-text {
@@ -175,7 +157,8 @@
   }
 
   p {
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 26px;
   }
 }
 }
