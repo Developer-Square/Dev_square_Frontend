@@ -6,7 +6,7 @@
 .pnp.js
 .vscode
 /Image-converter.js
-yarn.lock
+/yarn.lock
 
 # testing
 /coverage
