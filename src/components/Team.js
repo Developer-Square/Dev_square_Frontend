@@ -17,7 +17,7 @@ function Team() {
                         <Row>
                             <Col xs={11} sm={6} lg={3} className="mx-auto">
                                 <div className="team-container">
-                                    <img src="images/team-1.webp" alt="team" className="img-fluid profile"/>
+                                    <img src="images/team-images/Linus Profile Photo.jpg" alt="team" className="img-fluid profile"/>
                                     <p className="team-name">Linus</p>
                                     <p className="team-role mb-2">Chief Technology Officer, TecHive</p>
                                     <p className="team-role mb-2">Co-founder</p>
