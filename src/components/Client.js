@@ -29,13 +29,7 @@ function Client() {
                             <p className="text-center header-text">We encourage our clients to leave a review to know how best we can improve our services. This is what some of them had to say.
                             </p>
                             <Row className="limit mx-auto">
-                                <Col xs={12} md={6}>
-                                    <div className="inner-heading text-center">WHAT CLIENTS SAY</div>
-                                    <p className="inner-text">I like how they delivered my website on time and also the communication from the product manager. Would recommend them to anyone</p>
-                                    <img src="images/client-pic.webp" alt="Client" className="img-fluid client-pic"/>
-                                    <p className="client-name">James Kimotho</p>
-                                </Col>
-                                <Col xs={12} md={6} className="d-flex mt-5 mt-md-0 flex-column justify-content-center">
+                                <Col xs={12} md={6} className="d-flex mx-auto mt-5 flex-column justify-content-center">
                                     <p className="mt-0">Please feel free to leave a review about our services or our website in general.</p>
                                     <Button variant="primary" className="review-btn" onClick={handleReview}>
                                         Add a Review
