@@ -1,10 +1,9 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
-import styled from 'styled-components';
 
 import './ServicesAndBlog.scss'
 
-export default function ServiceItem({ img1, img2, title, description, descClass, imgClass, optionalList }) {
+export default function ServiceItem({ img1, img2, title, description, descClass, imgClass }) {
 
   return (
     <Col xs={12} sm={6} className="service-container">
@@ -15,18 +14,8 @@ export default function ServiceItem({ img1, img2, title, description, descClass,
       </div>
       <div className={`${descClass} p-3`}>
         <p>{description}</p>
-
-        {optionalList.length !== 0 ? optionalList.map((item, index) => (
-          <List key={index}>
-            <li>{item}</li>
-          </List>
-        )) : null}
       </div>
     </Col>
   );
 }
-
-const List = styled.ul`
-  list-style: none;
-`
 

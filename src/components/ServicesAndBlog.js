@@ -7,32 +7,20 @@ import ServiceItem from './ServiceItem';
 import './ServicesAndBlog.scss'
 
 function ServicesAndBlog() {
-    const images = [["services-shape-2", "images/assets/icons/nodejs.webp"], ["services-shape-2", "images/services-icon-2.webp"], ["services-shape-2","images/services-icon-3.webp"], ["services-shape-2","images/assets/icons/mobile-app.webp"], ["services-shape-2","images/assets/icons/reactjs-48.webp"], ["services-shape-2","images/assets/icons/ui-ux-design-2.webp"], ["services-shape-2","images/assets/icons/php.webp"], ["services-shape-2","images/services-icon-6.webp"], ["services-shape-2","images/assets/icons/ruby.webp"], ["services-shape-2","images/assets/icons/debug.webp"], ["services-shape-2","images/assets/icons/django.webp"], ["services-shape-2","images/assets/icons/data-analyst.webp"]];
+    const images = [["services-shape-2", "images/assets/icons/Ecommerce-2.png"], ["services-shape-2", "images/assets/icons/Strategy.png"], ["services-shape-2","images/assets/icons/Web3.png"], ["services-shape-2","images/assets/icons/Software development.png"]];
     
-    const titles = ["Nodejs", "HTML/CSS", "WORDPRESS", "Mobile APPLICATIONS", "Reactjs Web Apps", "UI/UX DESIGN", "PHP Products", "RESPONSIVE LAYOUT", "Ruby on Rails", "Debugging Code", "Django Development", "Data Analyst"];
+    const titles = ["E-Commerce Development", "Building in WEB3", "Strategy", "Custom Software Development"];
     
     const descriptions = [
-        "We create full Nodejs applications with features you as the user can specify. You could also choose a Nodejs backend with a React frontend", 
-        "We also create websites using bare HTML, Css, Js, Bootstrap and Jquery for the animations.These websites are mostly created from scratch.We can also work with other frameworks like AntDesign and Evergreen if requested to.",
-        "We can also create a wordpress website for you with specified plugins. Most requested wordpress websites are E-commerce websites, we can create those too.",
-        "We go the full cycle by not only providing you with a website but an app too that your users can use on their phones to access your business/services.We will build any android app for you provided the logic is explained and understood. If the app doesn't meet all the requirement mentioned we will revise at zero additional cost.",
-        "We create fully functional frontend applications using reactjs, you can also choose to add a backend to your react app using django or Nodejs.",
-        "If you choose to work with us, we provide you with a free design that can be customized to fit you goals.",
-        "We also deal in full stack PHP applications e.g If you'd like your E-commerce website built in PHP, we got you covered.We will build you a php ecommerce website for your business that can be easily customed as per your needs at an affordable price.",
-        "All of our websites come with a responsive layout, this means your website can be viewed on both large screen devices like laptops and computers and also mobile phones.",
-        "We've an experienced Ruby on rails developer that'll take care of all of your Ruby on rails needs.Ruby on Rails framework uses MVC approach to build web applications, It builds web applications quickly and the biggest strength is that it enables the developer to write big applications in a short period of time.What we're offering:",
-        "We have numerous engineers on our team all with quality experience in their fields and we can assist you in debugging your code.We can debung the following technologies:",
-        "For more dynamic work we will create your backend in django.",
-        " If you happen to have any data analyst enquiries, our data analyst will be ready to answer any of your questions."
+        "We develop custom E-Commerce systems to allow your business to expand and have an online presence. We also provide guidance depending on the site you want to build and the type of business you're running.\n We also have tracking tools that can help you get some insights on how many customers are visiting your site, the pages they visited etc.",
+        "We are also builders in the Web3 space, we build sites that can help you mint nfts, sites that can track trends in the nft space like highest traded nfts in terms of volume and any other custom solution",
+        "Strategy is part of who we are and we included with every client interaction. We've a 3 step process that we go through so as to ensure we understand your idea and how your want to implement it. You could also hire us just to do strategy for a project, at the end you get a complete breakdown of your project(price and time estimates).",
+        "We also build custom software depending on your specifications and what we discuss in the strategy session."
     ];
     
-    const descClassNames  = ["inner-content-dev", "inner-content", "inner-content", "inner-content","inner-content", "inner-content", "inner-content", "inner-content", "inner-content-dev", "inner-content-dev", "inner-content", "inner-content"];
+    const descClassNames  = ["inner-content-dev", "inner-content", "inner-content", "inner-content"];
     
-    const imgClassNames = ["service-icon", "service-icon-html", "service-icon-word", "service-icon-app", "service-icon-app", "service-icon-ui", "service-icon-responsive", "service-icon-responsive", "service-icon-ui", "service-icon-responsive", "service-icon-responsive", "service-icon-ui", "service-icon-responsive"]; //13 check afterwards
-    
-    const offerings1 = ["ROR Custom application development", "Ruby MVP Development", "Ruby on Rails layout design", "ROR installation", "Ruby on Rails CMS & Responsive web portal development", "Maintenance and deployment", "RoR eCommerce design", "Web API Development"];
-    
-    const offerings2 = ["HTML, Css", "Javascript", "Reactjs", "Ruby on Rails", "Nodejs", "Django", "PHP", "Android"];
+    const imgClassNames = ["service-icon", "service-icon-html", "service-icon-word", "service-icon-word"] //13 check afterwards
     
 
     return (
@@ -41,7 +29,7 @@ function ServicesAndBlog() {
                 <Row>
                     <Col xs={12} className="services">
                         <div className="heading text-center">our <span>services</span></div>
-                        <p className="text-center">Our company provides the services stated below in more detail. It's our company's motto to deliver quality and maintainable websites and apps that please our users.
+                        <p className="text-center">We are a software development company with a special focus in the following key areas.
                         </p>
                         <Row className="limit mx-auto">
                             {images.map((item, index) => (
@@ -53,7 +41,6 @@ function ServicesAndBlog() {
                                     description={descriptions[index]}
                                     descClass={descClassNames[index]}
                                     imgClass={imgClassNames[index]}
-                                    optionalList={titles[index] === "Ruby on Rails"? offerings1 : titles[index] === "Debugging Code"? offerings2 : []}
                                 />
                             ))}                       
                         </Row>
