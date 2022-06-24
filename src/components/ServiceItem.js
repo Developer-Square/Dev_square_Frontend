@@ -1,6 +1,5 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
-import styled from 'styled-components';
 
 import './ServicesAndBlog.scss'
 
